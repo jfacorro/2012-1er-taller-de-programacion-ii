@@ -1,0 +1,67 @@
+<Modelo>
+	<Entidad id="">
+		<Nombre />
+		<Atributos>
+			<Atributo>
+				<Nombre />
+				<Cardinalidad min="" max="" />
+				<Tipo>
+					<!-- Caracterización o copia -->
+					<Formula />
+					<Origen />
+				</Tipo>
+				<Atributos>
+				</Atributos>
+			</Atributo>
+		</Atributos>
+		<IdentificadoresInternos>
+			<!-- Nombre del atributo -->
+			<Atributo></Atributo>
+		</IdentificadoresInternos>
+		<IdentificadoresExternos>
+			<IdentificadorExterno>
+				<Entidad></Entidad>
+				<Atributo></Atributo>
+			</IdentificadorExterno>
+		</IdentificadoresExternos>
+	</Entidad>
+	<Relacion id="">
+		<Nombre />
+		<Tipo />
+		<Atributos>
+			<Atributo>
+				<Nombre />
+				<Cardinalidad min="" max="" />
+				<Tipo>
+					<!-- Caracterización o copia -->
+					<Formula />
+					<Origen />
+				</Tipo>
+				<Atributos>
+				</Atributos>
+			</Atributo>
+		</Atributos>
+		<Participantes>
+			<Participante>
+				<Entidad />
+				<Rol />
+				<Cardinalidad min="" max="" />
+			</Participante>
+		</Participantes>
+	</Relacion>
+	<Jerarquia id="">
+		<Generica />
+		<Derivadas />
+		<!-- Total (Exclusiva o superpuesta); Percial (Exclusiva o superpuesta) -->
+		<Tipo />
+	</Jerarquia>
+	<Diagrama id="">
+		<Nombre />
+		<Componentes>
+			<Componente id="" />
+		</Componentes>
+		<Diagramas>
+			<Diagrama id="" />
+		</Diagramas>
+	</Diagrama>
+</Modelo>
