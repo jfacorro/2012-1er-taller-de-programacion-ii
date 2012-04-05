@@ -1,0 +1,20 @@
+<Diagrama id="">
+	<Componente id="">
+		<posicion x="" y="" />
+		<Titulo color="" fuente="" tamanio="" />
+		<ColorBorder></ColorBorder>
+		<ColorFondo></ColorFondo>
+		<Atributos>
+			<Atributo esid="" Descripcion="">
+				<inicio x="" y="" />
+				<fin x="" y="" />
+				<Atributos>
+				</Atributos>
+			</Atributo>
+		</Atributos>
+	</Componente>
+	<Conector tipo="">
+		<inicio x="" y="" />
+		<fin x="" y="" />
+	</Conector>
+</Diagrama>
