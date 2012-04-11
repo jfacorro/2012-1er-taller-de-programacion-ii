@@ -2,7 +2,7 @@
 	<Entidad id="">
 		<Nombre />
 		<Atributos>
-			<Atributo>
+			<Atributo id="">
 				<Nombre />
 				<Cardinalidad min="" max="" />
 				<Tipo>
@@ -10,18 +10,22 @@
 					<Formula />
 					<Origen />
 				</Tipo>
+				<!-- Para el caso que sea compuesto -->
 				<Atributos>
+					<!-- 0..* -->
+					<Atributo id="">
+						<!-- Misma estructura anterior -->
+					</Atributo>
 				</Atributos>
 			</Atributo>
 		</Atributos>
 		<IdentificadoresInternos>
-			<!-- Nombre del atributo -->
-			<Atributo></Atributo>
+			<Atributo id="" />
 		</IdentificadoresInternos>
 		<IdentificadoresExternos>
 			<IdentificadorExterno>
-				<Entidad></Entidad>
-				<Atributo></Atributo>
+				<Entidad id="" />
+				<Atributo id="" />
 			</IdentificadorExterno>
 		</IdentificadoresExternos>
 	</Entidad>
@@ -29,7 +33,7 @@
 		<Nombre />
 		<Tipo />
 		<Atributos>
-			<Atributo>
+			<Atributo id="">
 				<Nombre />
 				<Cardinalidad min="" max="" />
 				<Tipo>
@@ -37,31 +41,47 @@
 					<Formula />
 					<Origen />
 				</Tipo>
+				<!-- Para el caso que sea compuesto -->
 				<Atributos>
+					<!-- 0..* -->
+					<Atributo id="">
+						<!-- Misma estructura anterior -->
+					</Atributo>
 				</Atributos>
 			</Atributo>
 		</Atributos>
 		<Participantes>
 			<Participante>
-				<Entidad />
-				<Rol />
+				<Entidad id="" />
+				<!-- Descripcion del Rol -->
+				<Rol></Rol>
 				<Cardinalidad min="" max="" />
 			</Participante>
 		</Participantes>
 	</Relacion>
 	<Jerarquia id="">
+		<!-- 1 -->
 		<Generica />
+		<!-- 2..* -->
 		<Derivadas />
-		<!-- Total (Exclusiva o superpuesta); Percial (Exclusiva o superpuesta) -->
+		<!-- Total (Exclusiva o superpuesta); Parcial (Exclusiva o superpuesta) -->
 		<Tipo />
 	</Jerarquia>
 	<Diagrama id="">
 		<Nombre />
 		<Componentes>
+			<!-- 0..* -->
 			<Componente id="" />
 		</Componentes>
 		<Diagramas>
-			<Diagrama id="" />
+			<!-- 0..* -->
+			<Diagrama id="">
+				<Nombre />
+				<Componentes>
+					<!-- 0..* -->
+					<Componente id="" />
+				</Componentes>
+			</Diagrama>
 		</Diagramas>
 	</Diagrama>
 </Modelo>
