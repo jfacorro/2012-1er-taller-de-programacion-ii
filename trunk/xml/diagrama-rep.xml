@@ -3,7 +3,7 @@
 	<Diagrama id="">
 		<!-- 
 			Un componente representa cualquiera de los objetos
-			en el modelo. La forma en que se dibuja está definida por 
+			en el modelo. La forma en que se dibuja esta definida por 
 		-->
 		<Componente id="">
 			<posicion x="" y="" />
@@ -21,7 +21,7 @@
 			</Atributos>
 		</Componente>
 		<!-- 
-			Serían las líneas que conectan los componentes.
+			Serian las lineas que conectan los componentes.
 			El tipo puede ser "Componente" o "IdentificadorExterno".
 		-->
 		<Conector tipo="">
