@@ -74,15 +74,18 @@
 			<!-- 0..* -->
 			<Componente id="" />
 		</Componentes>
+		<Validacion estado="">
+			<Observaciones/>
+		</Validacion> 
 		<Diagramas>
 			<!-- 0..* -->
 			<Diagrama id="">
-				<Nombre />
-				<Componentes>
-					<!-- 0..* -->
-					<Componente id="" />
-				</Componentes>
+				<!-- Misma estructura anterior -->
 			</Diagrama>
 		</Diagramas>
 	</Diagrama>
+	<!-- Estado global de los diagramas -->
+	<Validacion estado="">
+		<Observaciones/>
+	</Validacion> 
 </Modelo>
