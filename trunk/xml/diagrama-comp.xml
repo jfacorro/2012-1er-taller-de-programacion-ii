@@ -6,7 +6,7 @@
 				<Nombre />
 				<Cardinalidad min="" max="" />
 				<Tipo>
-					<!-- Caracterizacion o copia -->
+					<!-- Caracterizacion o derivado -->
 					<Formula />
 					<Origen />
 				</Tipo>
@@ -37,7 +37,7 @@
 				<Nombre />
 				<Cardinalidad min="" max="" />
 				<Tipo>
-					<!-- Caracterizacion o copia -->
+					<!-- Caracterizacion o derivado -->
 					<Formula />
 					<Origen />
 				</Tipo>
@@ -61,9 +61,10 @@
 	</Relacion>
 	<Jerarquia id="">
 		<!-- 1 -->
-		<Generica />
-		<!-- 2..* -->
+		<Generica id="" />
 		<Derivadas />
+				<!-- 2..* -->
+				<Entidad id="" />
 		<!-- Total (Exclusiva o superpuesta); Parcial (Exclusiva o superpuesta) -->
 		<Tipo />
 	</Jerarquia>
