@@ -94,7 +94,7 @@
 		</IdentificadoresInternos>
 	</Entidad>
 	<Entidad id="5">
-		<Nombre>Función</Nombre>
+		<Nombre>Funcion</Nombre>
 		<Atributos>
 			<Atributo id="1">
 				<Nombre>nroFunc</Nombre>
