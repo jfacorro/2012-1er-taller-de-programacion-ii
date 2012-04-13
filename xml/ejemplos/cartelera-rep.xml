@@ -1,0 +1,87 @@
+<Diagramas>
+
+	<Diagrama id="1">
+
+		<Componente id="1">
+			<posicion x="100" y="100" />
+			<Titulo color="DEFAULT" fuente="DEFAULT" tamanio="DEFAULT" />
+			<ColorBorde>DEFAULT</ColorBorde>
+			<ColorFondo>DEFAULT</ColorFondo>
+			<Atributos>
+				<Atributo id="1">
+					<Inicio x="70" y="70" />
+					<Fin x="50" y="50" />
+				</Atributo>
+				<Atributo id="2">
+					<Inicio x="100" y="70" />
+					<Fin x="90" y="50" />
+				</Atributo>
+			</Atributos>
+		</Componente>
+
+		<Componente id="2">
+			<posicion x="400" y="100" />
+			<Titulo color="DEFAULT" fuente="DEFAULT" tamanio="DEFAULT" />
+			<ColorBorde>DEFAULT</ColorBorde>
+			<ColorFondo>DEFAULT</ColorFondo>
+			<Atributos>
+				<Atributo id="1">
+					<Inicio x="400" y="70" />
+					<Fin x="400" y="50" />
+				</Atributo>
+				<Atributo id="2">
+					<Inicio x="420" y="70" />
+					<Fin x="420" y="50" />
+				</Atributo>
+				<Atributo id="3">
+					<Inicio x="430" y="70" />
+					<Fin x="430" y="50" />
+				</Atributo>
+				<Atributo id="4">
+					<Inicio x="440" y="70" />
+					<Fin x="440" y="50" />
+				</Atributo>
+				<Atributo id="5">
+					<Inicio x="450" y="70" />
+					<Fin x="450" y="50" />
+				</Atributo>
+				<Atributo id="6">
+					<Inicio x="500" y="150" />
+					<Fin x="530" y="150" />
+				</Atributo>
+				<Atributo id="7">
+					<Inicio x="550" y="140" />
+					<Fin x="580" y="120" />
+				</Atributo>
+				<Atributo id="8">
+					<Inicio x="550" y="160" />
+					<Fin x="580" y="180" />
+				</Atributo>
+			</Atributos>
+		</Componente>
+		
+		
+		<Componente id="3">
+			<posicion x="300" y="300" />
+			<Titulo color="DEFAULT" fuente="DEFAULT" tamanio="DEFAULT" />
+			<ColorBorde>DEFAULT</ColorBorde>
+			<ColorFondo>DEFAULT</ColorFondo>
+		</Componente>
+		
+
+		<Conector tipo="Componente">
+			<Inicio x="200" y="200" />
+			<Fin x="380" y="380" />
+		</Conector>
+		
+		<Conector tipo="Componente">
+			<Inicio x="380" y="380" />
+			<Fin x="450" y="220" />
+		</Conector>
+		
+		<Conector tipo="IdentificadorExterno">
+			<Inicio x="100" y="80" />
+			<Fin x="430" y="440" />
+		</Conector>
+	</Diagrama>
+</Diagramas>
