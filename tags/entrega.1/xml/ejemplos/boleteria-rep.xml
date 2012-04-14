@@ -1,0 +1,32 @@
+<Diagramas>
+	<!-- 1..* -->
+	<Diagrama id="">
+		<!-- 
+			Un componente representa cualquiera de los objetos
+			en el modelo. La forma en que se dibuja esta definida por 
+		-->
+		<Componente id="">
+			<posicion x="" y="" />
+			<Titulo color="" fuente="" tamanio="" />
+			<ColorBorde></ColorBorde>
+			<ColorFondo></ColorFondo>
+			<Atributos>
+				<Atributo id="">
+					<Inicio x="" y="" />
+					<Fin x="" y="" />
+					<!-- Para el caso que sea compuesto -->
+					<Atributos>
+					</Atributos>
+				</Atributo>
+			</Atributos>
+		</Componente>
+		<!-- 
+			Serian las lineas que conectan los componentes.
+			El tipo puede ser "Componente" o "IdentificadorExterno".
+		-->
+		<Conector tipo="">
+			<Inicio x="" y="" />
+			<Fin x="" y="" />
+		</Conector>
+	</Diagrama>
+</Diagramas>

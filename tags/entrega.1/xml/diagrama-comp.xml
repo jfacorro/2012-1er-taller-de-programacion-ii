@@ -1,0 +1,91 @@
+<Modelo>
+	<Entidad id="">
+		<Nombre />
+		<Atributos>
+			<Atributo id="">
+				<Nombre />
+				<Cardinalidad min="" max="" />
+				<Tipo>
+					<!-- Caracterizacion o derivado -->
+					<Formula />
+					<Origen />
+				</Tipo>
+				<!-- Para el caso que sea compuesto -->
+				<Atributos>
+					<!-- 0..* -->
+					<Atributo id="">
+						<!-- Misma estructura anterior -->
+					</Atributo>
+				</Atributos>
+			</Atributo>
+		</Atributos>
+		<IdentificadoresInternos>
+			<Atributo id="" />
+		</IdentificadoresInternos>
+		<IdentificadoresExternos>
+			<IdentificadorExterno>
+				<Entidad id="" />
+				<Atributo id="" />
+			</IdentificadorExterno>
+		</IdentificadoresExternos>
+	</Entidad>
+	<Relacion id="">
+		<Nombre />
+		<Tipo />
+		<Atributos>
+			<Atributo id="">
+				<Nombre />
+				<Cardinalidad min="" max="" />
+				<Tipo>
+					<!-- Caracterizacion o derivado -->
+					<Formula />
+					<Origen />
+				</Tipo>
+				<!-- Para el caso que sea compuesto -->
+				<Atributos>
+					<!-- 0..* -->
+					<Atributo id="">
+						<!-- Misma estructura anterior -->
+					</Atributo>
+				</Atributos>
+			</Atributo>
+		</Atributos>
+		<Participantes>
+			<Participante>
+				<Entidad id="" />
+				<!-- Descripcion del Rol -->
+				<Rol></Rol>
+				<Cardinalidad min="" max="" />
+			</Participante>
+		</Participantes>
+	</Relacion>
+	<Jerarquia id="">
+		<!-- 1 -->
+		<Generica id="" />
+		<Derivadas />
+				<!-- 2..* -->
+				<Entidad id="" />
+		<!-- Total (Exclusiva o superpuesta); Parcial (Exclusiva o superpuesta) -->
+		<Tipo />
+	</Jerarquia>
+	<Diagrama id="">
+		<Nombre />
+		<Componentes>
+			<!-- 0..* -->
+			<Componente id="" />
+		</Componentes>
+		<Validacion estado="">
+			<Observaciones/>
+		</Validacion> 
+		<Diagramas>
+			<!-- 0..* -->
+			<Diagrama id="">
+				<!-- Misma estructura anterior -->
+			</Diagrama>
+		</Diagramas>
+	</Diagrama>
+	<!-- Estado global de los diagramas -->
+	<Validacion estado="">
+		<Observaciones/>
+	</Validacion> 
+</Modelo>
