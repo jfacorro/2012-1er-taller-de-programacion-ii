@@ -2,5 +2,8 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="src/SWTTest/org.eclipse.draw2d_3.7.2.v20111017-2020.jar"/>
+	<classpathentry kind="lib" path="src/SWTTest/org.eclipse.gef_3.7.2.v20111106-2020.jar"/>
+	<classpathentry kind="lib" path="src/SWTTest/swt.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
