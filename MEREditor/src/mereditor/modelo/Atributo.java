@@ -12,7 +12,10 @@ public class Atributo extends ComponenteNombre {
 		DERIVADO_CALCULO
 	}
 	
-	protected TipoAtributo tipo; 
+	protected String cardinalidadMin;
+	protected String cardinalidadMax;
+	protected String id;
+	protected TipoAtributo tipo;
 	protected List<Atributo> atributos;
 	
 	// Derivado copia
