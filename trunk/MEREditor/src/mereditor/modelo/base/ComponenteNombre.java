@@ -8,6 +8,11 @@ public abstract class ComponenteNombre extends Componente {
 		this.nombre = nombre;
 	}
 
+	public ComponenteNombre(String nombre, String idEntidad, String idContenedor) {
+		super (idEntidad, idContenedor);
+		this.nombre= nombre;
+	}
+
 	public String getNombre() {
 		return nombre;
 	}
