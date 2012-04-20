@@ -14,7 +14,7 @@ public abstract class ComponenteConAtributosParser implements ElementParser {
 	private static final String ATRIBUTOS_TAG = "Atributos";
 	
 	
-	public void parsearAtributos(Element item) {
+	protected void parsearAtributos(Element item) {
 		List<Atributo> atributosParseados= null;
 		if (item.getNodeName() != ATRIBUTOS_TAG )
 			return;
