@@ -7,7 +7,7 @@ import mereditor.modelo.base.ComponenteNombre;
 
 public class Entidad extends ComponenteNombre {
 	
-	enum TipoEntidad {
+	public enum TipoEntidad {
 		MAESTRA,
 		TRANSACCIONAL
 	}
@@ -20,5 +20,12 @@ public class Entidad extends ComponenteNombre {
 		super(nombre);
 		
 		this.atributos = new LinkedList<Atributo>();
+	}
+	
+	public Entidad (String nombre, String idEntidad, String idDiagrama, List<Atributo> atributos, List<ComponenteNombre> ids, TipoEntidad t){
+		super (nombre,idEntidad,idDiagrama);
+		this.atributos = atributos;
+		this.identificadores= ids;
+		this.tipo= t;
 	}
 }

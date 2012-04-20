@@ -14,7 +14,6 @@ public class Atributo extends ComponenteNombre {
 	
 	protected String cardinalidadMin;
 	protected String cardinalidadMax;
-	protected String id;
 	protected TipoAtributo tipo;
 	protected List<Atributo> atributos;
 	
@@ -28,5 +27,13 @@ public class Atributo extends ComponenteNombre {
 		super(nombre);
 		
 		this.atributos = new LinkedList<Atributo>();
+	}
+
+	public Atributo(String nombre, String idAtributo, String idContenedor, String cardMin, String cardMax,
+			TipoAtributo tipo) {
+		super (nombre,idAtributo,idContenedor);
+		this.atributos = new LinkedList<Atributo>();
+		cardinalidadMin= cardMin;
+		cardinalidadMax= cardMax;
 	}
 }
