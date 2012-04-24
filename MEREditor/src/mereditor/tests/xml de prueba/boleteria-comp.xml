@@ -1,6 +1,7 @@
 <Modelo>
 	<Entidad id="1">
 		<Nombre>Localidad</Nombre>
+		<Tipo>MAESTRA</Tipo>
 		<Atributos>
 			<Atributo id="1">
 				<Nombre>fila</Nombre>
@@ -14,15 +15,12 @@
 			</Atributo>
 		</Atributos>
 		<IdentificadoresExternos>
-			<IdentificadorExterno>
-				<Entidad id="2" />
-				<Atributo id="1" />
-				<Atributo id="2" />
-			</IdentificadorExterno>
+			<Entidad id="2" />
 		</IdentificadoresExternos>
 	</Entidad>
 	<Entidad id="2">
 		<Nombre>SeccionSala</Nombre>
+		<Tipo>MAESTRA</Tipo>
 		<Atributos>
 			<Atributo id="1">
 				<Nombre>nroSecc</Nombre>
@@ -56,6 +54,7 @@
 	</Relacion>
 	<Entidad id="4">
 		<Nombre>Obra</Nombre>
+		<Tipo>MAESTRA</Tipo>
 		<Atributos>
 			<Atributo id="1">
 				<Nombre>idObra</Nombre>
@@ -95,6 +94,7 @@
 	</Entidad>
 	<Entidad id="5">
 		<Nombre>Funcion</Nombre>
+		<Tipo>MAESTRA</Tipo>
 		<Atributos>
 			<Atributo id="1">
 				<Nombre>nroFunc</Nombre>
@@ -113,12 +113,7 @@
 			</Atributo>
 		</Atributos>
 		<IdentificadoresExternos>
-			<IdentificadorExterno>
-				<Entidad id="4" />
-				<Atributo id="1" />
-				<Atributo id="2" />
-				<Atributo id="3" />
-			</IdentificadorExterno>
+			<Entidad id="4" />
 		</IdentificadoresExternos>
 	</Entidad>
 	<Relacion id="6">

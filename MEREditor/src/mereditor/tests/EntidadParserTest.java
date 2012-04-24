@@ -7,6 +7,8 @@ import java.util.List;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
+import junit.framework.TestCase;
+
 
 import mereditor.modelo.Atributo;
 import mereditor.modelo.Entidad;
@@ -20,23 +22,23 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-import junit.framework.TestCase;
-
 public class EntidadParserTest extends TestCase {
 
 	
 	private static final String ID_DIAGRAMA = "i354x";
 	private static final TipoEntidad TIPO_ENT = Entidad.TipoEntidad.MAESTRA;
-	private static final String PATH_ARCHIVO_DE_ENTIDADPARSERTEST = "src/mereditor/tests/xml de prueba/boleteria-comp.xml";
-	List<Element> elementosAParsear;
-	List<Componente> entidadesParseadas;
-	List<Componente> entidadesAComparar;
+	private static final String PATH_ARCHIVO_DE_ENTIDADPARSERTEST = "src/mereditor/tests/xml de prueba/entidad-comp.xml";
+	private Element elementoAParsear;
+	private Componente entidadParseada;
+	private Entidad entidadAComparar;
+	private List<Atributo> atributosAComparar;
+	private List<ComponenteNombre> idsAComparar;
+	private List<ComponenteNombre> refsAEntidades;
 	
 	
 	public EntidadParserTest(String arg0) {
 		super(arg0);
-		elementosAParsear= new ArrayList<Element> ();
-		entidadesParseadas= new ArrayList<Componente> ();
+		
 	}
 
 	protected void setUp() throws Exception {
@@ -50,42 +52,62 @@ public class EntidadParserTest extends TestCase {
 		for (int i=0;i<hijos.getLength();i++){
 			nodo=hijos.item(i);
 			if ( nodo instanceof Element && nodo.getNodeName()== ( EntidadParser.tipo ) ){
-				elementosAParsear.add((Element) nodo);
+				elementoAParsear= (Element) nodo;
 			}
 		}
-		//Crear las entidades para comparar
-		List<Atributo> atributos= new ArrayList<Atributo>();
+		
+		atributosAComparar= new ArrayList<Atributo>();
 		String idE1= "1";
-		Atributo a1= new Atributo ("fila","1",idE1,"1","1",Atributo.TipoAtributo.CARACTERIZACION);
-		Atributo a2= new Atributo ("butaca","2",idE1,"1","1",Atributo.TipoAtributo.CARACTERIZACION);
-		atributos.add( a1 );
-		atributos.add( a2 );
-		List<ComponenteNombre> ids= new ArrayList<ComponenteNombre>();
-		//falta agregar ids externos
-		Entidad e1= new Entidad ("Localidad",idE1,ID_DIAGRAMA,atributos,ids,TIPO_ENT);
+		Atributo a1= new Atributo ("fila","1",idE1,"1","1",Atributo.TipoAtributo.CARACTERIZACION,null);
+		Atributo a2= new Atributo ("butaca","2",idE1,"1","1",Atributo.TipoAtributo.CARACTERIZACION, null);
+		atributosAComparar.add( a1 );
+		atributosAComparar.add( a2 );
+		idsAComparar= new ArrayList<ComponenteNombre>();
+		refsAEntidades= new ArrayList<ComponenteNombre>();
+		entidadAComparar= new Entidad ("Localidad",idE1,ID_DIAGRAMA,atributosAComparar,idsAComparar,TIPO_ENT);
+		Entidad ref1= new Entidad ("EntidadReferenciada","3", ID_DIAGRAMA,null,null, TipoEntidad.MAESTRA);
+		Entidad ref2= new Entidad ("EntidadReferenciada","4", ID_DIAGRAMA,null,null, TipoEntidad.MAESTRA);
+		Entidad ref3= new Entidad ("EntidadReferenciada","8", ID_DIAGRAMA,null,null, TipoEntidad.MAESTRA);
+		refsAEntidades.add( ref1 );
+		refsAEntidades.add( ref2 );
+		refsAEntidades.add( ref3 );
+		idsAComparar.add(a1);
+		idsAComparar.add(a2);
+		idsAComparar.add( ref1 );
+		idsAComparar.add( ref2 );
+		idsAComparar.add( ref3 );
+		
 	}
 	
 	public void testParsearEntidades(){
-		List<EntidadParser> parsers= new ArrayList<EntidadParser>();
-		EntidadParser parser= null;
-		Componente entidadParseada= null;
-		for (int i=0; i<elementosAParsear.size();i++ ){
-			parser= new EntidadParser();
-			parser.setIdContenedor(ID_DIAGRAMA);
-			parser.parsear( elementosAParsear.get(i) );
-			entidadParseada = parser.getEntidadParseada();
-			assertTrue (entidadParseada != null ); 
-			entidadesParseadas.add(entidadParseada);
-			parsers.add(parser);
+		
+		EntidadParserFake parser= new EntidadParserFake();		
+		parser.setIdContenedor(ID_DIAGRAMA);
+		assertTrue ( elementoAParsear != null );
+		parser.parsear( elementoAParsear );
+		entidadParseada = parser.getEntidadParseada();
+		assertTrue ( entidadParseada != null ); 	
+		assertTrue ( entidadParseada.getIdComponente().equals(entidadAComparar.getIdComponente()) ) ;
+		assertTrue ( entidadParseada.getIdContenedor().equals(entidadAComparar.getIdContenedor()) ) ;
+		assertTrue ( ((ComponenteNombre)entidadParseada ).getNombre().equals(entidadAComparar.getNombre()) ) ;
+		assertTrue ( parser.getTipo().equals(TIPO_ENT) );
+		assertTrue ( parser.getAtributos().size() == atributosAComparar.size()  );
+		
+		for (int i=0; i<atributosAComparar.size();i++ ){
+			assertTrue ( parser.getAtributos().get(i).getIdComponente().equals(atributosAComparar.get(i).getIdComponente() ) );
 		}
 		
-		for (int i=0; i<parsers.size(); i++){
-			parsers.get(i).linkearIdentificadores(entidadesParseadas);
+		parser.linkearIdentificadores( refsAEntidades );
+		System.out.print(parser.getIdentificadores().size());
+		assertTrue ( parser.getIdentificadores().size() == idsAComparar.size()  );
+		String idAux;
+		for (int i=0; i<idsAComparar.size();i++ ){
+			idAux = parser.getIdentificadores().get(i).getIdComponente();
+			assertTrue ( idAux.equals( idsAComparar.get(i).getIdComponente() ) );
 		}
-		
-		//Comprobar clase por clase el contenido
-		
 		
 	}
+
+	
 
 }
