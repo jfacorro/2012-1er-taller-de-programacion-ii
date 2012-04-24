@@ -11,4 +11,10 @@ public abstract class Componente {
 	public Componente () {
 		
 	}
+	public String getIdComponente() {
+		return idComponente;
+	}
+	public String getIdContenedor() {
+		return idContenedor;
+	}
 }

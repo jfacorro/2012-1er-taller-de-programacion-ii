@@ -4,6 +4,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import mereditor.modelo.base.ComponenteNombre;
+import mereditor.modelo.Atributo;
 
 public class Entidad extends ComponenteNombre {
 	
@@ -28,4 +29,7 @@ public class Entidad extends ComponenteNombre {
 		this.identificadores= ids;
 		this.tipo= t;
 	}
+	
+	
+	
 }
