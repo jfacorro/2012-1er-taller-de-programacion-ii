@@ -6,7 +6,7 @@ import java.util.List;
 import mereditor.modelo.base.ComponenteNombre;
 
 public class Relacion extends ComponenteNombre {
-	enum TipoRelacion {
+	public enum TipoRelacion {
 		ASOCIACION,
 		COMPOSICION
 	}
@@ -46,16 +46,16 @@ public class Relacion extends ComponenteNombre {
 
 	/*
 	 * Contiene la entidad que pertence a la relacion 
-	 * y su información asociada a la misma.
+	 * y su informaciï¿½n asociada a la misma.
 	 */
 	public class EntidadRelacion{
 		protected Entidad entidad;
 		protected String rol;
-		protected int cardinalidadMinima;
-		protected int cardinalidadMaxima;
+		protected String cardinalidadMinima;
+		protected String cardinalidadMaxima;
 		
 		public EntidadRelacion(Entidad entidad, String rol,
-				int cardinalidadMinima, int cardinalidadMaxima) {
+				String cardinalidadMinima, String cardinalidadMaxima) {
 			this.entidad = entidad;
 			this.rol = rol;
 			this.cardinalidadMinima = cardinalidadMinima;
@@ -78,19 +78,19 @@ public class Relacion extends ComponenteNombre {
 			this.rol = rol;
 		}
 
-		public int getCardinalidadMinima() {
+		public String getCardinalidadMinima() {
 			return cardinalidadMinima;
 		}
 
-		public void setCardinalidadMinima(int cardinalidadMinima) {
+		public void setCardinalidadMinima(String cardinalidadMinima) {
 			this.cardinalidadMinima = cardinalidadMinima;
 		}
 
-		public int getCardinalidadMaxima() {
+		public String getCardinalidadMaxima() {
 			return cardinalidadMaxima;
 		}
 
-		public void setCardinalidadMaxima(int cardinalidadMaxima) {
+		public void setCardinalidadMaxima(String cardinalidadMaxima) {
 			this.cardinalidadMaxima = cardinalidadMaxima;
 		}		
 	}
