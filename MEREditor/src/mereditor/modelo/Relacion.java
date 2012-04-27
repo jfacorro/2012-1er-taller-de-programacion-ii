@@ -3,6 +3,7 @@ package mereditor.modelo;
 import java.util.LinkedList;
 import java.util.List;
 
+import mereditor.modelo.base.Componente;
 import mereditor.modelo.base.ComponenteNombre;
 
 public class Relacion extends ComponenteNombre {
@@ -19,10 +20,24 @@ public class Relacion extends ComponenteNombre {
 	 * Constructor
 	 */
 	public Relacion(String nombre){
-		super(nombre);
-		
+		super(nombre); 		//faltan los ids del componente
 		this.atributos = new LinkedList<Atributo>();
 		this.entidades = new LinkedList<EntidadRelacion>();
+	}
+	
+	public Relacion (String nombreR, String idR, String idCont, TipoRelacion tipoR){
+		super (nombreR,idR,idCont);
+		tipo= tipoR;
+		this.atributos = new LinkedList<Atributo>();
+		this.entidades = new LinkedList<EntidadRelacion>();
+	}
+	
+	public void agregarAtributo(Componente atributo) {
+		atributos.add((Atributo) atributo);
+	}
+	
+	public void agregarParticipante(EntidadRelacion participante) {
+		entidades.add(participante);
 	}
 	
 	/*

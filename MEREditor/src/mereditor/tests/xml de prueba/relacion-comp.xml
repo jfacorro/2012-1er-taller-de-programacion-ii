@@ -1,0 +1,17 @@
+<PruebaRelacion>
+	<Relacion id="6">
+		<Nombre>FO</Nombre>
+		<Tipo>asociacion</Tipo>
+		<Participantes>
+			<Participante id="4" cardMin="0" cardMax="500" />
+			<Participante id="5" cardMin="1" cardMax="1" />
+		</Participantes>
+		<Atributos>
+			<Atributo id="17">
+				<Nombre>fecha</Nombre>
+				<Tipo>caracterizacion</Tipo>
+			</Atributo>
+		</Atributos>
+	</Relacion>
+</PruebaRelacion>
+
