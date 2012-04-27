@@ -1,0 +1,7 @@
+<PruebaAtributoSimple>
+			<Atributo id="1">
+				<Nombre>fila</Nombre>
+				<Cardinalidad min="1" max="*" />
+				<Tipo>caracterizacion</Tipo>
+			</Atributo>
+</PruebaAtributoSimple>

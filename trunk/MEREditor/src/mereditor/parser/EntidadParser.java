@@ -21,18 +21,11 @@ public class EntidadParser extends ComponenteConAtributosParser {
 	private static final String ATRIBUTO_REF_TAG = "Atributo";
 	private static final String ENTIDAD_REF_TAG = "Entidad";
 	private static final String TIPO_TAG = "Tipo";
-	private static final String NOMBRE_TAG = "Nombre";
-
-
-
-	
-
 	
 	protected List<String> identificadoresAux;
 	protected List<ComponenteNombre> identificadores;
 	protected String idEntidad;
 	protected String idContenedor;
-	protected String nombre;
 	protected Entidad entidadParseada;
 	protected TipoEntidad tipoEntidad;
 
@@ -59,7 +52,7 @@ public class EntidadParser extends ComponenteConAtributosParser {
 		for (int i=0; i< nodos.getLength(); i++){
 			if (nodos.item(i) instanceof Element ){
 				Element item =(Element) nodos.item(i);
-				parsearNombre (item);
+				obtenerNombre (item);
 				parsearTipo (item );
 				parsearAtributos (item);
 				parsearListaDeIdentificadores(item,IDS_INTERNOS_TAG,ATRIBUTO_REF_TAG);
@@ -70,14 +63,6 @@ public class EntidadParser extends ComponenteConAtributosParser {
 	}
 
 	
-	
-
-	
-
-	private void parsearNombre(Element item) {
-		if (nombre == null )
-		nombre= parsearString (item, NOMBRE_TAG);
-	}
 
 	private void parsearTipo(Element item) {
 		String t= null;
@@ -90,7 +75,7 @@ public class EntidadParser extends ComponenteConAtributosParser {
 	private String parsearString(Element item, String tag) {
 		if ( item.getNodeName() != tag )
 			return null;
-		return item.getChildNodes().item(0).getNodeValue();
+		return item.getTextContent().trim();
 	}
 
 	private void parsearListaDeIdentificadores(Element element,String tag_lista, String tag_ind) {

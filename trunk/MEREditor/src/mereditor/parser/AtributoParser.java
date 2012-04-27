@@ -13,41 +13,45 @@ import org.w3c.dom.NodeList;
 
 public class AtributoParser extends ComponenteConAtributosParser {
 
-	private static final String ATRIBUTO_TAG = "Atributo";
+	public static final String ATRIBUTO_TAG = "Atributo";
+	
 	private static final String TIPO_TAG = "Tipo";
-	private static final String NOMBRE_TAG= "Nombre";
+
 	private static final String CARDINALIDAD_TAG = "Cardinalidad";
 	private static final String CARD_MIN_TAG = "min";
 	private static final String CARD_MAX_TAG = "max";
 
 	
-	Atributo atributoParseado;
-	String idContenedor;
-	TipoAtributo tipoAttr;
-	String cardMin;
-	String cardMax;
+	protected Atributo atributoParseado;
+	protected String idContenedor;
+	protected TipoAtributo tipoAttr;
+	protected String cardMin;
+	protected String cardMax;
 	
 
 	public void parsear(Element item) {
 		if (item.getNodeName()!= ATRIBUTO_TAG)
 			return;
+		//obtengo el id del atributo
 		String id = item.getAttributes().item(0).getNodeValue();
-		String nombre = null;
+		//falta obtener el id del contenedor
+		
 
 		
 		NodeList hijos = item.getChildNodes();
 		
 		for (int i=0; i<hijos.getLength(); i++ ){
 			if (hijos.item(i) instanceof Element) {
-				obtenerNombreAttr( hijos.item(i), nombre );
+				obtenerNombre( hijos.item(i) );
 				obtenerTipoAttr( hijos.item(i) );
-				obtenerCardinalidad (hijos.item(i), cardMin, cardMax );
+				obtenerCardinalidad (hijos.item(i) );
 				parsearAtributos( (Element) hijos.item(i) );
 			}
 		}
 		List<Atributo> atributos = new ArrayList<Atributo>();
 		for (int i=0; i<atributosParseados.size(); i++ )
 			atributos.add( (Atributo) atributosParseados.get(i));
+		
 		atributoParseado = new Atributo (nombre,id,idContenedor,cardMin, cardMax,tipoAttr, atributos );
 
 	}
@@ -60,20 +64,13 @@ public class AtributoParser extends ComponenteConAtributosParser {
 		}
 	}
 
-	private void obtenerCardinalidad(Node item, String cardMin, String cardMax) {
+	private void obtenerCardinalidad(Node item ) {
 		if ( item.getNodeName()== CARDINALIDAD_TAG ){
 			cardMin= item.getAttributes().getNamedItem(CARD_MIN_TAG).getNodeValue();
-			cardMin= item.getAttributes().getNamedItem(CARD_MAX_TAG).getNodeValue();
+			cardMax= item.getAttributes().getNamedItem(CARD_MAX_TAG).getNodeValue();
 		}
 		
 	}
 
-
-
-	private void obtenerNombreAttr(Node item, String nombre) {
-		if ( item.getNodeName()== NOMBRE_TAG ){
-			nombre= item.getTextContent().trim();
-		}
-	}
 
 }

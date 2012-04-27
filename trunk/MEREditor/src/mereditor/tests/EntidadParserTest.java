@@ -19,8 +19,7 @@ import mereditor.parser.EntidadParser;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
+
 
 public class EntidadParserTest extends TestCase {
 
@@ -47,15 +46,8 @@ public class EntidadParserTest extends TestCase {
 		DocumentBuilder builder= DocumentBuilderFactory.newInstance().newDocumentBuilder();
 		Document doc= builder.parse(source);
 		Element raiz= doc.getDocumentElement();
-		NodeList hijos= raiz.getChildNodes();
-		Node nodo= null;
-		for (int i=0;i<hijos.getLength();i++){
-			nodo=hijos.item(i);
-			if ( nodo instanceof Element && nodo.getNodeName()== ( EntidadParser.tipo ) ){
-				elementoAParsear= (Element) nodo;
-			}
-		}
-		
+		Element nodo= (Element) raiz.getElementsByTagName(EntidadParser.tipo).item(0);	
+		elementoAParsear= (Element) nodo;
 		atributosAComparar= new ArrayList<Atributo>();
 		String idE1= "1";
 		Atributo a1= new Atributo ("fila","1",idE1,"1","1",Atributo.TipoAtributo.CARACTERIZACION,null);
@@ -98,7 +90,6 @@ public class EntidadParserTest extends TestCase {
 		}
 		
 		parser.linkearIdentificadores( refsAEntidades );
-		System.out.print(parser.getIdentificadores().size());
 		assertTrue ( parser.getIdentificadores().size() == idsAComparar.size()  );
 		String idAux;
 		for (int i=0; i<idsAComparar.size();i++ ){

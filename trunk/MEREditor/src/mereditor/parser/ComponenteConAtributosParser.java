@@ -7,12 +7,17 @@ import java.util.List;
 import mereditor.modelo.base.ComponenteNombre;
 
 import org.w3c.dom.Element;
+import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 public abstract class ComponenteConAtributosParser implements ElementParser {
 
 	protected List<ComponenteNombre> atributosParseados;
+	protected String nombre;
+	
 	private static final String ATRIBUTOS_TAG = "Atributos";
+	private static final String NOMBRE_TAG= "Nombre";
+
 	
 	ComponenteConAtributosParser () {
 		atributosParseados= new ArrayList<ComponenteNombre>();
@@ -33,7 +38,11 @@ public abstract class ComponenteConAtributosParser implements ElementParser {
 		
 	}
 	
-	
+	protected void obtenerNombre(Node item ) {
+		if ( item.getNodeName().equals(NOMBRE_TAG) ){
+			nombre= item.getTextContent().trim();
+		}
+	}
 	
 }
 	
