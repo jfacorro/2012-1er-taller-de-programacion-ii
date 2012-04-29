@@ -55,18 +55,16 @@ public class RelacionParserTest extends TestCase {
 		parser= new RelacionParser();
 		assertTrue (elementoAParsear != null);
 		parser.parsear(elementoAParsear);
-		parseada= parser.getRelacion();
+		parseada= (Relacion) parser.getElementoParseado();
 		assertTrue (parseada != null);
-	//	assertTrue (parseada.getIdComponente().equals(ID_RELACION));
+		assertTrue (parseada.getIdComponente().equals(ID_RELACION));
 	//	assertTrue (parseada.getIdContenedor().equals(ID_CONT_RELACION));
 		assertTrue (parseada.getNombre().equals(NOMBRE_RELACION));
 		assertTrue (parseada.getTipo().equals(TIPO_RELACION));
 		List<Componente> entidadesALinkear= new ArrayList<Componente>();
-		entidadesALinkear.add(new Entidad("e1","4",ID_CONT_RELACION,null,null,TipoEntidad.MAESTRA) );
-		entidadesALinkear.add(new Entidad("e2","5",ID_CONT_RELACION,null,null,TipoEntidad.MAESTRA) );
-		parser.linkearEntidades(entidadesALinkear);
-		assertTrue (entidadesALinkear.get(0).getIdComponente().equals(parseada.getEntidades().get(0).getEntidad().getIdComponente()));
-		assertTrue (entidadesALinkear.get(1).getIdComponente().equals(parseada.getEntidades().get(1).getEntidad().getIdComponente()));
+		entidadesALinkear.add(new Entidad("e1","4",ID_CONT_RELACION,TipoEntidad.MAESTRA) );
+		entidadesALinkear.add(new Entidad("e2","5",ID_CONT_RELACION,TipoEntidad.MAESTRA) );
+		
 	}
  
 	

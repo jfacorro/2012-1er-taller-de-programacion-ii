@@ -9,9 +9,6 @@ import mereditor.parser.EntidadParser;
 
 public class EntidadParserFake extends EntidadParser{
 
-	List<ComponenteNombre> getIdentificadores() {
-		return super.identificadores;
-	}
 	
 	List<ComponenteNombre> getAtributos(){
 		return super.atributosParseados;

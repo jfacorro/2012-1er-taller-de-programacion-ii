@@ -13,43 +13,83 @@ import mereditor.modelo.Diagrama;
 import mereditor.modelo.Validacion;
 
 
+
 public class Parser {
-	Diagrama diagramaPpal;
-	List <Componente> componentes;
-	Validacion validacionGlobal;
 	
-	Document source;
+	protected Document source;
+	protected Validacion validacionGlobal;
+	ElementParser validacionParser;
+	ElementParser diagramaPpalParser;
+	List <Componente> componentes;
+	List<Linkeable> parsersLinkeables;
+	List<ElementParser> parsersDeComponentes;
+	
 	
 	public Parser (Document sourceXML) {
-		diagramaPpal= null;
 		source= sourceXML;
+		validacionGlobal= null;
+		validacionParser= null;
 		componentes= new ArrayList <Componente>();
+		parsersLinkeables= new ArrayList <Linkeable>();
+		parsersDeComponentes=new ArrayList <ElementParser>();
 		
 	}
 	
 	public void parsear() {
 		ParserFactory parserFact= new ParserFactory();
-		List <ElementParser> parsers= new ArrayList<ElementParser>();
+
 		Element raiz= source.getDocumentElement();
 		NodeList hijos= raiz.getChildNodes();
 		Node nodo= null;
+		ElementParser compParser= null;
 		for (int i=0; i<hijos.getLength(); i++) {
 			nodo= hijos.item(i);
 			if (nodo instanceof Element ){
-				ElementParser compParser = parserFact.getComponenteParser(nodo.getNodeName());
+				compParser = parserFact.getComponenteParser(nodo.getNodeName());
 				//try
 				compParser.parsear((Element)nodo);
-				//catch error parserFact
-				parsers.add(compParser);	
+				compParser.agregarAParser(this);
+				//catch exc parser
 			}
-			
 		}
-		//hidratar a partir de los parsers.
+		validacionGlobal= (Validacion) validacionParser.getElementoParseado();
+		inicializarComponentes();
+		/*Una vez parseados los componentes, los puedo linkear*/
+		linkearComponentes();
 	}
 
-	public Diagrama getDiagramaConstruido() {
-		return diagramaPpal;
+	/*PRE: componentes inicializados*/
+	private void linkearComponentes() {
+		for (int i=0;i<parsersLinkeables.size();i++){
+			for (int j=0;j<componentes.size(); j++){
+				parsersLinkeables.get(i).linkear( componentes.get(j) );
+			}
+		}
+		
 	}
 
+	private void inicializarComponentes() {
+		for (int i=0; i<parsersDeComponentes.size(); i++ ){
+			componentes.add( (Componente) parsersDeComponentes.get(i).getElementoParseado());
+		}
+	}
+
+	public Diagrama getDiagramaPpal() {
+		return (Diagrama) diagramaPpalParser.getElementoParseado();
+	}
+
+	public List<Componente> getComponentes() {
+		return componentes;
+	}
+
+	public Validacion getValidacionGlobal() {
+		return validacionGlobal;
+	}
+	public void agregarParserDeComponente(ElementParser parserDeComponente) {
+		parsersDeComponentes.add(parserDeComponente);
+	}
+	public void agregarParserLinkeable(Linkeable parserLinkeable) {
+		parsersLinkeables.add(parserLinkeable);
+	}
 
 }

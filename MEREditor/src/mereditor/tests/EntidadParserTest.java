@@ -48,18 +48,22 @@ public class EntidadParserTest extends TestCase {
 		Element raiz= doc.getDocumentElement();
 		Element nodo= (Element) raiz.getElementsByTagName(EntidadParser.tipo).item(0);	
 		elementoAParsear= (Element) nodo;
-		atributosAComparar= new ArrayList<Atributo>();
 		String idE1= "1";
+		entidadAComparar= new Entidad ("Localidad",idE1,ID_DIAGRAMA,TIPO_ENT);
+		atributosAComparar= new ArrayList<Atributo>();
 		Atributo a1= new Atributo ("fila","1",idE1,"1","1",Atributo.TipoAtributo.CARACTERIZACION,null);
 		Atributo a2= new Atributo ("butaca","2",idE1,"1","1",Atributo.TipoAtributo.CARACTERIZACION, null);
 		atributosAComparar.add( a1 );
 		atributosAComparar.add( a2 );
+		entidadAComparar.agregarAtributo(a1);
+		entidadAComparar.agregarAtributo(a2);
+		
 		idsAComparar= new ArrayList<ComponenteNombre>();
 		refsAEntidades= new ArrayList<ComponenteNombre>();
-		entidadAComparar= new Entidad ("Localidad",idE1,ID_DIAGRAMA,atributosAComparar,idsAComparar,TIPO_ENT);
-		Entidad ref1= new Entidad ("EntidadReferenciada","3", ID_DIAGRAMA,null,null, TipoEntidad.MAESTRA);
-		Entidad ref2= new Entidad ("EntidadReferenciada","4", ID_DIAGRAMA,null,null, TipoEntidad.MAESTRA);
-		Entidad ref3= new Entidad ("EntidadReferenciada","8", ID_DIAGRAMA,null,null, TipoEntidad.MAESTRA);
+
+		Entidad ref1= new Entidad ("EntidadReferenciada","3", ID_DIAGRAMA, TipoEntidad.MAESTRA);
+		Entidad ref2= new Entidad ("EntidadReferenciada","4", ID_DIAGRAMA,TipoEntidad.MAESTRA);
+		Entidad ref3= new Entidad ("EntidadReferenciada","8", ID_DIAGRAMA,TipoEntidad.MAESTRA);
 		refsAEntidades.add( ref1 );
 		refsAEntidades.add( ref2 );
 		refsAEntidades.add( ref3 );
@@ -77,7 +81,7 @@ public class EntidadParserTest extends TestCase {
 		parser.setIdContenedor(ID_DIAGRAMA);
 		assertTrue ( elementoAParsear != null );
 		parser.parsear( elementoAParsear );
-		entidadParseada = parser.getEntidadParseada();
+		entidadParseada = (Componente) parser.getElementoParseado();
 		assertTrue ( entidadParseada != null ); 	
 		assertTrue ( entidadParseada.getIdComponente().equals(entidadAComparar.getIdComponente()) ) ;
 		assertTrue ( entidadParseada.getIdContenedor().equals(entidadAComparar.getIdContenedor()) ) ;
@@ -89,13 +93,6 @@ public class EntidadParserTest extends TestCase {
 			assertTrue ( parser.getAtributos().get(i).getIdComponente().equals(atributosAComparar.get(i).getIdComponente() ) );
 		}
 		
-		parser.linkearIdentificadores( refsAEntidades );
-		assertTrue ( parser.getIdentificadores().size() == idsAComparar.size()  );
-		String idAux;
-		for (int i=0; i<idsAComparar.size();i++ ){
-			idAux = parser.getIdentificadores().get(i).getIdComponente();
-			assertTrue ( idAux.equals( idsAComparar.get(i).getIdComponente() ) );
-		}
 		
 	}
 

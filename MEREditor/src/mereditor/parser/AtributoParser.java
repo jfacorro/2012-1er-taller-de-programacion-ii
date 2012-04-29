@@ -72,5 +72,15 @@ public class AtributoParser extends ComponenteConAtributosParser {
 		
 	}
 
+	
+	public void agregarAParser(Parser parser) {
+		parser.agregarParserDeComponente(this);	
+	}
+
+	
+	public Object getElementoParseado() {
+		return atributoParseado;
+	}
+
 
 }
