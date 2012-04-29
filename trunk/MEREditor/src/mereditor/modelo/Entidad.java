@@ -3,6 +3,7 @@ package mereditor.modelo;
 import java.util.LinkedList;
 import java.util.List;
 
+import mereditor.modelo.base.Componente;
 import mereditor.modelo.base.ComponenteNombre;
 import mereditor.modelo.Atributo;
 
@@ -14,22 +15,27 @@ public class Entidad extends ComponenteNombre {
 	}
 	
 	protected List<Atributo> atributos;
-	protected List<ComponenteNombre> identificadores; // pueden ser tanto Atributos como Entidades
+	protected List<Componente> identificadores; // pueden ser tanto Atributos como Entidades
 	protected TipoEntidad tipo;
 	
 	public Entidad(String nombre) {
 		super(nombre);
-		
+		identificadores= new LinkedList<Componente>();
 		this.atributos = new LinkedList<Atributo>();
 	}
 	
-	public Entidad (String nombre, String idEntidad, String idDiagrama, List<Atributo> atributos, List<ComponenteNombre> ids, TipoEntidad t){
+	public Entidad (String nombre, String idEntidad, String idDiagrama, TipoEntidad t){
 		super (nombre,idEntidad,idDiagrama);
-		this.atributos = atributos;
-		this.identificadores= ids;
+		this.atributos =  new LinkedList<Atributo>();
+		this.identificadores=  new LinkedList<Componente>();
 		this.tipo= t;
 	}
 	
+	public void agregarIdentificador (ComponenteNombre identificador ){
+		identificadores.add(identificador);
+	}
 	
-	
+	public void agregarAtributo (Atributo atributo ){
+		identificadores.add(atributo);
+	}
 }

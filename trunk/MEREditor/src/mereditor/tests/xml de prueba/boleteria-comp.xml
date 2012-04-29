@@ -1,13 +1,13 @@
 <Modelo>
-	<Entidad id="1">
+	<Entidad id="0">
 		<Nombre>Localidad</Nombre>
 		<Atributos>
-			<Atributo id="1">
+			<Atributo id="01">
 				<Nombre>fila</Nombre>
 				<Cardinalidad min="1" max="1" />
 				<Tipo>caracterizacion</Tipo>
 			</Atributo>
-			<Atributo id="2">
+			<Atributo id="02">
 				<Nombre>butaca</Nombre>
 				<Cardinalidad min="1" max="1" />
 				<Tipo>caracterizacion</Tipo>
@@ -16,97 +16,89 @@
 		<IdentificadoresExternos>
 			<IdentificadorExterno>
 				<Entidad id="2" />
-				<Atributo id="1" />
-				<Atributo id="2" />
 			</IdentificadorExterno>
 		</IdentificadoresExternos>
 	</Entidad>
 	<Entidad id="2">
 		<Nombre>SeccionSala</Nombre>
 		<Atributos>
-			<Atributo id="1">
+			<Atributo id="24">
 				<Nombre>nroSecc</Nombre>
 				<Cardinalidad min="1" max="1" />
 				<Tipo>caracterizacion</Tipo>
 			</Atributo>
-			<Atributo id="2">
+			<Atributo id="25">
 				<Nombre>nomSecc</Nombre>
 				<Cardinalidad min="1" max="1" />
 				<Tipo>caracterizacion</Tipo>
 			</Atributo>
 		</Atributos>
 		<IdentificadoresInternos>
-			<Atributo id="1" />
-			<Atributo id="2" />
+			<Atributo id="24" />
+			<Atributo id="25" />
 		</IdentificadoresInternos>
 	</Entidad>
 	<Relacion id="3">
 		<Nombre>SL</Nombre>
-		<Tipo>????</Tipo>
+		<Tipo>asociacion</Tipo>
 		<Participantes>
-			<Participante>
-				<Entidad id="1" />
-				<Cardinalidad min="1" max="1" />
-			</Participante>
-			<Participante>
-				<Entidad id="2" />
-				<Cardinalidad min="1" max="n" />
-			</Participante>
+			<Participante id="0" cardMin="1" cardMax="1" />
+			<Participante id="2" cardMin="1" cardMax="n" />
 		</Participantes>
 	</Relacion>
 	<Entidad id="4">
 		<Nombre>Obra</Nombre>
 		<Atributos>
-			<Atributo id="1">
+			<Atributo id="41">
 				<Nombre>idObra</Nombre>
 				<Cardinalidad min="1" max="1" />
 				<Tipo>caracterizacion</Tipo>
 			</Atributo>
-			<Atributo id="2">
+			<Atributo id="42">
 				<Nombre>titulo</Nombre>
 				<Cardinalidad min="1" max="1" />
 				<Tipo>caracterizacion</Tipo>
 			</Atributo>
-			<Atributo id="3">
+			<Atributo id="43">
 				<Nombre>autor</Nombre>
 				<Cardinalidad min="1" max="n" />
 				<Tipo>caracterizacion</Tipo>
 			</Atributo>
-			<Atributo id="4">
+			<Atributo id="45">
 				<Nombre>director</Nombre>
 				<Cardinalidad min="1" max="n" />
 				<Tipo>caracterizacion</Tipo>
 			</Atributo>
-			<Atributo id="5">
+			<Atributo id="46">
 				<Nombre>genero</Nombre>
 				<Cardinalidad min="1" max="1" />
 				<Tipo>caracterizacion</Tipo>
 			</Atributo>
-			<Atributo id="6">
+			<Atributo id="47">
 				<Nombre>nroProxFunc</Nombre>
 				<Cardinalidad min="1" max="1" />
 				<Tipo>caracterizacion</Tipo>
 			</Atributo>
 		</Atributos>
 		<IdentificadoresInternos>
-			<Atributo id="1" />
-			<Atributo id="2" />
+			<Atributo id="41" />
+			<Atributo id="42" />
 		</IdentificadoresInternos>
 	</Entidad>
 	<Entidad id="5">
 		<Nombre>Funcion</Nombre>
 		<Atributos>
-			<Atributo id="1">
+			<Atributo id="51">
 				<Nombre>nroFunc</Nombre>
 				<Cardinalidad min="1" max="1" />
 				<Tipo>caracterizacion</Tipo>
 			</Atributo>
-			<Atributo id="2">
+			<Atributo id="52">
 				<Nombre>fecha</Nombre>
 				<Cardinalidad min="1" max="1" />
 				<Tipo>caracterizacion</Tipo>
 			</Atributo>
-			<Atributo id="2">
+			<Atributo id="53">
 				<Nombre>hora</Nombre>
 				<Cardinalidad min="1" max="1" />
 				<Tipo>caracterizacion</Tipo>
@@ -115,76 +107,61 @@
 		<IdentificadoresExternos>
 			<IdentificadorExterno>
 				<Entidad id="4" />
-				<Atributo id="1" />
-				<Atributo id="2" />
-				<Atributo id="3" />
 			</IdentificadorExterno>
 		</IdentificadoresExternos>
 	</Entidad>
 	<Relacion id="6">
 		<Nombre>FO</Nombre>
-		<Tipo>????</Tipo>
+		<Tipo>asociacion</Tipo>
 		<Participantes>
-			<Participante>
-				<Entidad id="4" />
-				<Cardinalidad min="0" max="n" />
-			</Participante>
-			<Participante>
-				<Entidad id="5" />
-				<Cardinalidad min="1" max="1" />
-			</Participante>
+			<Participante id="4" cardMin="0" cardMax="n" />
+			<Participante id="5" cardMin="1" cardMax="1" />
 		</Participantes>
 	</Relacion>
 	<Relacion id="7">
 		<Nombre>VtaLoc</Nombre>
-		<Tipo>????</Tipo>
+		<Tipo>Asociacion</Tipo>
 		<Participantes>
-			<Participante>
-				<Entidad id="4" >
-				<Cardinalidad min="0" max="n" />
-			</Participante>
-			<Participante>
-				<Entidad id="1" />
-				<Cardinalidad min="0" max="n" />
-			</Participante>
+			<Participante id="4" cardMin="0" cardMax="n" />
+			<Participante id="0" cardMin="0" cardMax="n" />
 		</Participantes>
 		<Atributos>
-			<Atributo id="1">
+			<Atributo id="71">
 				<Nombre>tarj</Nombre>
 				<Cardinalidad min="0" max="1" />
 				<Tipo>caracterizacion</Tipo>
 				<Atributos>
-					<Atributo id="1">
+					<Atributo id="711">
 						<Nombre>nomTarj</Nombre>
 						<Cardinalidad min="1" max="1" />
 						<Tipo>caracterizacion</Tipo>
 					</Atributo>
-					<Atributo id="2">
+					<Atributo id="712">
 						<Nombre>bco</Nombre>
 						<Cardinalidad min="1" max="1" />
 						<Tipo>caracterizacion</Tipo>
 					</Atributo>
-					<Atributo id="3">
+					<Atributo id="713">
 						<Nombre>nroTarj</Nombre>
 						<Cardinalidad min="1" max="1" />
 						<Tipo>caracterizacion</Tipo>
 					</Atributo>
-					<Atributo id="4">
+					<Atributo id="714">
 						<Nombre>nroAutoriz</Nombre>
 						<Cardinalidad min="1" max="1" />
 						<Tipo>caracterizacion</Tipo>
 					</Atributo>
-					<Atributo id="5">
+					<Atributo id="715">
 						<Nombre>cr</Nombre>
 						<Cardinalidad min="0" max="1" />
 						<Tipo>caracterizacion</Tipo>
 						<Atributos>
-							<Atributo id="1">
+							<Atributo id="7151">
 								<Nombre>cuotas</Nombre>
 								<Cardinalidad min="1" max="1" />
 								<Tipo>caracterizacion</Tipo>
 							</Atributo>
-							<Atributo id="2">
+							<Atributo id="7152">
 								<Nombre>int</Nombre>
 								<Cardinalidad min="0" max="1" />
 								<Tipo>caracterizacion</Tipo>
@@ -195,10 +172,10 @@
 			</Atributo>
 		</Atributos>
 	</Relacion>
-	<Diagrama id="1">
+	<Diagrama id="99">
 		<Nombre>BoleteriaTeatro</Nombre>
 		<Componentes>
-			<Componente id="1" />
+			<Componente id="0" />
 			<Componente id="2" />
 			<Componente id="3" />
 			<Componente id="4" />

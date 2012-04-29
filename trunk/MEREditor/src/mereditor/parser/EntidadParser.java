@@ -1,18 +1,17 @@
 package mereditor.parser;
 
-import java.util.ArrayList;
-import java.util.List;
 
 import mereditor.modelo.Atributo;
 import mereditor.modelo.Entidad;
 import mereditor.modelo.Entidad.TipoEntidad;
+import mereditor.modelo.base.Componente;
 import mereditor.modelo.base.ComponenteNombre;
 
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
 
-public class EntidadParser extends ComponenteConAtributosParser {
+public class EntidadParser extends ComponenteConAtributosParser implements Linkeable {
 
 	public static final String tipo = "Entidad";
 
@@ -22,30 +21,28 @@ public class EntidadParser extends ComponenteConAtributosParser {
 	private static final String ENTIDAD_REF_TAG = "Entidad";
 	private static final String TIPO_TAG = "Tipo";
 	
-	protected List<String> identificadoresAux;
-	protected List<ComponenteNombre> identificadores;
+	protected ListadoDeComponentesParser idsExtParser;
+	protected ListadoDeComponentesParser idsIntParser;
 	protected String idEntidad;
 	protected String idContenedor;
-	protected Entidad entidadParseada;
 	protected TipoEntidad tipoEntidad;
 
+	private Componente entidadParseada;
 
 	
 	public EntidadParser( ) { 
-
-		identificadoresAux= new ArrayList<String> ();
-		identificadores= new ArrayList <ComponenteNombre>();
-		entidadParseada=null;
+		idEntidad= idContenedor = null;
+		tipoEntidad= null;
+		entidadParseada= null;
+		idsExtParser= new ListadoDeComponentesParser (IDS_EXTERNOS_TAG,ENTIDAD_REF_TAG);
+		idsIntParser= new ListadoDeComponentesParser (IDS_INTERNOS_TAG,ATRIBUTO_REF_TAG);
 	}
 	
 	public void setIdContenedor (String idDiagrama){
 		idContenedor= idDiagrama;
 	}
 
-	/*
-	 * PRE: element no nulo
-	 * 
-	 */
+	
 	public void parsear(Element element) {	
 		idEntidad = element.getAttributes().item(0).getNodeValue();
 		NodeList nodos = element.getChildNodes();
@@ -55,14 +52,15 @@ public class EntidadParser extends ComponenteConAtributosParser {
 				obtenerNombre (item);
 				parsearTipo (item );
 				parsearAtributos (item);
-				parsearListaDeIdentificadores(item,IDS_INTERNOS_TAG,ATRIBUTO_REF_TAG);
-				parsearListaDeIdentificadores(item,IDS_EXTERNOS_TAG,ENTIDAD_REF_TAG);
+				idsExtParser.parsear(item);
+				idsIntParser.parsear(item);
 			}
 		}	
-		linkearIdentificadores (atributosParseados);
+		
 	}
 
-	
+
+
 
 	private void parsearTipo(Element item) {
 		String t= null;
@@ -78,41 +76,34 @@ public class EntidadParser extends ComponenteConAtributosParser {
 		return item.getTextContent().trim();
 	}
 
-	private void parsearListaDeIdentificadores(Element element,String tag_lista, String tag_ind) {
-		
-		if (element.getNodeName() != tag_lista)  
-			return;
-		NodeList nodos = element.getChildNodes();
-		String idAux= null;
-		for (int i=0; i< nodos.getLength(); i++)
-			if (nodos.item(i).getNodeName() == tag_ind ){				
-				/*Tiene un solo atributo: id*/
-				idAux= nodos.item(i).getAttributes().item(0).getNodeValue();
-				identificadoresAux.add(idAux);
-				}
-	}
-
 	
-	public void linkearIdentificadores(List <ComponenteNombre> componentes){
-		String idAux;
-		for (int i=0; i<componentes.size(); i++) {
-			idAux= componentes.get(i).getIdComponente();
-			if ( identificadoresAux.indexOf(idAux) >= 0 ){
-				identificadores.add( componentes.get(i) );
-				
-			}
+	public void linkear(Componente componente) {
+		if ( idsExtParser.pertenece(componente) ){
+			((Entidad) entidadParseada).agregarIdentificador((ComponenteNombre) componente);
 		}
+		
 	}
 
-	public Entidad getEntidadParseada() {
-		if ( entidadParseada == null ){
-			List <Atributo> atributos= new ArrayList<Atributo> ();
-			for (int i= 0; i<atributosParseados.size(); i++ ){
-				atributos.add((Atributo) atributosParseados.get(i));
-			}
-			entidadParseada= new Entidad (nombre,idEntidad,idContenedor,atributos,identificadores,tipoEntidad) ;
+	private void inicializarEntidad() {
+		entidadParseada= new Entidad (nombre,idEntidad,idContenedor,tipoEntidad);
+		/*Inicializo los atributos*/
+		for (int i= 0 ; i<atributosParseados.size(); i++){
+			if ( idsIntParser.pertenece(atributosParseados.get(i)) )
+				((Entidad)entidadParseada).agregarAtributo((Atributo) atributosParseados.get(i));
 		}
+	}
+	
+	public Object getElementoParseado() {
+		if (entidadParseada == null)
+			inicializarEntidad();
 		return entidadParseada;
+	}
+
+
+	public void agregarAParser(Parser parser) {
+		parser.agregarParserDeComponente(this);
+		parser.agregarParserLinkeable(this);
+		
 	}
 	
 }

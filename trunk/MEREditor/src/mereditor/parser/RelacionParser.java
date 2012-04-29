@@ -15,7 +15,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-public class RelacionParser extends ComponenteConAtributosParser {
+public class RelacionParser extends ComponenteConAtributosParser implements Linkeable{
 
 	public static final String tipo = "Relacion";
 	private static final String TIPO_RELACION_TAG = "Tipo";
@@ -30,7 +30,6 @@ public class RelacionParser extends ComponenteConAtributosParser {
 	
 	Relacion relacionParseada;
 	TipoRelacion tipoRelacion;
-	//List<EntidadRelacion> participantes;
 	List<DatosParticipante> participantesAux;
 	List<String> refsAEntidades;
 	String idRelacion;
@@ -49,7 +48,8 @@ public class RelacionParser extends ComponenteConAtributosParser {
 	
 	public void parsear(Element nodo) {
 		NodeList hijos = nodo.getChildNodes();
-		//parsear id componente e id contenedor
+		idRelacion= nodo.getAttributes().item(0).getNodeValue();
+		//parsear id contenedor
 		for (int i=0; i<hijos.getLength(); i++){
 			Node item = hijos.item(i);
 			if ( item instanceof Element ){
@@ -70,7 +70,6 @@ public class RelacionParser extends ComponenteConAtributosParser {
 	private void parsearRefAEntidades(Element item) {
 		if ( item.getNodeName() != REF_ENTIDADES_TAG)
 			return;
-		
 		NodeList entidadesNodos= item.getChildNodes();
 		String idParticipante;
 		String cardMinParticipante;
@@ -101,32 +100,27 @@ public class RelacionParser extends ComponenteConAtributosParser {
 		}
 	}
 
-	public void linkearEntidades (List<Componente> entidadesALinkear) {
-		
-		String idAux;
-		Componente e;
-		DatosParticipante datos;
-		
-		int indexE=0;
-		for (int i=0; i<entidadesALinkear.size(); i++ ){
-			e= entidadesALinkear.get(i);
-			idAux= e.getIdComponente();
-			
-			indexE= refsAEntidades.indexOf(idAux);
-			
-			if ( indexE >= 0){ //encontro
-				datos= participantesAux.get(indexE);
-				EntidadRelacion eR= relacionParseada.new EntidadRelacion ((Entidad)e,datos.rol,datos.cardMin,datos.cardMax);
-				relacionParseada.agregarParticipante(eR);
-			}
+	public void linkear ( Componente e ) {
+		DatosParticipante datos= null;
+		EntidadRelacion eR= null;
+		int indexE = refsAEntidades.indexOf( e.getIdComponente() );
+		if ( indexE >= 0){ //encontro
+			datos= participantesAux.get(indexE);
+			eR= relacionParseada.new EntidadRelacion ((Entidad)e,datos.rol,datos.cardMin,datos.cardMax);
+			relacionParseada.agregarParticipante(eR);
 		}
-	
 	}
 	
-	public Relacion getRelacion() {
+	
+	public Object getElementoParseado() {
 		return relacionParseada;
 	}
 	
+	public void agregarAParser(Parser parser) {
+		parser.agregarParserDeComponente(this);
+		parser.agregarParserLinkeable(this);
+	}
+
 	
 	protected class DatosParticipante{
 		String rol;
@@ -139,4 +133,11 @@ public class RelacionParser extends ComponenteConAtributosParser {
 			cardMax= cardMaxP;
 		}
 	}
+
+
+
+	
+
+
+	
 }

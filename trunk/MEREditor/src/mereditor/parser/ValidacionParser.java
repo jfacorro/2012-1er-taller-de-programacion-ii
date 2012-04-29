@@ -8,7 +8,7 @@ import org.w3c.dom.Element;
 public class ValidacionParser implements ElementParser{
 
 	private static final String OBS_TAG = "Observaciones";
-	Validacion validacion;
+	private Validacion validacion;
 	
 	
 	public void parsear(Element element) {
@@ -18,6 +18,18 @@ public class ValidacionParser implements ElementParser{
 		validacion = new Validacion (estado,obs);
 		
 	}
+
+
+	public void agregarAParser(Parser parser) {
+		parser.validacionParser= this;
+	}
+
+
+
+	public Object getElementoParseado() {
+		return validacion;
+	}
+	
 	
 	
 }

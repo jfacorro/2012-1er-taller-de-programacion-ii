@@ -17,6 +17,13 @@ public class Diagrama extends ComponenteNombre {
 		this.diagramas = new LinkedList<Diagrama>();
 		this.componentes = new LinkedList<Componente>();
 	}
+	
+
+	public Diagrama(String nombre, String idDiagrama, String idCont) {
+		super(nombre,idDiagrama,idCont);
+		this.diagramas = new LinkedList<Diagrama>();
+		this.componentes = new LinkedList<Componente>();
+	}
 
 	public List<Diagrama> getDiagramas() {
 		return diagramas;
@@ -25,4 +32,5 @@ public class Diagrama extends ComponenteNombre {
 	public List<Componente> getComponentes() {
 		return componentes;
 	}
+	
 }
