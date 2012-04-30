@@ -13,8 +13,8 @@ public class DiagramaRepresentacion extends ComponenteRepresentacion {
 	protected List<ComponenteRepresentacion> componentes;
 	
 	public DiagramaRepresentacion() {
-		this.diagramas = new LinkedList<>();
-		this.componentes = new LinkedList<>();
+		this.diagramas = new LinkedList<DiagramaRepresentacion>();
+		this.componentes = new LinkedList<ComponenteRepresentacion>();
 	}
 	
 	public List<ComponenteRepresentacion> getComponentes() {
