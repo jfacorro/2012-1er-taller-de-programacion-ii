@@ -45,10 +45,6 @@ public class Menu extends JToolBar {
 		}));
 	}
 	
-	private JButton crearBoton(String texto) {
-		return this.crearBoton(texto, null, null);
-	}
-	
 	private JButton crearBoton(String texto, String icono) {
 		return this.crearBoton(texto, icono, null);
 	}
@@ -70,9 +66,5 @@ public class Menu extends JToolBar {
 		
 		
 		return boton;
-	}
-
-	private JButton crearBotonAbrirProyecto() {
-		return new JButton("Abrir Proyecto");
 	}
 }
