@@ -1,4 +1,5 @@
 package SWTTest;
+
 /*******************************************************************************
  * Copyright (c) 2000, 2004 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
@@ -10,7 +11,6 @@ package SWTTest;
  *     IBM Corporation - initial API and implementation
  *******************************************************************************/
 
-
 /* 
  * example snippet: Hello World
  *
@@ -21,13 +21,14 @@ import org.eclipse.swt.widgets.*;
 
 public class Snippet1 {
 
-public static void main (String [] args) {
-	Display display = new Display ();
-	Shell shell = new Shell(display);
-	shell.open ();
-	while (!shell.isDisposed ()) {
-		if (!display.readAndDispatch ()) display.sleep ();
+	public static void main(String[] args) {
+		Display display = new Display();
+		Shell shell = new Shell(display);
+		shell.open();
+		while (!shell.isDisposed()) {
+			if (!display.readAndDispatch())
+				display.sleep();
+		}
+		display.dispose();
 	}
-	display.dispose ();
-}
 }
