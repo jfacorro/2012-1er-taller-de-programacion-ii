@@ -13,8 +13,11 @@ import org.eclipse.swt.widgets.Shell;
  * A test class to display a UMLFigure
  */
 public class UMLClassFigureTest {
-	public static void main(String args[]) {
 
+	public static void main(String args[]) {
+		ClassLoader classLoader = Thread.currentThread()
+				.getContextClassLoader();
+		String iconosPath = "recursos/iconos/";
 		Display d = new Display();
 		final Shell shell = new Shell(d);
 		shell.setSize(400, 400);
@@ -26,52 +29,54 @@ public class UMLClassFigureTest {
 
 		Font classFont = new Font(null, "Arial", 12, SWT.BOLD);
 		Label classLabel1 = new Label("Table", new Image(d,
-				UMLClassFigureTest.class.getResourceAsStream("class_obj.gif")));
+				classLoader.getResourceAsStream(iconosPath + "class_obj.gif")));
 		classLabel1.setFont(classFont);
 
 		Label classLabel2 = new Label("Column", new Image(d,
-				UMLClassFigureTest.class.getResourceAsStream("class_obj.gif")));
+				classLoader.getResourceAsStream(iconosPath + "class_obj.gif")));
 		classLabel2.setFont(classFont);
 
 		final UMLClassFigure classFigure = new UMLClassFigure(classLabel1);
 		final UMLClassFigure classFigure2 = new UMLClassFigure(classLabel2);
 
 		Label attribute1 = new Label("columns: Column[]", new Image(d,
-				UMLClassFigure.class
-						.getResourceAsStream("field_private_obj.gif")));
+				classLoader.getResourceAsStream(iconosPath
+						+ "field_private_obj.gif")));
 		Label attribute2 = new Label("rows: Row[]", new Image(d,
-				UMLClassFigure.class
-						.getResourceAsStream("field_private_obj.gif")));
+				classLoader.getResourceAsStream(iconosPath
+						+ "field_private_obj.gif")));
 		Label attribute3 = new Label("columnID: int", new Image(d,
-				UMLClassFigure.class
-						.getResourceAsStream("field_private_obj.gif")));
+				classLoader.getResourceAsStream(iconosPath
+						+ "field_private_obj.gif")));
 		Label attribute4 = new Label("items: List", new Image(d,
-				UMLClassFigure.class
-						.getResourceAsStream("field_private_obj.gif")));
+				classLoader.getResourceAsStream(iconosPath
+						+ "field_private_obj.gif")));
 
 		classFigure.getAttributesCompartment().add(attribute1);
 		classFigure.getAttributesCompartment().add(attribute2);
 		classFigure2.getAttributesCompartment().add(attribute3);
 		classFigure2.getAttributesCompartment().add(attribute4);
 
-		Label method1 = new Label("getColumns(): Column[]", new Image(d,
-				UMLClassFigure.class.getResourceAsStream("methpub_obj.gif")));
-		Label method2 = new Label("getRows(): Row[]", new Image(d,
-				UMLClassFigure.class.getResourceAsStream("methpub_obj.gif")));
-		Label method3 = new Label("getColumnID(): int", new Image(d,
-				UMLClassFigure.class.getResourceAsStream("methpub_obj.gif")));
-		Label method4 = new Label("getItems(): List", new Image(d,
-				UMLClassFigure.class.getResourceAsStream("methpub_obj.gif")));
+		Label method1 = new Label("getColumns(): Column[]",
+				new Image(d, classLoader.getResourceAsStream(iconosPath
+						+ "methpub_obj.gif")));
+		Label method2 = new Label("getRows(): Row[]",
+				new Image(d, classLoader.getResourceAsStream(iconosPath
+						+ "methpub_obj.gif")));
+		Label method3 = new Label("getColumnID(): int",
+				new Image(d, classLoader.getResourceAsStream(iconosPath
+						+ "methpub_obj.gif")));
+		Label method4 = new Label("getItems(): List",
+				new Image(d, classLoader.getResourceAsStream(iconosPath
+						+ "methpub_obj.gif")));
 
 		classFigure.getMethodsCompartment().add(method1);
 		classFigure.getMethodsCompartment().add(method2);
 		classFigure2.getMethodsCompartment().add(method3);
 		classFigure2.getMethodsCompartment().add(method4);
 
-		contentsLayout
-				.setConstraint(classFigure, new Rectangle(10, 10, -1, -1));
-		contentsLayout.setConstraint(classFigure2, new Rectangle(200, 200, -1,
-				-1));
+		contentsLayout.setConstraint(classFigure, new Rectangle(10, 10, -1, -1));
+		contentsLayout.setConstraint(classFigure2, new Rectangle(200, 200, -1, -1));
 
 		/* Creating the connection */
 		PolylineConnection c = new PolylineConnection();
