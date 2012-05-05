@@ -2,9 +2,12 @@ package mereditor.interfaz.swt;
 
 import mereditor.modelo.Entidad;
 
+import org.eclipse.draw2d.ChopboxAnchor;
 import org.eclipse.draw2d.Figure;
 import org.eclipse.draw2d.LightweightSystem;
+import org.eclipse.draw2d.PolylineConnection;
 import org.eclipse.draw2d.XYLayout;
+import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
@@ -27,8 +30,10 @@ public class Principal {
 		Principal principal = new Principal(shell);
 		principal.mostrar();
 		
-		principal.agregarEntidad(new Entidad("Boleteria"));
-		principal.agregarEntidad(new Entidad("Fila"));
+		Figure fig1 = principal.agregarEntidad(new Entidad("Boleteria"), new Point(10, 10));
+		Figure fig2 = principal.agregarEntidad(new Entidad("Fila"), new Point(200, 200));
+		
+		principal.agregarConexion(fig1, fig2);
 
 		while (!shell.isDisposed())
 			while (!display.readAndDispatch())
@@ -52,14 +57,26 @@ public class Principal {
 		this.shell.open();
 	}
 	
-	public void agregarEntidad(Entidad entidad)
+	public Figure agregarEntidad(Entidad entidad, Point posicion)
 	{
 		EntidadFigure entidadFigure = new EntidadFigure(entidad);
 		DragDropControlador dragDropCtrl = new DragDropControlador();
 		entidadFigure.addMouseListener(dragDropCtrl);
 		entidadFigure.addMouseMotionListener(dragDropCtrl);
 		
-		contentsLayout.setConstraint(entidadFigure, new Rectangle(10, 10, 100, 100));
-		this.contents.add(entidadFigure);		
+		contentsLayout.setConstraint(entidadFigure, new Rectangle(posicion.x, posicion.y, 100, 100));
+		this.contents.add(entidadFigure);
+		
+		return entidadFigure;
+	}
+	
+	public void agregarConexion(Figure f1, Figure f2) {
+		PolylineConnection c = new PolylineConnection();
+		ChopboxAnchor sourceAnchor = new ChopboxAnchor(f1);
+		ChopboxAnchor targetAnchor = new ChopboxAnchor(f2);
+		c.setSourceAnchor(sourceAnchor);
+		c.setTargetAnchor(targetAnchor);
+		
+		this.contents.add(c);
 	}
 }
