@@ -1,15 +1,23 @@
+<!DOCTYPE Modelo SYSTEM "relacion-comp.dtd">
 <PruebaRelacion>
 	<Relacion id="6">
 		<Nombre>FO</Nombre>
-		<Tipo>asociacion</Tipo>
+		<TipoRelacion tipo="ASOCIACION"/>
 		<Participantes>
-			<Participante id="4" cardMin="0" cardMax="500" />
-			<Participante id="5" cardMin="1" cardMax="1" />
+			<Participante>
+				<RefEntidad id="4"/>
+				<Cardinalidad min="0" max="500"/>
+			</Participante> 
+			<Participante>
+				<RefEntidad id="5"/>
+				 <Cardinalidad min="1" max="1"/>
+			</Participante>
 		</Participantes>
 		<Atributos>
 			<Atributo id="17">
 				<Nombre>fecha</Nombre>
-				<Tipo>caracterizacion</Tipo>
+				<Cardinalidad min="1" max="1"/>
+				<TipoAtributo tipo="CARACTERIZACION" />
 			</Atributo>
 		</Atributos>
 	</Relacion>

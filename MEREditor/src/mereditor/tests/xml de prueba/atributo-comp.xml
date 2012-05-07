@@ -1,7 +1,8 @@
+<!DOCTYPE Modelo SYSTEM "atributo-comp.dtd"> 
 <PruebaAtributoSimple>
 			<Atributo id="1">
 				<Nombre>fila</Nombre>
 				<Cardinalidad min="1" max="*" />
-				<Tipo>caracterizacion</Tipo>
+				<TipoAtributo tipo="CARACTERIZACION" />
 			</Atributo>
 </PruebaAtributoSimple>
