@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!ELEMENT Modelo (Entidad*,Relacion*,Jerarquia*,Diagrama,Validacion)>
+<!ELEMENT Entidad (Nombre,TipoEntidad,Atributos,IdentificadoresInternos?,IdentificadoresExternos?)>
+<!ELEMENT Relacion (Nombre,TipoRelacion,Participantes,Atributos?)>
+<!ELEMENT Jerarquia (TipoJerarquia,Generica,Derivadas)>
+<!ELEMENT Diagrama (Nombre,Componentes?,Diagramas?,Validacion)>
+<!ELEMENT Validacion (Observaciones) >
+
+<!ELEMENT Nombre (#PCDATA)>
+<!ELEMENT TipoAtributo EMPTY>
+<!ELEMENT TipoRelacion EMPTY>
+<!ELEMENT TipoJerarquia EMPTY>
+<!ELEMENT TipoEntidad EMPTY>
+<!ELEMENT Atributos (Atributo+)>
+<!ELEMENT Atributo (Nombre,Cardinalidad,TipoAtributo,Formula?,Atributos?) >
+<!ELEMENT IdentificadoresInternos (RefAtributo+)>
+<!ELEMENT IdentificadoresExternos (RefEntidad+)>
+<!ELEMENT Participantes (Participante+)>
+<!ELEMENT Participante (RefEntidad,Cardinalidad,Rol?)>
+<!ELEMENT Formula (#PCDATA)>
+<!ELEMENT Rol (#PCDATA)>
+<!ELEMENT Cardinalidad EMPTY>
+<!ELEMENT RefAtributo EMPTY>
+<!ELEMENT RefEntidad EMPTY>
+<!ELEMENT Generica (RefEntidad)>
+<!ELEMENT Derivadas (RefEntidad+)>
+<!ELEMENT Componentes (RefComponente+)>
+<!ELEMENT Diagramas (Diagrama+)>
+<!ELEMENT Observaciones (#PCDATA)>
+<!ELEMENT RefComponente EMPTY>
+
+<!ATTLIST Atributo id CDATA #REQUIRED>
+<!ATTLIST Entidad id CDATA #REQUIRED>
+<!ATTLIST Relacion id CDATA #REQUIRED>
+<!ATTLIST Jerarquia id CDATA #REQUIRED>
+<!ATTLIST Diagrama id CDATA #REQUIRED>
+<!ATTLIST Validacion estado (VALIDADO|SIN_VALIDAR) #REQUIRED>
+<!ATTLIST Cardinalidad min CDATA "1">
+<!ATTLIST Cardinalidad max CDATA "1">
+<!ATTLIST RefAtributo id CDATA #REQUIRED>
+<!ATTLIST RefEntidad id CDATA #REQUIRED>
+<!ATTLIST RefComponente id CDATA #REQUIRED>
+<!ATTLIST TipoAtributo tipo (CARACTERIZACION|DERIVADO_COPIA|DERIVADO_CALCULO) #REQUIRED>
+<!ATTLIST TipoRelacion tipo (ASOCIACION|COMPOSICION) #REQUIRED>
+<!ATTLIST TipoJerarquia tipo (TOTAL_EXCLUSIVA|TOTAL_SUPERPUESTA|PARCIAL_EXCLUSIVA|PARCIAL_SUPERPUESTA) #REQUIRED>
+<!ATTLIST TipoEntidad tipo (MAESTRA_COSA|MAESTRA_DOMINIO|TRANSACCIONAL_HISTORICA|TRANSACCIONAL_PROGRAMADA) #REQUIRED> 

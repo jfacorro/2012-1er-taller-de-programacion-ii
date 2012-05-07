@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!ELEMENT PruebaAtributoCompuesto (Atributo)>
+<!ELEMENT Atributo (Nombre,Cardinalidad,TipoAtributo,Formula?,Atributos?) >
+<!ELEMENT Atributos (Atributo+)>
+<!ELEMENT Nombre (#PCDATA)>
+<!ELEMENT Cardinalidad EMPTY>
+<!ELEMENT TipoAtributo EMPTY>
+<!ELEMENT Formula (#PCDATA)>
+
+<!ATTLIST Atributo id CDATA #REQUIRED>
+<!ATTLIST Cardinalidad min CDATA "1">
+<!ATTLIST Cardinalidad max CDATA "1">
+<!ATTLIST TipoAtributo tipo (CARACTERIZACION|DERIVADO_COPIA|DERIVADO_CALCULO) #REQUIRED>
