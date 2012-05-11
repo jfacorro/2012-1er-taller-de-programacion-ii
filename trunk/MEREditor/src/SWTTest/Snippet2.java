@@ -1,18 +1,61 @@
 package SWTTest;
 
 
+import mereditor.modelo.Atributo;
+import mereditor.modelo.Diagrama;
+import mereditor.modelo.Entidad;
+import mereditor.modelo.Atributo.TipoAtributo;
+import mereditor.modelo.Entidad.TipoEntidad;
+
+
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.graphics.Color;
-import org.eclipse.swt.graphics.GC;
-import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.Rectangle;
-import org.eclipse.swt.layout.FillLayout;
+import org.eclipse.swt.layout.FormAttachment;
+import org.eclipse.swt.layout.FormData;
+import org.eclipse.swt.layout.FormLayout;
 import org.eclipse.swt.widgets.*;
 
 public class Snippet2 {
+		
+	public static void main(String[] args) {
+		Display display = new Display();
+		Shell shell = new Shell(display);
+		FormLayout layout= new FormLayout();
+		shell.setLayout(layout);
+		crearMenu(shell);
+		ToolBar bar = crearToolBar(shell);
+		Tree tree= crearArbol(shell);
+		FormData fdata= new FormData();
+		fdata.bottom= new FormAttachment (10,0);
+		bar.setLayoutData(fdata);
+		fdata= new FormData();
+		fdata.top= new FormAttachment (bar,0);
+		fdata.bottom= new FormAttachment (0,shell.getClientArea().height);
+		tree.setLayoutData(fdata);
+		
+		shell.open();
+		while (!shell.isDisposed()) {
+			if (!display.readAndDispatch())
+				display.sleep();
+		}
+		display.dispose();
+	}
+
+	private static ToolBar crearToolBar(Shell shell) {
+		ToolBar toolBar = new ToolBar(shell,SWT.FLAT);
+		ToolItem item= new ToolItem(toolBar,SWT.DROP_DOWN);
+		item.setText("Diagrama");
+		item=new ToolItem(toolBar,SWT.DROP_DOWN);
+		item.setText("Relacion");	
+		item=new ToolItem(toolBar,SWT.DROP_DOWN);
+		item.setText("Jerarquia");
+		item=new ToolItem(toolBar,SWT.DROP_DOWN);
+		item.setText("Entidad");
+		return toolBar;
+	}
+
 	
-	
-	static void crearMenu(Shell shell) {
+	static Menu crearMenu(Shell shell) {
 		Menu bar = new Menu (shell, SWT.BAR);
 		shell.setMenuBar (bar);
 		MenuItem fileItem = new MenuItem (bar, SWT.CASCADE);
@@ -29,61 +72,24 @@ public class Snippet2 {
 		item.setAccelerator (SWT.MOD1 + 'A');
 		Rectangle clientArea = shell.getClientArea ();
 		bar.setLocation (clientArea.x, clientArea.y);
-
+		return bar;
 	}
 	
-	private static void crearArbol (Shell shell){
-		
-		final Tree tree = new Tree (shell, SWT.BORDER);
-		for (int i=0; i<4; i++) {
-			TreeItem iItem = new TreeItem (tree, 0);
-			iItem.setText ("TreeItem (0) -" + i);
-			for (int j=0; j<4; j++) {
-				TreeItem jItem = new TreeItem (iItem, 0);
-				jItem.setText ("TreeItem (1) -" + j);
-				for (int k=0; k<4; k++) {
-					TreeItem kItem = new TreeItem (jItem, 0);
-					kItem.setText ("TreeItem (2) -" + k);
-					for (int l=0; l<4; l++) {
-						TreeItem lItem = new TreeItem (kItem, 0);
-						lItem.setText ("TreeItem (3) -" + l);
-					}
-				}
-			}
-		}
-		
+	private static Tree crearArbol (Shell shell){
+		ComponenteArbol c = new ComponenteArbol ( new Diagrama ("DiagramaPpal", "id", "id"));
+		Entidad e2 = new Entidad ("casa", "id2", "id", TipoEntidad.MAESTRA);
+		ComponenteArbol c2= new ComponenteArbol ( e2);
+		Atributo a = new Atributo("direccion","id3","id2","1","1",TipoAtributo.CARACTERIZACION,null) ;
+		e2.agregarAtributo(a);
+		ComponenteArbol c3= new ComponenteArbol (a );
+		final Tree tree = new Tree (shell, SWT.BORDER | SWT.NO_SCROLL);
+		tree.addListener(SWT.MouseDoubleClick, new TreeEventListener(tree));
+		TreeItem t= c.agregarA(tree);
+		TreeItem t2= c2.agregarA(t);
+		c3.agregarA(t2);	
+		return tree;
 	}
-	public static void main(String[] args) {
-		Display display = new Display();
-		Shell shell = new Shell(display);
-		FillLayout layout= new FillLayout();
-		layout.type=SWT.HORIZONTAL;
-		shell.setLayout(layout);
-		crearMenu(shell);
-		crearArbol(shell);
-		crearAreaDeEdicion(shell,display);
-		shell.open();
-		while (!shell.isDisposed()) {
-			if (!display.readAndDispatch())
-				display.sleep();
-		}
-		display.dispose();
-	}
-
-	private static void crearAreaDeEdicion(Shell shell,Display display) {
-		Rectangle clientArea = shell.getClientArea ();
-		Image image = new Image (display, clientArea.height, clientArea.width);
-		Color color = display.getSystemColor (SWT.COLOR_DARK_BLUE);
-		GC gc = new GC (image);
-		gc.setBackground (color);
-		gc.fillRectangle (image.getBounds ());
-		gc.dispose ();
-		Label label = new Label (shell, SWT.BORDER);
-		label.setLocation (clientArea.x, clientArea.y);
-		label.setImage (image);
-		label.pack ();
-		
-	}
+	
 
 	
 }
