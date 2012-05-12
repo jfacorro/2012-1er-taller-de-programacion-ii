@@ -1,6 +1,5 @@
 package SWTTest;
 
-
 import mereditor.modelo.Atributo;
 import mereditor.modelo.Diagrama;
 import mereditor.modelo.Entidad;
@@ -42,16 +41,34 @@ public class Snippet2 {
 	}
 
 	private static ToolBar crearToolBar(Shell shell) {
-		ToolBar toolBar = new ToolBar(shell,SWT.FLAT);
-		ToolItem item= new ToolItem(toolBar,SWT.DROP_DOWN);
-		item.setText("Diagrama");
-		item=new ToolItem(toolBar,SWT.DROP_DOWN);
-		item.setText("Relacion");	
-		item=new ToolItem(toolBar,SWT.DROP_DOWN);
-		item.setText("Jerarquia");
-		item=new ToolItem(toolBar,SWT.DROP_DOWN);
-		item.setText("Entidad");
-		return toolBar;
+		ToolBarConMenuDesplegable toolBar = new ToolBarConMenuDesplegable(shell,SWT.NONE);
+		/*Creo el menu para el item Entidad*/
+		Menu imenu= new Menu (shell,SWT.POP_UP);
+		MenuItem menu_item = new MenuItem (imenu,SWT.PUSH);
+		menu_item.setText("Agregar Entidad Global");
+		menu_item= new MenuItem (imenu,SWT.PUSH);
+		menu_item.setText("Agregar Nueva Entidad");
+		/*Creo el item Entidad con el menu anterior*/
+		toolBar.agregarItem("Entidad", imenu);
+		
+		imenu= new Menu (shell, SWT.POP_UP);
+		menu_item= new MenuItem (imenu, SWT.PUSH);
+		menu_item.setText("Agregar Nueva Relacion");
+		toolBar.agregarItem("Relacion", imenu);
+		
+		imenu= new Menu (shell, SWT.POP_UP);
+		menu_item= new MenuItem (imenu, SWT.PUSH);
+		menu_item.setText("Agregar Nueva Jerarquia");
+		toolBar.agregarItem("Jerarquia", imenu);
+		
+		imenu= new Menu (shell, SWT.POP_UP);
+		menu_item= new MenuItem (imenu, SWT.PUSH);
+		menu_item.setText("Agregar Nuevo Diagrama");
+		toolBar.agregarItem("Diagrama", imenu);
+		
+		ToolItem t_item= new ToolItem (toolBar.getToolBar(),SWT.PUSH);
+		t_item.setText("Validar");
+		return toolBar.getToolBar();
 	}
 
 	
