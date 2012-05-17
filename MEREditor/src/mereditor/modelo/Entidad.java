@@ -10,8 +10,10 @@ import mereditor.modelo.Atributo;
 public class Entidad extends ComponenteNombre {
 	
 	public enum TipoEntidad {
-		MAESTRA,
-		TRANSACCIONAL
+		MAESTRA_COSA, 
+		MAESTRA_DOMINIO,
+		TRANSACCIONAL_HISTORICA,
+		TRANSACCIONAL_PROGRAMADA
 	}
 	
 	protected List<Atributo> atributos;
