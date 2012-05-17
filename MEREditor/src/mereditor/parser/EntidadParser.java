@@ -19,7 +19,7 @@ public class EntidadParser extends ComponenteConAtributosParser implements Linke
 	private static final String IDS_EXTERNOS_TAG = "IdentificadoresExternos";
 	private static final String ATRIBUTO_REF_TAG = "Atributo";
 	private static final String ENTIDAD_REF_TAG = "Entidad";
-	private static final String TIPO_TAG = "Tipo";
+	private static final String TIPO_TAG = "TipoEntidad";
 	
 	protected ListadoDeComponentesParser idsExtParser;
 	protected ListadoDeComponentesParser idsIntParser;
@@ -63,17 +63,10 @@ public class EntidadParser extends ComponenteConAtributosParser implements Linke
 
 
 	private void parsearTipo(Element item) {
-		String t= null;
-		if ( (t= parsearString (item, TIPO_TAG)) == null )
+		if (! item.getNodeName().equals(TIPO_TAG) )
 			return;
+		String t= item.getAttribute("tipo");
 		tipoEntidad= Entidad.TipoEntidad.valueOf(t);	
-	}
-
-
-	private String parsearString(Element item, String tag) {
-		if ( item.getNodeName() != tag )
-			return null;
-		return item.getTextContent().trim();
 	}
 
 	

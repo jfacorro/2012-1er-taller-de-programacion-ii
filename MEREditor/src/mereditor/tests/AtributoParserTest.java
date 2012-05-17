@@ -54,12 +54,13 @@ public class AtributoParserTest extends TestCase {
 		/*Comparacion*/
 		assertFalse ( parser.getAtributo().getNombre()== null);
 		assertTrue ( parser.getAtributo().getIdComponente().equals( atributoSimple.getIdComponente() ) );
-		//assertTrue ( parser.getAtributo().getIdContenedor().equals( atributoSimple.getIdContenedor() ) );
 		assertTrue ( parser.getAtributo().getNombre().equals( atributoSimple.getNombre() ) );
 		assertTrue ( parser.getTipoAtributo().equals(TIPO_ATTR));
 		assertTrue ( parser.getCardMin().equals(CARD_MIN));
 		assertTrue ( parser.getCardMax().equals(CARD_MAX));
 		assertTrue ( parser.getAtributosContenidos().size() == 0 );
+		
+		//assertTrue ( parser.getAtributo().getIdContenedor().equals( atributoSimple.getIdContenedor() ) );
 	}
 
 	public void testParsearAtributoCompuesto() throws Exception{
