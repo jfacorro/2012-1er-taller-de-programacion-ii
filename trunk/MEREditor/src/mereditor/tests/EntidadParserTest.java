@@ -25,7 +25,7 @@ public class EntidadParserTest extends TestCase {
 
 	
 	private static final String ID_DIAGRAMA = "i354x";
-	private static final TipoEntidad TIPO_ENT = Entidad.TipoEntidad.MAESTRA;
+	private static final TipoEntidad TIPO_ENT = Entidad.TipoEntidad.MAESTRA_COSA;
 	private static final String PATH_ARCHIVO_DE_ENTIDADPARSERTEST = "src/mereditor/tests/xml de prueba/entidad-comp.xml";
 	private Element elementoAParsear;
 	private Componente entidadParseada;
@@ -61,9 +61,9 @@ public class EntidadParserTest extends TestCase {
 		idsAComparar= new ArrayList<ComponenteNombre>();
 		refsAEntidades= new ArrayList<ComponenteNombre>();
 
-		Entidad ref1= new Entidad ("EntidadReferenciada","3", ID_DIAGRAMA, TipoEntidad.MAESTRA);
-		Entidad ref2= new Entidad ("EntidadReferenciada","4", ID_DIAGRAMA,TipoEntidad.MAESTRA);
-		Entidad ref3= new Entidad ("EntidadReferenciada","8", ID_DIAGRAMA,TipoEntidad.MAESTRA);
+		Entidad ref1= new Entidad ("EntidadReferenciada","3", ID_DIAGRAMA, TipoEntidad.MAESTRA_COSA);
+		Entidad ref2= new Entidad ("EntidadReferenciada","4", ID_DIAGRAMA,TipoEntidad.MAESTRA_COSA);
+		Entidad ref3= new Entidad ("EntidadReferenciada","8", ID_DIAGRAMA,TipoEntidad.MAESTRA_COSA);
 		refsAEntidades.add( ref1 );
 		refsAEntidades.add( ref2 );
 		refsAEntidades.add( ref3 );

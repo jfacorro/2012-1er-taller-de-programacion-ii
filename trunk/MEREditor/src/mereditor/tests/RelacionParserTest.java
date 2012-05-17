@@ -62,8 +62,8 @@ public class RelacionParserTest extends TestCase {
 		assertTrue (parseada.getNombre().equals(NOMBRE_RELACION));
 		assertTrue (parseada.getTipo().equals(TIPO_RELACION));
 		List<Componente> entidadesALinkear= new ArrayList<Componente>();
-		entidadesALinkear.add(new Entidad("e1","4",ID_CONT_RELACION,TipoEntidad.MAESTRA) );
-		entidadesALinkear.add(new Entidad("e2","5",ID_CONT_RELACION,TipoEntidad.MAESTRA) );
+		entidadesALinkear.add(new Entidad("e1","4",ID_CONT_RELACION,TipoEntidad.MAESTRA_COSA) );
+		entidadesALinkear.add(new Entidad("e2","5",ID_CONT_RELACION,TipoEntidad.MAESTRA_COSA) );
 		
 	}
  

@@ -94,7 +94,7 @@ public class Snippet2 {
 	
 	private static Tree crearArbol (Shell shell){
 		ComponenteArbol c = new ComponenteArbol ( new Diagrama ("DiagramaPpal", "id", "id"));
-		Entidad e2 = new Entidad ("casa", "id2", "id", TipoEntidad.MAESTRA);
+		Entidad e2 = new Entidad ("casa", "id2", "id", TipoEntidad.MAESTRA_COSA);
 		ComponenteArbol c2= new ComponenteArbol ( e2);
 		Atributo a = new Atributo("direccion","id3","id2","1","1",TipoAtributo.CARACTERIZACION,null) ;
 		e2.agregarAtributo(a);

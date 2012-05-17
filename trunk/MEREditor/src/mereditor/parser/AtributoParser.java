@@ -15,7 +15,7 @@ public class AtributoParser extends ComponenteConAtributosParser {
 
 	public static final String ATRIBUTO_TAG = "Atributo";
 	
-	private static final String TIPO_TAG = "Tipo";
+	private static final String TIPO_TAG = "TipoAtributo";
 
 	private static final String CARDINALIDAD_TAG = "Cardinalidad";
 	private static final String CARD_MIN_TAG = "min";
@@ -35,8 +35,6 @@ public class AtributoParser extends ComponenteConAtributosParser {
 		//obtengo el id del atributo
 		String id = item.getAttributes().item(0).getNodeValue();
 		//falta obtener el id del contenedor
-		
-
 		
 		NodeList hijos = item.getChildNodes();
 		
@@ -59,8 +57,8 @@ public class AtributoParser extends ComponenteConAtributosParser {
 	private void obtenerTipoAttr(Node item ) {
 		String aux;
 		if (item.getNodeName()== TIPO_TAG){
-			aux= item.getTextContent().trim();
-			tipoAttr= TipoAtributo.valueOf(aux.toUpperCase());
+			aux= item.getAttributes().item(0).getNodeValue();
+			tipoAttr= TipoAtributo.valueOf(aux);
 		}
 	}
 
