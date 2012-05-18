@@ -14,7 +14,7 @@ public class DiagramaParser implements ElementParser, Linkeable {
 	private static final String DIAGRAMAS_TAG = "Diagramas";
 	private static final String DIAGRAMA_REF_TAG = "Diagrama";
 	private static final String COMPONENTES_TAG = "Componentes";
-	private static final String COMP_REF_TAG = "Componente";
+	private static final String COMP_REF_TAG = "RefComponente";
 	
 	protected String idD;
 	protected String idC;
