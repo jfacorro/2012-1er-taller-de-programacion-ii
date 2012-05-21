@@ -9,7 +9,7 @@
  *     IBM Corporation - initial API and implementation
  ******************************************************************************/
 
-package org.eclipse.gef.examples.digraph1.model;
+package mereditor.interfaz.model;
 
 /**
  * The node model object which describes a node in the directed graph.

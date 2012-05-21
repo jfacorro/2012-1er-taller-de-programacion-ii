@@ -1,11 +1,12 @@
 package mereditor.interfaz.view;
 
+import mereditor.interfaz.factory.Digraph1EditPartFactory;
+import mereditor.interfaz.model.Digraph1Graph;
+
 import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.gef.DefaultEditDomain;
 import org.eclipse.gef.GraphicalViewer;
 import org.eclipse.gef.editparts.FreeformGraphicalRootEditPart;
-import org.eclipse.gef.examples.digraph1.factory.Digraph1EditPartFactory;
-import org.eclipse.gef.examples.digraph1.model.Digraph1Graph;
 import org.eclipse.gef.ui.parts.ScrollingGraphicalViewer;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.part.ViewPart;

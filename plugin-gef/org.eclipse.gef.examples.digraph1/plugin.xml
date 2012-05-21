@@ -21,7 +21,7 @@
       <editor
             name="%Editor-Name"
             icon="icons/digraph.gif"
-            extensions="digraph1"
+            extensions="mreditor"
             class="mereditor.interfaz.editor.MERGraphicalEditor"
             id="mereditor.interfaz.editor.MERGraphicalEditor">
       </editor>
@@ -43,14 +43,14 @@
             class="mereditor.interfaz.rcp.MEREditorPerspective"
             fixed="true"
             name="%Perspective-Name"
-            id="org.eclipse.gef.examples.digraph1"/>
+            id="mereditor"/>
    </extension>
    <extension
          point="org.eclipse.ui.views">
       <view
-            class="org.eclipse.gef.examples.digraph1.view.Digraph1GraphicalView"
+            class="mereditor.interfaz.view.MEREditorView"
             icon="icons/digraph.gif"
-            id="org.eclipse.gef.examples.digraph1.view.Digraph1View"
+            id="mereditor.interfaz.view.MEREditorView"
             name="%View-Name">
       </view>
    </extension>
