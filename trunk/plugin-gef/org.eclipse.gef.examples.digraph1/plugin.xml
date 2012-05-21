@@ -21,9 +21,9 @@
       <editor
             name="%Editor-Name"
             icon="icons/digraph.gif"
-            extensions="mreditor"
+            extensions="mereditor"
             class="mereditor.interfaz.editor.MERGraphicalEditor"
-            id="mereditor.interfaz.editor.MERGraphicalEditor">
+            id="mereditor">
       </editor>
    </extension>
    <extension
