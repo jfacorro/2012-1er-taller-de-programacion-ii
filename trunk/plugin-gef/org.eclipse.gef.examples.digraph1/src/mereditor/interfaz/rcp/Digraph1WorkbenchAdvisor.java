@@ -1,14 +1,3 @@
-/*******************************************************************************
- * Copyright (c) 2007 IBM Corporation and others.
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
- *
- * Contributors:
- *     IBM Corporation - initial API and implementation
- ******************************************************************************/
-
 package mereditor.interfaz.rcp;
 
 import org.eclipse.ui.application.IWorkbenchWindowConfigurer;
@@ -24,7 +13,9 @@ import org.eclipse.ui.application.WorkbenchWindowAdvisor;
 public class Digraph1WorkbenchAdvisor extends WorkbenchAdvisor {
 
 	/*
-	 * @see org.eclipse.ui.application.WorkbenchAdvisor#createWorkbenchWindowAdvisor(org.eclipse.ui.application.IWorkbenchWindowConfigurer)
+	 * @see
+	 * org.eclipse.ui.application.WorkbenchAdvisor#createWorkbenchWindowAdvisor
+	 * (org.eclipse.ui.application.IWorkbenchWindowConfigurer)
 	 */
 	@Override
 	public WorkbenchWindowAdvisor createWorkbenchWindowAdvisor(
@@ -33,11 +24,13 @@ public class Digraph1WorkbenchAdvisor extends WorkbenchAdvisor {
 	}
 
 	/*
-	 * @see org.eclipse.ui.application.WorkbenchAdvisor#getInitialWindowPerspectiveId()
+	 * @see
+	 * org.eclipse.ui.application.WorkbenchAdvisor#getInitialWindowPerspectiveId
+	 * ()
 	 */
 	@Override
 	public String getInitialWindowPerspectiveId() {
-		return "org.eclipse.gef.examples.digraph1"; //$NON-NLS-1$
+		return "mereditor"; //$NON-NLS-1$
 	}
 
 }

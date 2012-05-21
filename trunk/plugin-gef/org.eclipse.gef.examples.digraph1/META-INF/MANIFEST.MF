@@ -13,7 +13,7 @@ Bundle-Localization: plugin
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
 Export-Package: mereditor.interfaz.editor,
  mereditor.interfaz.editpart,
- org.eclipse.gef.examples.digraph1.figure,
- org.eclipse.gef.examples.digraph1.model,
- org.eclipse.gef.examples.digraph1.policy
+ mereditor.interfaz.figure,
+ mereditor.interfaz.model,
+ mereditor.interfaz.policy
 Bundle-ActivationPolicy: lazy

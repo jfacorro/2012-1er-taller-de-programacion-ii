@@ -9,15 +9,15 @@
  *     IBM Corporation - initial API and implementation
  ******************************************************************************/
 
-package org.eclipse.gef.examples.digraph1.factory;
+package mereditor.interfaz.factory;
 
 import mereditor.interfaz.editpart.Digraph1GraphEditPart;
 import mereditor.interfaz.editpart.Digraph1NodeEditPart;
+import mereditor.interfaz.model.Digraph1Graph;
+import mereditor.interfaz.model.Digraph1Node;
 
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPartFactory;
-import org.eclipse.gef.examples.digraph1.model.Digraph1Graph;
-import org.eclipse.gef.examples.digraph1.model.Digraph1Node;
 
 /**
  * A factory for creating new EditParts for the directed graph.

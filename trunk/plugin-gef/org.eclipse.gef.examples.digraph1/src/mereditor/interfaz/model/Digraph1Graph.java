@@ -9,7 +9,7 @@
  *     IBM Corporation - initial API and implementation
  ******************************************************************************/
 
-package org.eclipse.gef.examples.digraph1.model;
+package mereditor.interfaz.model;
 
 import java.util.ArrayList;
 import java.util.List;

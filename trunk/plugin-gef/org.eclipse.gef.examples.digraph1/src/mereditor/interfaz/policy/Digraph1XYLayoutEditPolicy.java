@@ -9,7 +9,7 @@
  *     IBM Corporation - initial API and implementation
  ******************************************************************************/
 
-package org.eclipse.gef.examples.digraph1.policy;
+package mereditor.interfaz.policy;
 
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.commands.Command;

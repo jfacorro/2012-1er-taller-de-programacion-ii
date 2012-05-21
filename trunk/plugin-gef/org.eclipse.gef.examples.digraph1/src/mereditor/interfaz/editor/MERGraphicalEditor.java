@@ -1,11 +1,12 @@
 package mereditor.interfaz.editor;
 
+import mereditor.interfaz.factory.Digraph1EditPartFactory;
+import mereditor.interfaz.model.Digraph1Graph;
+
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.gef.DefaultEditDomain;
 import org.eclipse.gef.GraphicalViewer;
 import org.eclipse.gef.editparts.FreeformGraphicalRootEditPart;
-import org.eclipse.gef.examples.digraph1.factory.Digraph1EditPartFactory;
-import org.eclipse.gef.examples.digraph1.model.Digraph1Graph;
 import org.eclipse.gef.tools.AbstractTool;
 import org.eclipse.gef.ui.parts.GraphicalEditor;
 import org.eclipse.ui.IEditorInput;

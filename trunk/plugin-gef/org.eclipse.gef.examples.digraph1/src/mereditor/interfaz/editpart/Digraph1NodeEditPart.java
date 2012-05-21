@@ -11,13 +11,14 @@
 
 package mereditor.interfaz.editpart;
 
+import mereditor.interfaz.figure.Digraph1NodeFigure;
+import mereditor.interfaz.model.Digraph1Node;
+
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.editparts.AbstractGraphicalEditPart;
-import org.eclipse.gef.examples.digraph1.figure.Digraph1NodeFigure;
-import org.eclipse.gef.examples.digraph1.model.Digraph1Node;
 
 /**
  * The edit part which describes a node in the directed graph.
