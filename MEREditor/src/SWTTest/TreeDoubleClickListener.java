@@ -8,11 +8,11 @@ import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeItem;
 
-public class TreeEventListener implements Listener {
+public class TreeDoubleClickListener implements Listener {
 
 	Tree observado;
 	
-	public TreeEventListener (Tree t) {
+	public TreeDoubleClickListener (Tree t) {
 		observado= t;
 	}
 	
