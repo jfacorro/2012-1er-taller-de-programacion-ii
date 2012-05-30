@@ -1,91 +1,90 @@
+<!DOCTYPE note SYSTEM "modelo-comp.dtd">
 <Modelo>
-	<Entidad id="">
+	<Entidad id="_0">
 		<Nombre />
 		<Atributos>
-			<Atributo id="">
+			<Atributo id="_1" tipo="CARACTERIZACION">
 				<Nombre />
 				<Cardinalidad min="" max="" />
-				<Tipo>
-					<!-- Caracterizacion o derivado -->
-					<Formula />
-					<Origen />
-				</Tipo>
+				<!-- Caracterizacion o derivado -->
+				<Formula />
 				<!-- Para el caso que sea compuesto -->
 				<Atributos>
 					<!-- 0..* -->
-					<Atributo id="">
+					<Atributo id="_2" tipo="CARACTERIZACION">
+						<Nombre></Nombre>
+						<Cardinalidad/>
 						<!-- Misma estructura anterior -->
 					</Atributo>
 				</Atributos>
 			</Atributo>
 		</Atributos>
 		<IdentificadoresInternos>
-			<Atributo id="" />
+			<RefAtributo id="_1" />
 		</IdentificadoresInternos>
 		<IdentificadoresExternos>
-			<IdentificadorExterno>
-				<Entidad id="" />
-				<Atributo id="" />
-			</IdentificadorExterno>
+			<RefEntidad id="_1" />
 		</IdentificadoresExternos>
 	</Entidad>
-	<Relacion id="">
+	<Relacion id="_5" tipo="ASOCIACION">
 		<Nombre />
-		<Tipo />
+		<Participantes>
+			<Participante>
+				<RefEntidad id="_1" />
+				<!-- Descripcion del Rol -->
+				<Cardinalidad min="" max="" />
+				<Rol></Rol>
+			</Participante>
+		</Participantes>
 		<Atributos>
-			<Atributo id="">
+			<Atributo id="_3" tipo="CARACTERIZACION">
 				<Nombre />
 				<Cardinalidad min="" max="" />
-				<Tipo>
-					<!-- Caracterizacion o derivado -->
-					<Formula />
-					<Origen />
-				</Tipo>
+				<!-- Caracterizacion o derivado -->
+				<Formula />
 				<!-- Para el caso que sea compuesto -->
 				<Atributos>
 					<!-- 0..* -->
-					<Atributo id="">
+					<Atributo id="_4" tipo="CARACTERIZACION">
+						<Nombre />
+						<Cardinalidad min="" max="" />
 						<!-- Misma estructura anterior -->
 					</Atributo>
 				</Atributos>
 			</Atributo>
 		</Atributos>
-		<Participantes>
-			<Participante>
-				<Entidad id="" />
-				<!-- Descripcion del Rol -->
-				<Rol></Rol>
-				<Cardinalidad min="" max="" />
-			</Participante>
-		</Participantes>
 	</Relacion>
-	<Jerarquia id="">
+	<Jerarquia id="_6" tipo="TOTAL_EXCLUSIVA">		
 		<!-- 1 -->
-		<Generica id="" />
-		<Derivadas />
-				<!-- 2..* -->
-				<Entidad id="" />
-		<!-- Total (Exclusiva o superpuesta); Parcial (Exclusiva o superpuesta) -->
-		<Tipo />
+		<Generica>
+			<RefEntidad id="_1"/>
+		</Generica>
+		<Derivadas>
+			<RefEntidad id="_2"/>
+		</Derivadas>
 	</Jerarquia>
-	<Diagrama id="">
+	<Diagrama id="_7">
 		<Nombre />
 		<Componentes>
 			<!-- 0..* -->
-			<Componente id="" />
+			<Componente id="_2" />
 		</Componentes>
-		<Validacion estado="">
-			<Observaciones/>
-		</Validacion> 
 		<Diagramas>
 			<!-- 0..* -->
-			<Diagrama id="">
+			<Diagrama id="_8">
+				<Nombre></Nombre>
+				<Validacion estado="VALIDADO">
+					<Observaciones />
+				</Validacion>
 				<!-- Misma estructura anterior -->
 			</Diagrama>
 		</Diagramas>
+		<Validacion estado="SIN_VALIDAR">
+			<Observaciones/>
+		</Validacion>
 	</Diagrama>
 	<!-- Estado global de los diagramas -->
-	<Validacion estado="">
+	<Validacion estado="SIN_VALIDAR">
 		<Observaciones/>
 	</Validacion> 
 </Modelo>

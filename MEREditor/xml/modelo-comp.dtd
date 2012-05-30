@@ -1,23 +1,20 @@
 <!ELEMENT Modelo (Entidad*,Relacion*,Jerarquia*,Diagrama,Validacion)>
-<!ELEMENT Entidad (Nombre,Atributos,IdentificadoresInternos?,IdentificadoresExternos?)>
-<!ELEMENT Relacion (Nombre,TipoRelacion,Participantes,Atributos?)>
-<!ELEMENT Jerarquia (TipoJerarquia,Generica,Derivadas)>
+<!ELEMENT Entidad (Nombre,Atributos?,IdentificadoresInternos?,IdentificadoresExternos?)>
+<!ELEMENT Relacion (Nombre,Participantes,Atributos?)>
+<!ELEMENT Jerarquia (Generica,Derivadas)>
 <!ELEMENT Diagrama (Nombre,Componentes?,Diagramas?,Validacion)>
 <!ELEMENT Validacion (Observaciones) >
 
-<!ELEMENT Nombre (#CDATA)>
-<!ELEMENT TipoAtributo CARACTERIZACION|DERIVADO_COPIA|DERIVADO_CALCULO>
-<!ELEMENT TipoRelacion ASOCIACION|COMPOSICIONO>
-<!ELEMENT TipoJerarquia TOTAL_EXCLUSIVA|TOTAL_SUPERPUESTA|PARCIAL_EXCLUSIVA|PARCIAL_SUPERPUESTA>
-<!ELEMENT Atributos (Atributo+)>
-<!ELEMENT Atributo (Nombre,Cardinalidad,TipoAtributo,Formula?,Origen?,Atributos?) >
+<!ELEMENT Nombre (#PCDATA)>
+<!ELEMENT Atributos (Atributo)>
+<!ELEMENT Atributo (Nombre,Cardinalidad,Formula?,Origen?,Atributos?) >
 <!ELEMENT IdentificadoresInternos (RefAtributo+)>
 <!ELEMENT IdentificadoresExternos (RefEntidad+)>
 <!ELEMENT Participantes (Participante+)>
 <!ELEMENT Participante (RefEntidad,Cardinalidad,Rol?)>
-<!ELEMENT Formula (#CDATA)>
+<!ELEMENT Formula (#PCDATA)>
 <!ELEMENT Origen (RefAtributo)>
-<!ELEMENT Rol (#CDATA)>
+<!ELEMENT Rol (#PCDATA)>
 <!ELEMENT Cardinalidad EMPTY>
 <!ELEMENT RefAtributo EMPTY>
 <!ELEMENT RefEntidad EMPTY>
@@ -25,14 +22,18 @@
 <!ELEMENT Derivadas (RefEntidad+)>
 <!ELEMENT Componentes (Componente+)>
 <!ELEMENT Diagramas (Diagrama+)>
-<!ELEMENT Observaciones (#CDATA)>
+<!ELEMENT Observaciones (#PCDATA)>
+<!ELEMENT Componente (#PCDATA)>
 
 <!ATTLIST Atributo id ID #REQUIRED>
+<!ATTLIST Atributo tipo (CARACTERIZACION|DERIVADO_COPIA|DERIVADO_CALCULO) #REQUIRED>
 <!ATTLIST Entidad id ID #REQUIRED>
 <!ATTLIST Relacion id ID #REQUIRED>
+<!ATTLIST Relacion tipo (ASOCIACION|COMPOSICIONO) #REQUIRED>
 <!ATTLIST Jerarquia id ID #REQUIRED>
+<!ATTLIST Jerarquia tipo (TOTAL_EXCLUSIVA|TOTAL_SUPERPUESTA|PARCIAL_EXCLUSIVA|PARCIAL_SUPERPUESTA) #REQUIRED>
 <!ATTLIST Diagrama id ID #REQUIRED>
-<!ATTLIST Validacion estado VALIDADO|SIN_VALIDAR #REQUIRED>
+<!ATTLIST Validacion estado (VALIDADO|SIN_VALIDAR) #REQUIRED>
 <!ATTLIST Cardinalidad min CDATA "1">
 <!ATTLIST Cardinalidad max CDATA "1">
 <!ATTLIST RefAtributo id IDREF #REQUIRED>
