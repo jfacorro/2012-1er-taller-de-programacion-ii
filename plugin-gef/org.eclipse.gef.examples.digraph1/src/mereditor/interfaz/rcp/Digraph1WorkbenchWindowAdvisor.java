@@ -49,7 +49,7 @@ public class Digraph1WorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
 			 * since our editor does not read or write any data we are ok.
 			 */
 			IFile file = ResourcesPlugin.getWorkspace().getRoot()
-					.getFile(new Path("/project/file.digraph1")); //$NON-NLS-1$
+					.getFile(new Path("/project/ejemplo.xml")); //$NON-NLS-1$
 
 			getWindowConfigurer().getWindow().getActivePage()
 					.openEditor(new FileInPlaceEditorInput(file), "mereditor"); //$NON-NLS-1$
