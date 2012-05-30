@@ -4,6 +4,7 @@ import org.eclipse.draw2d.Figure;
 import org.eclipse.draw2d.MouseEvent;
 import org.eclipse.draw2d.MouseListener;
 import org.eclipse.draw2d.MouseMotionListener;
+import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
 
 public class DragDropControlador implements MouseListener, MouseMotionListener {
@@ -48,11 +49,9 @@ public class DragDropControlador implements MouseListener, MouseMotionListener {
 	
 	public void actualizarPosicion(Figure figure, Point start, Point current) {
 		if (!start.equals(current)) {
-			int dx = current.x - start.x;
-			int dy = current.y - start.y;
-
-			Point location = figure.getLocation();
-			figure.setLocation(new Point(location.x + dx, location.y + dy));
+			Dimension delta = start.getDifference(current);
+			current = start;
+			figure.setBounds(figure.getBounds().getTranslated(-delta.width, -delta.height));
 		}		
 	}
 }

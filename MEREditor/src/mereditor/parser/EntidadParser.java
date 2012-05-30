@@ -56,17 +56,13 @@ public class EntidadParser extends ComponenteConAtributosParser implements Linke
 				idsIntParser.parsear(item);
 			}
 		}	
-		
 	}
-
-
-
 
 	private void parsearTipo(Element item) {
 		if (! item.getNodeName().equals(TIPO_TAG) )
 			return;
 		String t= item.getAttribute("tipo");
-		tipoEntidad= Entidad.TipoEntidad.valueOf(t);	
+		tipoEntidad= Entidad.TipoEntidad.valueOf(t);
 	}
 
 	
