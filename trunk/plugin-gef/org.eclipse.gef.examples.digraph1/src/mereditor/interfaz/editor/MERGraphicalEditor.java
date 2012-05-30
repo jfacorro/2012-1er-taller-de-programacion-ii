@@ -1,7 +1,7 @@
 package mereditor.interfaz.editor;
 
-import mereditor.interfaz.factory.Digraph1EditPartFactory;
-import mereditor.interfaz.model.Digraph1Graph;
+import mereditor.interfaz.factory.FabricaEditPartMER;
+import mereditor.modelo.Diagrama;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.gef.DefaultEditDomain;
@@ -12,6 +12,9 @@ import org.eclipse.gef.ui.parts.GraphicalEditor;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IFileEditorInput;
 
+/*
+ * Vista principal
+ */
 public class MERGraphicalEditor extends GraphicalEditor {
 
 	/**
@@ -20,6 +23,8 @@ public class MERGraphicalEditor extends GraphicalEditor {
 	 * selection tool when you actually cannot for this example.
 	 */
 	public class DoNothingTool extends AbstractTool {
+
+		// FIXME
 
 		/*
 		 * @see org.eclipse.gef.tools.AbstractTool#getCommandName()
@@ -47,7 +52,7 @@ public class MERGraphicalEditor extends GraphicalEditor {
 		GraphicalViewer viewer = getGraphicalViewer();
 
 		viewer.setRootEditPart(new FreeformGraphicalRootEditPart());
-		viewer.setEditPartFactory(new Digraph1EditPartFactory());
+		viewer.setEditPartFactory(new FabricaEditPartMER());
 	}
 
 	/*
@@ -64,7 +69,7 @@ public class MERGraphicalEditor extends GraphicalEditor {
 	 */
 	@Override
 	protected void initializeGraphicalViewer() {
-		getGraphicalViewer().setContents(new Digraph1Graph());
+		getGraphicalViewer().setContents(new Diagrama());
 	}
 
 	/*

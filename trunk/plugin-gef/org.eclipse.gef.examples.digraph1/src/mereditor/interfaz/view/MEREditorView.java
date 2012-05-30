@@ -1,7 +1,7 @@
 package mereditor.interfaz.view;
 
-import mereditor.interfaz.factory.Digraph1EditPartFactory;
-import mereditor.interfaz.model.Digraph1Graph;
+import mereditor.interfaz.factory.FabricaEditPartMER;
+import mereditor.modelo.Diagrama;
 
 import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.gef.DefaultEditDomain;
@@ -24,8 +24,8 @@ public class MEREditorView extends ViewPart {
 		getGraphicalViewer().createControl(parent);
 		getGraphicalViewer().setRootEditPart(
 				new FreeformGraphicalRootEditPart());
-		getGraphicalViewer().setEditPartFactory(new Digraph1EditPartFactory());
-		getGraphicalViewer().setContents(new Digraph1Graph());
+		getGraphicalViewer().setEditPartFactory(new FabricaEditPartMER());
+		getGraphicalViewer().setContents(new Diagrama());
 		getGraphicalViewer().getControl().setBackground(
 				ColorConstants.listBackground);
 	}
