@@ -1,189 +1,162 @@
-<!DOCTYPE Modelo SYSTEM "modelo-comp.dtd"> 
+<?xml version="1.0"?>
+<!DOCTYPE Modelo SYSTEM "modelo-comp.dtd">
 <Modelo>
-	<Entidad id="0">
+	<Entidad id="_0">
 		<Nombre>Localidad</Nombre>
-		<TipoEntidad tipo="MAESTRA_COSA"/>
 		<Atributos>
-			<Atributo id="01">
+			<Atributo id="_01" tipo="CARACTERIZACION">
 				<Nombre>fila</Nombre>
 				<Cardinalidad min="1" max="1" />
-				<TipoAtributo tipo="CARACTERIZACION"/>
 			</Atributo>
-			<Atributo id="02">
+			<Atributo id="_02" tipo="CARACTERIZACION">
 				<Nombre>butaca</Nombre>
 				<Cardinalidad min="1" max="1" />
-				<TipoAtributo tipo="CARACTERIZACION"/>
 			</Atributo>
 		</Atributos>
 		<IdentificadoresExternos>
-			<RefEntidad id="2" />
+			<RefEntidad id="_2" />
 		</IdentificadoresExternos>
 	</Entidad>
-	<Entidad id="2">
+	<Entidad id="_2">
 		<Nombre>SeccionSala</Nombre>
-		<TipoEntidad tipo="MAESTRA_COSA"/>
 		<Atributos>
-			<Atributo id="24">
+			<Atributo id="_24" tipo="CARACTERIZACION">
 				<Nombre>nroSecc</Nombre>
 				<Cardinalidad min="1" max="1" />
-				<TipoAtributo tipo="CARACTERIZACION"/>
 			</Atributo>
-			<Atributo id="25">
+			<Atributo id="_25" tipo="CARACTERIZACION">
 				<Nombre>nomSecc</Nombre>
 				<Cardinalidad min="1" max="1" />
-				<TipoAtributo tipo="CARACTERIZACION"/>
 			</Atributo>
 		</Atributos>
 	</Entidad>
-	<Entidad id="4">
+	<Entidad id="_4">
 		<Nombre>Obra</Nombre>
-		<TipoEntidad tipo="MAESTRA_COSA"/>
 		<Atributos>
-			<Atributo id="41">
+			<Atributo id="_41" tipo="CARACTERIZACION">
 				<Nombre>idObra</Nombre>
 				<Cardinalidad min="1" max="1" />
-				<TipoAtributo tipo="CARACTERIZACION"/>
 			</Atributo>
-			<Atributo id="42">
+			<Atributo id="_42" tipo="CARACTERIZACION">
 				<Nombre>titulo</Nombre>
 				<Cardinalidad min="1" max="1" />
-				<TipoAtributo tipo="CARACTERIZACION"/>
 			</Atributo>
-			<Atributo id="43">
+			<Atributo id="_43" tipo="CARACTERIZACION">
 				<Nombre>autor</Nombre>
 				<Cardinalidad min="1" max="n" />
-				<TipoAtributo tipo="CARACTERIZACION"/>
 			</Atributo>
-			<Atributo id="45">
+			<Atributo id="_45" tipo="CARACTERIZACION">
 				<Nombre>director</Nombre>
 				<Cardinalidad min="1" max="n" />
-				<TipoAtributo tipo="CARACTERIZACION"/>
 			</Atributo>
-			<Atributo id="46">
+			<Atributo id="_46" tipo="CARACTERIZACION">
 				<Nombre>genero</Nombre>
 				<Cardinalidad min="1" max="1" />
-				<TipoAtributo tipo="CARACTERIZACION"/>
 			</Atributo>
-			<Atributo id="47">
+			<Atributo id="_47" tipo="CARACTERIZACION">
 				<Nombre>nroProxFunc</Nombre>
 				<Cardinalidad min="1" max="1" />
-				<TipoAtributo tipo="CARACTERIZACION"/>
 			</Atributo>
 		</Atributos>
 		<IdentificadoresInternos>
-			<RefAtributo id="41" />
-			<RefAtributo id="42" />
+			<RefAtributo id="_41" />
+			<RefAtributo id="_42" />
 		</IdentificadoresInternos>
 	</Entidad>
-	<Entidad id="5">
+	<Entidad id="_5">
 		<Nombre>Funcion</Nombre>
-		<TipoEntidad tipo="MAESTRA_COSA"/>
 		<Atributos>
-			<Atributo id="51">
+			<Atributo id="_51" tipo="CARACTERIZACION">
 				<Nombre>nroFunc</Nombre>
 				<Cardinalidad min="1" max="1" />
-				<TipoAtributo tipo="CARACTERIZACION"/>
 			</Atributo>
-			<Atributo id="52">
+			<Atributo id="_52" tipo="CARACTERIZACION">
 				<Nombre>fecha</Nombre>
 				<Cardinalidad min="1" max="1" />
-				<TipoAtributo tipo="CARACTERIZACION"/>
 			</Atributo>
-			<Atributo id="53">
+			<Atributo id="_53" tipo="CARACTERIZACION">
 				<Nombre>hora</Nombre>
 				<Cardinalidad min="1" max="1" />
-				<TipoAtributo tipo="CARACTERIZACION"/>
 			</Atributo>
 		</Atributos>
 		<IdentificadoresInternos>
-			<RefAtributo id="24" />
-			<RefAtributo id="25" />
+			<RefAtributo id="_24" />
+			<RefAtributo id="_25" />
 		</IdentificadoresInternos>
 		<IdentificadoresExternos>
-				<RefEntidad id="4" />
+				<RefEntidad id="_4" />
 		</IdentificadoresExternos>
 	</Entidad>
-	<Relacion id="3">
+	<Relacion id="_3" tipo="ASOCIACION">
 		<Nombre>SL</Nombre>
-		<TipoRelacion tipo="ASOCIACION"/>
 		<Participantes>
 			<Participante> 
-				<RefEntidad id="0"/>
+				<RefEntidad id="_0"/>
 				<Cardinalidad min="1" max="1"/>
 			</Participante> 
 			<Participante>
-				<RefEntidad id="2"/>
+				<RefEntidad id="_2"/>
 				<Cardinalidad min="1" max="n" />
 			</Participante>
 		</Participantes>
 	</Relacion>
-	<Relacion id="6">
+	<Relacion id="_6" tipo="ASOCIACION">
 		<Nombre>FO</Nombre>
-		<TipoRelacion tipo="ASOCIACION"/>
 		<Participantes> 
 			<Participante>
-				<RefEntidad id="4"/>
+				<RefEntidad id="_4"/>
 			 	<Cardinalidad min="0" max="n"/> 
 			</Participante>
 			<Participante>
-				<RefEntidad id="5"/>
+				<RefEntidad id="_5"/>
 			 	<Cardinalidad min="1" max="1" />
 			</Participante> 
 		</Participantes>
 	</Relacion>
-	<Relacion id="7">
+	<Relacion id="_7" tipo="ASOCIACION">
 		<Nombre>VtaLoc</Nombre>
-		<TipoRelacion tipo="ASOCIACION"/>
 		<Participantes>
 			<Participante>
-				<RefEntidad id="4"/>
+				<RefEntidad id="_4"/>
 				<Cardinalidad min="0" max="n" />
 			</Participante>
 			<Participante>
-			<RefEntidad id="0"/> 
-			<Cardinalidad min="0" max="n" />
+				<RefEntidad id="_0"/> 
+				<Cardinalidad min="0" max="n" />
 			</Participante>
 		</Participantes>
 		<Atributos>
-			<Atributo id="71">
+			<Atributo id="_71" tipo="CARACTERIZACION">
 				<Nombre>tarj</Nombre>
 				<Cardinalidad min="0" max="1" />
-				<TipoAtributo tipo="CARACTERIZACION"/>
 				<Atributos>
-					<Atributo id="711">
+					<Atributo id="_711" tipo="CARACTERIZACION">
 						<Nombre>nomTarj</Nombre>
 						<Cardinalidad min="1" max="1" />
-						<TipoAtributo tipo="CARACTERIZACION"/>
 					</Atributo>
-					<Atributo id="712">
+					<Atributo id="_712" tipo="CARACTERIZACION">
 						<Nombre>bco</Nombre>
 						<Cardinalidad min="1" max="1" />
-						<TipoAtributo tipo="CARACTERIZACION"/>
 					</Atributo>
-					<Atributo id="713">
+					<Atributo id="_713" tipo="CARACTERIZACION">
 						<Nombre>nroTarj</Nombre>
 						<Cardinalidad min="1" max="1" />
-						<TipoAtributo tipo="CARACTERIZACION"/>
 					</Atributo>
-					<Atributo id="714">
+					<Atributo id="_714" tipo="CARACTERIZACION">
 						<Nombre>nroAutoriz</Nombre>
 						<Cardinalidad min="1" max="1" />
-						<TipoAtributo tipo="CARACTERIZACION"/>
 					</Atributo>
-					<Atributo id="715">
+					<Atributo id="_715" tipo="CARACTERIZACION">
 						<Nombre>cr</Nombre>
 						<Cardinalidad min="0" max="1" />
-						<TipoAtributo tipo="CARACTERIZACION"/>
 						<Atributos>
-							<Atributo id="7151">
+							<Atributo id="_7151" tipo="CARACTERIZACION">
 								<Nombre>cuotas</Nombre>
 								<Cardinalidad min="1" max="1" />
-								<TipoAtributo tipo="CARACTERIZACION"/>
 							</Atributo>
-							<Atributo id="7152">
+							<Atributo id="_7152" tipo="CARACTERIZACION">
 								<Nombre>int</Nombre>
 								<Cardinalidad min="0" max="1" />
-								<TipoAtributo tipo="CARACTERIZACION"/>
 							</Atributo>
 						</Atributos>
 					</Atributo>
@@ -191,16 +164,16 @@
 			</Atributo>
 		</Atributos>
 	</Relacion>
-	<Diagrama id="99">
+	<Diagrama id="_99">
 		<Nombre>BoleteriaTeatro</Nombre>
 		<Componentes>
-			<RefComponente id="0" />
-			<RefComponente id="2" />
-			<RefComponente id="3" />
-			<RefComponente id="4" />
-			<RefComponente id="5" />
-			<RefComponente id="6" />
-			<RefComponente id="7" />
+			<Componente id="_0" />
+			<Componente id="_2" />
+			<Componente id="_3" />
+			<Componente id="_4" />
+			<Componente id="_5" />
+			<Componente id="_6" />
+			<Componente id="_7" />
 		</Componentes>
 		<Validacion estado="SIN_VALIDAR">
 			<Observaciones/>
