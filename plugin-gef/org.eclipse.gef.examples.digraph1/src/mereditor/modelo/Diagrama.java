@@ -22,9 +22,11 @@ public class Diagrama {
 
 	protected void createNodes() {
 		Entidad node = new Entidad("Obra"); //$NON-NLS-1$
+		node.setId(1);
 		this.nodes.add(node);
 
 		node = new Entidad("Teatro"); //$NON-NLS-1$
+		node.setId(2);
 		this.nodes.add(node);
 	}
 

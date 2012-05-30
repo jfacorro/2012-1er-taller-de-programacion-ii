@@ -64,7 +64,7 @@ public class Digraph1WorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
 	 */
 	@Override
 	public void preWindowOpen() {
-		getWindowConfigurer().setInitialSize(new Point(450, 300));
+		getWindowConfigurer().setInitialSize(new Point(800, 500));
 		getWindowConfigurer().setShowCoolBar(false);
 		getWindowConfigurer().setShowStatusLine(false);
 		getWindowConfigurer().setShowMenuBar(false);
