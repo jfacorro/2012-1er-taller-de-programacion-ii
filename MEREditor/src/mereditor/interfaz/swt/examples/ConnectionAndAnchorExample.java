@@ -8,8 +8,9 @@
  * Contributors:
  *     IBM Corporation - initial API and implementation
  *******************************************************************************/
-package mereditor.interfaz.swt;
+package mereditor.interfaz.swt.examples;
 
+import mereditor.interfaz.swt.EntidadFigure;
 import mereditor.modelo.Entidad;
 
 import org.eclipse.draw2d.ChopboxAnchor;
@@ -45,7 +46,7 @@ public class ConnectionAndAnchorExample extends AbstractExample {
 	}
 
 	/**
-	 * @see org.eclipse.draw2d.examples.AbstractExample#getContents()
+	 * @see mereditor.interfaz.swt.examples.examples.AbstractExample#getContents()
 	 */
 	protected IFigure getContents() {
 		IFigure panel = new Figure();
@@ -137,7 +138,7 @@ public class ConnectionAndAnchorExample extends AbstractExample {
 	}
 
 	/**
-	 * @see org.eclipse.draw2d.examples.AbstractExample#hookShell()
+	 * @see mereditor.interfaz.swt.examples.examples.AbstractExample#hookShell()
 	 */
 	protected void hookShell() {
 		getFigureCanvas().setSize(820, 440);

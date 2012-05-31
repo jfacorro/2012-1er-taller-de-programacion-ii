@@ -26,4 +26,8 @@ public class EntidadFigure extends Figure {
 		this.lblName = new Label(entidad.getNombre());
 		this.add(lblName);
 	}
+	
+	public void update() {
+		this.lblName.setText(this.entidad.getNombre());
+	}
 }

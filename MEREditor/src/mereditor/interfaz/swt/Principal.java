@@ -5,6 +5,7 @@ import mereditor.modelo.Entidad;
 import org.eclipse.draw2d.ChopboxAnchor;
 import org.eclipse.draw2d.Figure;
 import org.eclipse.draw2d.FigureCanvas;
+import org.eclipse.draw2d.PolylineConnection;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.SWT;
@@ -83,7 +84,7 @@ public class Principal {
 	}
 	
 	public void agregarConexion(Figure f1, Figure f2) {
-		CustomConnection c = new CustomConnection();
+		PolylineConnection c = new PolylineConnection();
 		//c.setTargetDecoration(new PolygonDecoration());
 		ChopboxAnchor sourceAnchor = new ChopboxAnchor(f1);
 		ChopboxAnchor targetAnchor = new ChopboxAnchor(f2);
