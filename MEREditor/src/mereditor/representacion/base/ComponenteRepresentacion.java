@@ -1,33 +1,26 @@
 package mereditor.representacion.base;
 
-import com.mxgraph.model.mxCell;
-import com.mxgraph.model.mxGeometry;
-import com.mxgraph.view.mxGraph;
+import mereditor.interfaz.swt.Figura;
+import mereditor.modelo.base.Componente;
 
-public abstract class ComponenteRepresentacion {
+import org.eclipse.draw2d.Figure;
+
+public abstract class ComponenteRepresentacion<T extends Componente> {
 	
 	protected int x, y;
 	protected int ancho, alto; 
 	
-	protected mxCell celda;
+	protected Figura<T> figura;
+	protected T componente;
 	
-	protected String estilo;
-	
-	public void dibujar(Object graphics) {
-		mxGraph graph = (mxGraph)graphics;
-		
-		mxGeometry geometry = new mxGeometry(this.getAncho(), this.getAlto(), this.getX(), this.getY());
-		geometry.setRelative(true);
-		
-		this.celda = new mxCell(this.getNombre(), geometry, this.estilo);
-		this.celda.setVertex(true);
-		this.celda.setConnectable(false);
-		
-		graph.addCell(this.celda);
-	}
+	public abstract void dibujar(Figure contenedor);
 
-	private Object getNombre() {
-		return null;
+	public T getComponente() {
+		return this.componente;
+	}
+	
+	public Figura<T> getFigura() {
+		return this.figura;
 	}
 
 	public int getX() {

@@ -5,7 +5,6 @@ import java.awt.BorderLayout;
 import javax.swing.JPanel;
 
 import mereditor.representacion.DiagramaRepresentacion;
-import mereditor.representacion.base.ComponenteRepresentacion;
 
 import com.mxgraph.model.mxCell;
 import com.mxgraph.model.mxGeometry;
@@ -35,7 +34,7 @@ public class PanelDiagrama extends JPanel {
 		this.diagrama = this.principal.getDiagramaActual();
 		
 		if(diagrama != null) {
-			this.dibujarDiagrama();
+			this.diagrama.dibujar(null);
 		}
 		
 		this.graph = new mxGraph();
@@ -71,11 +70,5 @@ public class PanelDiagrama extends JPanel {
 
 		mxGraphComponent graphComponent = new mxGraphComponent(graph);
 		this.add(graphComponent, BorderLayout.CENTER);
-	}
-
-	private void dibujarDiagrama() {
-		for (ComponenteRepresentacion componente : this.diagrama.getComponentes()) {
-			componente.dibujar(this.graph);
-		}
 	}
 }
