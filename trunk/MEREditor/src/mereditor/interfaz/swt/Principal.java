@@ -72,9 +72,7 @@ public class Principal {
 
 	public Figure agregarFigura(Figure figure, Point pos) {
 		figure.setLocation(pos);
-
 		this.contents.add(figure);
-
 		return figure;
 	}
 
