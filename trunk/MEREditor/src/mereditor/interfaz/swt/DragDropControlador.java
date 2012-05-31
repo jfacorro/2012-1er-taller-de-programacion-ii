@@ -7,7 +7,7 @@ import org.eclipse.draw2d.MouseMotionListener;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
 
-public class DragDropControlador implements MouseListener, MouseMotionListener {
+public class DragDropControlador extends MouseMotionListener.Stub implements MouseListener  {
 	private Point startPoint;
 
 	public DragDropControlador() {
@@ -15,43 +15,30 @@ public class DragDropControlador implements MouseListener, MouseMotionListener {
 	}
 
 	@Override
-	public void mouseDragged(MouseEvent evt) {
-		if (this.startPoint != null) {
-			this.actualizarPosicion((Figure)evt.getSource(), this.startPoint, evt.getLocation());
-			this.startPoint = new Point(evt.getLocation());
-		}
-	}
-
-	@Override
-	public void mouseEntered(MouseEvent evt) {}
-
-	@Override
-	public void mouseExited(MouseEvent evt) {}
-
-	@Override
-	public void mouseHover(MouseEvent evt) {}
-
-	@Override
-	public void mouseMoved(MouseEvent evt) {}
-
-	@Override
-	public void mouseDoubleClicked(MouseEvent arg0) {}
-
-	@Override
 	public void mousePressed(MouseEvent e) {
-		this.startPoint = new Point(e.getLocation());
-	}
-
-	@Override
-	public void mouseReleased(MouseEvent e) {
-		this.startPoint = null;
+		this.startPoint = e.getLocation();
+		e.consume();
 	}
 	
+	@Override
+	public void mouseDragged(MouseEvent evt) {
+		this.actualizarPosicion((Figure)evt.getSource(), this.startPoint, evt.getLocation());
+		this.startPoint = new Point(evt.getLocation());
+	}
+
+	
 	public void actualizarPosicion(Figure figure, Point start, Point current) {
-		if (!start.equals(current)) {
+		if (start != null && !start.equals(current)) {
 			Dimension delta = start.getDifference(current);
-			current = start;
 			figure.setBounds(figure.getBounds().getTranslated(-delta.width, -delta.height));
 		}		
+	}
+
+	@Override
+	public void mouseDoubleClicked(MouseEvent arg0) {		
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent arg0) {
 	}
 }

@@ -1,4 +1,4 @@
-package mereditor.interfaz.swt;
+package mereditor.interfaz.swt.examples;
 
 /*******************************************************************************
  * Copyright (c) 2005 IBM Corporation and others.
