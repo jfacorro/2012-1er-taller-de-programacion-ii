@@ -10,8 +10,9 @@ import org.eclipse.draw2d.geometry.Point;
 public class DragDropControlador extends MouseMotionListener.Stub implements MouseListener  {
 	private Point startPoint;
 
-	public DragDropControlador() {
-
+	public DragDropControlador(Figure figure) {
+		figure.addMouseListener(this);
+		figure.addMouseMotionListener(this);
 	}
 
 	@Override
