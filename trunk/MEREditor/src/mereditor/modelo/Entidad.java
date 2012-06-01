@@ -20,17 +20,11 @@ public class Entidad extends ComponenteNombre {
 	protected List<Componente> identificadores; // pueden ser tanto Atributos como Entidades
 	protected TipoEntidad tipo;
 	
-	public Entidad(String nombre) {
-		super(nombre);
-		identificadores= new LinkedList<Componente>();
-		this.atributos = new LinkedList<Atributo>();
-	}
-	
-	public Entidad (String nombre, String idEntidad, String idDiagrama, TipoEntidad t){
-		super (nombre,idEntidad,idDiagrama);
+	public Entidad (String nombre, String id, String idPadre, TipoEntidad tipo){
+		super (nombre,id,idPadre);
 		this.atributos =  new LinkedList<Atributo>();
 		this.identificadores=  new LinkedList<Componente>();
-		this.tipo= t;
+		this.tipo= tipo;
 	}
 	
 	public void agregarIdentificador (ComponenteNombre identificador ){

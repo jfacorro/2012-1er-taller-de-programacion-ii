@@ -4,10 +4,6 @@ public abstract class ComponenteNombre extends Componente {
 	
 	protected String nombre;
 	
-	public ComponenteNombre(String nombre){
-		this.nombre = nombre;
-	}
-
 	public ComponenteNombre(String nombre, String idEntidad, String idContenedor) {
 		super (idEntidad, idContenedor);
 		this.nombre= nombre;

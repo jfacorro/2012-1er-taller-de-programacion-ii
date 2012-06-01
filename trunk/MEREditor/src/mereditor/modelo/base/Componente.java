@@ -1,20 +1,30 @@
 package mereditor.modelo.base;
 
 public abstract class Componente {
-	String idComponente;
-	String idContenedor;
-	
-	public Componente (String idComp, String idCont ) {
-		idComponente= idComp;
-		idContenedor= idCont;
+	/**
+	 * Id del componente
+	 */
+	String id;
+
+	/**
+	 * Id del padre del componente
+	 */
+	String idPadre;
+
+	public Componente(String id, String idPadre) {
+		this.id = id;
+		this.idPadre = idPadre;
 	}
-	public Componente () {
-		
+
+	public Componente() {
+
 	}
-	public String getIdComponente() {
-		return idComponente;
+
+	public String getId() {
+		return id;
 	}
-	public String getIdContenedor() {
-		return idContenedor;
+
+	public String getIdPadre() {
+		return idPadre;
 	}
 }

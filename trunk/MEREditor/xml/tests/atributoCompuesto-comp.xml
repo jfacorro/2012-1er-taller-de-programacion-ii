@@ -1,44 +1,36 @@
-<!DOCTYPE Modelo SYSTEM "atributoCompuesto-comp.dtd"> 
+<!DOCTYPE Modelo SYSTEM "../modelo-comp.dtd"> 
 <PruebaAtributoCompuesto>
-	<Atributo id="0">
+	<Atributo id="_0" tipo="CARACTERIZACION">
 		<Nombre>tarj</Nombre>
 		<Cardinalidad min="0" max="1" />
-		<TipoAtributo tipo="CARACTERIZACION"/>
 		<Atributos>
-			<Atributo id="1">
+			<Atributo id="_1" tipo="CARACTERIZACION">
 				<Nombre>nomTarj</Nombre>
 				<Cardinalidad min="1" max="1" />
-				<TipoAtributo tipo="CARACTERIZACION"/>
 			</Atributo>
-			<Atributo id="2">
+			<Atributo id="_2" tipo="CARACTERIZACION">
 				<Nombre>bco</Nombre>
 				<Cardinalidad min="1" max="1" />
-				<TipoAtributo tipo="CARACTERIZACION"/>
 			</Atributo>
-			<Atributo id="3">
+			<Atributo id="_3" tipo="CARACTERIZACION">
 				<Nombre>nroTarj</Nombre>
 				<Cardinalidad min="1" max="1" />
-				<TipoAtributo tipo="CARACTERIZACION"/>
 			</Atributo>
-			<Atributo id="4">
+			<Atributo id="_4" tipo="CARACTERIZACION">
 				<Nombre>nroAutoriz</Nombre>
 				<Cardinalidad min="1" max="1" />
-				<TipoAtributo tipo="CARACTERIZACION"/>
 			</Atributo>
-			<Atributo id="5">
+			<Atributo id="_5" tipo="CARACTERIZACION">
 				<Nombre>cr</Nombre>
 				<Cardinalidad min="0" max="1" />
-				<TipoAtributo tipo="CARACTERIZACION"/>
 				<Atributos>
-					<Atributo id="1">
+					<Atributo id="_6" tipo="CARACTERIZACION">
 						<Nombre>cuotas</Nombre>
 						<Cardinalidad min="1" max="1" />
-						<TipoAtributo tipo="CARACTERIZACION"/>
 					</Atributo>
-					<Atributo id="2">
+					<Atributo id="_7" tipo="CARACTERIZACION">
 						<Nombre>int</Nombre>
 						<Cardinalidad min="0" max="1" />
-						<TipoAtributo tipo="CARACTERIZACION"/>
 					</Atributo>
 				</Atributos>
 			</Atributo>

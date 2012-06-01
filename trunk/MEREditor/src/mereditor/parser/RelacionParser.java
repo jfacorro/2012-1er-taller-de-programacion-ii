@@ -13,61 +13,45 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-public class RelacionParser extends ComponenteConAtributosParser implements
-		Linkeable {
+public class RelacionParser extends AtributosParser implements Linkeable {
 
-	public static final String tipo = "Relacion";
-	private static final String TIPO_RELACION_TAG = "TipoRelacion";
-	private static final String PARTICIPANTES_TAG = "Participantes";
-	private static final String REF_PARTICIPANTE_TAG = "Participante";
-	private static final String REF_ENTIDAD_TAG = "RefEntidad";
-	private static final String ID_TAG = "id";
-	private static final String CARD_MIN_TAG = "cardMin";
-	private static final String CARD_MAX_TAG = "cardMax";
-	private static final String ROL_TAG = "rol";
-	private static final String TIPO_RELACION_ATTR = "tipo";
-	private static final String CARDINALIDAD_TAG = "Cardinalidad";
+	public static final String tag = Constants.RELACION_TAG;
 
-	Relacion relacionParseada;
-	TipoRelacion tipoRelacion;
-	List<DatosParticipante> participantesAux;
-	List<String> refsAEntidades;
-	String idRelacion;
-	String idContenedor;
+	protected Relacion relacionParseada;
+	protected TipoRelacion tipo;
+	protected List<DatosParticipante> participantesAux;
+	protected List<String> refsAEntidades;
 
 	public RelacionParser(Parser parser) {
 		super(parser);
-		relacionParseada = null;
-		tipoRelacion = null;
 		participantesAux = new ArrayList<DatosParticipante>();
 		refsAEntidades = new ArrayList<String>();
-		idRelacion = null;
-		idContenedor = null;
 	}
 
 	public void parsear(Element nodo) {
-		NodeList hijos = nodo.getChildNodes();
-		idRelacion = nodo.getAttributes().item(0).getNodeValue();
+		List<Node> hijos = Parser.getNodeList(nodo);
+		this.id = nodo.getAttribute(Constants.ID_TAG);
+		this.tipo = TipoRelacion.valueOf(nodo
+				.getAttribute(Constants.RELACION_TIPO_ATTR));
+
 		// parsear id contenedor
-		for (int i = 0; i < hijos.getLength(); i++) {
-			Node item = hijos.item(i);
+		for (Node item : hijos) {
 			if (item instanceof Element) {
 				obtenerNombre(item);
-				parsearTipo((Element) item);
 				parsearAtributos((Element) item);
-				parsearRefAEntidades((Element) item);
+				parsearRefEntidades((Element) item);
 			}
 		}
-		relacionParseada = new Relacion(nombre, idRelacion, idContenedor,
-				tipoRelacion);
+
+		relacionParseada = new Relacion(nombre, id, idPadre, tipo);
 
 		for (int i = 0; i < atributosParseados.size(); i++)
 			relacionParseada.agregarAtributo(atributosParseados.get(i));
 
 	}
 
-	private void parsearRefAEntidades(Element item) {
-		if (item.getNodeName() != PARTICIPANTES_TAG)
+	private void parsearRefEntidades(Element item) {
+		if (item.getNodeName() != Constants.RELACION_PARTICIPANTES_TAG)
 			return;
 		NodeList entidadesNodos = item.getChildNodes();
 		String idParticipante = null;
@@ -78,7 +62,8 @@ public class RelacionParser extends ComponenteConAtributosParser implements
 		for (int i = 0; i < entidadesNodos.getLength(); i++) {
 			nodoActual = entidadesNodos.item(i);
 			if (nodoActual instanceof Element
-					&& nodoActual.getNodeName().equals(REF_PARTICIPANTE_TAG)) {
+					&& nodoActual.getNodeName().equals(
+							Constants.REF_PARTICIPANTE_TAG)) {
 				parsearRefEntidad((Element) nodoActual, idParticipante);
 				parsearCardinalidad((Element) nodoActual, cardMinParticipante,
 						cardMaxParticipante);
@@ -88,41 +73,34 @@ public class RelacionParser extends ComponenteConAtributosParser implements
 				refsAEntidades.add(idParticipante);
 			}
 		}
-
 	}
 
 	private void parsearRol(Element item, String rol) {
-		Element e = (Element) item.getElementsByTagName(ROL_TAG).item(0);
+		Element e = (Element) item.getElementsByTagName(
+				Constants.RELACION_ROL_TAG).item(0);
 		if (e != null)
 			rol = e.getTextContent();
 	}
 
 	private void parsearRefEntidad(Element item, String idParticipante) {
-		Element ref = (Element) (item.getElementsByTagName(REF_ENTIDAD_TAG)
-				.item(0));
-		idParticipante = ref.getAttribute(ID_TAG);
+		Element ref = (Element) (item
+				.getElementsByTagName(Constants.REF_ENTIDAD_TAG).item(0));
+		idParticipante = ref.getAttribute(Constants.ID_TAG);
 	}
 
 	private void parsearCardinalidad(Element item, String cardMinParticipante,
 			String cardMaxParticipante) {
-		Element c = (Element) (item.getElementsByTagName(CARDINALIDAD_TAG)
-				.item(0));
-		cardMinParticipante = c.getAttribute(CARD_MIN_TAG);
-		cardMaxParticipante = c.getAttribute(CARD_MAX_TAG);
+		Element c = (Element) (item
+				.getElementsByTagName(Constants.CARDINALIDAD_TAG).item(0));
+		cardMinParticipante = c.getAttribute(Constants.CARDINALIDAD_MIN_TAG);
+		cardMaxParticipante = c.getAttribute(Constants.CARDINALIDAD_MAX_TAG);
 
-	}
-
-	private void parsearTipo(Element item) {
-		if (item.getNodeName() == TIPO_RELACION_TAG) {
-			String t = item.getAttribute(TIPO_RELACION_ATTR);
-			tipoRelacion = TipoRelacion.valueOf(t);
-		}
 	}
 
 	public void linkear(Componente e) {
 		DatosParticipante datos = null;
 		EntidadRelacion eR = null;
-		int indexE = refsAEntidades.indexOf(e.getIdComponente());
+		int indexE = refsAEntidades.indexOf(e.getId());
 		if (indexE >= 0) { // encontro
 			datos = participantesAux.get(indexE);
 			eR = relacionParseada.new EntidadRelacion((Entidad) e, datos.rol,
@@ -136,8 +114,8 @@ public class RelacionParser extends ComponenteConAtributosParser implements
 	}
 
 	public void agregar(Parser parser) {
-		parser.agregarParserDeComponente(this);
-		parser.agregarParserLinkeable(this);
+		parser.agregarComponenteParser(this);
+		parser.agregarLinkeable(this);
 	}
 
 	protected class DatosParticipante {

@@ -9,7 +9,7 @@ public abstract class ComponenteParser {
 		this.parser = parser;
 	}
 
-	public abstract void parsear(Element nodo);
+	public abstract void parsear(Element elemento);
 
 	public abstract Object getElementoParseado();
 

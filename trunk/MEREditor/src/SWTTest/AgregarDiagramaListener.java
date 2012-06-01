@@ -16,7 +16,7 @@ public class AgregarDiagramaListener implements Listener {
 	
 	public void handleEvent(Event arg0) {
 		System.out.println("AgregarDiagrama");
-		Diagrama d = new Diagrama("nuevo","idNuevo",( (Componente) diagramaPadre.getData()).getIdComponente());
+		Diagrama d = new Diagrama("nuevo","idNuevo",( (Componente) diagramaPadre.getData()).getId());
 		ComponenteArbol nuevoDiagrama= new ComponenteArbol (d);
 		nuevoDiagrama.agregarA(diagramaPadre);
 	}

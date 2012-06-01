@@ -8,41 +8,31 @@ import mereditor.modelo.base.ComponenteNombre;
 
 public class Relacion extends ComponenteNombre {
 	public enum TipoRelacion {
-		ASOCIACION,
-		COMPOSICION
+		ASOCIACION, COMPOSICION
 	}
-	
+
 	protected TipoRelacion tipo;
 	protected List<EntidadRelacion> entidades;
 	protected List<Atributo> atributos;
 
-	/*
-	 * Constructor
-	 */
-	public Relacion(String nombre){
-		super(nombre); 		//faltan los ids del componente
+	public Relacion(String nombre, String id, String idPadre, TipoRelacion tipo) {
+		super(nombre, id, idPadre);
+		this.tipo = tipo;
 		this.atributos = new LinkedList<Atributo>();
 		this.entidades = new LinkedList<EntidadRelacion>();
 	}
-	
-	public Relacion (String nombreR, String idR, String idCont, TipoRelacion tipoR){
-		super (nombreR,idR,idCont);
-		tipo= tipoR;
-		this.atributos = new LinkedList<Atributo>();
-		this.entidades = new LinkedList<EntidadRelacion>();
-	}
-	
+
 	public void agregarAtributo(Componente atributo) {
 		atributos.add((Atributo) atributo);
 	}
-	
+
 	public void agregarParticipante(EntidadRelacion participante) {
 		entidades.add(participante);
 	}
-	
+
 	/*
 	 * Getter y setters
-	 */		
+	 */
 	public TipoRelacion getTipo() {
 		return tipo;
 	}
@@ -60,15 +50,15 @@ public class Relacion extends ComponenteNombre {
 	}
 
 	/*
-	 * Contiene la entidad que pertence a la relacion 
-	 * y su informaci�n asociada a la misma.
+	 * Contiene la entidad que pertence a la relacion y su informaci�n
+	 * asociada a la misma.
 	 */
-	public class EntidadRelacion{
+	public class EntidadRelacion {
 		protected Entidad entidad;
 		protected String rol;
 		protected String cardinalidadMinima;
 		protected String cardinalidadMaxima;
-		
+
 		public EntidadRelacion(Entidad entidad, String rol,
 				String cardinalidadMinima, String cardinalidadMaxima) {
 			this.entidad = entidad;
@@ -107,6 +97,6 @@ public class Relacion extends ComponenteNombre {
 
 		public void setCardinalidadMaxima(String cardinalidadMaxima) {
 			this.cardinalidadMaxima = cardinalidadMaxima;
-		}		
+		}
 	}
 }

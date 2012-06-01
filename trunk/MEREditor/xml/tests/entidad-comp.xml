@@ -1,28 +1,31 @@
-<!DOCTYPE Modelo SYSTEM "entidad-comp.dtd">
+<!DOCTYPE Modelo SYSTEM "../modelo-comp.dtd">
 <PruebaEntidad>
-<Entidad id="1">
-		<Nombre>Localidad</Nombre>
-		<TipoEntidad tipo="MAESTRA_COSA"/>
-		<Atributos>
-			<Atributo id="1">
-				<Nombre>fila</Nombre>
-				<Cardinalidad min="1" max="1" />
-				<TipoAtributo tipo="CARACTERIZACION" />
-			</Atributo>
-			<Atributo id="2">
-				<Nombre>butaca</Nombre>
-				<Cardinalidad min="1" max="1" />
-				<TipoAtributo tipo="CARACTERIZACION" />
-			</Atributo>
-		</Atributos>
-		<IdentificadoresInternos>
-			<RefAtributo id="1" />
-			<RefAtributo id="2" />
-		</IdentificadoresInternos>
-		<IdentificadoresExternos>
-				<RefEntidad id="3" />
-				<RefEntidad id="4" />
-				<RefEntidad id="8" />
-		</IdentificadoresExternos>
-</Entidad>
+	<Entidad id="_1" tipo="MAESTRA_COSA">
+			<Nombre>Localidad</Nombre>
+			<Atributos>
+				<Atributo id="_2" tipo="CARACTERIZACION">
+					<Nombre>fila</Nombre>
+					<Cardinalidad min="1" max="1" />
+				</Atributo>
+				<Atributo id="_3" tipo="CARACTERIZACION">
+					<Nombre>butaca</Nombre>
+					<Cardinalidad min="1" max="1" />
+				</Atributo>
+			</Atributos>
+			<IdentificadoresInternos>
+				<RefAtributo id="_2" />
+				<RefAtributo id="_3" />
+			</IdentificadoresInternos>
+			<IdentificadoresExternos>
+					<RefEntidad id="_3" />
+					<RefEntidad id="_4" />
+					<RefEntidad id="_5" />
+			</IdentificadoresExternos>
+	</Entidad>
+	<Entidad id="_4" tipo="MAESTRA_COSA">
+		<Nombre></Nombre>
+	</Entidad>
+	<Entidad id="_5" tipo="MAESTRA_COSA">
+		<Nombre></Nombre>
+	</Entidad>
 </PruebaEntidad>

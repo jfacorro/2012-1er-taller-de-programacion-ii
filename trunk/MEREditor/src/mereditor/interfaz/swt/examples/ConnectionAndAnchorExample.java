@@ -12,6 +12,7 @@ package mereditor.interfaz.swt.examples;
 
 import mereditor.interfaz.swt.EntidadFigure;
 import mereditor.modelo.Entidad;
+import mereditor.modelo.Entidad.TipoEntidad;
 
 import org.eclipse.draw2d.ChopboxAnchor;
 import org.eclipse.draw2d.ColorConstants;
@@ -59,7 +60,7 @@ public class ConnectionAndAnchorExample extends AbstractExample {
 		RectangleFigure
 		// node1 = new RectangleFigure(),
 		node2 = new RectangleFigure();
-		EntidadFigure node1 = new EntidadFigure(new Entidad("Ent1"));
+		EntidadFigure node1 = new EntidadFigure(new Entidad("Ent1", "0", "0", TipoEntidad.MAESTRA_COSA));
 
 		// node1.setBackgroundColor(ColorConstants.red);
 		node1.setBounds(new Rectangle(40, 40, 50, 30));

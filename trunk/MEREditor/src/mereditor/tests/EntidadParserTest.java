@@ -85,18 +85,18 @@ public class EntidadParserTest extends TestCase {
 		parser.parsear(elementoAParsear);
 		entidadParseada = (Componente) parser.getElementoParseado();
 		assertTrue(entidadParseada != null);
-		assertTrue(entidadParseada.getIdComponente().equals(
-				entidadAComparar.getIdComponente()));
-		assertTrue(entidadParseada.getIdContenedor().equals(
-				entidadAComparar.getIdContenedor()));
+		assertTrue(entidadParseada.getId().equals(
+				entidadAComparar.getId()));
+		assertTrue(entidadParseada.getIdPadre().equals(
+				entidadAComparar.getIdPadre()));
 		assertTrue(((ComponenteNombre) entidadParseada).getNombre().equals(
 				entidadAComparar.getNombre()));
 		assertTrue(parser.getTipo().equals(TIPO_ENT));
 		assertTrue(parser.getAtributos().size() == atributosAComparar.size());
 
 		for (int i = 0; i < atributosAComparar.size(); i++) {
-			assertTrue(parser.getAtributos().get(i).getIdComponente()
-					.equals(atributosAComparar.get(i).getIdComponente()));
+			assertTrue(parser.getAtributos().get(i).getId()
+					.equals(atributosAComparar.get(i).getId()));
 		}
 
 	}

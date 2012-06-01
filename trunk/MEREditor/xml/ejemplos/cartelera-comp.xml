@@ -1,6 +1,6 @@
 <!DOCTYPE note SYSTEM "../modelo-comp.dtd">
 <Modelo>
-	<Entidad id="_1" tipo="MAESTRA">
+	<Entidad id="_1" tipo="MAESTRA_COSA">
 		<Nombre>Intérprete</Nombre>
 		<Atributos>
 			<Atributo id="_11" tipo="CARACTERIZACION">
@@ -17,7 +17,7 @@
 			<RefAtributo id="_12" />
 		</IdentificadoresInternos>
 	</Entidad>
-	<Entidad id="_2" tipo="MAESTRA">
+	<Entidad id="_2" tipo="MAESTRA_COSA">
 		<Nombre>Obra</Nombre>
 		<Atributos>
 			<Atributo id="_21" tipo="CARACTERIZACION">

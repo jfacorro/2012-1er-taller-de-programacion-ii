@@ -17,7 +17,6 @@ import org.w3c.dom.NodeList;
  * 
  */
 public class Parser {
-
 	protected Document xml;
 
 	protected Validacion validacionGlobal;
@@ -72,6 +71,9 @@ public class Parser {
 		}
 	}
 
+	/**
+	 * Carga la lista de componentes en base a los parseados
+	 */
 	private void inicializarComponentes() {
 		for (int i = 0; i < componenteParsers.size(); i++) {
 			componentes.add((Componente) componenteParsers.get(i)
@@ -79,24 +81,44 @@ public class Parser {
 		}
 	}
 
-	public Diagrama getDiagramaPpal() {
+	/**
+	 * Devuelve el diagrama principal 
+	 * @return
+	 */
+	public Diagrama getDiagrama() {
 		return (Diagrama) diagramaPrincipalParser.getElementoParseado();
 	}
 
+	/**
+	 * Devuelve la lista de componentes
+	 * @return
+	 */
 	public List<Componente> getComponentes() {
 		return componentes;
 	}
 
+	/**
+	 * Devuelve el objeto de validación global
+	 * @return
+	 */
 	public Validacion getValidacionGlobal() {
 		return validacionGlobal;
 	}
 
-	public void agregarParserDeComponente(ComponenteParser parserDeComponente) {
-		componenteParsers.add(parserDeComponente);
+	/**
+	 * Agrega un parser de componente a la lista local
+	 * @param componenteParser
+	 */
+	public void agregarComponenteParser(ComponenteParser componenteParser) {
+		componenteParsers.add(componenteParser);
 	}
 
-	public void agregarParserLinkeable(Linkeable parserLinkeable) {
-		parsersLinkeables.add(parserLinkeable);
+	/**
+	 * Agrega un elemento linkeable
+	 * @param linkeable
+	 */
+	public void agregarLinkeable(Linkeable linkeable) {
+		parsersLinkeables.add(linkeable);
 	}
 
 	/**
@@ -122,11 +144,11 @@ public class Parser {
 		switch (tipo) {
 		case EntidadParser.tipo:
 			return new EntidadParser(parser);
-		case RelacionParser.tipo:
+		case RelacionParser.tag:
 			return new RelacionParser(parser);
 		case JerarquiaParser.tipo:
 			return new JerarquiaParser(parser);
-		case DiagramaParser.tipo:
+		case DiagramaParser.tag:
 			return new DiagramaParser(parser);
 		default:
 			return new ValidacionParser(parser);
