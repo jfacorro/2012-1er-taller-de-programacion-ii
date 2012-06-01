@@ -1,71 +1,62 @@
+<!DOCTYPE note SYSTEM "../modelo-comp.dtd">
 <Modelo>
-	<Entidad id="1">
+	<Entidad id="_1">
 		<Nombre>Intérprete</Nombre>
 		<Atributos>
-			<Atributo id="1">
+			<Atributo id="_11" tipo="CARACTERIZACION">
 				<Nombre>idIntérp</Nombre>
 				<Cardinalidad min="1" max="" />
-				<Tipo>caracterizacion</Tipo>
 			</Atributo>
-			<Atributo id="2">
+			<Atributo id="_12" tipo="CARACTERIZACION">
 				<Nombre>nombre</Nombre>
 				<Cardinalidad min="1" max="" />
-				<Tipo>caracterizacion</Tipo>
 			</Atributo>
-		<IdentificadoresInternos>
-			<Atributo id="1" />
-			<Atributo id="2" />
-		</IdentificadoresInternos>
 		</Atributos>
+		<IdentificadoresInternos>
+			<RefAtributo id="_11" />
+			<RefAtributo id="_12" />
+		</IdentificadoresInternos>
 	</Entidad>
-	<Entidad id="2">
+	<Entidad id="_2">
 		<Nombre>Obra</Nombre>
 		<Atributos>
-			<Atributo id="1">
+			<Atributo id="_21" tipo="CARACTERIZACION">
 				<Nombre>idObra</Nombre>
 				<Cardinalidad min="1" max="" />
-				<Tipo>caracterizacion</Tipo>
 			</Atributo>
-			<Atributo id="2">
+			<Atributo id="_22" tipo="CARACTERIZACION">
 				<Nombre>título</Nombre>
 				<Cardinalidad min="1" max="" />
-				<Tipo>caracterizacion</Tipo>
 			</Atributo>
-			<Atributo id="3">
+			<Atributo id="_23" tipo="CARACTERIZACION">
 				<Nombre>director</Nombre>
 				<Cardinalidad min="1" max="n" />
-				<Tipo>caracterizacion</Tipo>
 			</Atributo>
-			<Atributo id="4">
+			<Atributo id="_24" tipo="CARACTERIZACION">
 				<Nombre>autor</Nombre>
 				<Cardinalidad min="1" max="n" />
-				<Tipo>caracterizacion</Tipo>
 			</Atributo>
-			<Atributo id="5">
+			<Atributo id="_25" tipo="CARACTERIZACION">
 				<Nombre>genero</Nombre>
 				<Cardinalidad min="1" max="" />
-				<Tipo>caracterizacion</Tipo>
 			</Atributo>
-			<Atributo id="6">
+			<Atributo id="_26" tipo="CARACTERIZACION">
 				<Nombre>enCartel</Nombre>
 				<Cardinalidad min="0" max="1" />
-				<Tipo>caracterizacion</Tipo>
 				<Atributos>
-					<Atributo id="7">
+					<Atributo id="_261" tipo="CARACTERIZACION">
 						<Nombre>desde</Nombre>
 						<Cardinalidad min="1" max="1" />
-						<Tipo>caracterizacion</Tipo>
 					</Atributo>
-					<Atributo id="8">
+					<Atributo id="_262" tipo="CARACTERIZACION">
 						<Nombre>hasta</Nombre>
 						<Cardinalidad min="0" max="1" />
-						<Tipo>caracterizacion</Tipo>
 					</Atributo>
 				</Atributos>
 			</Atributo>
 		</Atributos>
 		<IdentificadoresInternos>
-			<Atributo id="1" />
+			<RefAtributo id="_21" />
 		</IdentificadoresInternos>
 		<IdentificadoresExternos>
 			<IdentificadorExterno>
@@ -74,32 +65,32 @@
 			</IdentificadorExterno>
 		</IdentificadoresExternos>
 	</Entidad>
-	<Relacion id="3">
-		<Tipo>composicion</Tipo>
+	<Relacion id="_3" tipo="COMPOSICION">
+		<Nombre>Elenco</Nombre>
 		<Participantes>
 			<Participante>
-				<Entidad id="1" />
+				<RefEntidad id="_1" />
 				<Cardinalidad min="0" max="n" />
 			</Participante>
 			<Participante>
-				<Entidad id="2" />
+				<RefEntidad id="_2" />
 				<Cardinalidad min="0" max="n" />
 			</Participante>
 		</Participantes>
 	</Relacion>
-	<Diagrama id="1">
+	<Diagrama id="_4">
 		<Nombre>Cartelera Teatral</Nombre>
 		<Componentes>
-			<Componente id="1" />
-			<Componente id="2" />
-			<Componente id="3" />
+			<Componente id="_1" />
+			<Componente id="_2" />
+			<Componente id="_3" />
 		</Componentes>
-		<Validacion estado="sinvalidar">
+		<Validacion estado="SIN_VALIDAR">
 			<Observaciones/>
 		</Validacion>
 	</Diagrama>
 	<!-- Estado global de los diagramas -->
-	<Validacion estado="sinvalidar">
+	<Validacion estado="SIN_VALIDAR">
 		<Observaciones/>
 	</Validacion> 
 </Modelo>
