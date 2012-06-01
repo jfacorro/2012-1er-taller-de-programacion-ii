@@ -1,6 +1,6 @@
 <!DOCTYPE note SYSTEM "modelo-comp.dtd">
 <Modelo>
-	<Entidad id="_0">
+	<Entidad id="_0" tipo="MAESTRA">
 		<Nombre />
 		<Atributos>
 			<Atributo id="_1" tipo="CARACTERIZACION">
