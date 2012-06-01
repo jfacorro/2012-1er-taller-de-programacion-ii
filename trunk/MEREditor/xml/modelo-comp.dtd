@@ -6,7 +6,7 @@
 <!ELEMENT Validacion (Observaciones) >
 
 <!ELEMENT Nombre (#PCDATA)>
-<!ELEMENT Atributos (Atributo)>
+<!ELEMENT Atributos (Atributo+)>
 <!ELEMENT Atributo (Nombre,Cardinalidad,Formula?,Origen?,Atributos?) >
 <!ELEMENT IdentificadoresInternos (RefAtributo+)>
 <!ELEMENT IdentificadoresExternos (RefEntidad+)>
@@ -29,7 +29,7 @@
 <!ATTLIST Atributo tipo (CARACTERIZACION|DERIVADO_COPIA|DERIVADO_CALCULO) #REQUIRED>
 <!ATTLIST Entidad id ID #REQUIRED>
 <!ATTLIST Relacion id ID #REQUIRED>
-<!ATTLIST Relacion tipo (ASOCIACION|COMPOSICIONO) #REQUIRED>
+<!ATTLIST Relacion tipo (ASOCIACION|COMPOSICION) #REQUIRED>
 <!ATTLIST Jerarquia id ID #REQUIRED>
 <!ATTLIST Jerarquia tipo (TOTAL_EXCLUSIVA|TOTAL_SUPERPUESTA|PARCIAL_EXCLUSIVA|PARCIAL_SUPERPUESTA) #REQUIRED>
 <!ATTLIST Diagrama id ID #REQUIRED>
