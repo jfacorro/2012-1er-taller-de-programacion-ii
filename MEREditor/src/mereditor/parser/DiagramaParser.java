@@ -6,11 +6,8 @@ import mereditor.modelo.Diagrama;
 import mereditor.modelo.base.Componente;
 
 import org.w3c.dom.Element;
-import org.w3c.dom.Node;
 
 public class DiagramaParser extends ComponenteNombreParser implements Linkeable {
-
-	public static final String tag = "Diagrama";
 
 	protected ReferenciasParser compParser;
 	protected ReferenciasParser diagParser;
@@ -18,24 +15,20 @@ public class DiagramaParser extends ComponenteNombreParser implements Linkeable 
 
 	public DiagramaParser(Parser parser) {
 		super(parser);
-		compParser = new ReferenciasParser(parser, Constants.COMPONENTES_TAG,
-				Constants.COMPONENTES_REF_TAG);
+		compParser = new ReferenciasParser(parser, Constants.DIAGRAMA_COMPONENTES_TAG,
+				Constants.DIAGRAMA_COMPONENTES_REF_TAG);
 		diagParser = new ReferenciasParser(parser, Constants.DIAGRAMAS_TAG,
 				Constants.DIAGRAMA_REF_TAG);
 		diagrama = null;
 	}
 
-	public void parsear(Element elemento) {
-		super.parsear(elemento);
+	protected void procesar(Element elemento) {
+		List<Element> nodos = Parser.getElementList(elemento);
 
-		List<Node> nodos = Parser.getNodeList(elemento);
-
-		for (Node nodo : nodos) {
-			if (nodo instanceof Element) {
-				this.obtenerNombre(nodo);
-				compParser.parsear((Element) nodo);
-				diagParser.parsear((Element) nodo);
-			}
+		for (Element nodo : nodos) {
+			this.obtenerNombre(nodo);
+			compParser.parsear(nodo);
+			diagParser.parsear(nodo);
 		}
 	}
 
@@ -60,5 +53,10 @@ public class DiagramaParser extends ComponenteNombreParser implements Linkeable 
 		parser.agregarComponenteParser(this);
 		parser.agregarLinkeable(this);
 		parser.diagramaPrincipalParser = this;
+	}
+
+	@Override
+	protected String getTag() {
+		return Constants.DIAGRAMA_TAG;
 	}
 }

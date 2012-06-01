@@ -8,7 +8,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import junit.framework.TestCase;
 import mereditor.modelo.Atributo;
 import mereditor.modelo.Atributo.TipoAtributo;
-import mereditor.parser.AtributoParser;
+import mereditor.parser.Constants;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -38,7 +38,7 @@ public class AtributoParserTest extends TestCase {
 		Document doc = builder.parse(source);
 		Element raiz = doc.getDocumentElement();
 		Element atributoSimpleXML = (Element) raiz.getElementsByTagName(
-				AtributoParser.ATRIBUTO_TAG).item(0);
+				Constants.ATRIBUTO_TAG).item(0);
 
 		/* Inicializo el atributo con el que voy a comparar el parseado */
 		Atributo atributoSimple = new Atributo(NOMBRE_ATTR, ID_ATTR,
@@ -71,7 +71,7 @@ public class AtributoParserTest extends TestCase {
 		Document doc = builder.parse(source);
 		Element raiz = doc.getDocumentElement();
 		Element atributoCompuestoXML = (Element) raiz.getElementsByTagName(
-				AtributoParser.ATRIBUTO_TAG).item(0);
+				Constants.ATRIBUTO_TAG).item(0);
 
 		/* Parseo */
 		AtributoParserFake parser = new AtributoParserFake(null);
