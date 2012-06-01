@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE Modelo SYSTEM "modelo-comp.dtd">
 <Modelo>
-	<Entidad id="_0">
+	<Entidad id="_0" tipo="MAESTRA">
 		<Nombre>Localidad</Nombre>
 		<Atributos>
 			<Atributo id="_01" tipo="CARACTERIZACION">
@@ -17,7 +17,7 @@
 			<RefEntidad id="_2" />
 		</IdentificadoresExternos>
 	</Entidad>
-	<Entidad id="_2">
+	<Entidad id="_2" tipo="MAESTRA">
 		<Nombre>SeccionSala</Nombre>
 		<Atributos>
 			<Atributo id="_24" tipo="CARACTERIZACION">
@@ -30,7 +30,7 @@
 			</Atributo>
 		</Atributos>
 	</Entidad>
-	<Entidad id="_4">
+	<Entidad id="_4" tipo="MAESTRA">
 		<Nombre>Obra</Nombre>
 		<Atributos>
 			<Atributo id="_41" tipo="CARACTERIZACION">
@@ -63,7 +63,7 @@
 			<RefAtributo id="_42" />
 		</IdentificadoresInternos>
 	</Entidad>
-	<Entidad id="_5">
+	<Entidad id="_5" tipo="MAESTRA">
 		<Nombre>Funcion</Nombre>
 		<Atributos>
 			<Atributo id="_51" tipo="CARACTERIZACION">
