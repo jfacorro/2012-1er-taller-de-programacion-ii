@@ -7,15 +7,16 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.gef.DefaultEditDomain;
 import org.eclipse.gef.GraphicalViewer;
 import org.eclipse.gef.editparts.FreeformGraphicalRootEditPart;
+import org.eclipse.gef.palette.PaletteRoot;
 import org.eclipse.gef.tools.AbstractTool;
-import org.eclipse.gef.ui.parts.GraphicalEditor;
+import org.eclipse.gef.ui.parts.GraphicalEditorWithPalette;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IFileEditorInput;
 
-/*
+/**
  * Vista principal
  */
-public class MERGraphicalEditor extends GraphicalEditor {
+public class MERGraphicalEditor extends GraphicalEditorWithPalette {
 
 	/**
 	 * The default tool on the diagram that does not do anything. Otherwise the
@@ -26,9 +27,6 @@ public class MERGraphicalEditor extends GraphicalEditor {
 
 		// FIXME
 
-		/*
-		 * @see org.eclipse.gef.tools.AbstractTool#getCommandName()
-		 */
 		@Override
 		protected String getCommandName() {
 			return null;
@@ -81,5 +79,11 @@ public class MERGraphicalEditor extends GraphicalEditor {
 		if (input instanceof IFileEditorInput) {
 			setPartName(((IFileEditorInput) input).getName());
 		}
+	}
+
+	@Override
+	protected PaletteRoot getPaletteRoot() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
