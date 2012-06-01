@@ -9,13 +9,14 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-public class ListadoDeComponentesParser implements ElementParser {
+public class ListadoDeComponentesParser extends ComponenteParser {
 
 	private List<String> idsParseados;
 	private final String listadoTag;
 	private final String indTag;
 	
-	ListadoDeComponentesParser (String ListTag, String compRefTag ){
+	ListadoDeComponentesParser (Parser parser, String ListTag, String compRefTag ){
+		super(parser);
 		idsParseados= new ArrayList <String>();
 		listadoTag= ListTag;
 		indTag= compRefTag;
@@ -49,7 +50,7 @@ public class ListadoDeComponentesParser implements ElementParser {
 	}
 
 
-	public void agregarAParser(Parser parser) { }
+	public void agregar(Parser parser) { }
 
 	
 }
