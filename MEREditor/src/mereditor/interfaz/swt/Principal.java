@@ -2,6 +2,8 @@ package mereditor.interfaz.swt;
 
 import mereditor.modelo.Entidad;
 import mereditor.modelo.Relacion;
+import mereditor.modelo.Entidad.TipoEntidad;
+import mereditor.modelo.Relacion.TipoRelacion;
 
 import org.eclipse.draw2d.ChopboxAnchor;
 import org.eclipse.draw2d.Figure;
@@ -55,12 +57,13 @@ public class Principal {
 		this.contents = new Figure();
 
 		Figure fig1 = this.agregarFigura(new EntidadFigure(new Entidad(
-				"Boleteria")), new Point(10, 10));
+				"Boleteria", "0", "0", TipoEntidad.MAESTRA_COSA)), new Point(
+				10, 10));
 		Figure fig2 = this.agregarFigura(
-				new EntidadFigure(new Entidad("Fila")), new Point(200, 200));
-		
+				new EntidadFigure(new Entidad("Fila", "0", "0", TipoEntidad.MAESTRA_COSA)), new Point(200, 200));
+
 		Figure rel = this.agregarFigura(
-				new RelacionFigure(new Relacion("Rel")), new Point(0, 200));
+				new RelacionFigure(new Relacion("Rel", "0", "0", TipoRelacion.ASOCIACION)), new Point(0, 200));
 
 		this.agregarConexion(fig1, rel);
 		this.agregarConexion(fig2, rel);
@@ -78,7 +81,7 @@ public class Principal {
 
 	public void agregarConexion(Figure f1, Figure f2) {
 		PolylineConnection c = new PolylineConnection();
-		//c.setTargetDecoration(new PolygonDecoration());
+		// c.setTargetDecoration(new PolygonDecoration());
 		ChopboxAnchor sourceAnchor = new ChopboxAnchor(f1);
 		ChopboxAnchor targetAnchor = new ChopboxAnchor(f2);
 		c.setSourceAnchor(sourceAnchor);

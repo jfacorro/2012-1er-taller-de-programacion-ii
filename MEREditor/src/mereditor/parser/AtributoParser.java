@@ -8,9 +8,8 @@ import mereditor.modelo.Atributo.TipoAtributo;
 
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
 
-public class AtributoParser extends ComponenteConAtributosParser {
+public class AtributoParser extends AtributosParser {
 
 	public static final String ATRIBUTO_TAG = "Atributo";
 
@@ -21,7 +20,6 @@ public class AtributoParser extends ComponenteConAtributosParser {
 	private static final String CARD_MAX_TAG = "max";
 
 	protected Atributo atributoParseado;
-	protected String idContenedor;
 	protected TipoAtributo tipoAttr;
 	protected String cardMin;
 	protected String cardMax;
@@ -33,18 +31,17 @@ public class AtributoParser extends ComponenteConAtributosParser {
 	public void parsear(Element item) {
 		if (item.getNodeName() != ATRIBUTO_TAG)
 			return;
-		// obtengo el id del atributo
-		String id = item.getAttributes().item(0).getNodeValue();
-		// falta obtener el id del contenedor
 
-		NodeList hijos = item.getChildNodes();
+		super.parsear(item);
 
-		for (int i = 0; i < hijos.getLength(); i++) {
-			if (hijos.item(i) instanceof Element) {
-				obtenerNombre(hijos.item(i));
-				obtenerTipoAttr(hijos.item(i));
-				obtenerCardinalidad(hijos.item(i));
-				parsearAtributos((Element) hijos.item(i));
+		List<Node> nodos = Parser.getNodeList(item);
+
+		for (Node nodo : nodos) {
+			if (nodo instanceof Element) {
+				obtenerNombre(nodo);
+				obtenerTipoAttr(nodo);
+				obtenerCardinalidad(nodo);
+				parsearAtributos((Element) nodo);
 			}
 		}
 
@@ -52,9 +49,8 @@ public class AtributoParser extends ComponenteConAtributosParser {
 		for (int i = 0; i < atributosParseados.size(); i++)
 			atributos.add((Atributo) atributosParseados.get(i));
 
-		atributoParseado = new Atributo(nombre, id, idContenedor, cardMin,
+		atributoParseado = new Atributo(nombre, id, idPadre, cardMin,
 				cardMax, tipoAttr, atributos);
-
 	}
 
 	private void obtenerTipoAttr(Node item) {
@@ -72,15 +68,13 @@ public class AtributoParser extends ComponenteConAtributosParser {
 			cardMax = item.getAttributes().getNamedItem(CARD_MAX_TAG)
 					.getNodeValue();
 		}
-
 	}
 
 	public void agregar(Parser parser) {
-		parser.agregarParserDeComponente(this);
+		parser.agregarComponenteParser(this);
 	}
 
 	public Object getElementoParseado() {
 		return atributoParseado;
 	}
-
 }

@@ -49,7 +49,7 @@ public class RelacionParserTest extends TestCase {
 		Document doc = builder.parse(source);
 		Element raiz = doc.getDocumentElement();
 		elementoAParsear = (Element) raiz.getElementsByTagName(
-				RelacionParser.tipo).item(0);
+				RelacionParser.tag).item(0);
 
 	}
 
@@ -59,7 +59,7 @@ public class RelacionParserTest extends TestCase {
 		parser.parsear(elementoAParsear);
 		parseada = (Relacion) parser.getElementoParseado();
 		assertTrue(parseada != null);
-		assertTrue(parseada.getIdComponente().equals(ID_RELACION));
+		assertTrue(parseada.getId().equals(ID_RELACION));
 		// assertTrue (parseada.getIdContenedor().equals(ID_CONT_RELACION));
 		assertTrue(parseada.getNombre().equals(NOMBRE_RELACION));
 		assertTrue(parseada.getTipo().equals(TIPO_RELACION));

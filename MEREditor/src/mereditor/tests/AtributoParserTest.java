@@ -50,8 +50,8 @@ public class AtributoParserTest extends TestCase {
 
 		/* Comparacion */
 		assertFalse(parser.getAtributo().getNombre() == null);
-		assertTrue(parser.getAtributo().getIdComponente()
-				.equals(atributoSimple.getIdComponente()));
+		assertTrue(parser.getAtributo().getId()
+				.equals(atributoSimple.getId()));
 		assertTrue(parser.getAtributo().getNombre()
 				.equals(atributoSimple.getNombre()));
 		assertTrue(parser.getTipoAtributo().equals(TIPO_ATTR));
@@ -79,11 +79,11 @@ public class AtributoParserTest extends TestCase {
 
 		/* Comparo */
 		assertTrue(parser.getAtributosContenidos().size() == CANT_DE_ATRIBUTOS_CONTENIDOS);
-		assertTrue(parser.getAtributosContenidos().get(0).getIdComponente()
+		assertTrue(parser.getAtributosContenidos().get(0).getId()
 				.equals("1"));
-		assertTrue(parser.getAtributosContenidos().get(1).getIdComponente()
+		assertTrue(parser.getAtributosContenidos().get(1).getId()
 				.equals("2"));
-		assertTrue(parser.getAtributosContenidos().get(4).getIdComponente()
+		assertTrue(parser.getAtributosContenidos().get(4).getId()
 				.equals("5"));
 
 	}

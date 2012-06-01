@@ -27,9 +27,9 @@ public class ParserTest extends TestCase {
 
 	public void testParsear() {
 		p.parsear();
-		Diagrama ppal = p.getDiagramaPpal();
+		Diagrama ppal = p.getDiagrama();
 		assertTrue(ppal != null);
-		assertTrue(ppal.getIdComponente().equals("_99"));
+		assertTrue(ppal.getId().equals("_99"));
 		assertTrue(ppal.getNombre().equals("BoleteriaTeatro"));
 		assertTrue(ppal.getDiagramas().isEmpty());
 		assertTrue(ppal.getComponentes().size() == 7);

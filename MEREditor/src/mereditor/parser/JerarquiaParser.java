@@ -15,7 +15,7 @@ public class JerarquiaParser extends ComponenteParser implements Linkeable {
 	private static final String DERIVADAS_TAG = "Derivadas";
 	private static final String DERIVADA_REF_TAG = "Entidad";
 
-	protected ListadoDeComponentesParser compParser;
+	protected ReferenciasParser compParser;
 	protected Componente jerarquia;
 	protected String id;
 	protected String idGenerica;
@@ -25,7 +25,7 @@ public class JerarquiaParser extends ComponenteParser implements Linkeable {
 	public JerarquiaParser(Parser parser) {
 		super(parser);
 		jerarquia = null;
-		compParser = new ListadoDeComponentesParser(parser, DERIVADAS_TAG,
+		compParser = new ReferenciasParser(parser, DERIVADAS_TAG,
 				DERIVADA_REF_TAG);
 	}
 
@@ -50,7 +50,7 @@ public class JerarquiaParser extends ComponenteParser implements Linkeable {
 	}
 
 	public void linkear(Componente componenteALinkear) {
-		if (componenteALinkear.getIdComponente().equals(idGenerica)) {
+		if (componenteALinkear.getId().equals(idGenerica)) {
 			jerarquiaParseada.setEntidadGenerica((Entidad) componenteALinkear);
 			return;
 		}
@@ -65,8 +65,8 @@ public class JerarquiaParser extends ComponenteParser implements Linkeable {
 	}
 
 	public void agregar(Parser parser) {
-		parser.agregarParserDeComponente(this);
-		parser.agregarParserLinkeable(this);
+		parser.agregarComponenteParser(this);
+		parser.agregarLinkeable(this);
 	}
 
 }

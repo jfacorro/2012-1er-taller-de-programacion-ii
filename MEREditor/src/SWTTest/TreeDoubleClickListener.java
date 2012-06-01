@@ -19,7 +19,7 @@ public class TreeDoubleClickListener implements Listener {
 	public void handleEvent(Event event) {
 		Point point = new Point (event.x, event.y);
 		TreeItem item= observado.getItem(point);
-		System.out.println(((Componente)item.getData()).getIdComponente()+" double clicked");
+		System.out.println(((Componente)item.getData()).getId()+" double clicked");
 	}
 	
 

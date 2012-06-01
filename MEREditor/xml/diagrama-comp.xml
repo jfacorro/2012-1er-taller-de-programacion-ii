@@ -1,6 +1,6 @@
 <!DOCTYPE note SYSTEM "modelo-comp.dtd">
 <Modelo>
-	<Entidad id="_0" tipo="MAESTRA">
+	<Entidad id="_0" tipo="MAESTRA_COSA">
 		<Nombre />
 		<Atributos>
 			<Atributo id="_1" tipo="CARACTERIZACION">
@@ -31,8 +31,8 @@
 		<Participantes>
 			<Participante>
 				<RefEntidad id="_1" />
-				<!-- Descripcion del Rol -->
 				<Cardinalidad min="" max="" />
+				<!-- Descripcion del Rol -->
 				<Rol></Rol>
 			</Participante>
 		</Participantes>
