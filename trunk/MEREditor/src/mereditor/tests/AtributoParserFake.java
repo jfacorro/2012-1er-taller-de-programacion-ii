@@ -15,19 +15,19 @@ public class AtributoParserFake extends AtributoParser {
 	}
 	
 	Atributo getAtributo() {
-		return super.atributoParseado;
+		return super.atributo;
 	}
 	
 	String getCardMin() {
-		return cardMin;
+		return cardinalidadMininima;
 	}
 	
 	String getCardMax() {
-		return cardMax;
+		return cardinalidadMaxima;
 	}
 	
 	TipoAtributo getTipoAtributo(){
-		return tipoAttr;
+		return tipo;
 	}
 	
 	List<ComponenteNombre> getAtributosContenidos() {

@@ -9,12 +9,9 @@ import mereditor.modelo.base.Componente;
 import mereditor.modelo.base.ComponenteNombre;
 
 import org.w3c.dom.Element;
-import org.w3c.dom.Node;
 
 public class EntidadParser extends AtributosParser implements
 		Linkeable {
-
-	public static final String tipo = "Entidad";
 
 	private static final String IDS_INTERNOS_TAG = "IdentificadoresInternos";
 	private static final String IDS_EXTERNOS_TAG = "IdentificadoresExternos";
@@ -40,22 +37,6 @@ public class EntidadParser extends AtributosParser implements
 
 	public void setIdContenedor(String idDiagrama) {
 		this.idPadre = idDiagrama;
-	}
-
-	public void parsear(Element element) {
-		this.id = element.getAttribute(Constants.ID_TAG);
-
-		List<Node> nodos = Parser.getNodeList(element);
-		for(Node nodo : nodos) {
-			if (nodo instanceof Element) {
-				Element item = (Element) nodo;
-				this.obtenerNombre(item);
-				parsearTipo(item);
-				parsearAtributos(item);
-				idsExtParser.parsear(item);
-				idsIntParser.parsear(item);
-			}
-		}
 	}
 
 	private void parsearTipo(Element item) {
@@ -93,5 +74,23 @@ public class EntidadParser extends AtributosParser implements
 	public void agregar(Parser parser) {
 		parser.agregarComponenteParser(this);
 		parser.agregarLinkeable(this);
+	}
+
+	@Override
+	protected void procesar(Element elemento) {
+		List<Element> nodos = Parser.getElementList(elemento);
+
+		for(Element nodo : nodos) {
+			this.obtenerNombre(nodo);
+			parsearTipo(nodo);
+			parsearAtributos(nodo);
+			idsExtParser.parsear(nodo);
+			idsIntParser.parsear(nodo);
+		}
+	}
+
+	@Override
+	protected String getTag() {
+		return Constants.ENTIDAD_TAG;
 	}
 }

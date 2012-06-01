@@ -6,7 +6,6 @@ import java.util.List;
 import mereditor.modelo.base.Componente;
 
 import org.w3c.dom.Element;
-import org.w3c.dom.Node;
 
 public class ReferenciasParser extends ComponenteParser {
 
@@ -14,23 +13,20 @@ public class ReferenciasParser extends ComponenteParser {
 	private final String tag;
 	private final String refTag;
 
-	public ReferenciasParser(Parser parser, String listaReferenciasTag, String compRefTag) {
+	public ReferenciasParser(Parser parser, String listaReferenciasTag,
+			String compRefTag) {
 		super(parser);
 		ids = new ArrayList<String>();
 		tag = listaReferenciasTag;
 		refTag = compRefTag;
 	}
 
-	public void parsear(Element nodo) {
-		if (nodo.getNodeName() != tag)
-			return;
+	protected void procesar(Element elemento) {
+		List<Element> nodos = Parser.getElementList(elemento);
 
-		List<Node> nodos = Parser.getNodeList(nodo);
-
-		for (Node nodoActual : nodos) {
-			if (nodoActual instanceof Element
-					&& nodoActual.getNodeName().equals(refTag)) {
-				ids.add(parsearId((Element) nodoActual));
+		for (Element nodo : nodos) {
+			if (nodo.getNodeName().equals(refTag)) {
+				ids.add(parsearId(nodo));
 			}
 		}
 	}
@@ -40,8 +36,7 @@ public class ReferenciasParser extends ComponenteParser {
 	}
 
 	boolean pertenece(Componente componenteALinkear) {
-		boolean encontro = ids.indexOf(componenteALinkear
-				.getId()) >= 0;
+		boolean encontro = ids.indexOf(componenteALinkear.getId()) >= 0;
 		return encontro;
 	}
 
@@ -51,5 +46,10 @@ public class ReferenciasParser extends ComponenteParser {
 
 	@Override
 	protected void agregar(Parser parser) {
+	}
+
+	@Override
+	protected String getTag() {
+		return this.tag;
 	}
 }

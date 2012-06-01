@@ -10,8 +10,6 @@ import mereditor.modelo.Relacion.TipoRelacion;
 import mereditor.modelo.base.Componente;
 
 import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
 
 public class RelacionParser extends AtributosParser implements Linkeable {
 
@@ -28,19 +26,18 @@ public class RelacionParser extends AtributosParser implements Linkeable {
 		refsAEntidades = new ArrayList<String>();
 	}
 
-	public void parsear(Element nodo) {
-		List<Node> hijos = Parser.getNodeList(nodo);
-		this.id = nodo.getAttribute(Constants.ID_TAG);
-		this.tipo = TipoRelacion.valueOf(nodo
-				.getAttribute(Constants.RELACION_TIPO_ATTR));
+	protected void procesar(Element elemento) {
+		List<Element> nodos = Parser.getElementList(elemento);
+
+		this.id = elemento.getAttribute(Constants.ID_TAG);
+		this.tipo = TipoRelacion.valueOf(elemento
+				.getAttribute(Constants.TIPO_ATTR));
 
 		// parsear id contenedor
-		for (Node item : hijos) {
-			if (item instanceof Element) {
-				obtenerNombre(item);
-				parsearAtributos((Element) item);
-				parsearRefEntidades((Element) item);
-			}
+		for (Element nodo : nodos) {
+			obtenerNombre(nodo);
+			parsearAtributos(nodo);
+			parsearRefEntidades(nodo);
 		}
 
 		relacionParseada = new Relacion(nombre, id, idPadre, tipo);
@@ -50,24 +47,22 @@ public class RelacionParser extends AtributosParser implements Linkeable {
 
 	}
 
-	private void parsearRefEntidades(Element item) {
-		if (item.getNodeName() != Constants.RELACION_PARTICIPANTES_TAG)
+	private void parsearRefEntidades(Element elemento) {
+		if (elemento.getNodeName() != Constants.RELACION_PARTICIPANTES_TAG)
 			return;
-		NodeList entidadesNodos = item.getChildNodes();
+		List<Element> nodos = Parser.getElementList(elemento);
+
 		String idParticipante = null;
 		String cardMinParticipante = null;
 		String cardMaxParticipante = null;
 		String rol = null;
-		Node nodoActual;
-		for (int i = 0; i < entidadesNodos.getLength(); i++) {
-			nodoActual = entidadesNodos.item(i);
-			if (nodoActual instanceof Element
-					&& nodoActual.getNodeName().equals(
-							Constants.REF_PARTICIPANTE_TAG)) {
-				parsearRefEntidad((Element) nodoActual, idParticipante);
-				parsearCardinalidad((Element) nodoActual, cardMinParticipante,
+
+		for (Element nodo : nodos) {
+			if (nodo.getNodeName().equals(Constants.REF_PARTICIPANTE_TAG)) {
+				parsearRefEntidad(nodo, idParticipante);
+				parsearCardinalidad(nodo, cardMinParticipante,
 						cardMaxParticipante);
-				parsearRol((Element) nodoActual, rol);
+				parsearRol(nodo, rol);
 				participantesAux.add(new DatosParticipante(rol,
 						cardMinParticipante, cardMaxParticipante));
 				refsAEntidades.add(idParticipante);
@@ -104,7 +99,7 @@ public class RelacionParser extends AtributosParser implements Linkeable {
 		if (indexE >= 0) { // encontro
 			datos = participantesAux.get(indexE);
 			eR = relacionParseada.new EntidadRelacion((Entidad) e, datos.rol,
-					datos.cardMin, datos.cardMax);
+					datos.cardinalidadMininma, datos.cardinalidadMaxima);
 			relacionParseada.agregarParticipante(eR);
 		}
 	}
@@ -119,15 +114,21 @@ public class RelacionParser extends AtributosParser implements Linkeable {
 	}
 
 	protected class DatosParticipante {
-		String rol;
-		String cardMin;
-		String cardMax;
+		protected String rol;
+		protected String cardinalidadMininma;
+		protected String cardinalidadMaxima;
 
-		DatosParticipante(String rolP, String cardMinP, String cardMaxP) {
-			rol = rolP;
-			cardMin = cardMinP;
-			cardMax = cardMaxP;
+		DatosParticipante(String rol, String cardinalidadMininma, String cardinalidadMaxima) {
+			this.rol = rol;
+			this.cardinalidadMininma = cardinalidadMininma;
+			this.cardinalidadMaxima = cardinalidadMaxima;
 		}
+	}
+
+	@Override
+	protected String getTag() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

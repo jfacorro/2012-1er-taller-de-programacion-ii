@@ -43,7 +43,7 @@ public class EntidadParserTest extends TestCase {
 				.newDocumentBuilder();
 		Document doc = builder.parse(source);
 		Element raiz = doc.getDocumentElement();
-		Element nodo = (Element) raiz.getElementsByTagName(EntidadParser.tipo)
+		Element nodo = (Element) raiz.getElementsByTagName(EntidadParser.tag)
 				.item(0);
 		elementoAParsear = (Element) nodo;
 		String idE1 = "1";

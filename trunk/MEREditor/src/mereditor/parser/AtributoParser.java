@@ -11,62 +11,45 @@ import org.w3c.dom.Node;
 
 public class AtributoParser extends AtributosParser {
 
-	public static final String ATRIBUTO_TAG = "Atributo";
-
-	private static final String TIPO_TAG = "TipoAtributo";
-
-	private static final String CARDINALIDAD_TAG = "Cardinalidad";
-	private static final String CARD_MIN_TAG = "min";
-	private static final String CARD_MAX_TAG = "max";
-
-	protected Atributo atributoParseado;
-	protected TipoAtributo tipoAttr;
-	protected String cardMin;
-	protected String cardMax;
+	protected Atributo atributo;
+	protected TipoAtributo tipo;
+	protected String cardinalidadMininima;
+	protected String cardinalidadMaxima;
 	
 	public AtributoParser(Parser parser) {
 		super(parser);
 	}
+	
+	public void procesar(Element elemento) {
+		List<Element> nodos = Parser.getElementList(elemento);
 
-	public void parsear(Element item) {
-		if (item.getNodeName() != ATRIBUTO_TAG)
-			return;
-
-		super.parsear(item);
-
-		List<Node> nodos = Parser.getNodeList(item);
-
-		for (Node nodo : nodos) {
-			if (nodo instanceof Element) {
-				obtenerNombre(nodo);
-				obtenerTipoAttr(nodo);
-				obtenerCardinalidad(nodo);
-				parsearAtributos((Element) nodo);
-			}
+		for (Element nodo : nodos) {
+			obtenerNombre(nodo);
+			obtenerTipoAttr(nodo);
+			obtenerCardinalidad(nodo);
+			parsearAtributos(nodo);
 		}
 
 		List<Atributo> atributos = new ArrayList<Atributo>();
 		for (int i = 0; i < atributosParseados.size(); i++)
 			atributos.add((Atributo) atributosParseados.get(i));
 
-		atributoParseado = new Atributo(nombre, id, idPadre, cardMin,
-				cardMax, tipoAttr, atributos);
+		atributo = new Atributo(nombre, id, idPadre, cardinalidadMininima,
+				cardinalidadMaxima, tipo, atributos);
 	}
 
 	private void obtenerTipoAttr(Node item) {
 		String aux;
-		if (item.getNodeName() == TIPO_TAG) {
+		if (item.getNodeName() == Constants.TIPO_ATTR) {
 			aux = item.getAttributes().item(0).getNodeValue();
-			tipoAttr = TipoAtributo.valueOf(aux);
+			tipo = TipoAtributo.valueOf(aux);
 		}
 	}
 
-	private void obtenerCardinalidad(Node item) {
-		if (item.getNodeName() == CARDINALIDAD_TAG) {
-			cardMin = item.getAttributes().getNamedItem(CARD_MIN_TAG)
-					.getNodeValue();
-			cardMax = item.getAttributes().getNamedItem(CARD_MAX_TAG)
-					.getNodeValue();
+	private void obtenerCardinalidad(Element item) {
+		if (item.getNodeName() == Constants.CARDINALIDAD_TAG) {
+			cardinalidadMininima = item.getAttribute(Constants.CARDINALIDAD_MIN_TAG);
+			cardinalidadMaxima = item.getAttribute(Constants.CARDINALIDAD_MAX_TAG);
 		}
 	}
 
@@ -75,6 +58,11 @@ public class AtributoParser extends AtributosParser {
 	}
 
 	public Object getElementoParseado() {
-		return atributoParseado;
+		return atributo;
+	}
+
+	@Override
+	protected String getTag() {
+		return Constants.ATRIBUTO_TAG;
 	}
 }

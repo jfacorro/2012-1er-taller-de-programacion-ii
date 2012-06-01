@@ -1,19 +1,15 @@
 package mereditor.parser;
 
-import mereditor.modelo.base.Componente;
+import java.util.List;
+
 import mereditor.modelo.Entidad;
 import mereditor.modelo.Jerarquia;
+import mereditor.modelo.base.Componente;
 
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
 
 public class JerarquiaParser extends ComponenteParser implements Linkeable {
-
-	public static final String tipo = "Jerarquia";
-	private static final String GENERICA_TAG = "Generica";
-	private static final String DERIVADAS_TAG = "Derivadas";
-	private static final String DERIVADA_REF_TAG = "Entidad";
 
 	protected ReferenciasParser compParser;
 	protected Componente jerarquia;
@@ -25,26 +21,21 @@ public class JerarquiaParser extends ComponenteParser implements Linkeable {
 	public JerarquiaParser(Parser parser) {
 		super(parser);
 		jerarquia = null;
-		compParser = new ReferenciasParser(parser, DERIVADAS_TAG,
-				DERIVADA_REF_TAG);
+		compParser = new ReferenciasParser(parser, Constants.JERARQUIA_DERIVADAS_TAG,
+				Constants.DERIVADA_REF_TAG);
 	}
 
-	public void parsear(Element nodo) {
-		id = nodo.getAttributes().item(0).getNodeValue();
-		NodeList hijos = nodo.getChildNodes();
-		Node nodoActual = null;
-		for (int i = 0; i < hijos.getLength(); i++) {
-			nodoActual = hijos.item(i);
-			if (nodoActual instanceof Element) {
-				parsearEntidadGenerica(nodoActual);
-				compParser.parsear((Element) nodoActual);
-			}
-		}
+	public void procesar(Element elemento) {
+		List<Element> nodos = Parser.getElementList(elemento);
 
+		for (Element nodo : nodos) {
+				parsearEntidadGenerica(nodo);
+				compParser.parsear(nodo);
+		}
 	}
 
 	private void parsearEntidadGenerica(Node nodoActual) {
-		if (nodoActual.getNodeName() != GENERICA_TAG)
+		if (nodoActual.getNodeName() != Constants.JERARQUIA_GENERICA_TAG)
 			return;
 		idGenerica = nodoActual.getAttributes().item(0).getNodeValue();
 	}
@@ -67,6 +58,11 @@ public class JerarquiaParser extends ComponenteParser implements Linkeable {
 	public void agregar(Parser parser) {
 		parser.agregarComponenteParser(this);
 		parser.agregarLinkeable(this);
+	}
+
+	@Override
+	protected String getTag() {
+		return Constants.JERARQUIA_TAG;
 	}
 
 }

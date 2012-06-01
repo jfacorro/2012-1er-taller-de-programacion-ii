@@ -40,18 +40,15 @@ public class Parser {
 	public void parsear() {
 		Element raiz = xml.getDocumentElement();
 
-		List<Node> hijos = Parser.getNodeList(raiz);
+		List<Element> hijos = Parser.getElementList(raiz);
 
 		ComponenteParser componenteParser = null;
 
-		for (Node nodo : hijos) {
-			if (nodo instanceof Element) {
-				String nombre = nodo.getNodeName();
-				componenteParser = Parser.mapComponenteParser(nombre,
-						this);
-				componenteParser.parsear((Element) nodo);
-				componenteParser.agregar(this);
-			}
+		for (Element elemento : hijos) {
+			String nombre = elemento.getNodeName();
+			componenteParser = Parser.mapComponenteParser(nombre, this);
+			componenteParser.parsear(elemento);
+			componenteParser.agregar(this);
 		}
 
 		validacionGlobal = (Validacion) validacionParser.getElementoParseado();
@@ -82,7 +79,8 @@ public class Parser {
 	}
 
 	/**
-	 * Devuelve el diagrama principal 
+	 * Devuelve el diagrama principal
+	 * 
 	 * @return
 	 */
 	public Diagrama getDiagrama() {
@@ -91,6 +89,7 @@ public class Parser {
 
 	/**
 	 * Devuelve la lista de componentes
+	 * 
 	 * @return
 	 */
 	public List<Componente> getComponentes() {
@@ -99,6 +98,7 @@ public class Parser {
 
 	/**
 	 * Devuelve el objeto de validación global
+	 * 
 	 * @return
 	 */
 	public Validacion getValidacionGlobal() {
@@ -107,6 +107,7 @@ public class Parser {
 
 	/**
 	 * Agrega un parser de componente a la lista local
+	 * 
 	 * @param componenteParser
 	 */
 	public void agregarComponenteParser(ComponenteParser componenteParser) {
@@ -115,6 +116,7 @@ public class Parser {
 
 	/**
 	 * Agrega un elemento linkeable
+	 * 
 	 * @param linkeable
 	 */
 	public void agregarLinkeable(Linkeable linkeable) {
@@ -123,35 +125,45 @@ public class Parser {
 
 	/**
 	 * Devuelve una lista de los nodos hijos del elemento
+	 * 
 	 * @param element
 	 * @return
 	 */
-	public static List<Node> getNodeList(Element element) {
+	public static List<Element> getElementList(Element element) {
 		NodeList list = element.getChildNodes();
-		ArrayList<Node> nodes = new ArrayList<>();
+		ArrayList<Element> nodes = new ArrayList<>();
 		for (int i = 0; i < list.getLength(); i++) {
-			nodes.add(list.item(i));
+			Node nodo = list.item(i);
+			if (nodo instanceof Element)
+				nodes.add((Element) nodo);
 		}
 		return nodes;
 	}
-	
+
 	/**
 	 * Mapea el parser correspondiente al componente
-	 * @param tipo Nombre del tag del elemento que representa el componente
+	 * 
+	 * @param tipo
+	 *            Nombre del tag del elemento que representa el componente
 	 * @return Instancia del parser correspondiente
 	 */
-	public static ComponenteParser mapComponenteParser(String tipo, Parser parser) {
+	public static ComponenteParser mapComponenteParser(String tipo,
+			Parser parser) {
 		switch (tipo) {
-		case EntidadParser.tipo:
+		case EntidadParser.tag:
 			return new EntidadParser(parser);
 		case RelacionParser.tag:
 			return new RelacionParser(parser);
-		case JerarquiaParser.tipo:
+		case JerarquiaParser.tag:
 			return new JerarquiaParser(parser);
 		case DiagramaParser.tag:
 			return new DiagramaParser(parser);
 		default:
 			return new ValidacionParser(parser);
 		}
+	}
+	
+	public static boolean isTag(Element elemento, String tag) {
+		return elemento.getNodeName() != tag;
 	}
 }
