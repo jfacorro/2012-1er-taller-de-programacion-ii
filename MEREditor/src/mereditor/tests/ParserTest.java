@@ -13,7 +13,7 @@ import junit.framework.TestCase;
 
 public class ParserTest extends TestCase {
 
-	private static final String PATH_ARCHIVO_PARSERTEST = "src/mereditor/tests/xml de prueba/boleteria-comp.xml";
+	private static final String PATH_ARCHIVO_PARSERTEST = "xml/ejemplos/boleteria-comp.xml";
 	private Parser p;
 
 	protected void setUp() throws Exception {

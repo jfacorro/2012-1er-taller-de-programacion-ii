@@ -9,8 +9,6 @@ public class AtributoRepresentacion extends ComponenteRepresentacion<Atributo> {
 
 	@Override
 	public void dibujar(Figure contenedor) {
-		// TODO Auto-generated method stub
 		
 	}
-
 }

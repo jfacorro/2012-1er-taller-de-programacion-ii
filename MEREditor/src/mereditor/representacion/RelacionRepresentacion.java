@@ -9,8 +9,6 @@ public class RelacionRepresentacion extends ComponenteRepresentacion<Relacion> {
 
 	@Override
 	public void dibujar(Figure contenedor) {
-		// TODO Auto-generated method stub
-		
+		contenedor.add(this.figura);
 	}
-
 }

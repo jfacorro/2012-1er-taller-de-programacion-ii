@@ -21,7 +21,7 @@ import junit.framework.TestCase;
 
 public class RelacionParserTest extends TestCase {
 
-	private static final String PATH_ARCHIVO_DE_RELACION_PARSER_TEST = "src/mereditor/tests/xml de prueba/relacion-comp.xml";
+	private static final String PATH_ARCHIVO_DE_RELACION_PARSER_TEST = "xml/tests/relacion-comp.xml";
 
 	private static final String NOMBRE_RELACION = "FO";
 
@@ -34,39 +34,40 @@ public class RelacionParserTest extends TestCase {
 	private Element elementoAParsear;
 	private RelacionParser parser;
 	private Relacion parseada;
-	
-	public RelacionParserTest(){
+
+	public RelacionParserTest() {
 		super();
-		parseada= null;
-		elementoAParsear=null;
+		parseada = null;
+		elementoAParsear = null;
 	}
-	
+
 	protected void setUp() throws Exception {
-		
-		File source = new File (PATH_ARCHIVO_DE_RELACION_PARSER_TEST);		
-		DocumentBuilder builder= DocumentBuilderFactory.newInstance().newDocumentBuilder();
-		Document doc= builder.parse(source);
-		Element raiz= doc.getDocumentElement();
-		elementoAParsear= (Element) raiz.getElementsByTagName(RelacionParser.tipo).item(0);
-		
+
+		File source = new File(PATH_ARCHIVO_DE_RELACION_PARSER_TEST);
+		DocumentBuilder builder = DocumentBuilderFactory.newInstance()
+				.newDocumentBuilder();
+		Document doc = builder.parse(source);
+		Element raiz = doc.getDocumentElement();
+		elementoAParsear = (Element) raiz.getElementsByTagName(
+				RelacionParser.tipo).item(0);
+
 	}
 
 	public void testParsear() throws Exception {
-		parser= new RelacionParser();
-		assertTrue (elementoAParsear != null);
+		parser = new RelacionParser(null);
+		assertTrue(elementoAParsear != null);
 		parser.parsear(elementoAParsear);
-		parseada= (Relacion) parser.getElementoParseado();
-		assertTrue (parseada != null);
-		assertTrue (parseada.getIdComponente().equals(ID_RELACION));
-	//	assertTrue (parseada.getIdContenedor().equals(ID_CONT_RELACION));
-		assertTrue (parseada.getNombre().equals(NOMBRE_RELACION));
-		assertTrue (parseada.getTipo().equals(TIPO_RELACION));
-		List<Componente> entidadesALinkear= new ArrayList<Componente>();
-		entidadesALinkear.add(new Entidad("e1","4",ID_CONT_RELACION,TipoEntidad.MAESTRA_COSA) );
-		entidadesALinkear.add(new Entidad("e2","5",ID_CONT_RELACION,TipoEntidad.MAESTRA_COSA) );
-		
+		parseada = (Relacion) parser.getElementoParseado();
+		assertTrue(parseada != null);
+		assertTrue(parseada.getIdComponente().equals(ID_RELACION));
+		// assertTrue (parseada.getIdContenedor().equals(ID_CONT_RELACION));
+		assertTrue(parseada.getNombre().equals(NOMBRE_RELACION));
+		assertTrue(parseada.getTipo().equals(TIPO_RELACION));
+		List<Componente> entidadesALinkear = new ArrayList<Componente>();
+		entidadesALinkear.add(new Entidad("e1", "4", ID_CONT_RELACION,
+				TipoEntidad.MAESTRA_COSA));
+		entidadesALinkear.add(new Entidad("e2", "5", ID_CONT_RELACION,
+				TipoEntidad.MAESTRA_COSA));
 	}
- 
-	
 
 }
