@@ -25,19 +25,14 @@ public class ReferenciasParser extends ComponenteParser {
 		List<Element> nodos = Parser.getElementList(elemento);
 
 		for (Element nodo : nodos) {
-			if (nodo.getNodeName().equals(refTag)) {
-				ids.add(parsearId(nodo));
+			if (Parser.isTag(nodo, refTag)) {
+				ids.add(elemento.getAttribute(Constants.ID_TAG));
 			}
 		}
 	}
 
-	private String parsearId(Element item) {
-		return item.getAttributes().item(0).getNodeValue();
-	}
-
 	boolean pertenece(Componente componenteALinkear) {
-		boolean encontro = ids.indexOf(componenteALinkear.getId()) >= 0;
-		return encontro;
+		return ids.indexOf(componenteALinkear.getId()) >= 0;
 	}
 
 	public Object getElementoParseado() {

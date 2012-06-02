@@ -5,7 +5,6 @@ import org.w3c.dom.Element;
 
 public class ValidacionParser extends ComponenteParser {
 
-	private static final String OBS_TAG = "Observaciones";
 	private Validacion validacion;
 	
 	public ValidacionParser(Parser parser) {
@@ -13,11 +12,11 @@ public class ValidacionParser extends ComponenteParser {
 	}
 
 	public void parsear(Element element) {
-		String estado = element.getAttributes().item(0).getNodeValue();
+		String estado = element.getAttribute(Constants.ESTADO_ATTR);
 		Element observacionesTag = (Element) element.getElementsByTagName(
-				OBS_TAG).item(0);
+				Constants.VALIDACION_OBSERVACIONES_TAG).item(0);
 		String obs = observacionesTag.getTextContent().trim();
-		validacion = new Validacion(estado, obs);
+		this.validacion = new Validacion(estado, obs);
 	}
 
 	public void agregar(Parser parser) {
@@ -26,5 +25,16 @@ public class ValidacionParser extends ComponenteParser {
 
 	public Object getElementoParseado() {
 		return validacion;
+	}
+
+	@Override
+	protected void procesar(Element elemento) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	protected String getTag() {
+		return null;
 	}
 }

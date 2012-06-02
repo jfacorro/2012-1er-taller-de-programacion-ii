@@ -10,65 +10,46 @@ import mereditor.modelo.base.ComponenteNombre;
 
 import org.w3c.dom.Element;
 
-public class EntidadParser extends AtributosParser implements
-		Linkeable {
+public class EntidadParser extends AtributosParser implements Linkeable {
 
-	private static final String IDS_INTERNOS_TAG = "IdentificadoresInternos";
-	private static final String IDS_EXTERNOS_TAG = "IdentificadoresExternos";
-	private static final String ATRIBUTO_REF_TAG = "RefAtributo";
-	private static final String ENTIDAD_REF_TAG = "RefEntidad";
-	private static final String TIPO_TAG = "TipoEntidad";
+	public static final String tag = Constants.ENTIDAD_TAG;
 
-	protected ReferenciasParser idsExtParser;
-	protected ReferenciasParser idsIntParser;
-	protected TipoEntidad tipoEntidad;
-
-	private Entidad entidadParseada;
+	protected Entidad entidad;
+	protected TipoEntidad tipo;
+	protected ReferenciasParser idsExternosParser;
+	protected ReferenciasParser idsInternosParser;
 
 	public EntidadParser(Parser parser) {
 		super(parser);
-		tipoEntidad = null;
-		entidadParseada = null;
-		idsExtParser = new ReferenciasParser(parser, IDS_EXTERNOS_TAG,
-				ENTIDAD_REF_TAG);
-		idsIntParser = new ReferenciasParser(parser, IDS_INTERNOS_TAG,
-				ATRIBUTO_REF_TAG);
-	}
-
-	public void setIdContenedor(String idDiagrama) {
-		this.idPadre = idDiagrama;
-	}
-
-	private void parsearTipo(Element item) {
-		if (!item.getNodeName().equals(TIPO_TAG))
-			return;
-		String tipo = item.getAttribute("tipo");
-		tipoEntidad = Entidad.TipoEntidad.valueOf(tipo);
+		tipo = null;
+		entidad = null;
+		idsExternosParser = new ReferenciasParser(parser,
+				Constants.ENTIDAD_IDS_EXTERNOS_TAG, Constants.ENTIDAD_REF_TAG);
+		idsInternosParser = new ReferenciasParser(parser,
+				Constants.ENTIDAD_IDS_INTERNOS_TAG, Constants.ATRIBUTO_REF_TAG);
 	}
 
 	public void linkear(Componente componente) {
-		if (idsExtParser.pertenece(componente)) {
-			(entidadParseada)
-					.agregarIdentificador((ComponenteNombre) componente);
+		if (idsExternosParser.pertenece(componente)) {
+			entidad.agregarIdentificador((ComponenteNombre) componente);
 		}
 	}
 
 	private void inicializarEntidad() {
-		entidadParseada = new Entidad(nombre, id, idPadre,
-				tipoEntidad);
+		entidad = new Entidad(nombre, id, idPadre, tipo);
 		/* Inicializo los atributos */
 		for (int i = 0; i < atributosParseados.size(); i++) {
-			if (idsIntParser.pertenece(atributosParseados.get(i)))
-				((Entidad) entidadParseada)
+			if (idsInternosParser.pertenece(atributosParseados.get(i)))
+				((Entidad) entidad)
 						.agregarAtributo((Atributo) atributosParseados.get(i));
 		}
 	}
 
 	public Object getElementoParseado() {
-		if (entidadParseada == null)
+		if (entidad == null)
 			inicializarEntidad();
 
-		return entidadParseada;
+		return entidad;
 	}
 
 	public void agregar(Parser parser) {
@@ -78,14 +59,15 @@ public class EntidadParser extends AtributosParser implements
 
 	@Override
 	protected void procesar(Element elemento) {
+		this.tipo = TipoEntidad.valueOf(elemento
+				.getAttribute(Constants.TIPO_ATTR));
 		List<Element> nodos = Parser.getElementList(elemento);
 
-		for(Element nodo : nodos) {
+		for (Element nodo : nodos) {
 			this.obtenerNombre(nodo);
-			parsearTipo(nodo);
 			parsearAtributos(nodo);
-			idsExtParser.parsear(nodo);
-			idsIntParser.parsear(nodo);
+			idsExternosParser.parsear(nodo);
+			idsInternosParser.parsear(nodo);
 		}
 	}
 

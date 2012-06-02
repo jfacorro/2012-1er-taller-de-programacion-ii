@@ -2,9 +2,8 @@ package mereditor.tests;
 
 import java.util.List;
 
-
+import mereditor.modelo.Atributo;
 import mereditor.modelo.Entidad.TipoEntidad;
-import mereditor.modelo.base.ComponenteNombre;
 import mereditor.parser.EntidadParser;
 import mereditor.parser.Parser;
 
@@ -14,12 +13,12 @@ public class EntidadParserFake extends EntidadParser{
 		super(parser);
 	}
 	
-	List<ComponenteNombre> getAtributos(){
+	List<Atributo> getAtributos(){
 		return super.atributosParseados;
 	}
 	
 	TipoEntidad getTipo (){
-		return tipoEntidad;
+		return tipo;
 	}
 	
 }

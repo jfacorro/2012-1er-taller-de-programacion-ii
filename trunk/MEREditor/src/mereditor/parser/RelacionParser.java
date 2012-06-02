@@ -87,8 +87,8 @@ public class RelacionParser extends AtributosParser implements Linkeable {
 			String cardMaxParticipante) {
 		Element c = (Element) (item
 				.getElementsByTagName(Constants.CARDINALIDAD_TAG).item(0));
-		cardMinParticipante = c.getAttribute(Constants.CARDINALIDAD_MIN_TAG);
-		cardMaxParticipante = c.getAttribute(Constants.CARDINALIDAD_MAX_TAG);
+		cardMinParticipante = c.getAttribute(Constants.CARDINALIDAD_MIN_ATTR);
+		cardMaxParticipante = c.getAttribute(Constants.CARDINALIDAD_MAX_ATTR);
 
 	}
 
