@@ -43,11 +43,11 @@ public class JerarquiaParser extends ComponenteParser implements Linkeable {
 
 	public void linkear(Componente componente) {
 		if (componente.getId().equals(idEntidadGenerica)) {
-			jerarquia.setEntidadGenerica((Entidad) componente);
+			jerarquia.setGenerica((Entidad) componente);
 			return;
 		}
 		if (entidadesDerivadasParser.pertenece(componente))
-			jerarquia.getEntidadesDerivadas().add(componente);
+			jerarquia.getDerivadas().add((Entidad)componente);
 	}
 
 	public Componente getComponente() {

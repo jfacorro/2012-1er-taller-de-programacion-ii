@@ -1,8 +1,11 @@
 package mereditor.xml;
 
-import org.w3c.dom.Element;
+import java.util.List;
 
+import mereditor.modelo.Entidad;
 import mereditor.modelo.Relacion;
+
+import org.w3c.dom.Element;
 
 public class RelacionXml extends Relacion implements Xmlizable {
 
@@ -14,8 +17,21 @@ public class RelacionXml extends Relacion implements Xmlizable {
 
 	@Override
 	public void fromXml(Element elemento, ParserXml parser) throws Exception {
-		// TODO Auto-generated method stub
+		this.id = parser.obtenerId(elemento);
+		this.nombre = parser.obtenerNombre(elemento);
+		this.tipo = TipoRelacion.valueOf(parser.obtenerTipo(elemento));
 
+		parser.register(this);
+
+		List<Element> participantesXml = parser.obtenerParticipantes(elemento);
+		
+		for (Element participanteXml : participantesXml) {
+			Entidad entidad = (Entidad)parser.obtenerEntidadParticipante(participanteXml);
+			String [] cardinalidad = parser.obtenerCardinalidad(participanteXml);
+			String rol = parser.obtenerRol(participanteXml);
+			EntidadRelacion entidadRelacion = new EntidadRelacion(entidad, rol, cardinalidad[0], cardinalidad[1]);
+			this.participantes.add(entidadRelacion);
+		}
 	}
 
 }

@@ -12,16 +12,15 @@ public class Relacion extends ComponenteNombre {
 	}
 
 	protected TipoRelacion tipo;
-	protected List<EntidadRelacion> entidades;
-	protected List<Atributo> atributos;
-	
-	public Relacion() {}
+	protected List<Atributo> atributos = new LinkedList<Atributo>();
+	protected List<EntidadRelacion> participantes = new LinkedList<EntidadRelacion>();
+
+	public Relacion() {
+	}
 
 	public Relacion(String nombre, String id, String idPadre, TipoRelacion tipo) {
 		super(nombre, id, idPadre);
 		this.tipo = tipo;
-		this.atributos = new LinkedList<Atributo>();
-		this.entidades = new LinkedList<EntidadRelacion>();
 	}
 
 	public void agregarAtributo(Componente atributo) {
@@ -29,7 +28,7 @@ public class Relacion extends ComponenteNombre {
 	}
 
 	public void agregarParticipante(EntidadRelacion participante) {
-		entidades.add(participante);
+		participantes.add(participante);
 	}
 
 	/*
@@ -43,8 +42,8 @@ public class Relacion extends ComponenteNombre {
 		this.tipo = tipo;
 	}
 
-	public List<EntidadRelacion> getEntidades() {
-		return entidades;
+	public List<EntidadRelacion> getParticipantes() {
+		return participantes;
 	}
 
 	public List<Atributo> getAtributos() {
@@ -52,7 +51,7 @@ public class Relacion extends ComponenteNombre {
 	}
 
 	/*
-	 * Contiene la entidad que pertence a la relacion y su informaci�n
+	 * Contiene la entidad que pertence a la relacion y su informacion
 	 * asociada a la misma.
 	 */
 	public class EntidadRelacion {
@@ -61,8 +60,7 @@ public class Relacion extends ComponenteNombre {
 		protected String cardinalidadMinima;
 		protected String cardinalidadMaxima;
 
-		public EntidadRelacion(Entidad entidad, String rol,
-				String cardinalidadMinima, String cardinalidadMaxima) {
+		public EntidadRelacion(Entidad entidad, String rol, String cardinalidadMinima, String cardinalidadMaxima) {
 			this.entidad = entidad;
 			this.rol = rol;
 			this.cardinalidadMinima = cardinalidadMinima;
