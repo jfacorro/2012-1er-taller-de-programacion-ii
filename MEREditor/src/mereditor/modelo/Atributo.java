@@ -55,4 +55,8 @@ public class Atributo extends ComponenteNombre {
 	public String getFormula() {
 		return this.formula;
 	}
+
+	public List<Atributo> getAtributos() {
+		return this.atributos;
+	}
 }

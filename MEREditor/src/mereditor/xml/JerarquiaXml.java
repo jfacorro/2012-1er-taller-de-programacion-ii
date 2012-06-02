@@ -1,8 +1,10 @@
 package mereditor.xml;
 
-import org.w3c.dom.Element;
-
+import mereditor.modelo.Entidad;
 import mereditor.modelo.Jerarquia;
+import mereditor.modelo.base.Componente;
+
+import org.w3c.dom.Element;
 
 public class JerarquiaXml extends Jerarquia implements Xmlizable {
 
@@ -14,8 +16,15 @@ public class JerarquiaXml extends Jerarquia implements Xmlizable {
 
 	@Override
 	public void fromXml(Element elemento, ParserXml parser) throws Exception {
-		// TODO Auto-generated method stub
+		this.id = parser.obtenerId(elemento);
+		this.tipo = TipoJerarquia.valueOf(parser.obtenerTipo(elemento));
 
+		parser.register(this);
+
+		this.generica = (Entidad) parser.obtenerGenerica(elemento);
+		for (Componente componente : parser.obtenerDerivadas(elemento)) {
+			this.derivadas.add((Entidad) componente);
+		}
 	}
 
 }

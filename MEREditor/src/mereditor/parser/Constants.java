@@ -39,7 +39,7 @@ public class Constants {
 	public static final String DERIVADA_REF_TAG = "Entidad";
 	
 	public static final String VALIDACION_OBSERVACIONES_TAG = "Observaciones";
-	
+	/**********************************************************************************/
 	public static final String DIAGRAMA_COMPONENTES_QUERY = "./Componentes/Componente";
 	public static final String DIAGRAMA_DIAGRAMAS_QUERY = "./Diagramas/Diagrama";
 	
@@ -51,5 +51,10 @@ public class Constants {
 	public static final String ID_QUERY = "//*[@id='%s']";
 	public static final String FORMULA_QUERY = "./Formula";
 	public static final String ORIGINAL_QUERY = "./Origen/RefAtributo";
-	
+	public static final String GENERICA_QUERY = "./Generica/RefEntidad";
+	public static final String DERIVADAS_QUERY = "./Derivadas/RefEntidad";
+	public static final String PARTICIPANTES_QUERY = "./Participantes/Participante";
+	public static final String ENTIDAD_REF_QUERY = "./RefEntidad";
+	public static final String ROL_QUERY = "./Rol";
+	public static final String CARDINALIDAD_QUERY = "./Cardinalidad";	
 }

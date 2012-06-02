@@ -1,10 +1,7 @@
 package mereditor.xml;
 
-import java.util.List;
-
-import mereditor.modelo.Atributo;
 import mereditor.modelo.Entidad;
-import mereditor.parser.Constants;
+import mereditor.modelo.base.Componente;
 
 import org.w3c.dom.Element;
 
@@ -27,24 +24,15 @@ public class EntidadXml extends Entidad implements Xmlizable {
 		this.atributos.addAll(parser.obtenerAtributos(elemento));
 
 		// Obtener identificadores internos
-		List<Element> idsInternosXml = XmlHelper.query(elemento, Constants.IDENTIFICADORES_INTERNOS_QUERY);
-		for(Element idInternoXml : idsInternosXml) {
-			String id = idInternoXml.getAttribute(Constants.IDREF_ATTR);
-			Atributo atributo = (Atributo)parser.resolver(id);
-
-			if(!this.atributos.contains(atributo))
+		for(Componente componente : parser.obtenerIdentificadoresInternos(elemento))
+		{
+			if (!this.atributos.contains(componente))
 				throw new Exception("El identificador debe ser un hijo: " + id);
-
-			this.identificadores.add(atributo);
+			
+			this.identificadores.add(componente);
 		}
-		
+				
 		// Obtener identificadores externos
-		List<Element> idsExternosXml = XmlHelper.query(elemento, Constants.IDENTIFICADORES_EXTERNOS_QUERY);
-		for(Element idExternoXml : idsExternosXml) {
-			String id = idExternoXml.getAttribute(Constants.IDREF_ATTR);
-			Entidad entidad = (Entidad)parser.resolver(id);
-
-			this.identificadores.add(entidad);
-		}
+		this.identificadores.addAll(parser.obtenerIdentificadoresExternos(elemento));
 	}
 }

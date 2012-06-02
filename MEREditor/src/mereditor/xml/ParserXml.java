@@ -30,7 +30,7 @@ public class ParserXml {
 	}
 
 	public void register(Componente componente) throws Exception {
-		if(componente.getId() == null)
+		if (componente.getId() == null)
 			throw new Exception("No se puede agregar un componente sin identificador.");
 
 		if (this.componentes.containsKey(componente.getId()))
@@ -42,60 +42,116 @@ public class ParserXml {
 	public List<Element> query(String query) {
 		return XmlHelper.query(this.root, query);
 	}
-	
+
 	public String obtenerId(Element elemento) {
 		return elemento.getAttribute(Constants.ID_ATTR);
 	}
-	
+
 	public String obtenerNombre(Element elemento) {
-		return 	XmlHelper.querySingle(elemento, Constants.NOMBRE_TAG).getTextContent();
+		return XmlHelper.querySingle(elemento, Constants.NOMBRE_TAG).getTextContent();
 	}
-	
+
 	public String obtenerTipo(Element elemento) {
-		return elemento.getAttribute(Constants.TIPO_ATTR);		
+		return elemento.getAttribute(Constants.TIPO_ATTR);
 	}
-	
+
 	public List<Atributo> obtenerAtributos(Element elemento) throws Exception {
 		List<Element> atributosXml = XmlHelper.query(elemento, Constants.ATRIBUTOS_QUERY);
 		List<Atributo> atributos = new ArrayList<>();
 
-		for(Element atributoXml : atributosXml) {
-			Atributo atributo = (Atributo)this.resolver(atributoXml.getAttribute(Constants.ID_ATTR));
+		for (Element atributoXml : atributosXml) {
+			Atributo atributo = (Atributo) this.resolver(atributoXml.getAttribute(Constants.ID_ATTR));
 			atributos.add(atributo);
 		}
 
-		return 	atributos;
+		return atributos;
 	}
-	
+
+	public List<Componente> obtenerIdentificadoresInternos(Element elemento) throws Exception {
+		List<Element> idsInternosXml = XmlHelper.query(elemento, Constants.IDENTIFICADORES_INTERNOS_QUERY);
+		List<Componente> atributos = new ArrayList<>();
+
+		for (Element idInternoXml : idsInternosXml) {
+			atributos.add(this.obtenerReferencia(idInternoXml));
+		}
+
+		return atributos;
+	}
+
+	public List<Componente> obtenerIdentificadoresExternos(Element elemento) throws Exception {
+		List<Element> idsExternosXml = XmlHelper.query(elemento, Constants.IDENTIFICADORES_EXTERNOS_QUERY);
+		List<Componente> identificadores = new ArrayList<>();
+
+		for (Element idExternoXml : idsExternosXml)
+			identificadores.add(this.obtenerReferencia(idExternoXml));
+
+		return identificadores;
+	}
+
+	public Componente obtenerReferencia(Element elemento) throws Exception {
+		String id = elemento.getAttribute(Constants.IDREF_ATTR);
+		return this.resolver(id);
+	}
+
 	public String[] obtenerCardinalidad(Element elemento) {
-		Element cardinalidad = XmlHelper.querySingle(elemento, "./Cardinalidad");		
-		return new String[] { 
-				cardinalidad.getAttribute(Constants.CARDINALIDAD_MIN_ATTR),
-				cardinalidad.getAttribute(Constants.CARDINALIDAD_MAX_ATTR) 
-			};
+		Element cardinalidad = XmlHelper.querySingle(elemento, Constants.CARDINALIDAD_QUERY);
+		return new String[] { cardinalidad.getAttribute(Constants.CARDINALIDAD_MIN_ATTR),
+				cardinalidad.getAttribute(Constants.CARDINALIDAD_MAX_ATTR) };
 	}
-	
+
 	public String obtenerFormulaAtributo(Element elemento) {
-		Element element = XmlHelper.querySingle(elemento, Constants.FORMULA_QUERY);		
+		Element element = XmlHelper.querySingle(elemento, Constants.FORMULA_QUERY);
 		return element == null ? null : element.getTextContent();
 	}
 
 	public Atributo obtenerOriginalAtributo(Element elemento) throws Exception {
 		Element element = XmlHelper.querySingle(elemento, Constants.ORIGINAL_QUERY);
 
-		if(element != null)
+		if (element != null)
 			return (Atributo) this.resolver(element.getAttribute(Constants.IDREF_ATTR));
 
 		return null;
+	}
+
+	public Componente obtenerGenerica(Element elemento) throws Exception {
+		Element generica = XmlHelper.querySingle(elemento, Constants.GENERICA_QUERY);
+		String id = generica.getAttribute(Constants.IDREF_ATTR);
+
+		return this.resolver(id);
+	}
+
+	public List<Componente> obtenerDerivadas(Element elemento) throws Exception {
+		List<Element> derivadasXml = XmlHelper.query(elemento, Constants.DERIVADAS_QUERY);
+		List<Componente> derivadas = new ArrayList<>();
+
+		for (Element derivadaXml : derivadasXml) {
+			String id = derivadaXml.getAttribute(Constants.IDREF_ATTR);
+			derivadas.add(this.resolver(id));
+		}
+
+		return derivadas;
+	}
+
+	public List<Element> obtenerParticipantes(Element elemento) {
+		return XmlHelper.query(elemento, Constants.PARTICIPANTES_QUERY);
+	}
+
+	public Componente obtenerEntidadParticipante(Element elemento) throws Exception {
+		Element entidadRefXml = XmlHelper.querySingle(elemento, Constants.ENTIDAD_REF_QUERY);
+		return this.obtenerReferencia(entidadRefXml);
+	}
+
+	public String obtenerRol(Element elemento) {
+		Element rolXml = XmlHelper.querySingle(elemento, Constants.ROL_QUERY);
+		return rolXml == null ? null : rolXml.getTextContent();
 	}
 
 	private Componente findParse(String id) throws Exception {
 		String query = String.format(Constants.ID_QUERY, id);
 		List<Element> list = this.query(query);
 
-		if (list.size() == 1) {
+		if (list.size() == 1)
 			return this.parse(list.get(0));
-		}
 
 		throw new Exception("Identificador inexistente o duplicado: " + id);
 	}
@@ -108,18 +164,18 @@ public class ParserXml {
 
 	private Xmlizable mapElement(Element element) {
 		switch (element.getNodeName()) {
-			case Constants.ENTIDAD_TAG:
-				return new EntidadXml();
-			case Constants.RELACION_TAG:
-				return new RelacionXml();
-			case Constants.JERARQUIA_TAG:
-				return new JerarquiaXml();
-			case Constants.DIAGRAMA_TAG:
-				return new DiagramaXml();
-			case Constants.ATRIBUTO_TAG:
-				return new AtributoXml();
-			default:
-				return new ValidacionXml();
+		case Constants.ENTIDAD_TAG:
+			return new EntidadXml();
+		case Constants.RELACION_TAG:
+			return new RelacionXml();
+		case Constants.JERARQUIA_TAG:
+			return new JerarquiaXml();
+		case Constants.DIAGRAMA_TAG:
+			return new DiagramaXml();
+		case Constants.ATRIBUTO_TAG:
+			return new AtributoXml();
+		default:
+			return new ValidacionXml();
 		}
 	}
 }

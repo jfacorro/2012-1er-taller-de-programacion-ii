@@ -6,36 +6,32 @@ import java.util.List;
 import mereditor.modelo.base.Componente;
 
 public class Jerarquia extends Componente {
-	enum TipoJerarquia {
-		TOTAL_EXCLUSIVA,
-		TOTAL_SUPERPUESTA,
-		PARCIAL_EXCLUSIVA,
-		PARCIAL_SUPERPUESTA
-	}
-	
-	protected Componente entidadGenerica;
-	protected List<Componente> entidadesDerivadas;
-	
-	protected TipoJerarquia tipo;
-	
-	public Jerarquia() {
-		super();
-		entidadGenerica= null;
-		entidadesDerivadas= new LinkedList<Componente> ();
-	}
-	
-	public Jerarquia(String idJerarquia, String idContenedor){
-		super (idJerarquia,idContenedor);
-		entidadGenerica= null;
-		entidadesDerivadas= new LinkedList<Componente> ();
+	public enum TipoJerarquia {
+		TOTAL_EXCLUSIVA, TOTAL_SUPERPUESTA, PARCIAL_EXCLUSIVA, PARCIAL_SUPERPUESTA
 	}
 
-	public List<Componente> getEntidadesDerivadas() {
-		return entidadesDerivadas;
+	protected Entidad generica;
+	protected List<Entidad> derivadas = new LinkedList<Entidad>();
+
+	protected TipoJerarquia tipo;
+
+	public Jerarquia() {
+		super();
 	}
-	
-	public void setEntidadGenerica (Entidad generica){
-		entidadGenerica= generica;
+
+	public Jerarquia(String idJerarquia, String idContenedor) {
+		super(idJerarquia, idContenedor);
 	}
-	
+
+	public List<Entidad> getDerivadas() {
+		return derivadas;
+	}
+
+	public void setGenerica(Entidad generica) {
+		this.generica = generica;
+	}
+
+	public Object getGenerica() {
+		return this.generica;
+	}
 }

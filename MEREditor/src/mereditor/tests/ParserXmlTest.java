@@ -10,6 +10,10 @@ import mereditor.modelo.Atributo;
 import mereditor.modelo.Entidad;
 import mereditor.modelo.Atributo.TipoAtributo;
 import mereditor.modelo.Entidad.TipoEntidad;
+import mereditor.modelo.Jerarquia;
+import mereditor.modelo.Relacion;
+import mereditor.modelo.Relacion.EntidadRelacion;
+import mereditor.modelo.base.Componente;
 import mereditor.xml.ParserXml;
 
 import org.w3c.dom.Document;
@@ -78,6 +82,34 @@ public class ParserXmlTest extends TestCase {
 		Atributo atributo = (Atributo)this.parser.resolver("_2b");
 		assertEquals(atributo.getFormula(), "1 + 1");
 	}
-
 	
+	public void testEncontrarAtributoCompuestoPorIdVerificarHijos() throws Exception {
+		Atributo atributo = (Atributo)this.parser.resolver("_32");
+		assertEquals(atributo.getAtributos().size(), 5);
+	}
+	
+	public void testEncontrarJerarquiaPorIdVerificarGenerica() throws Exception {
+		Jerarquia jerarquia = (Jerarquia)this.parser.resolver("_50");
+		Componente generica = this.parser.resolver("_1");
+		assertEquals(jerarquia.getGenerica(), generica);
+		assertEquals(jerarquia.getDerivadas().size(), 2);
+	}
+	
+	public void testEncontrarRelacionPorIdVerificarNombre() throws Exception {
+		Relacion relacion = (Relacion)this.parser.resolver("_24");
+		assertEquals(relacion.getNombre(), "SL");
+	}
+	
+	public void testEncontrarRelacionPorIdVerificarParticipantes() throws Exception {
+		Relacion relacion = (Relacion)this.parser.resolver("_24");
+		assertEquals(relacion.getParticipantes().size(), 2);
+	}
+	
+	public void testEncontrarRelacionPorIdVerificarRolParticipante() throws Exception {
+		Relacion relacion = (Relacion)this.parser.resolver("_24");
+		assertEquals(relacion.getParticipantes().size(), 2);
+		EntidadRelacion participante = relacion.getParticipantes().get(0);
+		assertEquals(participante.getRol(), "Bosss");
+	}
+
 }
