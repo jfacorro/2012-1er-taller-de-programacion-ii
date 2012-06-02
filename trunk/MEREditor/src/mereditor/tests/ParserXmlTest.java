@@ -7,12 +7,14 @@ import javax.xml.parsers.DocumentBuilderFactory;
 
 import junit.framework.TestCase;
 import mereditor.modelo.Atributo;
+import mereditor.modelo.Diagrama;
 import mereditor.modelo.Entidad;
 import mereditor.modelo.Atributo.TipoAtributo;
 import mereditor.modelo.Entidad.TipoEntidad;
 import mereditor.modelo.Jerarquia;
 import mereditor.modelo.Relacion;
 import mereditor.modelo.Relacion.EntidadRelacion;
+import mereditor.modelo.Validacion.EstadoValidacion;
 import mereditor.modelo.base.Componente;
 import mereditor.xml.ParserXml;
 
@@ -111,5 +113,20 @@ public class ParserXmlTest extends TestCase {
 		EntidadRelacion participante = relacion.getParticipantes().get(0);
 		assertEquals(participante.getRol(), "Bosss");
 	}
-
+	
+	public void testEncontrarDiagramaPorId() throws Exception {
+		Diagrama diagrama = (Diagrama)this.parser.resolver("_41");
+		assertTrue(diagrama != null);
+	}
+	
+	public void testEncontrarDiagramaPorIdVerificarComponentes() throws Exception {
+		Diagrama diagrama = (Diagrama)this.parser.resolver("_41");
+		assertEquals(diagrama.getComponentes().size(), 7);
+	}
+	
+	public void testEncontrarDiagramaPorIdVerificarValidacion() throws Exception {
+		Diagrama diagrama = (Diagrama)this.parser.resolver("_41");
+		assertEquals(diagrama.getValidacion().getEstado(), EstadoValidacion.SIN_VALIDAR);
+		assertEquals(diagrama.getValidacion().getObservaciones(), "Falta validar");
+	}
 }

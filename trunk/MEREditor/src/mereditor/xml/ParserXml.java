@@ -37,9 +37,42 @@ public class ParserXml {
 
 		this.componentes.put(componente.getId(), componente);
 	}
+	
+	public List<Componente> obtenerComponentes(Element elemento) throws Exception {
+		List<Element> diagramasXml = XmlHelper.query(elemento, Constants.DIAGRAMA_COMPONENTES_QUERY);
+		List<Componente> componentes = new ArrayList<>();
 
-	public List<Element> query(String query) {
-		return XmlHelper.query(this.root, query);
+		for (Element diagramaXml : diagramasXml)
+			componentes.add(this.obtenerReferencia(diagramaXml));
+
+		return componentes;
+	}
+
+	public List<Componente> obtenerDiagramas(Element elemento) throws Exception {
+		List<Element> diagramasXml = XmlHelper.query(elemento, Constants.DIAGRAMA_DIAGRAMAS_QUERY);
+		List<Componente> diagramas = new ArrayList<>();
+
+		for (Element diagramaXml : diagramasXml)
+			diagramas.add(this.obtenerReferencia(diagramaXml));
+
+		return diagramas;
+	}
+	
+	public Componente obtenerValidacion(Element elemento) throws Exception {
+		Element validacionXml = XmlHelper.querySingle(elemento, Constants.VALIDACION_QUERY);
+		ValidacionXml validacion = (ValidacionXml) this.mapElement(validacionXml);
+		validacion.fromXml(validacionXml, this);
+		return validacion;
+	}
+	
+	public String obtenerEstado(Element elemento) {
+		String estado = elemento.getAttribute(Constants.ESTADO_ATTR); 
+		return estado;
+	}
+
+	public String obtenerObservaciones(Element elemento) {
+		Element observacionesXml = XmlHelper.querySingle(elemento, Constants.OBSERVACIONES_QUERY);
+		return observacionesXml == null ? null : observacionesXml.getTextContent();		
 	}
 
 	public String obtenerId(Element elemento) {
@@ -147,7 +180,7 @@ public class ParserXml {
 
 	private Componente findParse(String id) throws Exception {
 		String query = String.format(Constants.ID_QUERY, id);
-		List<Element> list = this.query(query);
+		List<Element> list = XmlHelper.query(this.root, query);
 
 		if (list.size() == 1)
 			return this.parse(list.get(0));
@@ -161,7 +194,7 @@ public class ParserXml {
 		return (Componente) xmlizable;
 	}
 
-	private Xmlizable mapElement(Element element) {
+	private Xmlizable mapElement(Element element) throws Exception {
 		switch (element.getNodeName()) {
 		case Constants.ENTIDAD_TAG:
 			return new EntidadXml();
@@ -173,8 +206,10 @@ public class ParserXml {
 			return new DiagramaXml();
 		case Constants.ATRIBUTO_TAG:
 			return new AtributoXml();
-		default:
+		case Constants.VALIDACION_TAG:
 			return new ValidacionXml();
 		}
+		
+		throw new Exception("No existe un mapeo para: " + element.getNodeName());
 	}
 }

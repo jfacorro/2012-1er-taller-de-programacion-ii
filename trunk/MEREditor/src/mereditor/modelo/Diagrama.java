@@ -8,15 +8,14 @@ import mereditor.modelo.base.ComponenteNombre;
 
 public class Diagrama extends ComponenteNombre {
 
-	protected List<Diagrama> diagramas;
-	protected List<Componente> componentes;
+	protected List<Diagrama> diagramas = new LinkedList<Diagrama>();
+	protected List<Componente> componentes = new LinkedList<Componente>();
+	protected Validacion validacion = new Validacion();
 	
 	public Diagrama() {}
 
 	public Diagrama(String nombre, String id, String idPadre) {
 		super(nombre, id, idPadre);
-		this.diagramas = new LinkedList<Diagrama>();
-		this.componentes = new LinkedList<Componente>();
 	}
 
 	public List<Diagrama> getDiagramas() {
@@ -25,6 +24,10 @@ public class Diagrama extends ComponenteNombre {
 
 	public List<Componente> getComponentes() {
 		return componentes;
+	}
+
+	public Validacion getValidacion() {
+		return this.validacion;
 	}
 
 }

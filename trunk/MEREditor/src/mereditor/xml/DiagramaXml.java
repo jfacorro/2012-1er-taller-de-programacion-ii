@@ -1,8 +1,7 @@
 package mereditor.xml;
 
-import java.util.List;
-
 import mereditor.modelo.Diagrama;
+import mereditor.modelo.Validacion;
 import mereditor.modelo.base.Componente;
 
 import org.w3c.dom.Element;
@@ -21,18 +20,12 @@ public class DiagramaXml extends Diagrama implements Xmlizable {
 
 		parser.register(this);
 		
-		// Obtener componentes
-		List<Element> componentesXml = XmlHelper.query(elemento, Constants.DIAGRAMA_COMPONENTES_QUERY);
-		for(Element componenteXml : componentesXml) {
-			Componente componente = parser.resolver(componenteXml.getAttribute(Constants.IDREF_ATTR));
-			this.componentes.add(componente);
-		}
+		this.componentes.addAll(parser.obtenerComponentes(elemento));
 		
 		// Obtener componentes
-		List<Element> diagramasXml = XmlHelper.query(elemento, Constants.DIAGRAMA_DIAGRAMAS_QUERY);
-		for(Element diagramaXml : diagramasXml) {
-			Diagrama diagrama = (Diagrama)parser.resolver(diagramaXml.getAttribute(Constants.IDREF_ATTR));
-			this.diagramas.add(diagrama);
-		}		
+		for(Componente componente : parser.obtenerDiagramas(elemento))
+			this.diagramas.add((Diagrama) componente);		
+		
+		this.validacion = (Validacion)parser.obtenerValidacion(elemento);
 	}
 }
