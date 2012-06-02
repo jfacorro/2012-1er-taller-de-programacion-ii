@@ -4,7 +4,6 @@ import java.util.List;
 
 import mereditor.modelo.Diagrama;
 import mereditor.modelo.base.Componente;
-import mereditor.parser.Constants;
 
 import org.w3c.dom.Element;
 

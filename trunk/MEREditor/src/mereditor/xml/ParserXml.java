@@ -7,7 +7,6 @@ import java.util.Map;
 
 import mereditor.modelo.Atributo;
 import mereditor.modelo.base.Componente;
-import mereditor.parser.Constants;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
