@@ -66,9 +66,32 @@ public class ParserXml {
 
 		return 	atributos;
 	}
+	
+	public String[] obtenerCardinalidad(Element elemento) {
+		Element cardinalidad = XmlHelper.querySingle(elemento, "./Cardinalidad");		
+		return new String[] { 
+				cardinalidad.getAttribute(Constants.CARDINALIDAD_MIN_ATTR),
+				cardinalidad.getAttribute(Constants.CARDINALIDAD_MAX_ATTR) 
+			};
+	}
+	
+	public String obtenerFormulaAtributo(Element elemento) {
+		Element element = XmlHelper.querySingle(elemento, Constants.FORMULA_QUERY);		
+		return element == null ? null : element.getTextContent();
+	}
+
+	public Atributo obtenerOriginalAtributo(Element elemento) throws Exception {
+		Element element = XmlHelper.querySingle(elemento, Constants.ORIGINAL_QUERY);
+
+		if(element != null)
+			return (Atributo) this.resolver(element.getAttribute(Constants.IDREF_ATTR));
+
+		return null;
+	}
 
 	private Componente findParse(String id) throws Exception {
-		List<Element> list = this.query("//*[@id='" + id + "']");
+		String query = String.format(Constants.ID_QUERY, id);
+		List<Element> list = this.query(query);
 
 		if (list.size() == 1) {
 			return this.parse(list.get(0));

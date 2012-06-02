@@ -21,5 +21,21 @@ public class AtributoXml extends Atributo implements Xmlizable {
 		parser.register(this);
 		
 		this.atributos.addAll(parser.obtenerAtributos(elemento));
+		
+		String [] cardinalidad = parser.obtenerCardinalidad(elemento);
+		if(cardinalidad != null)
+		{
+			this.cardinalidadMinima = cardinalidad[0];
+			this.cardinalidadMaxima = cardinalidad[1];	
+		}
+		
+		switch(this.tipo) {
+			case DERIVADO_CALCULO:
+				this.formula = parser.obtenerFormulaAtributo(elemento);
+			break;
+			case DERIVADO_COPIA:
+				this.original = parser.obtenerOriginalAtributo(elemento);
+			break;
+		}
 	}
 }
