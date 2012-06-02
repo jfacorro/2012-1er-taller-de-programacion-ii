@@ -13,7 +13,7 @@
 			</Atributo>
 		</Atributos>
 		<IdentificadoresExternos>
-			<RefEntidad id="_5"/>
+			<RefEntidad idref="_5"/>
 		</IdentificadoresExternos>
 	</Entidad>
 	<Entidad id="_5" tipo="MAESTRA_COSA">
@@ -29,8 +29,8 @@
 			</Atributo>
 		</Atributos>
 		<IdentificadoresInternos>
-			<RefAtributo id="_6" />
-			<RefAtributo id="_7" />
+			<RefAtributo idref="_6" />
+			<RefAtributo idref="_7" />
 		</IdentificadoresInternos>
 	</Entidad>
 	<Entidad id="_10" tipo="MAESTRA_COSA">
@@ -62,8 +62,8 @@
 			</Atributo>
 		</Atributos>
 		<IdentificadoresInternos>
-			<RefAtributo id="_11" />
-			<RefAtributo id="_12" />
+			<RefAtributo idref="_11" />
+			<RefAtributo idref="_12" />
 		</IdentificadoresInternos>
 	</Entidad>
 	<Entidad id="_19" tipo="MAESTRA_COSA">
@@ -83,18 +83,18 @@
 			</Atributo>
 		</Atributos>
 		<IdentificadoresExternos>
-			<RefEntidad id="_10"/>
+			<RefEntidad idref="_10"/>
 		</IdentificadoresExternos>
 	</Entidad>
 	<Relacion id="_24" tipo="ASOCIACION">
 		<Nombre>SL</Nombre>
 		<Participantes>
 			<Participante>
-				<RefEntidad id="_1" />
+				<RefEntidad idref="_1" />
 				<Cardinalidad min="1" max="1" />
 			</Participante>
 			<Participante>
-				<RefEntidad id="_5" />
+				<RefEntidad idref="_5" />
 				<Cardinalidad min="1" max="n" />
 			</Participante>
 		</Participantes>
@@ -103,11 +103,11 @@
 		<Nombre>FO</Nombre>
 		<Participantes>
 			<Participante>
-				<RefEntidad id="_10" />
+				<RefEntidad idref="_10" />
 				<Cardinalidad min="0" max="n" />
 			</Participante>
 			<Participante>
-				<RefEntidad id="_19" />
+				<RefEntidad idref="_19" />
 				<Cardinalidad min="1" max="1" />
 			</Participante>
 		</Participantes>
@@ -116,11 +116,11 @@
 		<Nombre>VtaLoc</Nombre>
 		<Participantes>
 			<Participante>
-				<RefEntidad id="_10" />
+				<RefEntidad idref="_10" />
 				<Cardinalidad min="0" max="n" />
 			</Participante>
 			<Participante>
-				<RefEntidad id="_1" />
+				<RefEntidad idref="_1" />
 				<Cardinalidad min="0" max="n" />
 			</Participante>
 		</Participantes>
@@ -166,13 +166,13 @@
 	<Diagrama id="_41">
 		<Nombre>BoleteriaTeatro</Nombre>
 		<Componentes>
-			<Componente id="_41" />
-			<Componente id="_41" />
-			<Componente id="_41" />
-			<Componente id="_41" />
-			<Componente id="_41" />
-			<Componente id="_41" />
-			<Componente id="_41" />
+			<Componente idref="_41" />
+			<Componente idref="_41" />
+			<Componente idref="_41" />
+			<Componente idref="_41" />
+			<Componente idref="_41" />
+			<Componente idref="_41" />
+			<Componente idref="_41" />
 		</Componentes>
 		<Validacion estado="SIN_VALIDAR">
 			<Observaciones/>

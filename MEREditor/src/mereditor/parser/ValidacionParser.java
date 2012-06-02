@@ -1,6 +1,9 @@
 package mereditor.parser;
 
 import mereditor.modelo.Validacion;
+import mereditor.modelo.base.Componente;
+import mereditor.parser.base.ComponenteParser;
+
 import org.w3c.dom.Element;
 
 public class ValidacionParser extends ComponenteParser {
@@ -23,7 +26,7 @@ public class ValidacionParser extends ComponenteParser {
 		parser.validacionParser = this;
 	}
 
-	public Object getElementoParseado() {
+	public Componente getComponente() {
 		return validacion;
 	}
 

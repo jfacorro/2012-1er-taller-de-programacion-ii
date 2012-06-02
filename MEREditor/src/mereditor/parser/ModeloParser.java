@@ -1,5 +1,8 @@
 package mereditor.parser;
 
+import mereditor.modelo.base.Componente;
+import mereditor.parser.base.ComponenteParser;
+
 import org.w3c.dom.Element;
 
 public class ModeloParser extends ComponenteParser {
@@ -20,7 +23,7 @@ public class ModeloParser extends ComponenteParser {
 	}
 
 	@Override
-	public Object getElementoParseado() {
+	public Componente getComponente() {
 		// TODO Auto-generated method stub
 		return null;
 	}

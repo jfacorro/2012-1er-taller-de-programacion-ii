@@ -14,7 +14,7 @@ public class EntidadParserFake extends EntidadParser{
 	}
 	
 	List<Atributo> getAtributos(){
-		return super.atributosParseados;
+		return super.atributos;
 	}
 	
 	TipoEntidad getTipo (){

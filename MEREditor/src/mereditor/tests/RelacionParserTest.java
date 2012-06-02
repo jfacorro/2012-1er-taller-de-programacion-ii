@@ -57,7 +57,7 @@ public class RelacionParserTest extends TestCase {
 		parser = new RelacionParser(null);
 		assertTrue(elementoAParsear != null);
 		parser.parsear(elementoAParsear);
-		parseada = (Relacion) parser.getElementoParseado();
+		parseada = (Relacion) parser.getComponente();
 		assertTrue(parseada != null);
 		assertTrue(parseada.getId().equals(ID_RELACION));
 		// assertTrue (parseada.getIdContenedor().equals(ID_CONT_RELACION));

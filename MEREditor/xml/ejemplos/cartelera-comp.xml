@@ -13,8 +13,8 @@
 			</Atributo>
 		</Atributos>
 		<IdentificadoresInternos>
-			<RefAtributo id="_11" />
-			<RefAtributo id="_12" />
+			<RefAtributo idref="_11" />
+			<RefAtributo idref="_12" />
 		</IdentificadoresInternos>
 	</Entidad>
 	<Entidad id="_2" tipo="MAESTRA_COSA">
@@ -56,24 +56,22 @@
 			</Atributo>
 		</Atributos>
 		<IdentificadoresInternos>
-			<RefAtributo id="_21" />
+			<RefAtributo idref="_21" />
 		</IdentificadoresInternos>
 		<IdentificadoresExternos>
-			<IdentificadorExterno>
-				<Atributo id="2" />
-				<Atributo id="3" />
-			</IdentificadorExterno>
+			<RefAtributo idref="_2" />
+			<RefAtributo idref="_3" />
 		</IdentificadoresExternos>
 	</Entidad>
 	<Relacion id="_3" tipo="COMPOSICION">
 		<Nombre>Elenco</Nombre>
 		<Participantes>
 			<Participante>
-				<RefEntidad id="_1" />
+				<RefEntidad idref="_1" />
 				<Cardinalidad min="0" max="n" />
 			</Participante>
 			<Participante>
-				<RefEntidad id="_2" />
+				<RefEntidad idref="_2" />
 				<Cardinalidad min="0" max="n" />
 			</Participante>
 		</Participantes>
@@ -81,9 +79,9 @@
 	<Diagrama id="_4">
 		<Nombre>Cartelera Teatral</Nombre>
 		<Componentes>
-			<Componente id="_1" />
-			<Componente id="_2" />
-			<Componente id="_3" />
+			<Componente idref="_1" />
+			<Componente idref="_2" />
+			<Componente idref="_3" />
 		</Componentes>
 		<Validacion estado="SIN_VALIDAR">
 			<Observaciones/>

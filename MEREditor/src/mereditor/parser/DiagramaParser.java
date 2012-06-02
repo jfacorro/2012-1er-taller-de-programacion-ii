@@ -4,6 +4,9 @@ import java.util.List;
 
 import mereditor.modelo.Diagrama;
 import mereditor.modelo.base.Componente;
+import mereditor.parser.base.ComponenteNombreParser;
+import mereditor.parser.base.Linkeable;
+import mereditor.parser.base.ReferenciasParser;
 
 import org.w3c.dom.Element;
 
@@ -20,8 +23,9 @@ public class DiagramaParser extends ComponenteNombreParser implements Linkeable 
 		componentesParser = new ReferenciasParser(parser,
 				Constants.DIAGRAMA_COMPONENTES_TAG,
 				Constants.DIAGRAMA_COMPONENTES_REF_TAG);
-		diagramasParser = new ReferenciasParser(parser, Constants.DIAGRAMAS_TAG,
-				Constants.DIAGRAMA_REF_TAG);
+		diagramasParser = new ReferenciasParser(parser,
+				Constants.DIAGRAMAS_TAG, Constants.DIAGRAMA_REF_TAG);
+
 		diagrama = null;
 	}
 
@@ -29,10 +33,11 @@ public class DiagramaParser extends ComponenteNombreParser implements Linkeable 
 		List<Element> nodos = Parser.getElementList(elemento);
 
 		for (Element nodo : nodos) {
-			this.obtenerNombre(nodo);
 			componentesParser.parsear(nodo);
 			diagramasParser.parsear(nodo);
 		}
+
+		diagrama = new Diagrama(nombre, id, idPadre);		
 	}
 
 	public void linkear(Componente comp) {
@@ -45,10 +50,7 @@ public class DiagramaParser extends ComponenteNombreParser implements Linkeable 
 		}
 	}
 
-	public Object getElementoParseado() {
-		if (diagrama == null)
-			diagrama = new Diagrama(nombre, id, idPadre);
-
+	public Componente getComponente() {
 		return diagrama;
 	}
 

@@ -3,9 +3,13 @@ package mereditor.parser;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.xml.xpath.XPathFactory;
+
 import mereditor.modelo.Diagrama;
 import mereditor.modelo.Validacion;
 import mereditor.modelo.base.Componente;
+import mereditor.parser.base.ComponenteParser;
+import mereditor.parser.base.Linkeable;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -17,6 +21,8 @@ import org.w3c.dom.NodeList;
  * 
  */
 public class Parser {
+	protected static XPathFactory xpath = XPathFactory.newInstance();
+
 	protected Document xml;
 
 	protected Validacion validacionGlobal;
@@ -51,7 +57,7 @@ public class Parser {
 			componenteParser.agregar(this);
 		}
 
-		validacionGlobal = (Validacion) validacionParser.getElementoParseado();
+		validacionGlobal = (Validacion) validacionParser.getComponente();
 
 		inicializarComponentes();
 
@@ -72,9 +78,8 @@ public class Parser {
 	 * Carga la lista de componentes en base a los parseados
 	 */
 	private void inicializarComponentes() {
-		for (int i = 0; i < componenteParsers.size(); i++) {
-			componentes.add((Componente) componenteParsers.get(i)
-					.getElementoParseado());
+		for (ComponenteParser componenteParser : componenteParsers) {
+			componentes.add((Componente) componenteParser.getComponente());
 		}
 	}
 
@@ -84,7 +89,7 @@ public class Parser {
 	 * @return
 	 */
 	public Diagrama getDiagrama() {
-		return (Diagrama) diagramaPrincipalParser.getElementoParseado();
+		return (Diagrama) diagramaPrincipalParser.getComponente();
 	}
 
 	/**
@@ -123,14 +128,7 @@ public class Parser {
 		parsersLinkeables.add(linkeable);
 	}
 
-	/**
-	 * Devuelve una lista de los nodos hijos del elemento
-	 * 
-	 * @param element
-	 * @return
-	 */
-	public static List<Element> getElementList(Element element) {
-		NodeList list = element.getChildNodes();
+	private static List<Element> convertir(NodeList list) {
 		ArrayList<Element> nodes = new ArrayList<>();
 		for (int i = 0; i < list.getLength(); i++) {
 			Node nodo = list.item(i);
@@ -138,6 +136,15 @@ public class Parser {
 				nodes.add((Element) nodo);
 		}
 		return nodes;
+	}
+
+	/**
+	 * Devuelve una lista de los nodos hijos del elemento
+	 * @param element
+	 * @return
+	 */
+	public static List<Element> getElementList(Element element) {
+		return Parser.convertir(element.getChildNodes());
 	}
 
 	/**
@@ -162,15 +169,36 @@ public class Parser {
 			return new ValidacionParser(parser);
 		}
 	}
-	
+
 	/**
-	 * Verifica si el elemento que se le pasa tiene el tag
-	 * especficado
+	 * Verifica si el elemento que se le pasa tiene el tag especficado
+	 * 
 	 * @param elemento
 	 * @param tag
-	 * @return 
+	 * @return
 	 */
 	public static boolean isTag(Element elemento, String tag) {
 		return elemento.getNodeName() != tag;
+	}
+
+	/**
+	 * Devuelve todos los elementos hijos inmediatos que tienen el tag
+	 * especificado
+	 * 
+	 * @param elemento
+	 * @param tag
+	 * @return
+	 */
+	public static List<Element> obtenerHijos(Element elemento, String tag) {
+		return Parser.convertir(elemento.getElementsByTagName(tag));
+	}
+
+	public static Element obtenerHijo(Element elemento, String tag) {
+		NodeList hijos = elemento.getElementsByTagName(tag);
+		Element hijo = null;
+		if (hijos.getLength() > 0)
+			hijo = (Element) hijos.item(0);
+
+		return hijo;
 	}
 }

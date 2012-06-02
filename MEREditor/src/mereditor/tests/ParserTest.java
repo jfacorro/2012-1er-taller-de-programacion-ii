@@ -19,8 +19,7 @@ public class ParserTest extends TestCase {
 	protected void setUp() throws Exception {
 		super.setUp();
 		File source = new File(PATH_ARCHIVO_PARSERTEST);
-		DocumentBuilder builder = DocumentBuilderFactory.newInstance()
-				.newDocumentBuilder();
+		DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
 		Document doc = builder.parse(source);
 		p = new Parser(doc);
 	}

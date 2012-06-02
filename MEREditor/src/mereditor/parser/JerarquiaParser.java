@@ -5,6 +5,9 @@ import java.util.List;
 import mereditor.modelo.Entidad;
 import mereditor.modelo.Jerarquia;
 import mereditor.modelo.base.Componente;
+import mereditor.parser.base.ComponenteParser;
+import mereditor.parser.base.Linkeable;
+import mereditor.parser.base.ReferenciasParser;
 
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -47,7 +50,7 @@ public class JerarquiaParser extends ComponenteParser implements Linkeable {
 			jerarquia.getEntidadesDerivadas().add(componente);
 	}
 
-	public Object getElementoParseado() {
+	public Componente getComponente() {
 		if (jerarquia == null)
 			jerarquia = new Jerarquia(id, idPadre);
 		return jerarquia;

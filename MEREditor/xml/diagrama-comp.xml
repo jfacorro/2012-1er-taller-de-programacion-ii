@@ -20,17 +20,17 @@
 			</Atributo>
 		</Atributos>
 		<IdentificadoresInternos>
-			<RefAtributo id="_1" />
+			<RefAtributo idref="_1" />
 		</IdentificadoresInternos>
 		<IdentificadoresExternos>
-			<RefEntidad id="_1" />
+			<RefEntidad idref="_1" />
 		</IdentificadoresExternos>
 	</Entidad>
 	<Relacion id="_5" tipo="ASOCIACION">
 		<Nombre />
 		<Participantes>
 			<Participante>
-				<RefEntidad id="_1" />
+				<RefEntidad idref="_1" />
 				<Cardinalidad min="" max="" />
 				<!-- Descripcion del Rol -->
 				<Rol></Rol>
@@ -57,17 +57,17 @@
 	<Jerarquia id="_6" tipo="TOTAL_EXCLUSIVA">		
 		<!-- 1 -->
 		<Generica>
-			<RefEntidad id="_1"/>
+			<RefEntidad idref="_1"/>
 		</Generica>
 		<Derivadas>
-			<RefEntidad id="_2"/>
+			<RefEntidad idref="_2"/>
 		</Derivadas>
 	</Jerarquia>
 	<Diagrama id="_7">
 		<Nombre />
 		<Componentes>
 			<!-- 0..* -->
-			<Componente id="_2" />
+			<Componente idref="_2" />
 		</Componentes>
 		<Diagramas>
 			<!-- 0..* -->

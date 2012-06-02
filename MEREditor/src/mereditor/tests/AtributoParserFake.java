@@ -30,7 +30,7 @@ public class AtributoParserFake extends AtributoParser {
 	}
 	
 	List<Atributo> getAtributosContenidos() {
-		return atributosParseados;
+		return atributos;
 	}
 	
 }

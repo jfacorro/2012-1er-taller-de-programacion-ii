@@ -1,4 +1,4 @@
-package mereditor.parser;
+package mereditor.parser.base;
 
 import mereditor.modelo.base.Componente;
 

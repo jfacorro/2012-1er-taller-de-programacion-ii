@@ -16,15 +16,18 @@ public class Entidad extends ComponenteNombre {
 		TRANSACCIONAL_PROGRAMADA
 	}
 	
-	protected List<Atributo> atributos;
-	protected List<Componente> identificadores; // pueden ser tanto Atributos como Entidades
+	protected List<Atributo> atributos = new LinkedList<Atributo>();
+	/**
+	 * Pueden ser tanto Atributos como Entidades
+	 */
+	protected List<Componente> identificadores=  new LinkedList<Componente>(); 
 	protected TipoEntidad tipo;
+	
+	public Entidad() {}
 	
 	public Entidad (String nombre, String id, String idPadre, TipoEntidad tipo){
 		super (nombre,id,idPadre);
-		this.atributos =  new LinkedList<Atributo>();
-		this.identificadores=  new LinkedList<Componente>();
-		this.tipo= tipo;
+		this.tipo = tipo;
 	}
 	
 	public void agregarIdentificador (ComponenteNombre identificador ){
@@ -33,5 +36,13 @@ public class Entidad extends ComponenteNombre {
 	
 	public void agregarAtributo (Atributo atributo ){
 		identificadores.add(atributo);
+	}
+
+	public List<Atributo> getAtributos() {
+		return this.atributos;
+	}
+
+	public TipoEntidad getTipo() {
+		return this.tipo;
 	}
 }

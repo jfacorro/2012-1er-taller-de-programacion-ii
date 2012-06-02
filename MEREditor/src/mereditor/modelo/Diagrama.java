@@ -10,6 +10,8 @@ public class Diagrama extends ComponenteNombre {
 
 	protected List<Diagrama> diagramas;
 	protected List<Componente> componentes;
+	
+	public Diagrama() {}
 
 	public Diagrama(String nombre, String id, String idPadre) {
 		super(nombre, id, idPadre);
