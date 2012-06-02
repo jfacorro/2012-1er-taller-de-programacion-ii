@@ -1,4 +1,4 @@
-package mereditor.parser;
+package mereditor.xml;
 
 public class Constants {
 	public static final String ID_ATTR = "id";
