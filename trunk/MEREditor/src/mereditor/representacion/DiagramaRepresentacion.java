@@ -7,21 +7,21 @@ import org.eclipse.draw2d.Figure;
 
 import mereditor.modelo.Diagrama;
 import mereditor.modelo.base.Componente;
-import mereditor.representacion.base.ComponenteRepresentacion;
+import mereditor.representacion.base.Representacion;
 
-public class DiagramaRepresentacion extends ComponenteRepresentacion<Diagrama> {
+public class DiagramaRepresentacion extends Representacion<Diagrama> {
 	protected Diagrama diagrama;
 	
 	protected List<DiagramaRepresentacion> diagramas;
-	protected List<ComponenteRepresentacion<Componente>> componentes;
+	protected List<Representacion<Componente>> componentes;
 	//protected List<JerarquiaRepresentacion> jerarquias;
 	
 	public DiagramaRepresentacion() {
 		this.diagramas = new LinkedList<DiagramaRepresentacion>();
-		this.componentes = new LinkedList<ComponenteRepresentacion<Componente>>();
+		this.componentes = new LinkedList<Representacion<Componente>>();
 	}
 	
-	public List<ComponenteRepresentacion<Componente>> getComponentes() {
+	public List<Representacion<Componente>> getComponentes() {
 		return this.componentes;
 	}
 

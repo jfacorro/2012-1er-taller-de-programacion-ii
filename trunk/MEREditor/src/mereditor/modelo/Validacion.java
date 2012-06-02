@@ -1,8 +1,7 @@
 package mereditor.modelo;
 
-import mereditor.modelo.base.Componente;
 
-public class Validacion extends Componente {
+public class Validacion {
 	public enum EstadoValidacion {
 		SIN_VALIDAR,
 		VALIDADO
