@@ -10,9 +10,9 @@ public class Atributo extends ComponenteNombre {
 		CARACTERIZACION, DERIVADO_COPIA, DERIVADO_CALCULO
 	}
 
-	protected String cardinalidadMin;
-	protected String cardinalidadMax;
 	protected TipoAtributo tipo;
+	protected String cardinalidadMinima;
+	protected String cardinalidadMaxima;
 	protected List<Atributo> atributos = new LinkedList<Atributo>();
 
 	// Derivado copia
@@ -32,7 +32,27 @@ public class Atributo extends ComponenteNombre {
 			List<Atributo> atributos) {
 		this(nombre, id, idPadre);
 		this.atributos = atributos;
-		this.cardinalidadMin = min;
-		this.cardinalidadMax = cardMax;
+		this.cardinalidadMinima = min;
+		this.cardinalidadMaxima = cardMax;
+	}
+
+	public TipoAtributo getTipo() {
+		return this.tipo;
+	}
+
+	public String getCardinalidadMaxima() {
+		return this.cardinalidadMaxima;
+	}
+
+	public String getCardinalidadMinima() {
+		return this.cardinalidadMinima;
+	}
+
+	public Atributo getOriginal() {
+		return this.original;
+	}
+
+	public String getFormula() {
+		return this.formula;
 	}
 }
