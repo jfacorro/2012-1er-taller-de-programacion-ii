@@ -7,6 +7,9 @@ import mereditor.modelo.Entidad;
 import mereditor.modelo.Entidad.TipoEntidad;
 import mereditor.modelo.base.Componente;
 import mereditor.modelo.base.ComponenteNombre;
+import mereditor.parser.base.AtributosParser;
+import mereditor.parser.base.Linkeable;
+import mereditor.parser.base.ReferenciasParser;
 
 import org.w3c.dom.Element;
 
@@ -38,14 +41,14 @@ public class EntidadParser extends AtributosParser implements Linkeable {
 	private void inicializarEntidad() {
 		entidad = new Entidad(nombre, id, idPadre, tipo);
 		/* Inicializo los atributos */
-		for (int i = 0; i < atributosParseados.size(); i++) {
-			if (idsInternosParser.pertenece(atributosParseados.get(i)))
+		for (int i = 0; i < atributos.size(); i++) {
+			if (idsInternosParser.pertenece(atributos.get(i)))
 				((Entidad) entidad)
-						.agregarAtributo((Atributo) atributosParseados.get(i));
+						.agregarAtributo((Atributo) atributos.get(i));
 		}
 	}
 
-	public Object getElementoParseado() {
+	public Componente getComponente() {
 		if (entidad == null)
 			inicializarEntidad();
 

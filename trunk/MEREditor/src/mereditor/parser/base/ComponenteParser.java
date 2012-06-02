@@ -1,4 +1,8 @@
-package mereditor.parser;
+package mereditor.parser.base;
+
+import mereditor.modelo.base.Componente;
+import mereditor.parser.Constants;
+import mereditor.parser.Parser;
 
 import org.w3c.dom.Element;
 
@@ -17,7 +21,7 @@ public abstract class ComponenteParser {
 		if (elemento.getNodeName() != this.getTag())
 			return;
 
-		this.id = elemento.getAttribute(Constants.ID_TAG);
+		this.id = elemento.getAttribute(Constants.ID_ATTR);
 
 		if (this.id != null)
 			this.id = this.id.replace("_", "");
@@ -41,11 +45,11 @@ public abstract class ComponenteParser {
 		this.idPadre = idPadre;
 	}
 
-	public abstract Object getElementoParseado();	
+	public abstract Componente getComponente();	
+
+	public abstract void agregar(Parser parser);
 
 	protected abstract void procesar(Element elemento);
-
-	protected abstract void agregar(Parser parser);
 
 	protected abstract String getTag();
 }

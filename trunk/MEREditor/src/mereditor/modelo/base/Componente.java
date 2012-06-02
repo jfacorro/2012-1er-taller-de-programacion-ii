@@ -4,20 +4,18 @@ public abstract class Componente {
 	/**
 	 * Id del componente
 	 */
-	String id;
+	protected String id;
 
 	/**
 	 * Id del padre del componente
 	 */
-	String idPadre;
+	protected String idPadre;
+
+	public Componente() {}
 
 	public Componente(String id, String idPadre) {
 		this.id = id;
 		this.idPadre = idPadre;
-	}
-
-	public Componente() {
-
 	}
 
 	public String getId() {
@@ -26,5 +24,10 @@ public abstract class Componente {
 
 	public String getIdPadre() {
 		return idPadre;
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		return obj == null ? false : this.getId().equals(((Componente)obj).getId());
 	}
 }

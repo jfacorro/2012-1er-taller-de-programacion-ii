@@ -13,13 +13,13 @@
 				</Atributo>
 			</Atributos>
 			<IdentificadoresInternos>
-				<RefAtributo id="_2" />
-				<RefAtributo id="_3" />
+				<RefAtributo idref="_2" />
+				<RefAtributo idref="_3" />
 			</IdentificadoresInternos>
 			<IdentificadoresExternos>
-					<RefEntidad id="_3" />
-					<RefEntidad id="_4" />
-					<RefEntidad id="_5" />
+					<RefEntidad idref="_3" />
+					<RefEntidad idref="_4" />
+					<RefEntidad idref="_5" />
 			</IdentificadoresExternos>
 	</Entidad>
 	<Entidad id="_4" tipo="MAESTRA_COSA">

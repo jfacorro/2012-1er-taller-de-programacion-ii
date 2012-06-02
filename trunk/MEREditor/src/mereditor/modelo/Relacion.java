@@ -14,6 +14,8 @@ public class Relacion extends ComponenteNombre {
 	protected TipoRelacion tipo;
 	protected List<EntidadRelacion> entidades;
 	protected List<Atributo> atributos;
+	
+	public Relacion() {}
 
 	public Relacion(String nombre, String id, String idPadre, TipoRelacion tipo) {
 		super(nombre, id, idPadre);

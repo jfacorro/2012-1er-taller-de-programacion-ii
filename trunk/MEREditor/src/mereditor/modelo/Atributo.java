@@ -13,25 +13,26 @@ public class Atributo extends ComponenteNombre {
 	protected String cardinalidadMin;
 	protected String cardinalidadMax;
 	protected TipoAtributo tipo;
-	protected List<Atributo> atributos;
+	protected List<Atributo> atributos = new LinkedList<Atributo>();
 
 	// Derivado copia
 	protected Atributo original;
 
 	// Derivado calculo
 	protected String formula;
+	
+	public Atributo() {}
 
 	public Atributo(String nombre, String id, String idPadre) {
 		super(nombre, id, idPadre);
-		this.atributos = new LinkedList<Atributo>();
 	}
 
 	public Atributo(String nombre, String id, String idPadre, String min,
 			String cardMax, TipoAtributo tipo,
-			List<Atributo> atributosContenidos) {
+			List<Atributo> atributos) {
 		this(nombre, id, idPadre);
-		this.atributos = atributosContenidos;
-		cardinalidadMin = min;
-		cardinalidadMax = cardMax;
+		this.atributos = atributos;
+		this.cardinalidadMin = min;
+		this.cardinalidadMax = cardMax;
 	}
 }

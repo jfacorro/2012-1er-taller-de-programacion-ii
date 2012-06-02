@@ -8,6 +8,8 @@ import mereditor.modelo.Relacion;
 import mereditor.modelo.Relacion.EntidadRelacion;
 import mereditor.modelo.Relacion.TipoRelacion;
 import mereditor.modelo.base.Componente;
+import mereditor.parser.base.AtributosParser;
+import mereditor.parser.base.Linkeable;
 
 import org.w3c.dom.Element;
 
@@ -15,7 +17,7 @@ public class RelacionParser extends AtributosParser implements Linkeable {
 
 	public static final String tag = Constants.RELACION_TAG;
 
-	protected Relacion relacionParseada;
+	protected Relacion relacion;
 	protected TipoRelacion tipo;
 	protected List<DatosParticipante> participantesAux;
 	protected List<String> refsAEntidades;
@@ -29,7 +31,7 @@ public class RelacionParser extends AtributosParser implements Linkeable {
 	protected void procesar(Element elemento) {
 		List<Element> nodos = Parser.getElementList(elemento);
 
-		this.id = elemento.getAttribute(Constants.ID_TAG);
+		this.id = elemento.getAttribute(Constants.ID_ATTR);
 		this.tipo = TipoRelacion.valueOf(elemento
 				.getAttribute(Constants.TIPO_ATTR));
 
@@ -40,10 +42,10 @@ public class RelacionParser extends AtributosParser implements Linkeable {
 			parsearRefEntidades(nodo);
 		}
 
-		relacionParseada = new Relacion(nombre, id, idPadre, tipo);
+		relacion = new Relacion(nombre, id, idPadre, tipo);
 
-		for (int i = 0; i < atributosParseados.size(); i++)
-			relacionParseada.agregarAtributo(atributosParseados.get(i));
+		for (int i = 0; i < atributos.size(); i++)
+			relacion.agregarAtributo(atributos.get(i));
 
 	}
 
@@ -79,8 +81,8 @@ public class RelacionParser extends AtributosParser implements Linkeable {
 
 	private void parsearRefEntidad(Element item, String idParticipante) {
 		Element ref = (Element) (item
-				.getElementsByTagName(Constants.REF_ENTIDAD_TAG).item(0));
-		idParticipante = ref.getAttribute(Constants.ID_TAG);
+				.getElementsByTagName(Constants.ENTIDAD_REF_TAG).item(0));
+		idParticipante = ref.getAttribute(Constants.ID_ATTR);
 	}
 
 	private void parsearCardinalidad(Element item, String cardMinParticipante,
@@ -98,14 +100,14 @@ public class RelacionParser extends AtributosParser implements Linkeable {
 		int indexE = refsAEntidades.indexOf(e.getId());
 		if (indexE >= 0) { // encontro
 			datos = participantesAux.get(indexE);
-			eR = relacionParseada.new EntidadRelacion((Entidad) e, datos.rol,
+			eR = relacion.new EntidadRelacion((Entidad) e, datos.rol,
 					datos.cardinalidadMininma, datos.cardinalidadMaxima);
-			relacionParseada.agregarParticipante(eR);
+			relacion.agregarParticipante(eR);
 		}
 	}
 
-	public Object getElementoParseado() {
-		return relacionParseada;
+	public Componente getComponente() {
+		return relacion;
 	}
 
 	public void agregar(Parser parser) {

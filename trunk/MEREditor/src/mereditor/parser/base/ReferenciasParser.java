@@ -1,9 +1,11 @@
-package mereditor.parser;
+package mereditor.parser.base;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import mereditor.modelo.base.Componente;
+import mereditor.parser.Constants;
+import mereditor.parser.Parser;
 
 import org.w3c.dom.Element;
 
@@ -26,22 +28,25 @@ public class ReferenciasParser extends ComponenteParser {
 
 		for (Element nodo : nodos) {
 			if (Parser.isTag(nodo, refTag)) {
-				ids.add(elemento.getAttribute(Constants.ID_TAG));
+				ids.add(elemento.getAttribute(Constants.ID_ATTR));
 			}
 		}
 	}
 
-	boolean pertenece(Componente componenteALinkear) {
+	public boolean pertenece(Componente componenteALinkear) {
 		return ids.indexOf(componenteALinkear.getId()) >= 0;
 	}
+	
+	public List<String> getIds() {
+		return this.ids;
+	}
 
-	public Object getElementoParseado() {
-		return ids;
+	public Componente getComponente() {
+		return null;
 	}
 
 	@Override
-	protected void agregar(Parser parser) {
-	}
+	public void agregar(Parser parser) {}
 
 	@Override
 	protected String getTag() {

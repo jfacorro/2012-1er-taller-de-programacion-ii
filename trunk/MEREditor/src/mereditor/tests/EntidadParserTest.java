@@ -15,6 +15,7 @@ import mereditor.modelo.Entidad.TipoEntidad;
 import mereditor.modelo.base.Componente;
 import mereditor.modelo.base.ComponenteNombre;
 import mereditor.parser.EntidadParser;
+import mereditor.parser.Parser;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -23,7 +24,7 @@ public class EntidadParserTest extends TestCase {
 
 	private static final String ID_DIAGRAMA = "i354x";
 	private static final TipoEntidad TIPO_ENT = Entidad.TipoEntidad.MAESTRA_COSA;
-	private static final String PATH_ARCHIVO_DE_ENTIDADPARSERTEST = "xml/tests/entidad-comp.xml";
+	private static final String XML_TEST_FILE_PATH = "xml/tests/entidad-comp.xml";
 	private Element elementoAParsear;
 	private Componente entidadParseada;
 	private Entidad entidadAComparar;
@@ -38,21 +39,26 @@ public class EntidadParserTest extends TestCase {
 
 	protected void setUp() throws Exception {
 		super.setUp();
-		File source = new File(PATH_ARCHIVO_DE_ENTIDADPARSERTEST);
+
+		File source = new File(XML_TEST_FILE_PATH);
+
 		DocumentBuilder builder = DocumentBuilderFactory.newInstance()
 				.newDocumentBuilder();
+
 		Document doc = builder.parse(source);
+
 		Element raiz = doc.getDocumentElement();
-		Element nodo = (Element) raiz.getElementsByTagName(EntidadParser.tag)
-				.item(0);
-		elementoAParsear = (Element) nodo;
+		elementoAParsear = Parser.obtenerHijo(raiz, EntidadParser.tag);
+
 		String idE1 = "1";
 		entidadAComparar = new Entidad("Localidad", idE1, ID_DIAGRAMA, TIPO_ENT);
 		atributosAComparar = new ArrayList<Atributo>();
+
 		Atributo a1 = new Atributo("fila", "1", idE1, "1", "1",
 				Atributo.TipoAtributo.CARACTERIZACION, null);
 		Atributo a2 = new Atributo("butaca", "2", idE1, "1", "1",
 				Atributo.TipoAtributo.CARACTERIZACION, null);
+
 		atributosAComparar.add(a1);
 		atributosAComparar.add(a2);
 		entidadAComparar.agregarAtributo(a1);
@@ -83,10 +89,9 @@ public class EntidadParserTest extends TestCase {
 		parser.setIdPadre(ID_DIAGRAMA);
 		assertTrue(elementoAParsear != null);
 		parser.parsear(elementoAParsear);
-		entidadParseada = (Componente) parser.getElementoParseado();
+		entidadParseada = (Componente) parser.getComponente();
 		assertTrue(entidadParseada != null);
-		assertTrue(entidadParseada.getId().equals(
-				entidadAComparar.getId()));
+		assertTrue(entidadParseada.getId().equals(entidadAComparar.getId()));
 		assertTrue(entidadParseada.getIdPadre().equals(
 				entidadAComparar.getIdPadre()));
 		assertTrue(((ComponenteNombre) entidadParseada).getNombre().equals(
@@ -98,7 +103,5 @@ public class EntidadParserTest extends TestCase {
 			assertTrue(parser.getAtributos().get(i).getId()
 					.equals(atributosAComparar.get(i).getId()));
 		}
-
 	}
-
 }
