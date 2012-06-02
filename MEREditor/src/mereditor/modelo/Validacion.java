@@ -3,13 +3,26 @@ package mereditor.modelo;
 import mereditor.modelo.base.Componente;
 
 public class Validacion extends Componente {
+	public enum EstadoValidacion {
+		SIN_VALIDAR,
+		VALIDADO
+	}
+
 	protected String observaciones;
-	protected String estado;
+	protected EstadoValidacion estado;
 	
 	public Validacion() {}
 
-	public Validacion(String estadoValidacion, String obs) {
-		observaciones = obs;
-		estado = estadoValidacion;
+	public Validacion(EstadoValidacion estado, String observaciones) {
+		this.estado = estado;
+		this.observaciones = observaciones;
+	}
+
+	public EstadoValidacion getEstado() {
+		return this.estado;
+	}
+
+	public String getObservaciones() {
+		return observaciones;
 	}
 }
