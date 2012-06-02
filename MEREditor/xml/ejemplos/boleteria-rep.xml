@@ -6,7 +6,7 @@
 			en el modelo. La forma en que se dibuja esta definida por 
 		-->
 		<Componente id="">
-			<posicion x="" y="" />
+			<Posicion x="" y="" />
 			<Titulo color="" fuente="" tamanio="" />
 			<ColorBorde></ColorBorde>
 			<ColorFondo></ColorFondo>

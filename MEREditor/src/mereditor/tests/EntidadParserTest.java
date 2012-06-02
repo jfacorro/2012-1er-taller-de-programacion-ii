@@ -80,7 +80,7 @@ public class EntidadParserTest extends TestCase {
 
 	public void testParsearEntidades() {
 		EntidadParserFake parser = new EntidadParserFake(null);
-		parser.setIdContenedor(ID_DIAGRAMA);
+		parser.setIdPadre(ID_DIAGRAMA);
 		assertTrue(elementoAParsear != null);
 		parser.parsear(elementoAParsear);
 		entidadParseada = (Componente) parser.getElementoParseado();

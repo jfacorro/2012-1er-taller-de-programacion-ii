@@ -11,17 +11,15 @@ import org.w3c.dom.Node;
 
 public class JerarquiaParser extends ComponenteParser implements Linkeable {
 
-	protected ReferenciasParser compParser;
-	protected Componente jerarquia;
-	protected String id;
-	protected String idGenerica;
-	protected String idContenedor;
-	private Jerarquia jerarquiaParseada;
+	public static final String tag = Constants.JERARQUIA_TAG;
+
+	protected Jerarquia jerarquia;
+	protected String idEntidadGenerica;
+	protected ReferenciasParser entidadesDerivadasParser;
 
 	public JerarquiaParser(Parser parser) {
 		super(parser);
-		jerarquia = null;
-		compParser = new ReferenciasParser(parser, Constants.JERARQUIA_DERIVADAS_TAG,
+		entidadesDerivadasParser = new ReferenciasParser(parser, Constants.JERARQUIA_DERIVADAS_TAG,
 				Constants.DERIVADA_REF_TAG);
 	}
 
@@ -30,29 +28,29 @@ public class JerarquiaParser extends ComponenteParser implements Linkeable {
 
 		for (Element nodo : nodos) {
 				parsearEntidadGenerica(nodo);
-				compParser.parsear(nodo);
+				entidadesDerivadasParser.parsear(nodo);
 		}
 	}
 
 	private void parsearEntidadGenerica(Node nodoActual) {
 		if (nodoActual.getNodeName() != Constants.JERARQUIA_GENERICA_TAG)
 			return;
-		idGenerica = nodoActual.getAttributes().item(0).getNodeValue();
+		idEntidadGenerica = nodoActual.getAttributes().item(0).getNodeValue();
 	}
 
-	public void linkear(Componente componenteALinkear) {
-		if (componenteALinkear.getId().equals(idGenerica)) {
-			jerarquiaParseada.setEntidadGenerica((Entidad) componenteALinkear);
+	public void linkear(Componente componente) {
+		if (componente.getId().equals(idEntidadGenerica)) {
+			jerarquia.setEntidadGenerica((Entidad) componente);
 			return;
 		}
-		if (compParser.pertenece(componenteALinkear))
-			jerarquiaParseada.getEntidadesDerivadas().add(componenteALinkear);
+		if (entidadesDerivadasParser.pertenece(componente))
+			jerarquia.getEntidadesDerivadas().add(componente);
 	}
 
 	public Object getElementoParseado() {
-		if (jerarquiaParseada == null)
-			jerarquiaParseada = new Jerarquia(id, idContenedor);
-		return jerarquiaParseada;
+		if (jerarquia == null)
+			jerarquia = new Jerarquia(id, idPadre);
+		return jerarquia;
 	}
 
 	public void agregar(Parser parser) {

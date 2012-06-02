@@ -3,17 +3,16 @@ package mereditor.parser;
 import java.util.ArrayList;
 import java.util.List;
 
-import mereditor.modelo.base.ComponenteNombre;
+import mereditor.modelo.Atributo;
 
 import org.w3c.dom.Element;
 
 public abstract class AtributosParser extends ComponenteNombreParser {
 
-	protected List<ComponenteNombre> atributosParseados;
+	protected List<Atributo> atributosParseados = new ArrayList<Atributo>();
 
 	AtributosParser(Parser parser) {
 		super(parser);
-		atributosParseados = new ArrayList<ComponenteNombre>();
 	}
 
 	protected void parsearAtributos(Element item) {

@@ -7,7 +7,6 @@ import mereditor.modelo.Atributo;
 import mereditor.modelo.Atributo.TipoAtributo;
 
 import org.w3c.dom.Element;
-import org.w3c.dom.Node;
 
 public class AtributoParser extends AtributosParser {
 
@@ -21,11 +20,12 @@ public class AtributoParser extends AtributosParser {
 	}
 	
 	public void procesar(Element elemento) {
+		this.tipo = TipoAtributo.valueOf(elemento.getAttribute(Constants.TIPO_ATTR));
+
 		List<Element> nodos = Parser.getElementList(elemento);
 
 		for (Element nodo : nodos) {
-			obtenerNombre(nodo);
-			obtenerTipoAttr(nodo);
+			this.obtenerNombre(nodo);
 			obtenerCardinalidad(nodo);
 			parsearAtributos(nodo);
 		}
@@ -38,18 +38,10 @@ public class AtributoParser extends AtributosParser {
 				cardinalidadMaxima, tipo, atributos);
 	}
 
-	private void obtenerTipoAttr(Node item) {
-		String aux;
-		if (item.getNodeName() == Constants.TIPO_ATTR) {
-			aux = item.getAttributes().item(0).getNodeValue();
-			tipo = TipoAtributo.valueOf(aux);
-		}
-	}
-
 	private void obtenerCardinalidad(Element item) {
-		if (item.getNodeName() == Constants.CARDINALIDAD_TAG) {
-			cardinalidadMininima = item.getAttribute(Constants.CARDINALIDAD_MIN_TAG);
-			cardinalidadMaxima = item.getAttribute(Constants.CARDINALIDAD_MAX_TAG);
+		if (Parser.isTag(item, Constants.CARDINALIDAD_TAG)) {
+			this.cardinalidadMininima = item.getAttribute(Constants.CARDINALIDAD_MIN_ATTR);
+			this.cardinalidadMaxima = item.getAttribute(Constants.CARDINALIDAD_MAX_ATTR);
 		}
 	}
 

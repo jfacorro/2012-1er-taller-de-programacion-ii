@@ -163,6 +163,13 @@ public class Parser {
 		}
 	}
 	
+	/**
+	 * Verifica si el elemento que se le pasa tiene el tag
+	 * especficado
+	 * @param elemento
+	 * @param tag
+	 * @return 
+	 */
 	public static boolean isTag(Element elemento, String tag) {
 		return elemento.getNodeName() != tag;
 	}

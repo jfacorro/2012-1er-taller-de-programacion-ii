@@ -9,15 +9,18 @@ import org.w3c.dom.Element;
 
 public class DiagramaParser extends ComponenteNombreParser implements Linkeable {
 
-	protected ReferenciasParser compParser;
-	protected ReferenciasParser diagParser;
+	public static final String tag = Constants.DIAGRAMA_TAG;
+
 	protected Diagrama diagrama;
+	protected ReferenciasParser componentesParser;
+	protected ReferenciasParser diagramasParser;
 
 	public DiagramaParser(Parser parser) {
 		super(parser);
-		compParser = new ReferenciasParser(parser, Constants.DIAGRAMA_COMPONENTES_TAG,
+		componentesParser = new ReferenciasParser(parser,
+				Constants.DIAGRAMA_COMPONENTES_TAG,
 				Constants.DIAGRAMA_COMPONENTES_REF_TAG);
-		diagParser = new ReferenciasParser(parser, Constants.DIAGRAMAS_TAG,
+		diagramasParser = new ReferenciasParser(parser, Constants.DIAGRAMAS_TAG,
 				Constants.DIAGRAMA_REF_TAG);
 		diagrama = null;
 	}
@@ -27,17 +30,17 @@ public class DiagramaParser extends ComponenteNombreParser implements Linkeable 
 
 		for (Element nodo : nodos) {
 			this.obtenerNombre(nodo);
-			compParser.parsear(nodo);
-			diagParser.parsear(nodo);
+			componentesParser.parsear(nodo);
+			diagramasParser.parsear(nodo);
 		}
 	}
 
 	public void linkear(Componente comp) {
-		if (compParser.pertenece(comp)) {
+		if (componentesParser.pertenece(comp)) {
 			diagrama.getComponentes().add(comp);
 			return;
 		}
-		if (diagParser.pertenece(comp)) {
+		if (diagramasParser.pertenece(comp)) {
 			diagrama.getDiagramas().add((Diagrama) comp);
 		}
 	}
