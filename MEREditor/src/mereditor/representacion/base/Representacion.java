@@ -5,7 +5,7 @@ import mereditor.modelo.base.Componente;
 
 import org.eclipse.draw2d.Figure;
 
-public abstract class ComponenteRepresentacion<T extends Componente> {
+public abstract class Representacion<T extends Componente> {
 	
 	protected int x, y;
 	protected int ancho, alto; 

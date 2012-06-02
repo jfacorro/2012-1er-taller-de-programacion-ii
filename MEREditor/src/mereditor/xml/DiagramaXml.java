@@ -1,7 +1,6 @@
 package mereditor.xml;
 
 import mereditor.modelo.Diagrama;
-import mereditor.modelo.Validacion;
 import mereditor.modelo.base.Componente;
 
 import org.w3c.dom.Element;
@@ -26,6 +25,6 @@ public class DiagramaXml extends Diagrama implements Xmlizable {
 		for(Componente componente : parser.obtenerDiagramas(elemento))
 			this.diagramas.add((Diagrama) componente);		
 		
-		this.validacion = (Validacion)parser.obtenerValidacion(elemento);
+		this.validacion = parser.obtenerValidacion(elemento);
 	}
 }
