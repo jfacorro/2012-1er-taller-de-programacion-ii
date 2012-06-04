@@ -2,7 +2,7 @@ package mereditor.xml;
 
 import mereditor.interfaz.swt.figuras.AtributoFigure;
 import mereditor.modelo.Atributo;
-import mereditor.representacion.AtributoControl;
+import mereditor.control.AtributoControl;
 
 import org.w3c.dom.Element;
 

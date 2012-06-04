@@ -1,9 +1,9 @@
-package mereditor.representacion;
+package mereditor.control;
 
 import mereditor.interfaz.swt.figuras.Figura;
 import mereditor.modelo.Diagrama;
 import mereditor.modelo.base.Componente;
-import mereditor.representacion.base.Control;
+import mereditor.control.base.Control;
 
 import org.eclipse.draw2d.Figure;
 

@@ -3,7 +3,7 @@ package mereditor.xml;
 import mereditor.interfaz.swt.figuras.EntidadFigure;
 import mereditor.modelo.Atributo;
 import mereditor.modelo.base.Componente;
-import mereditor.representacion.EntidadControl;
+import mereditor.control.EntidadControl;
 
 import org.w3c.dom.Element;
 

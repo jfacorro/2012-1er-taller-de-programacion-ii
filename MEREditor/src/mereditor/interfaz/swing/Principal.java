@@ -4,7 +4,7 @@ import java.awt.BorderLayout;
 
 import javax.swing.JFrame;
 
-import mereditor.representacion.DiagramaControl;
+import mereditor.control.DiagramaControl;
 
 public class Principal extends JFrame {
 

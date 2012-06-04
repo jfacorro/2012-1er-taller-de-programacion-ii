@@ -1,4 +1,4 @@
-package mereditor.representacion.base;
+package mereditor.control.base;
 
 import mereditor.interfaz.swt.figuras.Figura;
 import mereditor.modelo.base.Componente;

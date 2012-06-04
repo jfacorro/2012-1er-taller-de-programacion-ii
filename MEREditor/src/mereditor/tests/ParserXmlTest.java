@@ -16,7 +16,7 @@ import mereditor.modelo.Relacion;
 import mereditor.modelo.Relacion.EntidadRelacion;
 import mereditor.modelo.Validacion.EstadoValidacion;
 import mereditor.modelo.base.Componente;
-import mereditor.representacion.base.Representacion;
+import mereditor.control.base.Representacion;
 import mereditor.xml.ParserXml;
 
 import org.w3c.dom.Document;

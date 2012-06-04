@@ -1,6 +1,6 @@
 package mereditor.interfaz.swt;
 
-import mereditor.representacion.DiagramaControl;
+import mereditor.control.DiagramaControl;
 import mereditor.xml.ParserXml;
 
 import org.eclipse.draw2d.ChopboxAnchor;

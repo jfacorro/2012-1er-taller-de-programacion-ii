@@ -1,4 +1,4 @@
-package mereditor.representacion.base;
+package mereditor.control.base;
 
 public class Representacion {
 	
