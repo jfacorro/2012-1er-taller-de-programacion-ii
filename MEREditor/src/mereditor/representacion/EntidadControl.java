@@ -32,6 +32,7 @@ public class EntidadControl extends Entidad implements Control<Entidad> {
 
 			contenedor.add(connection);
 			atributoControl.dibujar(contenedor);
+			this.figure.agregar(atributoControl.getFigura());
 		}
 
 		contenedor.add(this.figure);

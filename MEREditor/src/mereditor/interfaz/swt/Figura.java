@@ -1,5 +1,8 @@
 package mereditor.interfaz.swt;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import mereditor.modelo.base.Componente;
 import mereditor.representacion.base.Representacion;
 
@@ -19,6 +22,7 @@ public class Figura<T extends Componente> extends Figure {
 
 	protected T componente;
 	protected Label lblName;
+	private List<Figure> figuras = new ArrayList<>();
 
 	public Figura(T componente, Dimension dim) {
 		this(componente);
@@ -44,6 +48,7 @@ public class Figura<T extends Componente> extends Figure {
 
 		// Agregar controlador para arrastre
 		new DragDropControlador(this);
+		new MovimientoControlador(this);
 	}
 
 	protected Color getBackColor() {
@@ -64,5 +69,13 @@ public class Figura<T extends Componente> extends Figure {
 
 			this.setBounds(rectangle);
 		}
+	}
+	
+	public void agregar(Figure figura) {
+		this.figuras.add(figura);
+	}
+
+	public List<Figure> getFiguras() {
+		return this.figuras;		
 	}
 }
