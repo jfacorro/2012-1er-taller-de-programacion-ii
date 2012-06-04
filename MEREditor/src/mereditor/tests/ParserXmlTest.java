@@ -110,6 +110,16 @@ public class ParserXmlTest extends TestCase {
 		Relacion relacion = (Relacion)this.parser.resolver("_24");
 		assertEquals(relacion.getParticipantes().size(), 2);
 	}
+
+	public void testEncontrarRelacionPorIdVerificarAtributos() throws Exception {
+		Relacion relacion = (Relacion)this.parser.resolver("_30");
+		assertEquals(relacion.getAtributos().size(), 1);
+	}
+	
+	public void testEncontrarRelacionPorIdVerificarAtributoCompuesto() throws Exception {
+		Relacion relacion = (Relacion)this.parser.resolver("_30");
+		assertEquals(relacion.getAtributos().get(0).getAtributos().size(), 5);
+	}
 	
 	public void testEncontrarRelacionPorIdVerificarRolParticipante() throws Exception {
 		Relacion relacion = (Relacion)this.parser.resolver("_24");

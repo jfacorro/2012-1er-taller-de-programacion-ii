@@ -2,7 +2,8 @@ package mereditor.xml;
 
 import java.util.List;
 
-import mereditor.interfaz.swt.RelacionFigure;
+import mereditor.interfaz.swt.figuras.RelacionFigure;
+import mereditor.modelo.Atributo;
 import mereditor.modelo.Entidad;
 import mereditor.representacion.RelacionControl;
 
@@ -23,6 +24,11 @@ public class RelacionXml extends RelacionControl implements Xmlizable {
 		this.tipo = TipoRelacion.valueOf(parser.obtenerTipo(elemento));
 
 		parser.registrar(this);
+		
+		for(Atributo atributo : parser.obtenerAtributos(elemento)) {
+			atributo.setPadre(this);
+			this.atributos.add(atributo);
+		}
 
 		List<Element> participantesXml = parser.obtenerParticipantes(elemento);
 

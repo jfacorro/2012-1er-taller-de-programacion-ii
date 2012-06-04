@@ -1,8 +1,10 @@
-package mereditor.interfaz.swt;
+package mereditor.interfaz.swt.figuras;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import mereditor.interfaz.swt.listeners.DragDropControlador;
+import mereditor.interfaz.swt.listeners.MovimientoControlador;
 import mereditor.modelo.base.Componente;
 import mereditor.representacion.base.Representacion;
 
@@ -45,11 +47,13 @@ public class Figura<T extends Componente> extends Figure {
 	}
 
 	protected void init() {
-		this.setFont(Figura.defaultFont);
+		this.setFont(defaultFont);
 		LayoutManager layout = new BorderLayout();
 		this.setLayoutManager(layout);
+
 		this.setBorder(new LineBorder(this.getLineColor(), 1));
 		this.setBackgroundColor(this.getBackColor());
+
 		this.setOpaque(true);
 		this.setSize(Figura.defaultSize);
 
@@ -60,6 +64,7 @@ public class Figura<T extends Componente> extends Figure {
 
 		// Agregar controlador para arrastre
 		new DragDropControlador(this);
+		// Agregar controlador para el movivimento de las figuras loqueadas
 		new MovimientoControlador(this);
 	}
 
@@ -70,7 +75,7 @@ public class Figura<T extends Componente> extends Figure {
 	protected Color getLineColor() {
 		return Figura.defaultLineColor;
 	}
-	
+
 	protected void resetDefaultSetting() {
 		this.removeAll();
 		this.setBackgroundColor(null);
