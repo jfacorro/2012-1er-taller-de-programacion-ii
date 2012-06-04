@@ -11,12 +11,15 @@ import org.eclipse.draw2d.geometry.Rectangle;
 
 public class AtributoFigure extends Figura<Atributo> {
 
-	private Ellipse ellipse = new Ellipse();
+	private Ellipse ellipse;
 
 	public AtributoFigure(Atributo componente) {
 		super(componente);
-
-		this.resetDefaultSetting();
+	}
+	
+	@Override
+	protected void init() {
+		this.ellipse = new Ellipse();
 
 		if (this.componente.getAtributos().size() == 0) {
 			ellipse.setBounds(new Rectangle(this.getLocation(), new Dimension(

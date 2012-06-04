@@ -3,7 +3,6 @@ package mereditor.control;
 import mereditor.interfaz.swt.figuras.Figura;
 import mereditor.modelo.Diagrama;
 import mereditor.modelo.base.Componente;
-import mereditor.control.base.Control;
 
 import org.eclipse.draw2d.Figure;
 
@@ -17,8 +16,8 @@ public class DiagramaControl extends Diagrama implements Control<Diagrama> {
 
 	@Override
 	public void dibujar(Figure contenedor) {
-		for(Componente componente : this.componentes) {
-			((Control<?>) componente).dibujar(contenedor); 
+		for (Componente componente : this.componentes) {
+			((Control<?>) componente).dibujar(contenedor);
 		}
 	}
 }

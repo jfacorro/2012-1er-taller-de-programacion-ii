@@ -16,7 +16,7 @@ import org.eclipse.draw2d.geometry.Point;
 
 public class RelacionFigure extends Figura<Relacion> {
 	private PolygonShape rombo;
-	
+
 	public RelacionFigure(Relacion relacion, Dimension dim) {
 		super(relacion, dim);
 	}
@@ -24,7 +24,7 @@ public class RelacionFigure extends Figura<Relacion> {
 	public RelacionFigure(Relacion relacion) {
 		super(relacion);
 	}
-	
+
 	@Override
 	protected void init() {
 		super.init();
@@ -42,31 +42,31 @@ public class RelacionFigure extends Figura<Relacion> {
 		this.rombo.setOpaque(false);
 		this.rombo.add(this.lblName);
 		layout.setConstraint(this.lblName, BorderLayout.CENTER);
-		this.add(rombo);
+		this.add(rombo, BorderLayout.CENTER);
 		this.generatePoints();
 
 		this.lblName.setText(this.componente.getNombre());
 	}
-	
+
 	public void update() {
-		//this.lblName.setText(this.componente.getNombre());
+		// this.lblName.setText(this.componente.getNombre());
 	}
-	
+
 	private void generatePoints() {
 		this.generatePoints(this.getSize());
 	}
-	
+
 	private void generatePoints(Dimension dim) {
 		this.rombo.removeAllPoints();
 		this.rombo.setSize(dim);
-		int w = dim.width;
-		int h = dim.height;
+		int w = dim.width - 2;
+		int h = dim.height - 2;
 		this.rombo.addPoint(new Point(w / 2, 0));
 		this.rombo.addPoint(new Point(w, h / 2));
-		this.rombo.addPoint(new Point(w / 2 , h));
+		this.rombo.addPoint(new Point(w / 2, h));
 		this.rombo.addPoint(new Point(0, h / 2));
 	}
-	
+
 	@Override
 	public void setRepresentacion(Representacion representacion) {
 		super.setRepresentacion(representacion);
@@ -80,10 +80,10 @@ public class RelacionFigure extends Figura<Relacion> {
 		// Agregad cardinalidad y rol
 		Label lblCardinalidad = new Label(label);
 		conecccion.add(lblCardinalidad, new MidpointLocator(conecccion, 0));
-		
+
 		this.getParent().add(conecccion);
 	}
-	
+
 	public void conectarAtributo(Figura<Atributo> figura) {
 		this.getParent().add(Figura.conectar(this, figura));
 	}

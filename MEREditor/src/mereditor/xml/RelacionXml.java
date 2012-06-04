@@ -2,10 +2,9 @@ package mereditor.xml;
 
 import java.util.List;
 
-import mereditor.interfaz.swt.figuras.RelacionFigure;
+import mereditor.control.RelacionControl;
 import mereditor.modelo.Atributo;
 import mereditor.modelo.Entidad;
-import mereditor.control.RelacionControl;
 
 import org.w3c.dom.Element;
 
@@ -40,7 +39,6 @@ public class RelacionXml extends RelacionControl implements Xmlizable {
 			this.participantes.add(entidadRelacion);
 		}
 
-		this.figure = new RelacionFigure(this);
-		this.figure.setRepresentacion(parser.representacion(this.id));
+		this.getFigura().setRepresentacion(parser.representacion(this.id));
 	}
 }
