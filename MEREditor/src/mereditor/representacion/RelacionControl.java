@@ -20,9 +20,8 @@ public class RelacionControl extends Relacion implements Control<Relacion> {
 	@Override
 	public void dibujar(Figure contenedor) {
 		for(EntidadRelacion entidadRelacion : this.participantes) {
-			EntidadControl entidad = (EntidadControl) entidadRelacion.getEntidad();
+			Figure destination = ((Control<?>)entidadRelacion.getEntidad()).getFigura();
 			
-			Figure destination = entidad.getFigura();
 			PolylineConnection connection = new PolylineConnection();
 			ChopboxAnchor anchorGenerica = new ChopboxAnchor(this.figure);
 			ChopboxAnchor anchorDerivada = new ChopboxAnchor(destination);
