@@ -1,28 +1,10 @@
 package mereditor.representacion.base;
 
-import mereditor.interfaz.swt.Figura;
-import mereditor.modelo.base.Componente;
-
-import org.eclipse.draw2d.Figure;
-
-public abstract class Representacion<T extends Componente> {
+public class Representacion {
 	
 	protected int x, y;
 	protected int ancho, alto; 
 	
-	protected Figura<T> figura;
-	protected T componente;
-	
-	public abstract void dibujar(Figure contenedor);
-
-	public T getComponente() {
-		return this.componente;
-	}
-	
-	public Figura<T> getFigura() {
-		return this.figura;
-	}
-
 	public int getX() {
 		return x;
 	}

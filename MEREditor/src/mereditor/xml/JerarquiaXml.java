@@ -19,7 +19,7 @@ public class JerarquiaXml extends Jerarquia implements Xmlizable {
 		this.id = parser.obtenerId(elemento);
 		this.tipo = TipoJerarquia.valueOf(parser.obtenerTipo(elemento));
 
-		parser.register(this);
+		parser.registrar(this);
 
 		this.generica = (Entidad) parser.obtenerGenerica(elemento);
 		for (Componente componente : parser.obtenerDerivadas(elemento)) {

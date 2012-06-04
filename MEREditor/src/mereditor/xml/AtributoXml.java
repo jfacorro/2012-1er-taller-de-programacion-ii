@@ -18,7 +18,7 @@ public class AtributoXml extends Atributo implements Xmlizable {
 		this.nombre = parser.obtenerNombre(elemento); 
 		this.tipo = TipoAtributo.valueOf(parser.obtenerTipo(elemento));
 
-		parser.register(this);
+		parser.registrar(this);
 		
 		this.atributos.addAll(parser.obtenerAtributos(elemento));
 		

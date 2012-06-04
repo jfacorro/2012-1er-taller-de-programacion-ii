@@ -16,11 +16,17 @@ import org.w3c.dom.Element;
 public class ParserXml {
 
 	protected Element root;
+	protected Element rootRepresentacion;
 	protected Map<String, Componente> componentes = new HashMap<String, Componente>();
-	protected Map<String, Componente> representaciones = new HashMap<String, Componente>();
+	protected Map<String, Representacion> representaciones = new HashMap<String, Representacion>();
 
-	public ParserXml(Document xml) {
-		this.root = xml.getDocumentElement();
+	public ParserXml(Document modeloXml) {
+		this.root = modeloXml.getDocumentElement();
+	}
+
+	public ParserXml(Document modeloXml, Document representacionXml) {
+		this(modeloXml);
+		this.rootRepresentacion = representacionXml.getDocumentElement();
 	}
 
 	/**
@@ -34,22 +40,51 @@ public class ParserXml {
 	public Componente resolver(String id) throws Exception {
 		if (this.componentes.containsKey(id))
 			return this.componentes.get(id);
-		else
-			return this.buscarParsear(id);
+
+		return this.buscarParsear(id);
 	}
-	
-	public Representacion<Componente> representacion(String id) {
-		return null;
+
+	/**
+	 * Devuelve un objeto con los datos de representacion.
+	 * 
+	 * @param id
+	 * @return
+	 */
+	public Representacion representacion(String id) {
+		if (this.representaciones.containsKey(id))
+			return this.representaciones.get(id);
+
+		Element elemento = this.encontrarId(this.rootRepresentacion, id);
+		Representacion representacion = null;
+		if (elemento != null) {
+			representacion = this.obtenerRepresentacion(elemento);
+			this.representaciones.put(id, representacion);
+		}
+
+		return representacion;
+	}
+
+	public Representacion obtenerRepresentacion(Element elemento) {
+		Element posicionXml = XmlHelper.querySingle(elemento, Constants.POSICION_QUERY);
+		Element dimensionXml = XmlHelper.querySingle(elemento, Constants.DIMENSION_QUERY);
+
+		Representacion representacion = new Representacion();
+		representacion.setX(Integer.parseInt(posicionXml.getAttribute(Constants.X_ATTR)));
+		representacion.setY(Integer.parseInt(posicionXml.getAttribute(Constants.Y_ATTR)));
+		representacion.setAncho(Integer.parseInt(dimensionXml.getAttribute(Constants.ANCHO_ATTR)));
+		representacion.setAlto(Integer.parseInt(dimensionXml.getAttribute(Constants.ALTO_ATTR)));
+
+		return representacion;
 	}
 
 	/**
 	 * Registra el componente en la tabla de componentes utilizando el id como
-	 * clave
+	 * clave.
 	 * 
 	 * @param componente
 	 * @throws Exception
 	 */
-	void register(Componente componente) throws Exception {
+	void registrar(Componente componente) throws Exception {
 		if (componente.getId() == null)
 			throw new Exception("No se puede agregar un componente sin identificador.");
 
@@ -204,12 +239,12 @@ public class ParserXml {
 		List<Element> list = XmlHelper.query(this.root, query);
 
 		if (list.size() == 1)
-			return this.parse(list.get(0));
+			return this.parsear(list.get(0));
 
 		throw new Exception("Identificador inexistente o duplicado: " + id);
 	}
 
-	private Componente parse(Element element) throws Exception {
+	private Componente parsear(Element element) throws Exception {
 		Xmlizable xmlizable = this.mapElement(element);
 		xmlizable.fromXml(element, this);
 		return (Componente) xmlizable;
@@ -232,5 +267,10 @@ public class ParserXml {
 		}
 
 		throw new Exception("No existe un mapeo para: " + element.getNodeName());
+	}
+
+	private Element encontrarId(Element elemento, String id) {
+		String query = String.format(Constants.ID_QUERY, id);
+		return XmlHelper.querySingle(elemento, query);
 	}
 }

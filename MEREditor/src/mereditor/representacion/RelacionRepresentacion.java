@@ -1,11 +1,11 @@
 package mereditor.representacion;
 
+import mereditor.modelo.Relacion;
+import mereditor.representacion.base.Control;
+
 import org.eclipse.draw2d.Figure;
 
-import mereditor.modelo.Relacion;
-import mereditor.representacion.base.Representacion;
-
-public class RelacionRepresentacion extends Representacion<Relacion> {
+public class RelacionRepresentacion extends Control<Relacion> {
 
 	@Override
 	public void dibujar(Figure contenedor) {

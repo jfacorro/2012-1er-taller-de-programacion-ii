@@ -21,7 +21,7 @@ public class RelacionXml extends Relacion implements Xmlizable {
 		this.nombre = parser.obtenerNombre(elemento);
 		this.tipo = TipoRelacion.valueOf(parser.obtenerTipo(elemento));
 
-		parser.register(this);
+		parser.registrar(this);
 
 		List<Element> participantesXml = parser.obtenerParticipantes(elemento);
 		

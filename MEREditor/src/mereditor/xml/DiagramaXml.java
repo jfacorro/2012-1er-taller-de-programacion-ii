@@ -17,7 +17,7 @@ public class DiagramaXml extends Diagrama implements Xmlizable {
 		this.id = elemento.getAttribute(Constants.ID_ATTR);
 		this.nombre = XmlHelper.querySingle(elemento, Constants.NOMBRE_TAG).getTextContent();
 
-		parser.register(this);
+		parser.registrar(this);
 		
 		this.componentes.addAll(parser.obtenerComponentes(elemento));
 		

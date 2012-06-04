@@ -1,0 +1,7 @@
+<!DOCTYPE note SYSTEM "../modelo-rep.dtd">
+<Representaciones>
+    <Representacion id="_1">
+        <Posicion x="100" y="100" />
+        <Dimension ancho="200" alto="200" />
+    </Representacion>
+</Representaciones>
