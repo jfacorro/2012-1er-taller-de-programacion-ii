@@ -65,6 +65,7 @@ public class RelacionFigure extends Figura<Relacion> {
 	@Override
 	public void setRepresentacion(Representacion representacion) {
 		super.setRepresentacion(representacion);
+		// Regenerar los puntos del rombo
 		this.generatePoints();
 	}
 }
