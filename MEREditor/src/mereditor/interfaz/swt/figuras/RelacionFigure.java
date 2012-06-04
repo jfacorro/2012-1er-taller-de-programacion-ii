@@ -1,14 +1,13 @@
 package mereditor.interfaz.swt.figuras;
 
+import mereditor.control.base.Representacion;
 import mereditor.modelo.Atributo;
 import mereditor.modelo.Entidad;
 import mereditor.modelo.Relacion;
-import mereditor.control.base.Representacion;
 
 import org.eclipse.draw2d.BorderLayout;
 import org.eclipse.draw2d.Connection;
 import org.eclipse.draw2d.Label;
-import org.eclipse.draw2d.LayoutManager;
 import org.eclipse.draw2d.MidpointLocator;
 import org.eclipse.draw2d.PolygonShape;
 import org.eclipse.draw2d.geometry.Dimension;
@@ -35,15 +34,13 @@ public class RelacionFigure extends Figura<Relacion> {
 		// Quitar todos los controles del padre
 		this.removeAll();
 
-		LayoutManager layout = new BorderLayout();
 		this.rombo = new PolygonShape();
-		this.rombo.setLayoutManager(layout);
+		this.rombo.setLayoutManager(new BorderLayout());
 		this.rombo.setBackgroundColor(this.getBackColor());
 		this.rombo.setOpaque(false);
-		this.rombo.add(this.lblName);
-		layout.setConstraint(this.lblName, BorderLayout.CENTER);
+		this.rombo.add(this.lblName, BorderLayout.CENTER);
 		this.add(rombo, BorderLayout.CENTER);
-		this.generatePoints();
+		this.generarPuntos();
 
 		this.lblName.setText(this.componente.getNombre());
 	}
@@ -52,11 +49,11 @@ public class RelacionFigure extends Figura<Relacion> {
 		// this.lblName.setText(this.componente.getNombre());
 	}
 
-	private void generatePoints() {
-		this.generatePoints(this.getSize());
-	}
-
-	private void generatePoints(Dimension dim) {
+	/**
+	 * Calcula y genera los puntos para formar el rombo
+	 */
+	private void generarPuntos() {
+		Dimension dim = this.getSize();
 		this.rombo.removeAllPoints();
 		this.rombo.setSize(dim);
 		int w = dim.width - 2;
@@ -71,7 +68,7 @@ public class RelacionFigure extends Figura<Relacion> {
 	public void setRepresentacion(Representacion representacion) {
 		super.setRepresentacion(representacion);
 		// Regenerar los puntos del rombo
-		this.generatePoints();
+		this.generarPuntos();
 	}
 
 	public void conectarEntidad(Figura<Entidad> figura, String label) {

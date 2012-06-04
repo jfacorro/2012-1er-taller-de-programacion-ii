@@ -32,18 +32,21 @@ public class ParserXml {
 		this(modeloXml);
 		this.rootRepresentacion = representacionXml.getDocumentElement();
 	}
-	
-	public ParserXml(String modeloPath, String representacionPath) throws Exception {
+
+	public ParserXml(String modeloPath, String representacionPath)
+			throws Exception {
 		File sourceModelo = new File(modeloPath);
 		File sourceRepresentacion = new File(representacionPath);
 		DocumentBuilder builder;
 		builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
 		this.root = builder.parse(sourceModelo).getDocumentElement();
-		this.rootRepresentacion = builder.parse(sourceRepresentacion).getDocumentElement();
+		this.rootRepresentacion = builder.parse(sourceRepresentacion)
+				.getDocumentElement();
 	}
-	
+
 	public Componente diagramaRaiz() throws Exception {
-		Element diagramaXml = XmlHelper.querySingle(this.root, Constants.DIAGRAMA_QUERY);
+		Element diagramaXml = XmlHelper.querySingle(this.root,
+				Constants.DIAGRAMA_QUERY);
 		return this.resolver(diagramaXml.getAttribute(Constants.ID_ATTR));
 	}
 
@@ -83,14 +86,23 @@ public class ParserXml {
 	}
 
 	public Representacion obtenerRepresentacion(Element elemento) {
-		Element posicionXml = XmlHelper.querySingle(elemento, Constants.POSICION_QUERY);
-		Element dimensionXml = XmlHelper.querySingle(elemento, Constants.DIMENSION_QUERY);
+		Element posicionXml = XmlHelper.querySingle(elemento,
+				Constants.POSICION_QUERY);
+		Element dimensionXml = XmlHelper.querySingle(elemento,
+				Constants.DIMENSION_QUERY);
+
+		int x = Integer.parseInt(posicionXml.getAttribute(Constants.X_ATTR));
+		int y = Integer.parseInt(posicionXml.getAttribute(Constants.Y_ATTR));
+		int ancho = Integer.parseInt(dimensionXml
+				.getAttribute(Constants.ANCHO_ATTR));
+		int alto = Integer.parseInt(dimensionXml
+				.getAttribute(Constants.ALTO_ATTR));
 
 		Representacion representacion = new Representacion();
-		representacion.setX(Integer.parseInt(posicionXml.getAttribute(Constants.X_ATTR)));
-		representacion.setY(Integer.parseInt(posicionXml.getAttribute(Constants.Y_ATTR)));
-		representacion.setAncho(Integer.parseInt(dimensionXml.getAttribute(Constants.ANCHO_ATTR)));
-		representacion.setAlto(Integer.parseInt(dimensionXml.getAttribute(Constants.ALTO_ATTR)));
+		representacion.getRectangle().setX(x);
+		representacion.getRectangle().setY(y);
+		representacion.getRectangle().setWidth(ancho);
+		representacion.getRectangle().setHeight(alto);
 
 		return representacion;
 	}
@@ -104,16 +116,19 @@ public class ParserXml {
 	 */
 	void registrar(Componente componente) throws Exception {
 		if (componente.getId() == null)
-			throw new Exception("No se puede agregar un componente sin identificador.");
+			throw new Exception(
+					"No se puede agregar un componente sin identificador.");
 
 		if (this.componentes.containsKey(componente.getId()))
-			throw new Exception("Identificador duplicado: " + componente.getId());
+			throw new Exception("Identificador duplicado: "
+					+ componente.getId());
 
 		this.componentes.put(componente.getId(), componente);
 	}
 
 	List<Componente> obtenerComponentes(Element elemento) throws Exception {
-		List<Element> diagramasXml = XmlHelper.query(elemento, Constants.DIAGRAMA_COMPONENTES_QUERY);
+		List<Element> diagramasXml = XmlHelper.query(elemento,
+				Constants.DIAGRAMA_COMPONENTES_QUERY);
 		List<Componente> componentes = new ArrayList<>();
 
 		for (Element diagramaXml : diagramasXml)
@@ -123,7 +138,8 @@ public class ParserXml {
 	}
 
 	List<Componente> obtenerDiagramas(Element elemento) throws Exception {
-		List<Element> diagramasXml = XmlHelper.query(elemento, Constants.DIAGRAMA_DIAGRAMAS_QUERY);
+		List<Element> diagramasXml = XmlHelper.query(elemento,
+				Constants.DIAGRAMA_DIAGRAMAS_QUERY);
 		List<Componente> diagramas = new ArrayList<>();
 
 		for (Element diagramaXml : diagramasXml)
@@ -133,8 +149,10 @@ public class ParserXml {
 	}
 
 	Validacion obtenerValidacion(Element elemento) throws Exception {
-		Element validacionXml = XmlHelper.querySingle(elemento, Constants.VALIDACION_QUERY);
-		ValidacionXml validacion = (ValidacionXml) this.mapElement(validacionXml);
+		Element validacionXml = XmlHelper.querySingle(elemento,
+				Constants.VALIDACION_QUERY);
+		ValidacionXml validacion = (ValidacionXml) this
+				.mapElement(validacionXml);
 		validacion.fromXml(validacionXml, this);
 		return validacion;
 	}
@@ -145,8 +163,10 @@ public class ParserXml {
 	}
 
 	String obtenerObservaciones(Element elemento) {
-		Element observacionesXml = XmlHelper.querySingle(elemento, Constants.OBSERVACIONES_QUERY);
-		return observacionesXml == null ? null : observacionesXml.getTextContent();
+		Element observacionesXml = XmlHelper.querySingle(elemento,
+				Constants.OBSERVACIONES_QUERY);
+		return observacionesXml == null ? null : observacionesXml
+				.getTextContent();
 	}
 
 	String obtenerId(Element elemento) {
@@ -154,7 +174,8 @@ public class ParserXml {
 	}
 
 	String obtenerNombre(Element elemento) {
-		return XmlHelper.querySingle(elemento, Constants.NOMBRE_TAG).getTextContent();
+		return XmlHelper.querySingle(elemento, Constants.NOMBRE_TAG)
+				.getTextContent();
 	}
 
 	String obtenerTipo(Element elemento) {
@@ -162,19 +183,23 @@ public class ParserXml {
 	}
 
 	List<Atributo> obtenerAtributos(Element elemento) throws Exception {
-		List<Element> atributosXml = XmlHelper.query(elemento, Constants.ATRIBUTOS_QUERY);
+		List<Element> atributosXml = XmlHelper.query(elemento,
+				Constants.ATRIBUTOS_QUERY);
 		List<Atributo> atributos = new ArrayList<>();
 
 		for (Element atributoXml : atributosXml) {
-			Atributo atributo = (Atributo) this.resolver(atributoXml.getAttribute(Constants.ID_ATTR));
+			Atributo atributo = (Atributo) this.resolver(atributoXml
+					.getAttribute(Constants.ID_ATTR));
 			atributos.add(atributo);
 		}
 
 		return atributos;
 	}
 
-	List<Componente> obtenerIdentificadoresInternos(Element elemento) throws Exception {
-		List<Element> idsInternosXml = XmlHelper.query(elemento, Constants.IDENTIFICADORES_INTERNOS_QUERY);
+	List<Componente> obtenerIdentificadoresInternos(Element elemento)
+			throws Exception {
+		List<Element> idsInternosXml = XmlHelper.query(elemento,
+				Constants.IDENTIFICADORES_INTERNOS_QUERY);
 		List<Componente> atributos = new ArrayList<>();
 
 		for (Element idInternoXml : idsInternosXml) {
@@ -184,8 +209,10 @@ public class ParserXml {
 		return atributos;
 	}
 
-	List<Componente> obtenerIdentificadoresExternos(Element elemento) throws Exception {
-		List<Element> idsExternosXml = XmlHelper.query(elemento, Constants.IDENTIFICADORES_EXTERNOS_QUERY);
+	List<Componente> obtenerIdentificadoresExternos(Element elemento)
+			throws Exception {
+		List<Element> idsExternosXml = XmlHelper.query(elemento,
+				Constants.IDENTIFICADORES_EXTERNOS_QUERY);
 		List<Componente> identificadores = new ArrayList<>();
 
 		for (Element idExternoXml : idsExternosXml)
@@ -200,34 +227,41 @@ public class ParserXml {
 	}
 
 	String[] obtenerCardinalidad(Element elemento) {
-		Element cardinalidad = XmlHelper.querySingle(elemento, Constants.CARDINALIDAD_QUERY);
-		return new String[] { cardinalidad.getAttribute(Constants.CARDINALIDAD_MIN_ATTR),
+		Element cardinalidad = XmlHelper.querySingle(elemento,
+				Constants.CARDINALIDAD_QUERY);
+		return new String[] {
+				cardinalidad.getAttribute(Constants.CARDINALIDAD_MIN_ATTR),
 				cardinalidad.getAttribute(Constants.CARDINALIDAD_MAX_ATTR) };
 	}
 
 	String obtenerFormulaAtributo(Element elemento) {
-		Element element = XmlHelper.querySingle(elemento, Constants.FORMULA_QUERY);
+		Element element = XmlHelper.querySingle(elemento,
+				Constants.FORMULA_QUERY);
 		return element == null ? null : element.getTextContent();
 	}
 
 	Atributo obtenerOriginalAtributo(Element elemento) throws Exception {
-		Element element = XmlHelper.querySingle(elemento, Constants.ORIGINAL_QUERY);
+		Element element = XmlHelper.querySingle(elemento,
+				Constants.ORIGINAL_QUERY);
 
 		if (element != null)
-			return (Atributo) this.resolver(element.getAttribute(Constants.IDREF_ATTR));
+			return (Atributo) this.resolver(element
+					.getAttribute(Constants.IDREF_ATTR));
 
 		return null;
 	}
 
 	Componente obtenerGenerica(Element elemento) throws Exception {
-		Element generica = XmlHelper.querySingle(elemento, Constants.GENERICA_QUERY);
+		Element generica = XmlHelper.querySingle(elemento,
+				Constants.GENERICA_QUERY);
 		String id = generica.getAttribute(Constants.IDREF_ATTR);
 
 		return this.resolver(id);
 	}
 
 	List<Componente> obtenerDerivadas(Element elemento) throws Exception {
-		List<Element> derivadasXml = XmlHelper.query(elemento, Constants.DERIVADAS_QUERY);
+		List<Element> derivadasXml = XmlHelper.query(elemento,
+				Constants.DERIVADAS_QUERY);
 		List<Componente> derivadas = new ArrayList<>();
 
 		for (Element derivadaXml : derivadasXml) {
@@ -243,7 +277,8 @@ public class ParserXml {
 	}
 
 	Componente obtenerEntidadParticipante(Element elemento) throws Exception {
-		Element entidadRefXml = XmlHelper.querySingle(elemento, Constants.ENTIDAD_REF_QUERY);
+		Element entidadRefXml = XmlHelper.querySingle(elemento,
+				Constants.ENTIDAD_REF_QUERY);
 		return this.obtenerReferencia(entidadRefXml);
 	}
 

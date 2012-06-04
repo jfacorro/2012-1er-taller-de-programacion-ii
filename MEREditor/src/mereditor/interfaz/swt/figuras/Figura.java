@@ -17,7 +17,6 @@ import org.eclipse.draw2d.Label;
 import org.eclipse.draw2d.LineBorder;
 import org.eclipse.draw2d.PolylineConnection;
 import org.eclipse.draw2d.geometry.Dimension;
-import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Font;
@@ -86,15 +85,9 @@ public class Figura<T extends Componente> extends Figure {
 		this.init();
 
 		if (representacion != null) {
-			Rectangle rectangle = new Rectangle();
-			rectangle.setX(representacion.getX());
-			rectangle.setY(representacion.getY());
-			rectangle.setWidth(representacion.getAncho());
-			rectangle.setHeight(representacion.getAlto());
-
-			this.setBounds(rectangle);
+			this.setBounds(representacion.getRectangle());
 		}
-	}
+	}	
 
 	/**
 	 * Agrega la figura para que se mueva junto con esta.
