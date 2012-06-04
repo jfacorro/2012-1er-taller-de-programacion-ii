@@ -41,6 +41,6 @@ public class AtributoXml extends AtributoControl implements Xmlizable {
 			break;
 		}
 
-		this.getFigura().setRepresentacion(parser.representacion(this.id));
+		//this.getFigura().setRepresentacion(parser.representacion(this.id));
 	}
 }

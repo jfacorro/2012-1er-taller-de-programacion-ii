@@ -49,6 +49,8 @@ public class Figura<T extends Componente> extends Figure {
 		new DragDropControlador(this);
 		// Agregar controlador para el movivimento de las figuras loqueadas
 		new MovimientoControlador(this);
+		
+		this.init();
 	}
 
 	/**

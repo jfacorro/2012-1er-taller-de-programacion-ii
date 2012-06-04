@@ -9,15 +9,14 @@ import org.eclipse.draw2d.Figure;
 public class DiagramaControl extends Diagrama implements Control<Diagrama> {
 
 	@Override
-	public Figura<Diagrama> getFigura() {
-		// TODO Auto-generated method stub
+	public Figura<Diagrama> getFigura(String id) {
 		return null;
 	}
 
 	@Override
-	public void dibujar(Figure contenedor) {
+	public void dibujar(Figure contenedor, String idDiagrama) {
 		for (Componente componente : this.componentes) {
-			((Control<?>) componente).dibujar(contenedor);
+			((Control<?>) componente).dibujar(contenedor, this.id);
 		}
 	}
 }

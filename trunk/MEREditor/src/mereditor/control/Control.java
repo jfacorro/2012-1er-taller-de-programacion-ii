@@ -7,7 +7,7 @@ import org.eclipse.draw2d.Figure;
 
 public interface Control<T extends Componente> {
 
-	public Figura<T> getFigura();
+	public Figura<T> getFigura(String idDiagrama);
 	
-	public void dibujar(Figure contenedor);
+	public void dibujar(Figure contenedor, String idDiagrama);
 }
