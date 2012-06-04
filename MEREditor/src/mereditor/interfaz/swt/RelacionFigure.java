@@ -2,7 +2,6 @@ package mereditor.interfaz.swt;
 
 import mereditor.modelo.Entidad;
 import mereditor.modelo.Relacion;
-import mereditor.modelo.Relacion.EntidadRelacion;
 import mereditor.representacion.base.Representacion;
 
 import org.eclipse.draw2d.BorderLayout;
@@ -74,10 +73,13 @@ public class RelacionFigure extends Figura<Relacion> {
 		this.generatePoints();
 	}
 
-	public void conectarEntidad(Figura<Entidad> figura, EntidadRelacion entidadRelacion) {
+	public void conectarEntidad(Figura<Entidad> figura, String label) {
 		Connection conecccion = Figura.conectar(this, figura);
-		Label lblCardinalidad = new Label(entidadRelacion.toString());
+
+		// Agregad cardinalidad y rol
+		Label lblCardinalidad = new Label(label);
 		conecccion.add(lblCardinalidad, new MidpointLocator(conecccion, 0));
+		
 		this.getParent().add(conecccion);
 	}
 }
