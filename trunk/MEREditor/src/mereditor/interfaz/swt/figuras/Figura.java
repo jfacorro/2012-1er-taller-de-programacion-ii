@@ -3,10 +3,10 @@ package mereditor.interfaz.swt.figuras;
 import java.util.ArrayList;
 import java.util.List;
 
+import mereditor.control.base.Representacion;
 import mereditor.interfaz.swt.listeners.DragDropControlador;
 import mereditor.interfaz.swt.listeners.MovimientoControlador;
 import mereditor.modelo.base.Componente;
-import mereditor.control.base.Representacion;
 
 import org.eclipse.draw2d.BorderLayout;
 import org.eclipse.draw2d.ChopboxAnchor;
@@ -14,7 +14,6 @@ import org.eclipse.draw2d.Connection;
 import org.eclipse.draw2d.Figure;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.Label;
-import org.eclipse.draw2d.LayoutManager;
 import org.eclipse.draw2d.LineBorder;
 import org.eclipse.draw2d.PolylineConnection;
 import org.eclipse.draw2d.geometry.Dimension;
@@ -43,14 +42,21 @@ public class Figura<T extends Componente> extends Figure {
 
 	public Figura(T componente) {
 		this.componente = componente;
-		this.init();
+
+		this.setFont(defaultFont);
+		this.setLayoutManager(new BorderLayout());
+
+		// Agregar controlador para arrastre
+		new DragDropControlador(this);
+		// Agregar controlador para el movivimento de las figuras loqueadas
+		new MovimientoControlador(this);
 	}
 
+	/**
+	 * Establece los estilos por default para la figura y agrega un label con el
+	 * nombre del componente
+	 */
 	protected void init() {
-		this.setFont(defaultFont);
-		LayoutManager layout = new BorderLayout();
-		this.setLayoutManager(layout);
-
 		this.setBorder(new LineBorder(this.getLineColor(), 1));
 		this.setBackgroundColor(this.getBackColor());
 
@@ -59,13 +65,7 @@ public class Figura<T extends Componente> extends Figure {
 
 		this.lblName = new Label();
 		this.lblName.setFont(defaultFont);
-		this.add(lblName);
-		layout.setConstraint(this.lblName, BorderLayout.CENTER);
-
-		// Agregar controlador para arrastre
-		new DragDropControlador(this);
-		// Agregar controlador para el movivimento de las figuras loqueadas
-		new MovimientoControlador(this);
+		this.add(lblName, BorderLayout.CENTER);
 	}
 
 	protected Color getBackColor() {
@@ -76,13 +76,6 @@ public class Figura<T extends Componente> extends Figure {
 		return Figura.defaultLineColor;
 	}
 
-	protected void resetDefaultSetting() {
-		this.removeAll();
-		this.setBackgroundColor(null);
-		this.setBorder(null);
-		this.setOpaque(false);
-	}
-
 	/**
 	 * Establece la posicion y dimension de la figura en base al objeto de
 	 * representacion
@@ -90,6 +83,8 @@ public class Figura<T extends Componente> extends Figure {
 	 * @param representacion
 	 */
 	public void setRepresentacion(Representacion representacion) {
+		this.init();
+
 		if (representacion != null) {
 			Rectangle rectangle = new Rectangle();
 			rectangle.setX(representacion.getX());

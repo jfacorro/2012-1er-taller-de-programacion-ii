@@ -1,9 +1,8 @@
 package mereditor.xml;
 
-import mereditor.interfaz.swt.figuras.EntidadFigure;
+import mereditor.control.EntidadControl;
 import mereditor.modelo.Atributo;
 import mereditor.modelo.base.Componente;
-import mereditor.control.EntidadControl;
 
 import org.w3c.dom.Element;
 
@@ -40,7 +39,6 @@ public class EntidadXml extends EntidadControl implements Xmlizable {
 		// Obtener identificadores externos
 		this.identificadores.addAll(parser.obtenerIdentificadoresExternos(elemento));
 		
-		this.figure = new EntidadFigure(this);
-		this.figure.setRepresentacion(parser.representacion(this.id));
+		this.getFigura().setRepresentacion(parser.representacion(this.id));
 	}
 }

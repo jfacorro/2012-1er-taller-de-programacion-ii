@@ -3,7 +3,6 @@ package mereditor.control;
 import mereditor.interfaz.swt.figuras.Figura;
 import mereditor.modelo.Entidad;
 import mereditor.modelo.Jerarquia;
-import mereditor.control.base.Control;
 
 import org.eclipse.draw2d.Connection;
 import org.eclipse.draw2d.Figure;

@@ -4,12 +4,16 @@ import mereditor.interfaz.swt.figuras.EntidadFigure;
 import mereditor.interfaz.swt.figuras.Figura;
 import mereditor.modelo.Atributo;
 import mereditor.modelo.Entidad;
-import mereditor.control.base.Control;
 
 import org.eclipse.draw2d.Figure;
 
 public class EntidadControl extends Entidad implements Control<Entidad> {
-	protected EntidadFigure figure;
+	private EntidadFigure figure;
+
+	public EntidadControl() {
+		super();
+		this.figure = new EntidadFigure(this);
+	}
 
 	@Override
 	public Figura<Entidad> getFigura() {
