@@ -29,6 +29,8 @@ public class RelacionControl extends Relacion implements Control<Relacion> {
 			connection.setTargetAnchor(anchorGenerica);
 			
 			contenedor.add(connection);
+			
+			this.figure.agregar(destination);
 		}
 
 		contenedor.add(this.figure);

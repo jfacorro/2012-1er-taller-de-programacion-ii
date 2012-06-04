@@ -28,8 +28,11 @@ public class AtributoControl extends Atributo implements Control<Atributo> {
 			connection.setSourceAnchor(destination);
 			connection.setTargetAnchor(source);
 
+			// Agregar conexion
 			contenedor.add(connection);
+			// Agregar atributo
 			atributoControl.dibujar(contenedor);
+			this.figure.agregar(atributoControl.getFigura());
 		}
 
 		contenedor.add(this.figure);
