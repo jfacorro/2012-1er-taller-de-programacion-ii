@@ -5,9 +5,8 @@ import mereditor.modelo.Entidad;
 import mereditor.modelo.Jerarquia;
 import mereditor.representacion.base.Control;
 
-import org.eclipse.draw2d.ChopboxAnchor;
+import org.eclipse.draw2d.Connection;
 import org.eclipse.draw2d.Figure;
-import org.eclipse.draw2d.PolylineConnection;
 
 public class JerarquiaControl extends Jerarquia implements Control<Jerarquia> {
 
@@ -22,14 +21,11 @@ public class JerarquiaControl extends Jerarquia implements Control<Jerarquia> {
 		
 		for(Entidad derivada : this.derivadas)
 		{
-			Figure derivadaFigure = ((Control<?>)derivada).getFigura();
-			PolylineConnection connection = new PolylineConnection();
-			ChopboxAnchor anchorGenerica = new ChopboxAnchor(generica);
-			ChopboxAnchor anchorDerivada = new ChopboxAnchor(derivadaFigure);
-			connection.setSourceAnchor(anchorDerivada);
-			connection.setTargetAnchor(anchorGenerica);
+			Figure derivadaFigure = ((EntidadControl)derivada).getFigura();
+			
+			Connection connection = Figura.conectar(derivadaFigure, generica);
 
 			contenedor.add(connection);
-		}		
+		}
 	}
 }

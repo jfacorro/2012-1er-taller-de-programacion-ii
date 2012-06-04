@@ -1,10 +1,15 @@
 package mereditor.interfaz.swt;
 
+import mereditor.modelo.Entidad;
 import mereditor.modelo.Relacion;
+import mereditor.modelo.Relacion.EntidadRelacion;
 import mereditor.representacion.base.Representacion;
 
 import org.eclipse.draw2d.BorderLayout;
+import org.eclipse.draw2d.Connection;
+import org.eclipse.draw2d.Label;
 import org.eclipse.draw2d.LayoutManager;
+import org.eclipse.draw2d.MidpointLocator;
 import org.eclipse.draw2d.PolygonShape;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
@@ -67,5 +72,12 @@ public class RelacionFigure extends Figura<Relacion> {
 		super.setRepresentacion(representacion);
 		// Regenerar los puntos del rombo
 		this.generatePoints();
+	}
+
+	public void conectarEntidad(Figura<Entidad> figura, EntidadRelacion entidadRelacion) {
+		Connection conecccion = Figura.conectar(this, figura);
+		Label lblCardinalidad = new Label(entidadRelacion.toString());
+		conecccion.add(lblCardinalidad, new MidpointLocator(conecccion, 0));
+		this.getParent().add(conecccion);
 	}
 }

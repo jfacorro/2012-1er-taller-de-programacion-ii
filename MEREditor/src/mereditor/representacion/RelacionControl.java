@@ -5,9 +5,7 @@ import mereditor.interfaz.swt.RelacionFigure;
 import mereditor.modelo.Relacion;
 import mereditor.representacion.base.Control;
 
-import org.eclipse.draw2d.ChopboxAnchor;
 import org.eclipse.draw2d.Figure;
-import org.eclipse.draw2d.PolylineConnection;
 
 public class RelacionControl extends Relacion implements Control<Relacion> {
 	protected RelacionFigure figure;
@@ -19,20 +17,12 @@ public class RelacionControl extends Relacion implements Control<Relacion> {
 
 	@Override
 	public void dibujar(Figure contenedor) {
-		for(EntidadRelacion entidadRelacion : this.participantes) {
-			Figure destination = ((Control<?>)entidadRelacion.getEntidad()).getFigura();
-			
-			PolylineConnection connection = new PolylineConnection();
-			ChopboxAnchor anchorGenerica = new ChopboxAnchor(this.figure);
-			ChopboxAnchor anchorDerivada = new ChopboxAnchor(destination);
-			connection.setSourceAnchor(anchorDerivada);
-			connection.setTargetAnchor(anchorGenerica);
-			
-			contenedor.add(connection);
-			
-			this.figure.agregar(destination);
-		}
-
 		contenedor.add(this.figure);
+
+		for(EntidadRelacion entidadRelacion : this.participantes) {
+			EntidadControl entidadControl = (EntidadControl)entidadRelacion.getEntidad();			
+			this.figure.conectarEntidad(entidadControl.getFigura(), entidadRelacion);			
+			this.figure.agregar(entidadControl.getFigura());
+		}
 	}
 }
