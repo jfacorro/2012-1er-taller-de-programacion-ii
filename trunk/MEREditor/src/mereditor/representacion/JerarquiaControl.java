@@ -22,7 +22,7 @@ public class JerarquiaControl extends Jerarquia implements Control<Jerarquia> {
 		
 		for(Entidad derivada : this.derivadas)
 		{
-			Figure derivadaFigure = ((EntidadControl)derivada).getFigura();
+			Figure derivadaFigure = ((Control<?>)derivada).getFigura();
 			PolylineConnection connection = new PolylineConnection();
 			ChopboxAnchor anchorGenerica = new ChopboxAnchor(generica);
 			ChopboxAnchor anchorDerivada = new ChopboxAnchor(derivadaFigure);

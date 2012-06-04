@@ -19,17 +19,19 @@ public class AtributoControl extends Atributo implements Control<Atributo> {
 
 	@Override
 	public void dibujar(Figure contenedor) {
-		@SuppressWarnings("rawtypes")
-		Figure figuraPadre = ((Control)this.getPadre()).getFigura();
-		
-		PolylineConnection connection = new PolylineConnection();
-		ChopboxAnchor source = new ChopboxAnchor(figuraPadre);
-		ChopboxAnchor destination = new ChopboxAnchor(this.figure);
-		connection.setSourceAnchor(destination);
-		connection.setTargetAnchor(source);
+		for (Atributo atributo : this.atributos) {
+			AtributoControl atributoControl = (AtributoControl) atributo;
 
-		contenedor.add(connection);
-		
+			PolylineConnection connection = new PolylineConnection();
+			ChopboxAnchor source = new ChopboxAnchor(this.figure);
+			ChopboxAnchor destination = new ChopboxAnchor(atributoControl.getFigura());
+			connection.setSourceAnchor(destination);
+			connection.setTargetAnchor(source);
+
+			contenedor.add(connection);
+			atributoControl.dibujar(contenedor);
+		}
+
 		contenedor.add(this.figure);
 	}
 }

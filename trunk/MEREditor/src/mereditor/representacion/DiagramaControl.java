@@ -15,11 +15,10 @@ public class DiagramaControl extends Diagrama implements Control<Diagrama> {
 		return null;
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	public void dibujar(Figure contenedor) {
 		for(Componente componente : this.componentes) {
-			((Control<Componente>) componente).dibujar(contenedor); 
+			((Control<?>) componente).dibujar(contenedor); 
 		}
 	}
 }
