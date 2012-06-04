@@ -2,7 +2,7 @@ package mereditor.xml;
 
 import mereditor.modelo.Diagrama;
 import mereditor.modelo.base.Componente;
-import mereditor.representacion.DiagramaControl;
+import mereditor.control.DiagramaControl;
 
 import org.w3c.dom.Element;
 

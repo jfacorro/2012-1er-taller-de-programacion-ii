@@ -1,17 +1,18 @@
-package mereditor.representacion;
+package mereditor.control;
 
-import mereditor.interfaz.swt.figuras.AtributoFigure;
+import mereditor.interfaz.swt.figuras.EntidadFigure;
 import mereditor.interfaz.swt.figuras.Figura;
 import mereditor.modelo.Atributo;
-import mereditor.representacion.base.Control;
+import mereditor.modelo.Entidad;
+import mereditor.control.base.Control;
 
 import org.eclipse.draw2d.Figure;
 
-public class AtributoControl extends Atributo implements Control<Atributo> {
-	protected AtributoFigure figure;
+public class EntidadControl extends Entidad implements Control<Entidad> {
+	protected EntidadFigure figure;
 
 	@Override
-	public Figura<Atributo> getFigura() {
+	public Figura<Entidad> getFigura() {
 		return this.figure;
 	}
 
@@ -21,10 +22,9 @@ public class AtributoControl extends Atributo implements Control<Atributo> {
 
 		for (Atributo atributo : this.atributos) {
 			AtributoControl atributoControl = (AtributoControl) atributo;
+
 			this.figure.conectarAtributo(atributoControl.getFigura());
-			
 			atributoControl.dibujar(contenedor);
-			// Agregar atributo a los hijos.
 			this.figure.agregarFiguraLoqueada(atributoControl.getFigura());
 		}
 	}

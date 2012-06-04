@@ -2,7 +2,7 @@ package mereditor.xml;
 
 import mereditor.modelo.Entidad;
 import mereditor.modelo.base.Componente;
-import mereditor.representacion.JerarquiaControl;
+import mereditor.control.JerarquiaControl;
 
 import org.w3c.dom.Element;
 

@@ -6,7 +6,7 @@ import java.util.List;
 import mereditor.interfaz.swt.listeners.DragDropControlador;
 import mereditor.interfaz.swt.listeners.MovimientoControlador;
 import mereditor.modelo.base.Componente;
-import mereditor.representacion.base.Representacion;
+import mereditor.control.base.Representacion;
 
 import org.eclipse.draw2d.BorderLayout;
 import org.eclipse.draw2d.ChopboxAnchor;

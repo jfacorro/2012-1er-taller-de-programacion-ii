@@ -12,7 +12,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import mereditor.modelo.Atributo;
 import mereditor.modelo.Validacion;
 import mereditor.modelo.base.Componente;
-import mereditor.representacion.base.Representacion;
+import mereditor.control.base.Representacion;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;

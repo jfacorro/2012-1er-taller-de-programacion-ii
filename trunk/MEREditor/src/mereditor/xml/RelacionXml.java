@@ -5,7 +5,7 @@ import java.util.List;
 import mereditor.interfaz.swt.figuras.RelacionFigure;
 import mereditor.modelo.Atributo;
 import mereditor.modelo.Entidad;
-import mereditor.representacion.RelacionControl;
+import mereditor.control.RelacionControl;
 
 import org.w3c.dom.Element;
 

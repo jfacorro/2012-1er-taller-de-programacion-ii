@@ -4,7 +4,7 @@ import java.awt.BorderLayout;
 
 import javax.swing.JPanel;
 
-import mereditor.representacion.DiagramaControl;
+import mereditor.control.DiagramaControl;
 
 import com.mxgraph.model.mxCell;
 import com.mxgraph.model.mxGeometry;
