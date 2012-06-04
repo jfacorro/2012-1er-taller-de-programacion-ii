@@ -7,10 +7,13 @@ import mereditor.modelo.base.Componente;
 import mereditor.representacion.base.Representacion;
 
 import org.eclipse.draw2d.BorderLayout;
+import org.eclipse.draw2d.ChopboxAnchor;
+import org.eclipse.draw2d.Connection;
 import org.eclipse.draw2d.Figure;
 import org.eclipse.draw2d.Label;
 import org.eclipse.draw2d.LayoutManager;
 import org.eclipse.draw2d.LineBorder;
+import org.eclipse.draw2d.PolylineConnection;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.graphics.Color;
@@ -77,5 +80,14 @@ public class Figura<T extends Componente> extends Figure {
 
 	public List<Figure> getFiguras() {
 		return this.figuras;		
+	}
+	
+	public static Connection conectar(Figure figOrigen, Figure figDestino) {
+		PolylineConnection coneccion = new PolylineConnection();
+		ChopboxAnchor origen = new ChopboxAnchor(figOrigen);
+		ChopboxAnchor destino = new ChopboxAnchor(figDestino);
+		coneccion.setTargetAnchor(origen);
+		coneccion.setSourceAnchor(destino);
+		return coneccion;
 	}
 }

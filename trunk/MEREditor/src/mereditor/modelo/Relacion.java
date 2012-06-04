@@ -91,12 +91,15 @@ public class Relacion extends ComponenteNombre {
 			this.cardinalidadMinima = cardinalidadMinima;
 		}
 
-		public String getCardinalidadMaxima() {
-			return cardinalidadMaxima;
-		}
-
 		public void setCardinalidadMaxima(String cardinalidadMaxima) {
 			this.cardinalidadMaxima = cardinalidadMaxima;
+		}
+		
+		@Override
+		public String toString() {
+			String label = "(" + this.cardinalidadMinima + ", " + this.cardinalidadMinima +")";
+			if(this.rol != null) label += " " + this.rol;
+			return  label;
 		}
 	}
 }
