@@ -14,9 +14,14 @@ public class Diagrama extends ComponenteNombre {
 	
 	public Diagrama() {}
 
-	public Diagrama(String nombre, String id, String idPadre) {
-		super(nombre, id, idPadre);
+	public Diagrama(String nombre, String id) {
+		super(nombre, id);
 	}
+	
+	public Diagrama(String nombre, String id, Componente padre) {
+		super(nombre, id, padre);
+	}
+
 
 	public List<Diagrama> getDiagramas() {
 		return diagramas;

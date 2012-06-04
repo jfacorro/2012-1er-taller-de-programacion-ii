@@ -2,10 +2,11 @@ package mereditor.xml;
 
 import mereditor.modelo.Diagrama;
 import mereditor.modelo.base.Componente;
+import mereditor.representacion.DiagramaControl;
 
 import org.w3c.dom.Element;
 
-public class DiagramaXml extends Diagrama implements Xmlizable {
+public class DiagramaXml extends DiagramaControl implements Xmlizable {
 
 	@Override
 	public Element toXml() {
@@ -20,12 +21,12 @@ public class DiagramaXml extends Diagrama implements Xmlizable {
 		parser.registrar(this);
 
 		for (Componente componente : parser.obtenerComponentes(elemento)) {
-			componente.setIdPadre(this.id);
+			componente.setPadre(this);
 			this.componentes.add(componente);
 		}
 
 		for (Componente componente : parser.obtenerDiagramas(elemento)) {
-			componente.setIdPadre(this.id);
+			componente.setPadre(this);
 			this.diagramas.add((Diagrama) componente);
 		}
 

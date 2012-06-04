@@ -25,6 +25,7 @@ public class Constants {
 	
 	public static final String DIAGRAMA_COMPONENTES_QUERY = "./Componentes/Componente";
 	public static final String DIAGRAMA_DIAGRAMAS_QUERY = "./Diagramas/Diagrama";
+	public static final String DIAGRAMA_QUERY = "./Diagrama";
 	
 	public static final String ATRIBUTOS_QUERY = "./Atributos/Atributo";
 

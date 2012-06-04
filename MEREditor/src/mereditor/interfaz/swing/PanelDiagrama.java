@@ -4,7 +4,7 @@ import java.awt.BorderLayout;
 
 import javax.swing.JPanel;
 
-import mereditor.representacion.DiagramaRepresentacion;
+import mereditor.representacion.DiagramaControl;
 
 import com.mxgraph.model.mxCell;
 import com.mxgraph.model.mxGeometry;
@@ -16,7 +16,7 @@ public class PanelDiagrama extends JPanel {
 	
 	private Principal principal;
 
-	private DiagramaRepresentacion diagrama;
+	private DiagramaControl diagrama;
 	
 	private mxGraph graph;
 	

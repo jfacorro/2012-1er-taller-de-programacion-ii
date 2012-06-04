@@ -10,14 +10,13 @@ public class AgregarDiagramaListener implements Listener {
 	TreeItem diagramaPadre;
 
 	public AgregarDiagramaListener(TreeItem d) {
-		diagramaPadre= d;
+		diagramaPadre = d;
 	}
 
-	
 	public void handleEvent(Event arg0) {
 		System.out.println("AgregarDiagrama");
-		Diagrama d = new Diagrama("nuevo","idNuevo",( (Componente) diagramaPadre.getData()).getId());
-		ComponenteArbol nuevoDiagrama= new ComponenteArbol (d);
+		Diagrama d = new Diagrama("nuevo", "idNuevo", ((Componente) diagramaPadre.getData()));
+		ComponenteArbol nuevoDiagrama = new ComponenteArbol(d);
 		nuevoDiagrama.agregarA(diagramaPadre);
 	}
 

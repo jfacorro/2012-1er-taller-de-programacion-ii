@@ -1,9 +1,13 @@
 package mereditor.xml;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
 
 import mereditor.modelo.Atributo;
 import mereditor.modelo.Validacion;
@@ -27,6 +31,20 @@ public class ParserXml {
 	public ParserXml(Document modeloXml, Document representacionXml) {
 		this(modeloXml);
 		this.rootRepresentacion = representacionXml.getDocumentElement();
+	}
+	
+	public ParserXml(String modeloPath, String representacionPath) throws Exception {
+		File sourceModelo = new File(modeloPath);
+		File sourceRepresentacion = new File(representacionPath);
+		DocumentBuilder builder;
+		builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
+		this.root = builder.parse(sourceModelo).getDocumentElement();
+		this.rootRepresentacion = builder.parse(sourceRepresentacion).getDocumentElement();
+	}
+	
+	public Componente diagramaRaiz() throws Exception {
+		Element diagramaXml = XmlHelper.querySingle(this.root, Constants.DIAGRAMA_QUERY);
+		return this.resolver(diagramaXml.getAttribute(Constants.ID_ATTR));
 	}
 
 	/**

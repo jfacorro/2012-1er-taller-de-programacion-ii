@@ -1,10 +1,12 @@
 package mereditor.xml;
 
+import mereditor.interfaz.swt.AtributoFigure;
 import mereditor.modelo.Atributo;
+import mereditor.representacion.AtributoControl;
 
 import org.w3c.dom.Element;
 
-public class AtributoXml extends Atributo implements Xmlizable {
+public class AtributoXml extends AtributoControl implements Xmlizable {
 
 	@Override
 	public Element toXml() {
@@ -21,7 +23,7 @@ public class AtributoXml extends Atributo implements Xmlizable {
 		parser.registrar(this);
 		
 		for(Atributo atributo : parser.obtenerAtributos(elemento)) {
-			atributo.setIdPadre(this.id);
+			atributo.setPadre(this);
 			this.atributos.add(atributo);
 		}
 		
@@ -40,5 +42,8 @@ public class AtributoXml extends Atributo implements Xmlizable {
 				this.original = parser.obtenerOriginalAtributo(elemento);
 			break;
 		}
+		
+		this.figure = new AtributoFigure(this);
+		this.figure.setRepresentacion(parser.representacion(this.id));
 	}
 }

@@ -6,8 +6,13 @@ public abstract class ComponenteNombre extends Componente {
 	
 	public ComponenteNombre() {}
 	
-	public ComponenteNombre(String nombre, String id, String idPadre) {
-		super (id, idPadre);
+	public ComponenteNombre(String nombre, String id) {
+		super (id);
+		this.nombre= nombre;
+	}
+
+	public ComponenteNombre(String nombre, String id, Componente padre) {
+		super (id, padre);
 		this.nombre= nombre;
 	}
 
