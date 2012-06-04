@@ -34,7 +34,7 @@ public class PanelDiagrama extends JPanel {
 		this.diagrama = this.principal.getDiagramaActual();
 		
 		if(diagrama != null) {
-			this.diagrama.dibujar(null);
+			this.diagrama.dibujar(null, null);
 		}
 		
 		this.graph = new mxGraph();

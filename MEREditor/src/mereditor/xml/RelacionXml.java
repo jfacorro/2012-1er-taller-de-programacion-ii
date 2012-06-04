@@ -39,6 +39,6 @@ public class RelacionXml extends RelacionControl implements Xmlizable {
 			this.participantes.add(entidadRelacion);
 		}
 
-		this.getFigura().setRepresentacion(parser.representacion(this.id));
+		//this.getFigura().setRepresentacion(parser.representacion(this.id));
 	}
 }

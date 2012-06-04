@@ -1,5 +1,8 @@
 package mereditor.control;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import mereditor.interfaz.swt.figuras.Figura;
 import mereditor.interfaz.swt.figuras.RelacionFigure;
 import mereditor.modelo.Atributo;
@@ -8,34 +11,33 @@ import mereditor.modelo.Relacion;
 import org.eclipse.draw2d.Figure;
 
 public class RelacionControl extends Relacion implements Control<Relacion> {
-	private RelacionFigure figure;
+	private Map<String, RelacionFigure> figures = new HashMap<>();
 
-	public RelacionControl() {
-		super();
-		this.figure = new RelacionFigure(this);
+	@Override
+	public Figura<Relacion> getFigura(String idDiagrama) {
+		if (!this.figures.containsKey(idDiagrama))
+			this.figures.put(idDiagrama, new RelacionFigure(this));
+
+		return this.figures.get(idDiagrama);
 	}
 
 	@Override
-	public Figura<Relacion> getFigura() {
-		return this.figure;
-	}
-
-	@Override
-	public void dibujar(Figure contenedor) {
-		contenedor.add(this.figure);
+	public void dibujar(Figure contenedor, String idDiagrama) {
+		RelacionFigure figure = (RelacionFigure) this.getFigura(idDiagrama);
+		contenedor.add(figure);
 
 		for (Atributo atributo : this.atributos) {
 			AtributoControl atributoControl = (AtributoControl) atributo;
 
-			this.figure.conectarAtributo(atributoControl.getFigura());
-			atributoControl.dibujar(contenedor);
-			this.figure.agregarFiguraLoqueada(atributoControl.getFigura());
+			figure.conectarAtributo(atributoControl.getFigura(idDiagrama));
+			atributoControl.dibujar(contenedor, idDiagrama);
+			figure.agregarFiguraLoqueada(atributoControl.getFigura(idDiagrama));
 		}
 
 		for (EntidadRelacion entidadRelacion : this.participantes) {
 			EntidadControl entidadControl = (EntidadControl) entidadRelacion
 					.getEntidad();
-			this.figure.conectarEntidad(entidadControl.getFigura(),
+			figure.conectarEntidad(entidadControl.getFigura(idDiagrama),
 					entidadRelacion.toString());
 		}
 	}

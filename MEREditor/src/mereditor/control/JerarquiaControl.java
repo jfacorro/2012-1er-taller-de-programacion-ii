@@ -10,17 +10,17 @@ import org.eclipse.draw2d.Figure;
 public class JerarquiaControl extends Jerarquia implements Control<Jerarquia> {
 
 	@Override
-	public Figura<Jerarquia> getFigura() {
+	public Figura<Jerarquia> getFigura(String id) {
 		return null;
 	}
 
 	@Override
-	public void dibujar(Figure contenedor) {
-		Figure generica = ((EntidadControl)this.generica).getFigura();
+	public void dibujar(Figure contenedor, String idDiagrama) {
+		Figure generica = ((EntidadControl)this.generica).getFigura(idDiagrama);
 		
 		for(Entidad derivada : this.derivadas)
 		{
-			Figure derivadaFigure = ((EntidadControl)derivada).getFigura();
+			Figure derivadaFigure = ((EntidadControl)derivada).getFigura(idDiagrama);
 			
 			Connection connection = Figura.conectar(derivadaFigure, generica);
 

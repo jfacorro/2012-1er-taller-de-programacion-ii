@@ -62,24 +62,10 @@ public class Principal {
 		try {
 			ParserXml parser = new ParserXml(PATH_MODELO_TEST, PATH_REPRESENTACION_TEST);
 			DiagramaControl diagrama = (DiagramaControl) parser.diagramaRaiz();
-			diagrama.dibujar(this.contents);
+			diagrama.dibujar(this.contents, diagrama.getId());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
-		/*
-		 * 
-		 * Figure fig1 = this.agregarFigura(new EntidadFigure(new Entidad(
-		 * "Boleteria", "0", TipoEntidad.MAESTRA_COSA)), new Point( 10, 10));
-		 * Figure fig2 = this.agregarFigura( new EntidadFigure(new
-		 * Entidad("Fila", "0", TipoEntidad.MAESTRA_COSA)), new Point(200,
-		 * 200));
-		 * 
-		 * Figure rel = this.agregarFigura( new RelacionFigure(new
-		 * Relacion("Rel", "0", TipoRelacion.ASOCIACION)), new Point(0, 200));
-		 * 
-		 * this.agregarConexion(fig1, rel); this.agregarConexion(fig2, rel);
-		 */
 	}
 
 	public void mostrar() {
@@ -94,7 +80,6 @@ public class Principal {
 
 	public void agregarConexion(Figure f1, Figure f2) {
 		PolylineConnection c = new PolylineConnection();
-		// c.setTargetDecoration(new PolygonDecoration());
 		ChopboxAnchor sourceAnchor = new ChopboxAnchor(f1);
 		ChopboxAnchor targetAnchor = new ChopboxAnchor(f2);
 		c.setSourceAnchor(sourceAnchor);

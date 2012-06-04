@@ -1,5 +1,8 @@
 package mereditor.control;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import mereditor.interfaz.swt.figuras.AtributoFigure;
 import mereditor.interfaz.swt.figuras.Figura;
 import mereditor.modelo.Atributo;
@@ -7,29 +10,29 @@ import mereditor.modelo.Atributo;
 import org.eclipse.draw2d.Figure;
 
 public class AtributoControl extends Atributo implements Control<Atributo> {
-	private AtributoFigure figure;
+	private Map<String, AtributoFigure> figures = new HashMap<>();
 
-	public AtributoControl() {
-		super();
-		this.figure = new AtributoFigure(this);
+	@Override
+	public Figura<Atributo> getFigura(String idDiagrama) {
+		if (!this.figures.containsKey(idDiagrama))
+			this.figures.put(idDiagrama, new AtributoFigure(this));
+
+		return this.figures.get(idDiagrama);
 	}
 
 	@Override
-	public Figura<Atributo> getFigura() {
-		return this.figure;
-	}
-
-	@Override
-	public void dibujar(Figure contenedor) {
-		contenedor.add(this.figure);
+	public void dibujar(Figure contenedor, String idDiagrama) {
+		AtributoFigure figure = (AtributoFigure) this.getFigura(idDiagrama);
+		contenedor.add(figure);
 
 		for (Atributo atributo : this.atributos) {
 			AtributoControl atributoControl = (AtributoControl) atributo;
-			this.figure.conectarAtributo(atributoControl.getFigura());
+			figure.conectarAtributo(atributoControl.getFigura(idDiagrama));
 
-			atributoControl.dibujar(contenedor);
+			atributoControl.dibujar(contenedor, idDiagrama);
 			// Agregar atributo a los hijos.
-			this.figure.agregarFiguraLoqueada(atributoControl.getFigura());
+			figure.agregarFiguraLoqueada(atributoControl
+					.getFigura(idDiagrama));
 		}
 	}
 }

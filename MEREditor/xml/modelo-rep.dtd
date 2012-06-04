@@ -1,8 +1,11 @@
+<!ELEMENT Modelo (Diagrama+)>
+<!ELEMENT Diagrama (Representaciones+)>
 <!ELEMENT Representaciones (Representacion+)>
-<!ELEMENT Representacion (Posicion, Dimension)>
+<!ELEMENT Representacion (Posicion, Dimension, Representaciones*)>
 <!ELEMENT Posicion (#PCDATA)>
 <!ELEMENT Dimension (#PCDATA)>
 
+<!ATTLIST Diagrama id ID #REQUIRED>
 <!ATTLIST Representacion id ID #REQUIRED>
 <!ATTLIST Posicion x CDATA #REQUIRED>
 <!ATTLIST Posicion y CDATA #REQUIRED>

@@ -39,6 +39,6 @@ public class EntidadXml extends EntidadControl implements Xmlizable {
 		// Obtener identificadores externos
 		this.identificadores.addAll(parser.obtenerIdentificadoresExternos(elemento));
 		
-		this.getFigura().setRepresentacion(parser.representacion(this.id));
+		//this.getFigura().setRepresentacion(parser.representacion(this.id));
 	}
 }
