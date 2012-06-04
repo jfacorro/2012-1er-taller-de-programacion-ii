@@ -1,39 +1,12 @@
 package mereditor.control.base;
 
+import org.eclipse.draw2d.geometry.Rectangle;
+
 public class Representacion {
 	
-	protected int x, y;
-	protected int ancho, alto; 
+	protected Rectangle rectangulo = new Rectangle();
 	
-	public int getX() {
-		return x;
+	public Rectangle getRectangle() {
+		return this.rectangulo;
 	}
-
-	public void setX(int x) {
-		this.x = x;
-	}
-
-	public int getY() {
-		return y;
-	}
-
-	public void setY(int y) {
-		this.y = y;
-	}
-
-	public int getAncho() {
-		return ancho;
-	}
-
-	public void setAncho(int ancho) {
-		this.ancho = ancho;
-	}
-
-	public int getAlto() {
-		return alto;
-	}
-
-	public void setAlto(int alto) {
-		this.alto = alto;
-	}		
 }
