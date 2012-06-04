@@ -25,7 +25,7 @@ public class AtributoControl extends Atributo implements Control<Atributo> {
 			
 			atributoControl.dibujar(contenedor);
 			// Agregar atributo a los hijos.
-			this.figure.agregar(atributoControl.getFigura());
+			this.figure.agregarFiguraLoqueada(atributoControl.getFigura());
 		}
 	}
 }

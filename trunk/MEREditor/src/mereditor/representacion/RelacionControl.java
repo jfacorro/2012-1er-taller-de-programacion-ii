@@ -21,8 +21,7 @@ public class RelacionControl extends Relacion implements Control<Relacion> {
 
 		for(EntidadRelacion entidadRelacion : this.participantes) {
 			EntidadControl entidadControl = (EntidadControl)entidadRelacion.getEntidad();			
-			this.figure.conectarEntidad(entidadControl.getFigura(), entidadRelacion);			
-			this.figure.agregar(entidadControl.getFigura());
+			this.figure.conectarEntidad(entidadControl.getFigura(), entidadRelacion.toString());
 		}
 	}
 }

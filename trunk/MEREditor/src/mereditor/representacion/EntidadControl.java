@@ -25,7 +25,7 @@ public class EntidadControl extends Entidad implements Control<Entidad> {
 
 			this.figure.conectarAtributo(atributoControl.getFigura());
 			atributoControl.dibujar(contenedor);
-			this.figure.agregar(atributoControl.getFigura());
+			this.figure.agregarFiguraLoqueada(atributoControl.getFigura());
 		}
 	}
 }
