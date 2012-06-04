@@ -18,8 +18,8 @@ public class Relacion extends ComponenteNombre {
 	public Relacion() {
 	}
 
-	public Relacion(String nombre, String id, String idPadre, TipoRelacion tipo) {
-		super(nombre, id, idPadre);
+	public Relacion(String nombre, String id, TipoRelacion tipo) {
+		super(nombre, id);
 		this.tipo = tipo;
 	}
 

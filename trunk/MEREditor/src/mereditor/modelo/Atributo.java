@@ -3,6 +3,7 @@ package mereditor.modelo;
 import java.util.LinkedList;
 import java.util.List;
 
+import mereditor.modelo.base.Componente;
 import mereditor.modelo.base.ComponenteNombre;
 
 public class Atributo extends ComponenteNombre {
@@ -23,14 +24,14 @@ public class Atributo extends ComponenteNombre {
 	
 	public Atributo() {}
 
-	public Atributo(String nombre, String id, String idPadre) {
-		super(nombre, id, idPadre);
+	public Atributo(String nombre, String id, Componente padre) {
+		super(nombre, id, padre);
 	}
 
-	public Atributo(String nombre, String id, String idPadre, String min,
+	public Atributo(String nombre, String id, Componente padre, String min,
 			String cardMax, TipoAtributo tipo,
 			List<Atributo> atributos) {
-		this(nombre, id, idPadre);
+		this(nombre, id, padre);
 		this.atributos = atributos;
 		this.cardinalidadMinima = min;
 		this.cardinalidadMaxima = cardMax;

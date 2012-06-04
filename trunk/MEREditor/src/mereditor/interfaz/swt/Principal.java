@@ -1,9 +1,7 @@
 package mereditor.interfaz.swt;
 
-import mereditor.modelo.Entidad;
-import mereditor.modelo.Relacion;
-import mereditor.modelo.Entidad.TipoEntidad;
-import mereditor.modelo.Relacion.TipoRelacion;
+import mereditor.representacion.DiagramaControl;
+import mereditor.xml.ParserXml;
 
 import org.eclipse.draw2d.ChopboxAnchor;
 import org.eclipse.draw2d.Figure;
@@ -22,6 +20,8 @@ import org.eclipse.swt.widgets.Shell;
  */
 public class Principal {
 	public final String APP_NOMBRE = "MER Editor";
+	private static final String PATH_MODELO_TEST = "xml/tests/modelo.xml";
+	private static final String PATH_REPRESENTACION_TEST = "xml/tests/representacion.xml";
 
 	private Shell shell;
 	protected FigureCanvas figureCanvas;
@@ -56,17 +56,27 @@ public class Principal {
 	private void generarContenido() {
 		this.contents = new Figure();
 
-		Figure fig1 = this.agregarFigura(new EntidadFigure(new Entidad(
-				"Boleteria", "0", "0", TipoEntidad.MAESTRA_COSA)), new Point(
-				10, 10));
-		Figure fig2 = this.agregarFigura(
-				new EntidadFigure(new Entidad("Fila", "0", "0", TipoEntidad.MAESTRA_COSA)), new Point(200, 200));
+		try {
+			ParserXml parser = new ParserXml(PATH_MODELO_TEST, PATH_REPRESENTACION_TEST);
+			DiagramaControl diagrama = (DiagramaControl) parser.diagramaRaiz();
+			diagrama.dibujar(this.contents);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 
-		Figure rel = this.agregarFigura(
-				new RelacionFigure(new Relacion("Rel", "0", "0", TipoRelacion.ASOCIACION)), new Point(0, 200));
-
-		this.agregarConexion(fig1, rel);
-		this.agregarConexion(fig2, rel);
+		/*
+		 * 
+		 * Figure fig1 = this.agregarFigura(new EntidadFigure(new Entidad(
+		 * "Boleteria", "0", TipoEntidad.MAESTRA_COSA)), new Point( 10, 10));
+		 * Figure fig2 = this.agregarFigura( new EntidadFigure(new
+		 * Entidad("Fila", "0", TipoEntidad.MAESTRA_COSA)), new Point(200,
+		 * 200));
+		 * 
+		 * Figure rel = this.agregarFigura( new RelacionFigure(new
+		 * Relacion("Rel", "0", TipoRelacion.ASOCIACION)), new Point(0, 200));
+		 * 
+		 * this.agregarConexion(fig1, rel); this.agregarConexion(fig2, rel);
+		 */
 	}
 
 	public void mostrar() {

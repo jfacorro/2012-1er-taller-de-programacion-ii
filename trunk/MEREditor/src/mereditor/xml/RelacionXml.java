@@ -2,12 +2,13 @@ package mereditor.xml;
 
 import java.util.List;
 
+import mereditor.interfaz.swt.RelacionFigure;
 import mereditor.modelo.Entidad;
-import mereditor.modelo.Relacion;
+import mereditor.representacion.RelacionControl;
 
 import org.w3c.dom.Element;
 
-public class RelacionXml extends Relacion implements Xmlizable {
+public class RelacionXml extends RelacionControl implements Xmlizable {
 
 	@Override
 	public Element toXml() {
@@ -24,14 +25,16 @@ public class RelacionXml extends Relacion implements Xmlizable {
 		parser.registrar(this);
 
 		List<Element> participantesXml = parser.obtenerParticipantes(elemento);
-		
+
 		for (Element participanteXml : participantesXml) {
-			Entidad entidad = (Entidad)parser.obtenerEntidadParticipante(participanteXml);
-			String [] cardinalidad = parser.obtenerCardinalidad(participanteXml);
+			Entidad entidad = (Entidad) parser.obtenerEntidadParticipante(participanteXml);
+			String[] cardinalidad = parser.obtenerCardinalidad(participanteXml);
 			String rol = parser.obtenerRol(participanteXml);
 			EntidadRelacion entidadRelacion = new EntidadRelacion(entidad, rol, cardinalidad[0], cardinalidad[1]);
 			this.participantes.add(entidadRelacion);
 		}
-	}
 
+		this.figure = new RelacionFigure(this);
+		this.figure.setRepresentacion(parser.representacion(this.id));
+	}
 }

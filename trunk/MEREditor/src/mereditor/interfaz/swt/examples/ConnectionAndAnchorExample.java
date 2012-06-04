@@ -60,7 +60,7 @@ public class ConnectionAndAnchorExample extends AbstractExample {
 		RectangleFigure
 		// node1 = new RectangleFigure(),
 		node2 = new RectangleFigure();
-		EntidadFigure node1 = new EntidadFigure(new Entidad("Ent1", "0", "0", TipoEntidad.MAESTRA_COSA));
+		EntidadFigure node1 = new EntidadFigure(new Entidad("Ent1", "0", TipoEntidad.MAESTRA_COSA));
 
 		// node1.setBackgroundColor(ColorConstants.red);
 		node1.setBounds(new Rectangle(40, 40, 50, 30));

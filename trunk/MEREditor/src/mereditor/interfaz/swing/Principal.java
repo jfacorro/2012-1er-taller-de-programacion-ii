@@ -4,7 +4,7 @@ import java.awt.BorderLayout;
 
 import javax.swing.JFrame;
 
-import mereditor.representacion.DiagramaRepresentacion;
+import mereditor.representacion.DiagramaControl;
 
 public class Principal extends JFrame {
 
@@ -19,7 +19,7 @@ public class Principal extends JFrame {
 	private PanelDiagrama diagrama;
 	private ArbolDiagramas navegacion;
 	private Menu menu;
-	private DiagramaRepresentacion diagramaActual;
+	private DiagramaControl diagramaActual;
 	
 	public Principal() {
 		super();
@@ -48,7 +48,7 @@ public class Principal extends JFrame {
 		this.dispose();
 	}
 
-	public DiagramaRepresentacion getDiagramaActual() {
+	public DiagramaControl getDiagramaActual() {
 		return this.diagramaActual;
 	}
 }

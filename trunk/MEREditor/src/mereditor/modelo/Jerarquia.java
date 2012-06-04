@@ -19,8 +19,8 @@ public class Jerarquia extends Componente {
 		super();
 	}
 
-	public Jerarquia(String idJerarquia, String idContenedor) {
-		super(idJerarquia, idContenedor);
+	public Jerarquia(String id) {
+		super(id);
 	}
 
 	public List<Entidad> getDerivadas() {

@@ -1,12 +1,13 @@
 package mereditor.xml;
 
+import mereditor.interfaz.swt.EntidadFigure;
 import mereditor.modelo.Atributo;
-import mereditor.modelo.Entidad;
 import mereditor.modelo.base.Componente;
+import mereditor.representacion.EntidadControl;
 
 import org.w3c.dom.Element;
 
-public class EntidadXml extends Entidad implements Xmlizable {
+public class EntidadXml extends EntidadControl implements Xmlizable {
 
 	@Override
 	public Element toXml() {
@@ -23,7 +24,7 @@ public class EntidadXml extends Entidad implements Xmlizable {
 		parser.registrar(this);
 		
 		for(Atributo atributo : parser.obtenerAtributos(elemento)) {
-			atributo.setIdPadre(this.id);
+			atributo.setPadre(this);
 			this.atributos.add(atributo);
 		}
 
@@ -38,5 +39,8 @@ public class EntidadXml extends Entidad implements Xmlizable {
 				
 		// Obtener identificadores externos
 		this.identificadores.addAll(parser.obtenerIdentificadoresExternos(elemento));
+		
+		this.figure = new EntidadFigure(this);
+		this.figure.setRepresentacion(parser.representacion(this.id));
 	}
 }

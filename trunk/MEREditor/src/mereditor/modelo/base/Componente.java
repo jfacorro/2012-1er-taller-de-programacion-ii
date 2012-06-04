@@ -9,25 +9,29 @@ public abstract class Componente {
 	/**
 	 * Id del padre del componente
 	 */
-	protected String idPadre;
+	protected Componente padre;
 
 	public Componente() {}
-
-	public Componente(String id, String idPadre) {
+	
+	public Componente(String id) {
 		this.id = id;
-		this.idPadre = idPadre;
+	}
+
+	public Componente(String id, Componente padre) {
+		this.id = id;
+		this.padre = padre;
 	}
 
 	public String getId() {
 		return id;
 	}
 
-	public String getIdPadre() {
-		return idPadre;
+	public Componente getPadre() {
+		return padre;
 	}
 	
-	public void setIdPadre(String idPadre) {
-		this.idPadre = idPadre;
+	public void setPadre(Componente padre) {
+		this.padre = padre;
 	}
 	
 	@Override
