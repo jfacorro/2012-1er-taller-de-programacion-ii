@@ -1,7 +1,8 @@
 package mereditor.representacion;
 
-import mereditor.interfaz.swt.Figura;
-import mereditor.interfaz.swt.RelacionFigure;
+import mereditor.interfaz.swt.figuras.Figura;
+import mereditor.interfaz.swt.figuras.RelacionFigure;
+import mereditor.modelo.Atributo;
 import mereditor.modelo.Relacion;
 import mereditor.representacion.base.Control;
 
@@ -18,6 +19,14 @@ public class RelacionControl extends Relacion implements Control<Relacion> {
 	@Override
 	public void dibujar(Figure contenedor) {
 		contenedor.add(this.figure);
+		
+		for (Atributo atributo : this.atributos) {
+			AtributoControl atributoControl = (AtributoControl) atributo;
+
+			this.figure.conectarAtributo(atributoControl.getFigura());
+			atributoControl.dibujar(contenedor);
+			this.figure.agregarFiguraLoqueada(atributoControl.getFigura());
+		}
 
 		for(EntidadRelacion entidadRelacion : this.participantes) {
 			EntidadControl entidadControl = (EntidadControl)entidadRelacion.getEntidad();			

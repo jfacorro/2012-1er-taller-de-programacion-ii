@@ -10,7 +10,7 @@
  *******************************************************************************/
 package mereditor.interfaz.swt.examples;
 
-import mereditor.interfaz.swt.EntidadFigure;
+import mereditor.interfaz.swt.figuras.EntidadFigure;
 import mereditor.modelo.Entidad;
 import mereditor.modelo.Entidad.TipoEntidad;
 

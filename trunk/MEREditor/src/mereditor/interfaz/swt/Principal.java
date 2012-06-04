@@ -9,6 +9,7 @@ import org.eclipse.draw2d.FigureCanvas;
 import org.eclipse.draw2d.PolylineConnection;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Display;
@@ -51,10 +52,12 @@ public class Principal {
 		this.figureCanvas.getViewport().setContentsTracksHeight(true);
 		this.figureCanvas.getViewport().setContentsTracksWidth(true);
 		this.figureCanvas.setLayoutData(new GridData(GridData.FILL_BOTH));
+		this.figureCanvas.setBackground(new Color(null, 255, 255, 255));
 	}
 
 	private void generarContenido() {
 		this.contents = new Figure();
+		this.contents.setBackgroundColor(new Color(null, 255, 255, 255));
 
 		try {
 			ParserXml parser = new ParserXml(PATH_MODELO_TEST, PATH_REPRESENTACION_TEST);

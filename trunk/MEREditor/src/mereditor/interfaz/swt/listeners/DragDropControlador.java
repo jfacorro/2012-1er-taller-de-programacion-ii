@@ -1,4 +1,4 @@
-package mereditor.interfaz.swt;
+package mereditor.interfaz.swt.listeners;
 
 import org.eclipse.draw2d.Figure;
 import org.eclipse.draw2d.MouseEvent;

@@ -1,7 +1,7 @@
 package mereditor.representacion;
 
-import mereditor.interfaz.swt.AtributoFigure;
-import mereditor.interfaz.swt.Figura;
+import mereditor.interfaz.swt.figuras.AtributoFigure;
+import mereditor.interfaz.swt.figuras.Figura;
 import mereditor.modelo.Atributo;
 import mereditor.representacion.base.Control;
 

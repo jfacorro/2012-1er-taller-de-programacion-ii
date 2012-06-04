@@ -1,5 +1,6 @@
-package mereditor.interfaz.swt;
+package mereditor.interfaz.swt.figuras;
 
+import mereditor.modelo.Atributo;
 import mereditor.modelo.Entidad;
 import mereditor.modelo.Relacion;
 import mereditor.representacion.base.Representacion;
@@ -81,5 +82,9 @@ public class RelacionFigure extends Figura<Relacion> {
 		conecccion.add(lblCardinalidad, new MidpointLocator(conecccion, 0));
 		
 		this.getParent().add(conecccion);
+	}
+	
+	public void conectarAtributo(Figura<Atributo> figura) {
+		this.getParent().add(Figura.conectar(this, figura));
 	}
 }

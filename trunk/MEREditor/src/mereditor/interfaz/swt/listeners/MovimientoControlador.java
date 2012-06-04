@@ -1,4 +1,6 @@
-package mereditor.interfaz.swt;
+package mereditor.interfaz.swt.listeners;
+
+import mereditor.interfaz.swt.figuras.Figura;
 
 import org.eclipse.draw2d.Figure;
 import org.eclipse.draw2d.FigureListener;
