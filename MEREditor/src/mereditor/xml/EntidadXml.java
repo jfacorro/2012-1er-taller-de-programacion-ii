@@ -1,5 +1,6 @@
 package mereditor.xml;
 
+import mereditor.modelo.Atributo;
 import mereditor.modelo.Entidad;
 import mereditor.modelo.base.Componente;
 
@@ -21,7 +22,10 @@ public class EntidadXml extends Entidad implements Xmlizable {
 
 		parser.registrar(this);
 		
-		this.atributos.addAll(parser.obtenerAtributos(elemento));
+		for(Atributo atributo : parser.obtenerAtributos(elemento)) {
+			atributo.setIdPadre(this.id);
+			this.atributos.add(atributo);
+		}
 
 		// Obtener identificadores internos
 		for(Componente componente : parser.obtenerIdentificadoresInternos(elemento))

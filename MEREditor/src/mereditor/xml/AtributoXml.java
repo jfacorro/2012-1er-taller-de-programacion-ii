@@ -20,7 +20,10 @@ public class AtributoXml extends Atributo implements Xmlizable {
 
 		parser.registrar(this);
 		
-		this.atributos.addAll(parser.obtenerAtributos(elemento));
+		for(Atributo atributo : parser.obtenerAtributos(elemento)) {
+			atributo.setIdPadre(this.id);
+			this.atributos.add(atributo);
+		}
 		
 		String [] cardinalidad = parser.obtenerCardinalidad(elemento);
 		if(cardinalidad != null)

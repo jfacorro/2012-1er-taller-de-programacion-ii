@@ -26,6 +26,10 @@ public abstract class Componente {
 		return idPadre;
 	}
 	
+	public void setIdPadre(String idPadre) {
+		this.idPadre = idPadre;
+	}
+	
 	@Override
 	public boolean equals(Object obj) {
 		return obj == null ? false : this.getId().equals(((Componente)obj).getId());
