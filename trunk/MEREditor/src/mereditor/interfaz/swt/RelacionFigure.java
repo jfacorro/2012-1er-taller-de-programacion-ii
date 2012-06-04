@@ -1,6 +1,7 @@
 package mereditor.interfaz.swt;
 
 import mereditor.modelo.Relacion;
+import mereditor.representacion.base.Representacion;
 
 import org.eclipse.draw2d.BorderLayout;
 import org.eclipse.draw2d.LayoutManager;
@@ -51,6 +52,7 @@ public class RelacionFigure extends Figura<Relacion> {
 	}
 	
 	private void generatePoints(Dimension dim) {
+		this.rombo.removeAllPoints();
 		this.rombo.setSize(dim);
 		int w = dim.width;
 		int h = dim.height;
@@ -58,5 +60,11 @@ public class RelacionFigure extends Figura<Relacion> {
 		this.rombo.addPoint(new Point(w, h / 2));
 		this.rombo.addPoint(new Point(w / 2 , h));
 		this.rombo.addPoint(new Point(0, h / 2));
+	}
+	
+	@Override
+	public void setRepresentacion(Representacion representacion) {
+		super.setRepresentacion(representacion);
+		this.generatePoints();
 	}
 }
