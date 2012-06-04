@@ -18,13 +18,17 @@ public class DiagramaXml extends Diagrama implements Xmlizable {
 		this.nombre = XmlHelper.querySingle(elemento, Constants.NOMBRE_TAG).getTextContent();
 
 		parser.registrar(this);
-		
-		this.componentes.addAll(parser.obtenerComponentes(elemento));
-		
-		// Obtener componentes
-		for(Componente componente : parser.obtenerDiagramas(elemento))
-			this.diagramas.add((Diagrama) componente);		
-		
+
+		for (Componente componente : parser.obtenerComponentes(elemento)) {
+			componente.setIdPadre(this.id);
+			this.componentes.add(componente);
+		}
+
+		for (Componente componente : parser.obtenerDiagramas(elemento)) {
+			componente.setIdPadre(this.id);
+			this.diagramas.add((Diagrama) componente);
+		}
+
 		this.validacion = parser.obtenerValidacion(elemento);
 	}
 }
