@@ -1,0 +1,10 @@
+<!ELEMENT Representaciones (Representacion+)>
+<!ELEMENT Representacion (Posicion, Dimension)>
+<!ELEMENT Posicion (#PCDATA)>
+<!ELEMENT Dimension (#PCDATA)>
+
+<!ATTLIST Representacion id ID #REQUIRED>
+<!ATTLIST Posicion x CDATA #REQUIRED>
+<!ATTLIST Posicion y CDATA #REQUIRED>
+<!ATTLIST Dimension ancho CDATA #REQUIRED>
+<!ATTLIST Dimension alto CDATA #REQUIRED>

@@ -1,11 +1,11 @@
 package mereditor.representacion;
 
+import mereditor.modelo.Atributo;
+import mereditor.representacion.base.Control;
+
 import org.eclipse.draw2d.Figure;
 
-import mereditor.modelo.Atributo;
-import mereditor.representacion.base.Representacion;
-
-public class AtributoRepresentacion extends Representacion<Atributo> {
+public class AtributoRepresentacion extends Control<Atributo> {
 
 	@Override
 	public void dibujar(Figure contenedor) {

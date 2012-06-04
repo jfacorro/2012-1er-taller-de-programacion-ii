@@ -7,6 +7,11 @@ public class Constants {
 	public static final String IDREF_ATTR = "idref";
 	public static final String CARDINALIDAD_MIN_ATTR = "min";
 	public static final String CARDINALIDAD_MAX_ATTR = "max";
+	public static final String X_ATTR = "x";
+	public static final String Y_ATTR = "y";
+	public static final String ANCHO_ATTR = "ancho";
+	public static final String ALTO_ATTR = "alto";
+
 	public static final String NOMBRE_TAG = "Nombre";
 
 	public static final String ENTIDAD_TAG = "Entidad";
@@ -37,4 +42,6 @@ public class Constants {
 	public static final String CARDINALIDAD_QUERY = "./Cardinalidad";
 	public static final String VALIDACION_QUERY = "./Validacion";
 	public static final String OBSERVACIONES_QUERY = "./Observaciones";
+	public static final String POSICION_QUERY = "./Posicion";
+	public static final String DIMENSION_QUERY = "./Dimension";
 }

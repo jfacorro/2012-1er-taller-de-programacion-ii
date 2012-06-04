@@ -19,7 +19,7 @@ public class EntidadXml extends Entidad implements Xmlizable {
 		this.nombre = parser.obtenerNombre(elemento);
 		this.tipo = TipoEntidad.valueOf(parser.obtenerTipo(elemento));
 
-		parser.register(this);
+		parser.registrar(this);
 		
 		this.atributos.addAll(parser.obtenerAtributos(elemento));
 
