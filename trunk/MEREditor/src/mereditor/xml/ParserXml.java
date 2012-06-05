@@ -9,12 +9,13 @@ import java.util.Map;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
+import mereditor.base.Representacion;
+import mereditor.control.Control;
 import mereditor.modelo.Atributo;
 import mereditor.modelo.Validacion;
 import mereditor.modelo.base.Componente;
-import mereditor.control.Control;
-import mereditor.control.base.Representacion;
 
+import org.eclipse.draw2d.geometry.Rectangle;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -23,7 +24,6 @@ public class ParserXml {
 	protected Element root;
 	protected Element rootRepresentacion;
 	protected Map<String, Componente> componentes = new HashMap<String, Componente>();
-	protected Map<String, Map<String, Representacion>> representaciones = new HashMap<String, Map<String, Representacion>>();
 
 	public ParserXml(Document modeloXml) {
 		this.root = modeloXml.getDocumentElement();
@@ -83,26 +83,20 @@ public class ParserXml {
 	 *         representaciones como valor.
 	 */
 	public Map<String, Representacion> obtenerRepresentaciones(String id) {
-		if (!this.representaciones.containsKey(id)) {
-			HashMap<String, Representacion> representaciones = new HashMap<>();
-			// Buscar todos los diagramas en el xml de representacion
-			List<Element> diagramasXml = XmlHelper.query(this.rootRepresentacion, Constants.DIAGRAMA_QUERY);
-			Representacion representacion = null;
+		HashMap<String, Representacion> representaciones = new HashMap<>();
 
-			for (Element diagramaXml : diagramasXml) {
-				String idDiagrama = this.obtenerId(diagramaXml);
-				Element elemento = this.encontrarPorId(diagramaXml, id);
+		// Buscar todas las representaciones para el id
+		String query = String.format(Constants.REPRESENTACION_ID_QUERY, id);
+		List<Element> representacionesXml = XmlHelper.query(this.rootRepresentacion, query);
 
-				if (elemento != null) {
-					representacion = this.obtenerRepresentacion(elemento);
-					representaciones.put(idDiagrama, representacion);
-				}
-			}
+		for (Element representacionXml : representacionesXml) {
+			Element diagramaXml = XmlHelper.querySingle(representacionXml, Constants.DIAGRAMA_PADRE_QUERY);
 
-			this.representaciones.put(id, representaciones);
+			String idDiagrama = this.obtenerId(diagramaXml);
+			representaciones.put(idDiagrama, this.obtenerRepresentacion(representacionXml));
 		}
 
-		return this.representaciones.get(id);
+		return representaciones;
 	}
 
 	/**
@@ -141,6 +135,7 @@ public class ParserXml {
 
 	/**
 	 * Obtiene todos los diagramas hijos de un diagrama.
+	 * 
 	 * @param elemento
 	 * @return
 	 * @throws Exception
@@ -157,6 +152,7 @@ public class ParserXml {
 
 	/**
 	 * Obtiene el objeto de validacion asociado con un diagrama.
+	 * 
 	 * @param elemento
 	 * @return
 	 * @throws Exception
@@ -170,6 +166,7 @@ public class ParserXml {
 
 	/**
 	 * Obtiene el valor del estado de un elemento de validacion.
+	 * 
 	 * @param elemento
 	 * @return
 	 */
@@ -180,6 +177,7 @@ public class ParserXml {
 
 	/**
 	 * Obtiene las observacion de un elemento de validacion.
+	 * 
 	 * @param elemento
 	 * @return
 	 */
@@ -190,6 +188,7 @@ public class ParserXml {
 
 	/**
 	 * Obtiene el valor del atributo id de un elemento.
+	 * 
 	 * @param elemento
 	 * @return
 	 */
@@ -199,6 +198,7 @@ public class ParserXml {
 
 	/**
 	 * Obtiene el valor contenido en el tag hijo "Nombre" de un elemento.
+	 * 
 	 * @param elemento
 	 * @return
 	 */
@@ -208,6 +208,7 @@ public class ParserXml {
 
 	/**
 	 * Obtiene el valor del atributo tipo de un elemento.
+	 * 
 	 * @param elemento
 	 * @return
 	 */
@@ -217,6 +218,7 @@ public class ParserXml {
 
 	/**
 	 * Obtiene una lista de atributos correspondientes a un componente.
+	 * 
 	 * @param elemento
 	 * @return
 	 * @throws Exception
@@ -235,6 +237,7 @@ public class ParserXml {
 
 	/**
 	 * Obtiene una lista de los identificadores internos de una entidad.
+	 * 
 	 * @param elemento
 	 * @return
 	 * @throws Exception
@@ -252,6 +255,7 @@ public class ParserXml {
 
 	/**
 	 * Obtiene una lista de los identificadores externos de una entidad.
+	 * 
 	 * @param elemento
 	 * @return
 	 * @throws Exception
@@ -280,6 +284,7 @@ public class ParserXml {
 
 	/**
 	 * Obtiene la cardinalidad minima y maxima de un atributo o relacion.
+	 * 
 	 * @param elemento
 	 * @return
 	 */
@@ -291,6 +296,7 @@ public class ParserXml {
 
 	/**
 	 * Obtiene el valor de la formula de un atributo.
+	 * 
 	 * @param elemento
 	 * @return
 	 */
@@ -301,6 +307,7 @@ public class ParserXml {
 
 	/**
 	 * Obtiene el atributo original de un atributo de tipo copia.
+	 * 
 	 * @param elemento
 	 * @return
 	 * @throws Exception
@@ -316,6 +323,7 @@ public class ParserXml {
 
 	/**
 	 * Obtiene la entidad generica de una jerarquia.
+	 * 
 	 * @param elemento
 	 * @return
 	 * @throws Exception
@@ -328,7 +336,8 @@ public class ParserXml {
 	}
 
 	/**
-	 * Obtiene la lista de entidades derivadas de una jerarquia. 
+	 * Obtiene la lista de entidades derivadas de una jerarquia.
+	 * 
 	 * @param elemento
 	 * @return
 	 * @throws Exception
@@ -347,6 +356,7 @@ public class ParserXml {
 
 	/**
 	 * Obtiene los elemento de participantes de un elemento relacion.
+	 * 
 	 * @param elemento
 	 * @return
 	 */
@@ -356,6 +366,7 @@ public class ParserXml {
 
 	/**
 	 * Obtiene la entidad participante de la relacion.
+	 * 
 	 * @param elemento
 	 * @return
 	 * @throws Exception
@@ -367,6 +378,7 @@ public class ParserXml {
 
 	/**
 	 * Obtiene el rol de la entidad participante de la relacion.
+	 * 
 	 * @param elemento
 	 * @return
 	 */
@@ -396,6 +408,7 @@ public class ParserXml {
 	/**
 	 * Parsea un elemento según la implementacion de la instancia devuelta por
 	 * mapElement.
+	 * 
 	 * @param element
 	 * @return
 	 * @throws Exception
@@ -407,8 +420,9 @@ public class ParserXml {
 	}
 
 	/**
-	 * Devuelve una instancia de la clase correspondiente de parseo
-	 * según el nombre del elemento a parsear. 
+	 * Devuelve una instancia de la clase correspondiente de parseo según el
+	 * nombre del elemento a parsear.
+	 * 
 	 * @param element
 	 * @return
 	 * @throws Exception
@@ -430,18 +444,6 @@ public class ParserXml {
 		}
 
 		throw new Exception("No existe un mapeo para: " + element.getNodeName());
-	}
-
-	/**
-	 * Realiza una búsqueda por id en los hijos del elemento especificado
-	 * 
-	 * @param elemento
-	 * @param id
-	 * @return Primer elemento encontrado
-	 */
-	private Element encontrarPorId(Element elemento, String id) {
-		String query = String.format(Constants.ID_CHILD_QUERY, id);
-		return XmlHelper.querySingle(elemento, query);
 	}
 
 	/**
@@ -471,13 +473,10 @@ public class ParserXml {
 		int y = Integer.parseInt(posicionXml.getAttribute(Constants.Y_ATTR));
 		int ancho = Integer.parseInt(dimensionXml.getAttribute(Constants.ANCHO_ATTR));
 		int alto = Integer.parseInt(dimensionXml.getAttribute(Constants.ALTO_ATTR));
+		Rectangle rect = new Rectangle(x, y, ancho, alto);
 
 		Representacion representacion = new Representacion();
-		representacion.getRectangle().setX(x);
-		representacion.getRectangle().setY(y);
-		representacion.getRectangle().setWidth(ancho);
-		representacion.getRectangle().setHeight(alto);
-
+		representacion.setProperty("rect", rect);
 		return representacion;
 	}
 }

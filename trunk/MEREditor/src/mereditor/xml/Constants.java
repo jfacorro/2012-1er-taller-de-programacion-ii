@@ -44,6 +44,12 @@ public class Constants {
 	public static final String CARDINALIDAD_QUERY = "./Cardinalidad";
 	public static final String VALIDACION_QUERY = "./Validacion";
 	public static final String OBSERVACIONES_QUERY = "./Observaciones";
+	
 	public static final String POSICION_QUERY = "./Posicion";
 	public static final String DIMENSION_QUERY = "./Dimension";
+	/**
+	 * Busca el elemento padre que sea Diagrama para el elemento con id especificado.
+	 */
+	public static final String DIAGRAMA_PADRE_QUERY = "./ancestor::Diagrama";
+	public static final String REPRESENTACION_ID_QUERY = "//Representacion[@id='%s']";
 }

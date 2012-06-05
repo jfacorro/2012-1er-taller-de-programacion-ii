@@ -3,7 +3,7 @@ package mereditor.interfaz.swt.figuras;
 import java.util.ArrayList;
 import java.util.List;
 
-import mereditor.control.base.Representacion;
+import mereditor.base.Representacion;
 import mereditor.interfaz.swt.listeners.DragDropControlador;
 import mereditor.interfaz.swt.listeners.MovimientoControlador;
 import mereditor.modelo.base.Componente;
@@ -17,6 +17,7 @@ import org.eclipse.draw2d.Label;
 import org.eclipse.draw2d.LineBorder;
 import org.eclipse.draw2d.PolylineConnection;
 import org.eclipse.draw2d.geometry.Dimension;
+import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Font;
@@ -87,7 +88,7 @@ public class Figura<T extends Componente> extends Figure {
 		this.init();
 
 		if (representacion != null) {
-			this.setBounds(representacion.getRectangle());
+			this.setBounds(representacion.<Rectangle>getProperty("rect"));
 		}
 	}	
 
