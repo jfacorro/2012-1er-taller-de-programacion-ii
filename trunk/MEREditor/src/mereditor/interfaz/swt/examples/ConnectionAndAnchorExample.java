@@ -10,10 +10,6 @@
  *******************************************************************************/
 package mereditor.interfaz.swt.examples;
 
-import mereditor.interfaz.swt.figuras.EntidadFigure;
-import mereditor.modelo.Entidad;
-import mereditor.modelo.Entidad.TipoEntidad;
-
 import org.eclipse.draw2d.ChopboxAnchor;
 import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.ConnectionEndpointLocator;
@@ -54,15 +50,11 @@ public class ConnectionAndAnchorExample extends AbstractExample {
 
 		Figure endPointPanel = new Figure();
 		endPointPanel.setBounds(new Rectangle(0, 0, 400, 400));
-
 		endPointPanel.setBorder(new GroupBoxBorder("Midpoint Locator"));
 
-		RectangleFigure
-		// node1 = new RectangleFigure(),
-		node2 = new RectangleFigure();
-		EntidadFigure node1 = new EntidadFigure(new Entidad("Ent1", "0", TipoEntidad.MAESTRA_COSA));
+		RectangleFigure node1 = new RectangleFigure(), node2 = new RectangleFigure();
 
-		// node1.setBackgroundColor(ColorConstants.red);
+		node1.setBackgroundColor(ColorConstants.red);
 		node1.setBounds(new Rectangle(40, 40, 50, 30));
 
 		node2.setBackgroundColor(ColorConstants.blue);
@@ -89,8 +81,7 @@ public class ConnectionAndAnchorExample extends AbstractExample {
 		Figure ellipsePanel = new Figure();
 		ellipsePanel.setBounds(new Rectangle(420, 0, 400, 400));
 
-		ellipsePanel
-				.setBorder(new GroupBoxBorder("Connection endpoint Locator"));
+		ellipsePanel.setBorder(new GroupBoxBorder("Connection endpoint Locator"));
 
 		Shape node3 = new RectangleFigure(), node4 = new RectangleFigure();
 		node3.setBackgroundColor(ColorConstants.green);
@@ -113,14 +104,12 @@ public class ConnectionAndAnchorExample extends AbstractExample {
 		endPointLabel2.setOpaque(true);
 		endPointLabel2.setBackgroundColor(ColorConstants.buttonLightest);
 		endPointLabel2.setBorder(new LineBorder());
-		ConnectionEndpointLocator endpointLocator = new ConnectionEndpointLocator(
-				conn2, false);
+		ConnectionEndpointLocator endpointLocator = new ConnectionEndpointLocator(conn2, false);
 		endpointLocator.setUDistance(4);
 		endpointLocator.setVDistance(-3);
 		conn2.add(endPointLabel2, endpointLocator);
 
-		Label instructions = new Label(
-				" Drag the shapes to see the Locators in action ");
+		Label instructions = new Label(" Drag the shapes to see the Locators in action ");
 		instructions.setBorder(new LineBorder());
 		instructions.setLocation(new Point(10, 420));
 		instructions.setSize(instructions.getPreferredSize());
@@ -145,8 +134,7 @@ public class ConnectionAndAnchorExample extends AbstractExample {
 		getFigureCanvas().setSize(820, 440);
 	}
 
-	static class Dragger extends MouseMotionListener.Stub implements
-			MouseListener {
+	static class Dragger extends MouseMotionListener.Stub implements MouseListener {
 		public Dragger(IFigure figure) {
 			figure.addMouseMotionListener(this);
 			figure.addMouseListener(this);
