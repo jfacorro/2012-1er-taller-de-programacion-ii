@@ -9,6 +9,7 @@ import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
 
 import org.w3c.dom.Element;
+import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
@@ -58,6 +59,20 @@ public class XmlHelper {
 				nodes.add((Element) nodo);
 		}
 		return nodes;
+	}
+
+	/**
+	 * Devuelve una lista con los nombre de los atributos del elemento
+	 * @param elemento
+	 * @return
+	 */
+	public static List<String> attributeNames(Element elemento) {
+		List<String> nombres = new ArrayList<>();
+		NamedNodeMap list = elemento.getAttributes();
+		for (int i = 0; i < list.getLength(); i++) {
+			nombres.add(list.item(i).getNodeName());
+		}
+		return nombres;
 	}
 
 }

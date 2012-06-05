@@ -7,7 +7,7 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
 import junit.framework.TestCase;
-import mereditor.representacion.Representacion;
+import mereditor.representacion.PList;
 import mereditor.xml.RepresentacionParserXml;
 
 import org.w3c.dom.Document;
@@ -26,12 +26,12 @@ public class RepresentacionTest extends TestCase {
 	}
 	
 	public void testEncontrarRepresentacionPorId() {
-		Map<String, Representacion> rep = this.parser.obtenerRepresentaciones("_1");
+		Map<String, PList> rep = this.parser.obtenerRepresentaciones("_1");
 		assertTrue(rep != null);
 	}
 	
 	public void testEncontrarRepresentacionPorIdVerificarCantidad() {
-		Map<String, Representacion> rep = this.parser.obtenerRepresentaciones("_1");
+		Map<String, PList> rep = this.parser.obtenerRepresentaciones("_1");
 		assertEquals(rep.size(), 1);
 	}
 }

@@ -6,9 +6,8 @@ import java.util.Map;
 
 import mereditor.control.Control;
 import mereditor.modelo.base.Componente;
-import mereditor.representacion.Representacion;
+import mereditor.representacion.PList;
 
-import org.eclipse.draw2d.geometry.Rectangle;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -28,7 +27,7 @@ public class RepresentacionParserXml extends ParserXml {
 	 */
 	public void cargarRepresentaciones(ModeloParserXml modeloParser) {
 		for (Componente componente : modeloParser.componentes.values()) {
-			Map<String, Representacion> representaciones = this.obtenerRepresentaciones(componente.getId());
+			Map<String, PList> representaciones = this.obtenerRepresentaciones(componente.getId());
 			Control<?> control = (Control<?>) componente;
 			for (String idDiagrama : representaciones.keySet())
 				control.getFigura(idDiagrama).setRepresentacion(representaciones.get(idDiagrama));
@@ -44,8 +43,8 @@ public class RepresentacionParserXml extends ParserXml {
 	 * @return Mapa con los ids de los diagramas como clave y las
 	 *         representaciones como valor.
 	 */
-	public Map<String, Representacion> obtenerRepresentaciones(String id) {
-		HashMap<String, Representacion> representaciones = new HashMap<>();
+	public Map<String, PList> obtenerRepresentaciones(String id) {
+		HashMap<String, PList> representaciones = new HashMap<>();
 
 		// Buscar todas las representaciones para el id
 		String query = String.format(Constants.REPRESENTACION_ID_QUERY, id);
@@ -67,18 +66,15 @@ public class RepresentacionParserXml extends ParserXml {
 	 * @param elemento
 	 * @return
 	 */
-	protected Representacion obtenerRepresentacion(Element elemento) {
-		Element posicionXml = XmlHelper.querySingle(elemento, Constants.POSICION_QUERY);
-		Element dimensionXml = XmlHelper.querySingle(elemento, Constants.DIMENSION_QUERY);
-
-		int x = Integer.parseInt(posicionXml.getAttribute(Constants.X_ATTR));
-		int y = Integer.parseInt(posicionXml.getAttribute(Constants.Y_ATTR));
-		int ancho = Integer.parseInt(dimensionXml.getAttribute(Constants.ANCHO_ATTR));
-		int alto = Integer.parseInt(dimensionXml.getAttribute(Constants.ALTO_ATTR));
-		Rectangle rect = new Rectangle(x, y, ancho, alto);
-
-		Representacion representacion = new Representacion();
-		representacion.setProperty("rect", rect);
+	protected PList obtenerRepresentacion(Element elemento) {
+		PList representacion = new PList();
+		for(Element element : XmlHelper.query(elemento, "./*")) {
+			PList hijo = this.obtenerRepresentacion(element);
+			representacion.set(element.getNodeName(), hijo);
+		}
+		for(String nombre : XmlHelper.attributeNames(elemento)) {
+			representacion.set(nombre, elemento.getAttribute(nombre));
+		}
 		return representacion;
 	}
 }
