@@ -7,17 +7,17 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
 import junit.framework.TestCase;
+import mereditor.base.Representacion;
 import mereditor.modelo.Atributo;
+import mereditor.modelo.Atributo.TipoAtributo;
 import mereditor.modelo.Diagrama;
 import mereditor.modelo.Entidad;
-import mereditor.modelo.Atributo.TipoAtributo;
 import mereditor.modelo.Entidad.TipoEntidad;
 import mereditor.modelo.Jerarquia;
 import mereditor.modelo.Relacion;
 import mereditor.modelo.Relacion.EntidadRelacion;
 import mereditor.modelo.Validacion.EstadoValidacion;
 import mereditor.modelo.base.Componente;
-import mereditor.control.base.Representacion;
 import mereditor.xml.ParserXml;
 
 import org.w3c.dom.Document;
