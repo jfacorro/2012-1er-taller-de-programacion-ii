@@ -61,7 +61,7 @@ public class Principal {
 
 		try {
 			ParserXml parser = new ParserXml(PATH_MODELO_TEST, PATH_REPRESENTACION_TEST);
-			DiagramaControl diagrama = (DiagramaControl) parser.diagramaRaiz();
+			DiagramaControl diagrama = (DiagramaControl) parser.diagramaPrincipal();
 			diagrama.dibujar(this.contents, diagrama.getId());
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -21,17 +21,20 @@ public class AtributoXml extends AtributoControl implements Xmlizable {
 
 		parser.registrar(this);
 
+		// Atributos
 		for (Atributo atributo : parser.obtenerAtributos(elemento)) {
 			atributo.setPadre(this);
 			this.atributos.add(atributo);
 		}
 
+		// Cardinalidad
 		String[] cardinalidad = parser.obtenerCardinalidad(elemento);
 		if (cardinalidad != null) {
 			this.cardinalidadMinima = cardinalidad[0];
 			this.cardinalidadMaxima = cardinalidad[1];
 		}
 
+		// Formula u origianl según tipo
 		switch (this.tipo) {
 		case DERIVADO_CALCULO:
 			this.formula = parser.obtenerFormulaAtributo(elemento);
@@ -40,7 +43,5 @@ public class AtributoXml extends AtributoControl implements Xmlizable {
 			this.original = parser.obtenerOriginalAtributo(elemento);
 			break;
 		}
-
-		//this.getFigura().setRepresentacion(parser.representacion(this.id));
 	}
 }

@@ -23,8 +23,8 @@ public class RelacionXml extends RelacionControl implements Xmlizable {
 		this.tipo = TipoRelacion.valueOf(parser.obtenerTipo(elemento));
 
 		parser.registrar(this);
-		
-		for(Atributo atributo : parser.obtenerAtributos(elemento)) {
+
+		for (Atributo atributo : parser.obtenerAtributos(elemento)) {
 			atributo.setPadre(this);
 			this.atributos.add(atributo);
 		}
@@ -38,7 +38,5 @@ public class RelacionXml extends RelacionControl implements Xmlizable {
 			EntidadRelacion entidadRelacion = new EntidadRelacion(entidad, rol, cardinalidad[0], cardinalidad[1]);
 			this.participantes.add(entidadRelacion);
 		}
-
-		//this.getFigura().setRepresentacion(parser.representacion(this.id));
 	}
 }
