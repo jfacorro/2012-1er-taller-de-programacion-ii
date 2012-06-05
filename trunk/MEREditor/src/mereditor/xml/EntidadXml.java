@@ -15,7 +15,7 @@ public class EntidadXml extends EntidadControl implements Xmlizable {
 	}
 
 	@Override
-	public void fromXml(Element elemento, ParserXml parser) throws Exception {
+	public void fromXml(Element elemento, ModeloParserXml parser) throws Exception {
 		this.id = parser.obtenerId(elemento);
 		this.nombre = parser.obtenerNombre(elemento);
 		this.tipo = TipoEntidad.valueOf(parser.obtenerTipo(elemento));

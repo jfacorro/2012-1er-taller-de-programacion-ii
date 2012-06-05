@@ -14,7 +14,7 @@ public class DiagramaXml extends DiagramaControl implements Xmlizable {
 	}
 
 	@Override
-	public void fromXml(Element elemento, ParserXml parser) throws Exception {
+	public void fromXml(Element elemento, ModeloParserXml parser) throws Exception {
 		this.id = elemento.getAttribute(Constants.ID_ATTR);
 		this.nombre = XmlHelper.querySingle(elemento, Constants.NOMBRE_TAG).getTextContent();
 

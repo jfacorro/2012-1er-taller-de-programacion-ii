@@ -3,10 +3,10 @@ package mereditor.interfaz.swt.figuras;
 import java.util.ArrayList;
 import java.util.List;
 
-import mereditor.base.Representacion;
 import mereditor.interfaz.swt.listeners.DragDropControlador;
 import mereditor.interfaz.swt.listeners.MovimientoControlador;
 import mereditor.modelo.base.Componente;
+import mereditor.representacion.Representacion;
 
 import org.eclipse.draw2d.BorderLayout;
 import org.eclipse.draw2d.ChopboxAnchor;

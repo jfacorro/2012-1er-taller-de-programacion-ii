@@ -1,7 +1,8 @@
 package mereditor.interfaz.swt;
 
 import mereditor.control.DiagramaControl;
-import mereditor.xml.ParserXml;
+import mereditor.xml.ModeloParserXml;
+import mereditor.xml.RepresentacionParserXml;
 
 import org.eclipse.draw2d.ChopboxAnchor;
 import org.eclipse.draw2d.Figure;
@@ -60,8 +61,12 @@ public class Principal {
 		this.contents.setBackgroundColor(new Color(null, 255, 255, 255));
 
 		try {
-			ParserXml parser = new ParserXml(PATH_MODELO_TEST, PATH_REPRESENTACION_TEST);
-			DiagramaControl diagrama = (DiagramaControl) parser.diagramaPrincipal();
+			ModeloParserXml modeloParser = new ModeloParserXml(PATH_MODELO_TEST);
+			RepresentacionParserXml representacionParser = new RepresentacionParserXml(PATH_REPRESENTACION_TEST);
+
+			DiagramaControl diagrama = (DiagramaControl) modeloParser.diagramaPrincipal();
+			representacionParser.cargarRepresentaciones(modeloParser);
+
 			diagrama.dibujar(this.contents, diagrama.getId());
 		} catch (Exception e) {
 			e.printStackTrace();
