@@ -57,11 +57,11 @@
 		</Atributos>
 		<IdentificadoresInternos>
 			<RefAtributo idref="_21" />
+			<Compuesto>
+				<RefAtributo idref="_22" />
+				<RefAtributo idref="_23" />
+			</Compuesto>
 		</IdentificadoresInternos>
-		<IdentificadoresExternos>
-			<RefAtributo idref="_2" />
-			<RefAtributo idref="_3" />
-		</IdentificadoresExternos>
 	</Entidad>
 	<Relacion id="_3" tipo="COMPOSICION">
 		<Nombre>Elenco</Nombre>

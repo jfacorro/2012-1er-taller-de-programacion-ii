@@ -22,17 +22,15 @@ public class AtributoControl extends Atributo implements Control<Atributo> {
 
 	@Override
 	public void dibujar(Figure contenedor, String idDiagrama) {
-		AtributoFigure figure = (AtributoFigure) this.getFigura(idDiagrama);
-		contenedor.add(figure);
+		AtributoFigure figura = (AtributoFigure) this.getFigura(idDiagrama);
+		contenedor.add(figura);
 
 		for (Atributo atributo : this.atributos) {
 			AtributoControl atributoControl = (AtributoControl) atributo;
-			figure.conectarAtributo(atributoControl.getFigura(idDiagrama));
-
+			figura.conectarAtributo(atributoControl.getFigura(idDiagrama));
 			atributoControl.dibujar(contenedor, idDiagrama);
-			// Agregar atributo a los hijos.
-			figure.agregarFiguraLoqueada(atributoControl
-					.getFigura(idDiagrama));
+
+			figura.agregarFiguraLoqueada(atributoControl.getFigura(idDiagrama));
 		}
 	}
 }
