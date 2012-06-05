@@ -1,9 +1,9 @@
 package mereditor.interfaz.swt.figuras;
 
-import mereditor.base.Representacion;
 import mereditor.modelo.Atributo;
 import mereditor.modelo.Entidad;
 import mereditor.modelo.Relacion;
+import mereditor.representacion.Representacion;
 
 import org.eclipse.draw2d.BorderLayout;
 import org.eclipse.draw2d.Connection;

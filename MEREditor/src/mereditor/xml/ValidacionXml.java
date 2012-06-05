@@ -13,7 +13,7 @@ public class ValidacionXml extends Validacion implements Xmlizable {
 	}
 
 	@Override
-	public void fromXml(Element elemento, ParserXml parser) throws Exception {
+	public void fromXml(Element elemento, ModeloParserXml parser) throws Exception {
 		this.estado = EstadoValidacion.valueOf(parser.obtenerEstado(elemento)); 
 		this.observaciones = parser.obtenerObservaciones(elemento);
 	}

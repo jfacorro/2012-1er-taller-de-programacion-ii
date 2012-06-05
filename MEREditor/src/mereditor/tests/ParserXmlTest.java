@@ -1,13 +1,6 @@
 package mereditor.tests;
 
-import java.io.File;
-import java.util.Map;
-
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-
 import junit.framework.TestCase;
-import mereditor.base.Representacion;
 import mereditor.modelo.Atributo;
 import mereditor.modelo.Atributo.TipoAtributo;
 import mereditor.modelo.Diagrama;
@@ -18,24 +11,16 @@ import mereditor.modelo.Relacion;
 import mereditor.modelo.Relacion.EntidadRelacion;
 import mereditor.modelo.Validacion.EstadoValidacion;
 import mereditor.modelo.base.Componente;
-import mereditor.xml.ParserXml;
-
-import org.w3c.dom.Document;
+import mereditor.xml.ModeloParserXml;
 
 public class ParserXmlTest extends TestCase {
 	
 	private static final String PATH_MODELO_TEST = "xml/tests/modelo.xml";
-	private static final String PATH_REPRESENTACION_TEST = "xml/tests/representacion.xml";
-	private ParserXml parser;
+	private ModeloParserXml parser;
 
 	protected void setUp() throws Exception {
 		super.setUp();
-		File sourceModelo = new File(PATH_MODELO_TEST);
-		File sourceRepresentacion = new File(PATH_REPRESENTACION_TEST);
-		DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
-		Document docModelo = builder.parse(sourceModelo);
-		Document docRepresentacion = builder.parse(sourceRepresentacion);
-		this.parser = new ParserXml(docModelo, docRepresentacion);
+		this.parser = new ModeloParserXml(PATH_MODELO_TEST);
 	}
 	
 	public void testEncontrarEntidadPorId() throws Exception {
@@ -143,10 +128,5 @@ public class ParserXmlTest extends TestCase {
 		Diagrama diagrama = (Diagrama)this.parser.resolver("_41");
 		assertEquals(diagrama.getValidacion().getEstado(), EstadoValidacion.SIN_VALIDAR);
 		assertEquals(diagrama.getValidacion().getObservaciones(), "Falta validar");
-	}
-	
-	public void testEncontrarRepresentacionPorId() {
-		Map<String, Representacion> rep = this.parser.obtenerRepresentaciones("_1");
-		assertTrue(rep != null);
 	}
 }

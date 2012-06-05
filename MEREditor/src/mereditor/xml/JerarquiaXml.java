@@ -15,7 +15,7 @@ public class JerarquiaXml extends JerarquiaControl implements Xmlizable {
 	}
 
 	@Override
-	public void fromXml(Element elemento, ParserXml parser) throws Exception {
+	public void fromXml(Element elemento, ModeloParserXml parser) throws Exception {
 		this.id = parser.obtenerId(elemento);
 		this.tipo = TipoJerarquia.valueOf(parser.obtenerTipo(elemento));
 
