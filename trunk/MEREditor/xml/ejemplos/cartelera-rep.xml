@@ -1,7 +1,5 @@
 <Diagramas>
-
 	<Diagrama id="1">
-
 		<Componente id="1">
 			<posicion x="100" y="100" />
 			<Titulo color="DEFAULT" fuente="DEFAULT" tamanio="DEFAULT" />
@@ -18,7 +16,6 @@
 				</Atributo>
 			</Atributos>
 		</Componente>
-
 		<Componente id="2">
 			<posicion x="400" y="100" />
 			<Titulo color="DEFAULT" fuente="DEFAULT" tamanio="DEFAULT" />

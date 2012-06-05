@@ -8,7 +8,8 @@
 <!ELEMENT Nombre (#PCDATA)>
 <!ELEMENT Atributos (Atributo+)>
 <!ELEMENT Atributo (Nombre,Cardinalidad,Formula?,Origen?,Atributos?) >
-<!ELEMENT IdentificadoresInternos (RefAtributo+)>
+<!ELEMENT IdentificadoresInternos (RefAtributo*, Compuesto*)>
+<!ELEMENT Compuesto (RefAtributo+)>
 <!ELEMENT IdentificadoresExternos (RefEntidad+)>
 <!ELEMENT Participantes (Participante+)>
 <!ELEMENT Participante (RefEntidad,Cardinalidad,Rol?)>

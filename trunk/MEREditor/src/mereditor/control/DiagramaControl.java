@@ -16,7 +16,7 @@ public class DiagramaControl extends Diagrama implements Control<Diagrama> {
 	@Override
 	public void dibujar(Figure contenedor, String idDiagrama) {
 		for (Componente componente : this.componentes) {
-			((Control<?>) componente).dibujar(contenedor, this.id);
+			((Control<?>) componente).dibujar(contenedor, idDiagrama);
 		}
 	}
 }
