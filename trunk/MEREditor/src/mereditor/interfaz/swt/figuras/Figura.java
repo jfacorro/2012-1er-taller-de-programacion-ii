@@ -6,7 +6,7 @@ import java.util.List;
 import mereditor.interfaz.swt.listeners.DragDropControlador;
 import mereditor.interfaz.swt.listeners.MovimientoControlador;
 import mereditor.modelo.base.Componente;
-import mereditor.representacion.Representacion;
+import mereditor.representacion.PList;
 
 import org.eclipse.draw2d.BorderLayout;
 import org.eclipse.draw2d.ChopboxAnchor;
@@ -82,13 +82,36 @@ public class Figura<T extends Componente> extends Figure {
 	 * Establece la posicion y dimension de la figura en base al objeto de
 	 * representacion
 	 * 
-	 * @param representacion
+	 * @param repr
 	 */
-	public void setRepresentacion(Representacion representacion) {
+	public void setRepresentacion(PList repr) {
 		this.init();
 
-		if (representacion != null) {
-			this.setBounds(representacion.<Rectangle>getProperty("rect"));
+		if (repr != null) {
+			Rectangle rect = new Rectangle(
+				repr.<PList>get("Posicion").<Integer>get("x"),
+				repr.<PList>get("Posicion").<Integer>get("y"),
+				repr.<PList>get("Dimension").<Integer>get("ancho"),
+				repr.<PList>get("Dimension").<Integer>get("alto"));
+
+			if(repr.<PList>get("ColorFondo") != null) {
+				this.setBackgroundColor(new Color(null, 
+					repr.<PList>get("ColorFondo").<Integer>get("r"),
+					repr.<PList>get("ColorFondo").<Integer>get("g"),
+					repr.<PList>get("ColorFondo").<Integer>get("b"))
+				);
+			}
+			
+			if(repr.<PList>get("ColorLinea") != null) {
+				Color lineColor = new Color(null, 
+					repr.<PList>get("ColorLinea").<Integer>get("r"),
+					repr.<PList>get("ColorLinea").<Integer>get("g"),
+					repr.<PList>get("ColorLinea").<Integer>get("b"));
+
+				this.setBorder(new LineBorder(lineColor));				
+			}
+
+			this.setBounds(rect);
 		}
 	}	
 
