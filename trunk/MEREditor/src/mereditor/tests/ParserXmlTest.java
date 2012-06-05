@@ -1,6 +1,7 @@
 package mereditor.tests;
 
 import java.io.File;
+import java.util.Map;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -145,7 +146,7 @@ public class ParserXmlTest extends TestCase {
 	}
 	
 	public void testEncontrarRepresentacionPorId() {
-		Representacion rep = this.parser.representacion("_1");
+		Map<String, Representacion> rep = this.parser.obtenerRepresentaciones("_1");
 		assertTrue(rep != null);
 	}
 }

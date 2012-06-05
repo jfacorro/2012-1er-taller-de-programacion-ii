@@ -33,6 +33,7 @@ public class Constants {
 	public static final String IDENTIFICADORES_EXTERNOS_QUERY = "./IdentificadoresExternos/RefEntidad";
 	
 	public static final String ID_QUERY = "//*[@id='%s']";
+	public static final String ID_CHILD_QUERY = ".//*[@id='%s']";
 	public static final String FORMULA_QUERY = "./Formula";
 	public static final String ORIGINAL_QUERY = "./Origen/RefAtributo";
 	public static final String GENERICA_QUERY = "./Generica/RefEntidad";

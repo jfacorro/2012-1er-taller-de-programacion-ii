@@ -20,11 +20,13 @@ public class DiagramaXml extends DiagramaControl implements Xmlizable {
 
 		parser.registrar(this);
 
+		// Componentes
 		for (Componente componente : parser.obtenerComponentes(elemento)) {
 			componente.setPadre(this);
 			this.componentes.add(componente);
 		}
 
+		// Diagramas
 		for (Componente componente : parser.obtenerDiagramas(elemento)) {
 			componente.setPadre(this);
 			this.diagramas.add((Diagrama) componente);
