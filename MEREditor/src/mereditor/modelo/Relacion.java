@@ -16,6 +16,11 @@ public class Relacion extends ComponenteNombre {
 	protected List<EntidadRelacion> participantes = new LinkedList<EntidadRelacion>();
 
 	public Relacion() {
+		super();
+	}
+	
+	public Relacion(String nombre) {
+		super(nombre);
 	}
 
 	public Relacion(String nombre, String id, TipoRelacion tipo) {

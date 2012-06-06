@@ -12,7 +12,13 @@ public class Diagrama extends ComponenteNombre {
 	protected List<Componente> componentes = new LinkedList<Componente>();
 	protected Validacion validacion = new Validacion();
 	
-	public Diagrama() {}
+	public Diagrama() {
+		super();
+	}
+	
+	public Diagrama(String nombre) {
+		super(nombre);
+	}
 
 	public Diagrama(String nombre, String id) {
 		super(nombre, id);

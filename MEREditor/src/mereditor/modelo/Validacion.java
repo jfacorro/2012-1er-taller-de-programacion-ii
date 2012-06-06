@@ -10,7 +10,9 @@ public class Validacion {
 	protected String observaciones;
 	protected EstadoValidacion estado;
 	
-	public Validacion() {}
+	public Validacion() {
+		super();
+	}
 
 	public Validacion(EstadoValidacion estado, String observaciones) {
 		this.estado = estado;

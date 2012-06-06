@@ -1,10 +1,18 @@
 package mereditor.modelo.base;
 
+import java.util.UUID;
+
 public abstract class ComponenteNombre extends Componente {
 	
 	protected String nombre;
 	
-	public ComponenteNombre() {}
+	public ComponenteNombre() {
+		super();
+	}
+	
+	public ComponenteNombre(String nombre) {
+		this(nombre, UUID.randomUUID().toString());
+	}
 	
 	public ComponenteNombre(String nombre, String id) {
 		super (id);
@@ -13,7 +21,7 @@ public abstract class ComponenteNombre extends Componente {
 
 	public ComponenteNombre(String nombre, String id, Componente padre) {
 		super (id, padre);
-		this.nombre= nombre;
+		this.nombre = nombre;
 	}
 
 	public String getNombre() {
