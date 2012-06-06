@@ -148,7 +148,7 @@ public class ModeloParserXml extends ParserXml {
 		List<Componente> diagramas = new ArrayList<>();
 
 		for (Element diagramaXml : diagramasXml)
-			diagramas.add(this.obtenerReferencia(diagramaXml));
+			diagramas.add(this.resolver(this.obtenerId(diagramaXml)));
 
 		return diagramas;
 	}
@@ -351,17 +351,17 @@ public class ModeloParserXml extends ParserXml {
 		return this.agregarElemento(elemento, Constants.IDENTIFICADORES_EXTERNOS_TAG);
 	}
 
-	public Element agregarComponentes(Element elemento) {
+	Element agregarComponentes(Element elemento) {
 		return this.agregarElemento(elemento, Constants.COMPONENTES_TAG);
 	}
 
-	public Element agregarComponente(Element componentesElement, String id) {
+	Element agregarComponente(Element componentesElement, String id) {
 		Element componenteElement = this.agregarElemento(componentesElement, Constants.COMPONENTE_TAG);
 		this.agregarAtributo(componenteElement, Constants.IDREF_ATTR, id);
 		return componenteElement;		
 	}
 
-	public Element agregarDiagramas(Element elemento) {
+	Element agregarDiagramas(Element elemento) {
 		return this.agregarElemento(elemento, Constants.DIAGRAMAS_TAG);
 	}
 }

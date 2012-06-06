@@ -196,6 +196,17 @@
 			<Componente idref="_27" />
 			<Componente idref="_30" />
 		</Componentes>
+		<Diagramas>
+			<Diagrama id="_42">
+				<Nombre>lala</Nombre>
+				<Componentes>
+					<Componente idref="_1" />
+				</Componentes>				
+				<Validacion estado="VALIDADO">
+					<Observaciones></Observaciones>
+				</Validacion>
+			</Diagrama>
+		</Diagramas>
 		<Validacion estado="SIN_VALIDAR">
 			<Observaciones>Falta validar</Observaciones>
 		</Validacion> 
