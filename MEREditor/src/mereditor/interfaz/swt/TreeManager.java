@@ -24,18 +24,49 @@ public class TreeManager {
 	private void init() {
 	}
 
-	public static void agregar(Diagrama diagrama, Tree tree) {
-		TreeItem item = new TreeItem(tree, SWT.NULL);
+	/**
+	 * Agregado del diagrama principal y sus hijos.
+	 * 
+	 * @param diagrama
+	 * @param raiz
+	 */
+	public static void agregar(Diagrama diagrama, Tree raiz) {
+		raiz.removeAll();
+		TreeItem item = new TreeItem(raiz, SWT.NULL);
 		item.setText(diagrama.getNombre());
 
-		for (Componente componente : diagrama.getComponentes()) {
+		for (Diagrama diagramaHijo : diagrama.getDiagramas())
+			agregar(diagramaHijo, item);
+		
+		for (Componente componente : diagrama.getComponentes())
 			agregar(componente, item);
-		}
 	}
 
-	public static void agregar(Componente componente, TreeItem tree) {
-		TreeItem item = new TreeItem(tree, SWT.NULL);
-		item.setText(componente.toString());
+	/**
+	 * Agregado de diagrama no principal y sus hijos.
+	 * 
+	 * @param diagrama
+	 * @param item
+	 */
+	public static void agregar(Diagrama diagrama, TreeItem item) {
+		TreeItem hijo = new TreeItem(item, SWT.NULL);
+		hijo.setText(diagrama.getNombre());
+
+		for (Diagrama diagramaHijo : diagrama.getDiagramas())
+			agregar(diagramaHijo, hijo);
+
+		for (Componente componente : diagrama.getComponentes())
+			agregar(componente, hijo);
 	}
 
+	/**
+	 * Agregado de componente.
+	 * 
+	 * @param diagrama
+	 * @param item
+	 */
+	public static void agregar(Componente componente, TreeItem padre) {
+		TreeItem hijo = new TreeItem(padre, SWT.NULL);
+		hijo.setText(componente.toString());
+	}
 }
