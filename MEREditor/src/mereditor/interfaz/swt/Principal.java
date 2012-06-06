@@ -8,17 +8,17 @@ import org.eclipse.draw2d.Figure;
 import org.eclipse.draw2d.FigureCanvas;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Color;
-import org.eclipse.swt.layout.GridData;
-import org.eclipse.swt.layout.GridLayout;
+import org.eclipse.swt.layout.FormAttachment;
+import org.eclipse.swt.layout.FormData;
+import org.eclipse.swt.layout.FormLayout;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Menu;
-import org.eclipse.swt.widgets.MenuItem;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.ToolBar;
-import org.eclipse.swt.widgets.ToolItem;
+import org.eclipse.swt.widgets.Tree;
 
 /**
- * @author jfacorro
+ * Formulario principal de la aplicación.
  * 
  */
 public class Principal {
@@ -28,10 +28,13 @@ public class Principal {
 	private static final String NOMBRE_ARCHIVO = "modelo";
 
 	private Shell shell;
-	private FigureCanvas figureCanvas;
-	private Figure panelDiagrama;
+
+	private Menu menuBar;
 	private ToolBar toolBar;
-	
+	private Tree tree;
+	private FigureCanvas figureCanvas;
+
+	private Figure panelDiagrama;
 	private DiagramaControl diagrama;
 
 	public static void main(String args[]) {
@@ -50,57 +53,47 @@ public class Principal {
 		this.shell = shell;
 		this.shell.setMaximized(true);
 		this.shell.setText(APP_NOMBRE);
-		this.shell.setLayout(new GridLayout(1, false));
+		this.shell.setLayout(new FormLayout());
 
-		this.initMenu();
+		this.menuBar = MenuBuilder.build(this);
+		this.toolBar = ToolBarBuilder.build(this);
+		this.tree = TreeManager.build(this);
+		this.initFigureCanvas();
+		
+		this.arregloLayout();
 
-		this.figureCanvas = new FigureCanvas(shell);
-		this.figureCanvas.setLayoutData(new GridData(GridData.FILL_BOTH));
+	}
+
+	private void arregloLayout() {
+		// Canvas
+		FormData formData = new FormData();
+		formData.top = new FormAttachment(this.toolBar);
+		formData.bottom = new FormAttachment(100,0);
+		formData.left = new FormAttachment(this.tree);
+		formData.right = new FormAttachment(100,0);
+		this.figureCanvas.setLayoutData(formData);
+		
+		formData = new FormData();
+		formData.top = new FormAttachment(this.toolBar);
+		formData.bottom = new FormAttachment(100, 0);
+		formData.left = new FormAttachment(0, 0);
+		formData.right = new FormAttachment(0, 100);
+		this.tree.setLayoutData(formData);
+	}
+
+	private void initFigureCanvas() {
+		this.figureCanvas = new FigureCanvas(this.shell, SWT.V_SCROLL | SWT.H_SCROLL);
 		this.figureCanvas.setBackground(Principal.defaultBackgroundColor);
 		this.figureCanvas.getViewport().setContentsTracksHeight(true);
 		this.figureCanvas.getViewport().setContentsTracksWidth(true);
-
-		this.abrirModelo(PATH_ARCHIVO, NOMBRE_ARCHIVO);
-	}
-
-	private void initMenu() {
-		Menu menuBar = new Menu(shell, SWT.BAR);
-		MenuItem fileMenuHeader = new MenuItem(menuBar, SWT.CASCADE);
-		fileMenuHeader.setText("&Archivo");
-
-		Menu fileMenu = new Menu(shell, SWT.DROP_DOWN);
-		fileMenuHeader.setMenu(fileMenu);
-
-		MenuItem fileSaveItem = new MenuItem(fileMenu, SWT.PUSH);
-		fileSaveItem.setText("&Guardar");
-
-		MenuItem fileExitItem = new MenuItem(fileMenu, SWT.PUSH);
-		fileExitItem.setText("&Salir");
-
-		MenuItem helpMenuHeader = new MenuItem(menuBar, SWT.CASCADE);
-		helpMenuHeader.setText("&Ayuda");
-
-		Menu helpMenu = new Menu(shell, SWT.DROP_DOWN);
-		helpMenuHeader.setMenu(helpMenu);
-
-		MenuItem helpGetHelpItem = new MenuItem(helpMenu, SWT.PUSH);
-		helpGetHelpItem.setText("&Sobre " + APP_NOMBRE + "...");
-
-		this.shell.setMenuBar(menuBar);
-	}
-
-	private void initToolBar() {
-		this.toolBar = new ToolBar(this.shell, 0);
-		
-		ToolItem item = new ToolItem(toolBar, SWT.DROP_DOWN);
-		item.setText("Nuevo Proyecto");
-		//this.toolBar.add
 	}
 
 	/**
 	 * Genera el contenido.
 	 */
-	private void abrirModelo(String path, String nombre) {
+	public void abrirProyecto() {
+		String path = PATH_ARCHIVO, nombre = NOMBRE_ARCHIVO;
+
 		this.panelDiagrama = new Figure();
 		this.panelDiagrama.setBackgroundColor(new Color(null, 255, 255, 255));
 
@@ -112,6 +105,8 @@ public class Principal {
 			representacion.cargarRepresentaciones(modelo);
 
 			this.diagrama.dibujar(this.panelDiagrama, diagrama.getId());
+			
+			TreeManager.agregar(this.diagrama, this.tree);
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -125,5 +120,9 @@ public class Principal {
 	 */
 	public void mostrar() {
 		this.shell.open();
+	}
+
+	public Shell getShell() {
+		return this.shell;
 	}
 }

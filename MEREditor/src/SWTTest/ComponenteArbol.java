@@ -7,26 +7,25 @@ import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeItem;
 
 public class ComponenteArbol {
-	
+
 	ComponenteNombre componente;
-	
-	public ComponenteArbol (ComponenteNombre c){
-		componente= c;
-	}
-	
-	public TreeItem agregarA(Tree t) { 
-		TreeItem n= new TreeItem(t,SWT.NONE);
-		n.setText( componente.getNombre() );
-		n.setData(componente);
-		return n;
-	}
-	
-	public TreeItem agregarA(TreeItem t) {
-		TreeItem n= new TreeItem(t,SWT.NONE);
-		n.setText( componente.getNombre() );
-		n.setData(componente);
-		return n;
+
+	public ComponenteArbol(ComponenteNombre c) {
+		componente = c;
 	}
 
+	public TreeItem agregarA(Tree arbol) {
+		TreeItem item = new TreeItem(arbol, SWT.NONE);
+		item.setText(componente.getNombre());
+		item.setData(componente);
+		return item;
+	}
+
+	public TreeItem agregarA(TreeItem padre) {
+		TreeItem item = new TreeItem(padre, SWT.NONE);
+		item.setText(componente.getNombre());
+		item.setData(componente);
+		return item;
+	}
 
 }
