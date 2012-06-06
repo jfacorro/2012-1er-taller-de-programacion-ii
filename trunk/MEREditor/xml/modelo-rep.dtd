@@ -1,4 +1,4 @@
-<!ELEMENT Modelo (Diagrama+)>
+<!ELEMENT Proyecto (Diagrama+)>
 <!ELEMENT Diagrama (Representaciones+)>
 <!ELEMENT Representaciones (Representacion+)>
 <!ELEMENT Representacion (Posicion, Dimension, ColorFondo?, ColorLinea?, Representaciones*)>

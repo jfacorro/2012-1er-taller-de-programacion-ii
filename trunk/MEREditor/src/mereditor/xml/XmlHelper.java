@@ -8,6 +8,7 @@ import javax.xml.xpath.XPathExpression;
 import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
 
+import org.w3c.dom.Attr;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
@@ -73,6 +74,14 @@ public class XmlHelper {
 			nombres.add(list.item(i).getNodeName());
 		}
 		return nombres;
+	}
+	
+	public static Element getNuevoElemento(Element elemento, String nombre) {
+		return elemento.getOwnerDocument().createElement(nombre);
+	}
+
+	public static Attr getNuevoAtributo(Element elemento, String nombre) {
+		return elemento.getOwnerDocument().createAttribute(nombre);
 	}
 
 }

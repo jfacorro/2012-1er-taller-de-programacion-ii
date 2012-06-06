@@ -15,11 +15,18 @@ public class Constants {
 	public static final String NOMBRE_TAG = "Nombre";
 
 	public static final String ENTIDAD_TAG = "Entidad";
+	public static final String ATRIBUTOS_TAG = "Atributos";
 	public static final String ATRIBUTO_TAG = "Atributo";
 	public static final String RELACION_TAG = "Relacion";	
 	public static final String DIAGRAMA_TAG = "Diagrama";
+	public static final String DIAGRAMAS_TAG = "Diagramas";
 	public static final String JERARQUIA_TAG = "Jerarquia";
 	public static final String VALIDACION_TAG = "Validacion";
+	
+	public static final String IDENTIFICADORES_INTERNOS_TAG = "IdentificadoresInternos";
+	public static final String IDENTIFICADORES_EXTERNOS_TAG = "IdentificadoresExternos";
+	public static final String COMPONENTES_TAG = "COMPONENTES";
+	public static final String COMPONENTE_TAG = "COMPONENTE";
 
 	/**********************************************************************************/
 	

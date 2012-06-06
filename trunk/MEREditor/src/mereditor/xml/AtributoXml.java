@@ -8,7 +8,7 @@ import org.w3c.dom.Element;
 public class AtributoXml extends AtributoControl implements Xmlizable {
 
 	@Override
-	public Element toXml() {
+	public Element toXml(ModeloParserXml parser) throws Exception {
 		// TODO Auto-generated method stub
 		return null;
 	}

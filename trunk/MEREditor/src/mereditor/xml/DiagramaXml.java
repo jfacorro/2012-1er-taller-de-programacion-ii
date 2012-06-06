@@ -1,16 +1,38 @@
 package mereditor.xml;
 
+import mereditor.control.DiagramaControl;
 import mereditor.modelo.Diagrama;
 import mereditor.modelo.base.Componente;
-import mereditor.control.DiagramaControl;
 
 import org.w3c.dom.Element;
 
 public class DiagramaXml extends DiagramaControl implements Xmlizable {
 
 	@Override
-	public Element toXml() {
-		return null;
+	public Element toXml(ModeloParserXml parser) throws Exception {
+		Element elemento = parser.crearElemento(Constants.DIAGRAMA_TAG);
+		parser.agregarNombre(elemento, nombre);
+
+		// Agregar las referencias a los componentes
+		if (this.componentes.size() > 0) {
+			Element componentesElement = parser.agregarComponentes(elemento);
+			for (Componente componente : this.componentes) {
+				parser.agregarComponente(componentesElement, componente.getId());
+			}
+		}
+		
+		// Agregar los diagramas hijos
+		if (this.diagramas.size() > 0) {
+			Element diagramasElement = parser.agregarDiagramas(elemento);
+			for (Diagrama diagrama : this.diagramas) {
+				diagramasElement.appendChild(((Xmlizable)diagrama).toXml(parser));
+			}
+		}
+		
+		// Agregar el resultado de la validacion
+		elemento.appendChild(((ValidacionXml)this.validacion).toXml(parser));
+
+		return elemento;
 	}
 
 	@Override
