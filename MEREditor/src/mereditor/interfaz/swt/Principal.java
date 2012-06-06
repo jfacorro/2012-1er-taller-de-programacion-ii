@@ -9,14 +9,13 @@ import mereditor.xml.RepresentacionParserXml;
 import org.eclipse.draw2d.Figure;
 import org.eclipse.draw2d.FigureCanvas;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.custom.SashForm;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.layout.FormAttachment;
 import org.eclipse.swt.layout.FormData;
 import org.eclipse.swt.layout.FormLayout;
 import org.eclipse.swt.widgets.DirectoryDialog;
 import org.eclipse.swt.widgets.Display;
-import org.eclipse.swt.widgets.FileDialog;
-import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.ToolBar;
 import org.eclipse.swt.widgets.Tree;
@@ -28,12 +27,10 @@ import org.eclipse.swt.widgets.Tree;
 public class Principal {
 	public static final Color defaultBackgroundColor = new Color(null, 255, 255, 255);
 	public static final String APP_NOMBRE = "MER Editor";
-	private static final String PATH_ARCHIVO = "xml/tests/";
-	private static final String NOMBRE_ARCHIVO = "modelo";
 
 	private Shell shell;
 
-	private Menu menuBar;
+	private SashForm sashForm;
 	private ToolBar toolBar;
 	private Tree tree;
 	private FigureCanvas figureCanvas;
@@ -59,8 +56,9 @@ public class Principal {
 		this.shell.setText(APP_NOMBRE);
 		this.shell.setLayout(new FormLayout());
 
-		this.menuBar = MenuBuilder.build(this);
+		MenuBuilder.build(this);
 		this.toolBar = ToolBarBuilder.build(this);
+		this.sashForm = new SashForm(this.shell, SWT.HORIZONTAL);
 		this.tree = TreeManager.build(this);
 		this.initFigureCanvas();
 
@@ -68,24 +66,21 @@ public class Principal {
 	}
 
 	private void arregloLayout() {
-		// Canvas
-		FormData formData = new FormData();
-		formData.top = new FormAttachment(this.toolBar);
-		formData.bottom = new FormAttachment(100, 0);
-		formData.left = new FormAttachment(this.tree);
-		formData.right = new FormAttachment(100, 0);
-		this.figureCanvas.setLayoutData(formData);
-
+		FormData formData = null;
+	
+		// Separacion vertical entre arbol y gráfico.
 		formData = new FormData();
-		formData.top = new FormAttachment(this.toolBar);
-		formData.bottom = new FormAttachment(100, 0);
-		formData.left = new FormAttachment(0, 0);
-		formData.right = new FormAttachment(0, 100);
-		this.tree.setLayoutData(formData);
+		formData.top = new FormAttachment(this.toolBar); // Attach to top
+		formData.bottom = new FormAttachment(100, 0); // Attach to bottom
+		formData.left = new FormAttachment(0, 0); // Attach halfway acros
+		formData.right = new FormAttachment(100, 0); // Attach halfway acros
+		this.sashForm.setLayoutData(formData);
+
+		sashForm.setWeights(new int[] { 3, 16 });
 	}
 
 	private void initFigureCanvas() {
-		this.figureCanvas = new FigureCanvas(this.shell, SWT.V_SCROLL | SWT.H_SCROLL);
+		this.figureCanvas = new FigureCanvas(this.sashForm, SWT.V_SCROLL | SWT.H_SCROLL);
 		this.figureCanvas.setBackground(Principal.defaultBackgroundColor);
 		this.figureCanvas.getViewport().setContentsTracksHeight(true);
 		this.figureCanvas.getViewport().setContentsTracksWidth(true);
@@ -98,29 +93,28 @@ public class Principal {
 		DirectoryDialog dirDialog = new DirectoryDialog(this.shell);
 
 		String path = dirDialog.open();
-		
-		if(path != null)
-		{
+
+		if (path != null) {
 			File file = new File(path);
 			String nombre = File.separator + file.getName();
-	
+
 			this.panelDiagrama = new Figure();
 			this.panelDiagrama.setBackgroundColor(new Color(null, 255, 255, 255));
-	
+
 			try {
 				ModeloParserXml modelo = new ModeloParserXml(path + nombre + "-comp.xml");
 				RepresentacionParserXml representacion = new RepresentacionParserXml(path + nombre + "-rep.xml");
-	
+
 				this.diagrama = (DiagramaControl) modelo.diagramaPrincipal();
 				representacion.cargarRepresentaciones(modelo);
 				this.diagrama.dibujar(this.panelDiagrama, diagrama.getId());
-	
+
 				TreeManager.agregar(this.diagrama, this.tree);
-	
+
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-	
+
 			this.figureCanvas.setContents(this.panelDiagrama);
 		}
 	}
@@ -134,5 +128,9 @@ public class Principal {
 
 	public Shell getShell() {
 		return this.shell;
+	}
+
+	public SashForm getSashForm() {
+		return this.sashForm;
 	}
 }
