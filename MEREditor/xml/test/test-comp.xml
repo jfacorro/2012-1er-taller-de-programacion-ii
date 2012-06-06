@@ -1,5 +1,5 @@
 <!DOCTYPE note SYSTEM "../modelo-comp.dtd">
-<Modelo>
+<Proyecto>
 	<Entidad id="_1" tipo="MAESTRA_COSA">
 		<Nombre>Localidad</Nombre>
 		<Atributos>
@@ -204,4 +204,4 @@
 	<Validacion estado="SIN_VALIDAR">
 		<Observaciones/>
 	</Validacion> 
-</Modelo>
+</Proyecto>

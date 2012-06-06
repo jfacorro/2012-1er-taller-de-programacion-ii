@@ -1,4 +1,4 @@
-<!ELEMENT Modelo (Entidad*,Relacion*,Jerarquia*,Diagrama,Validacion)>
+<!ELEMENT Proyecto (Entidad*,Relacion*,Jerarquia*,Diagrama,Validacion)>
 <!ELEMENT Entidad (Nombre,Atributos?,IdentificadoresInternos?,IdentificadoresExternos?)>
 <!ELEMENT Relacion (Nombre,Participantes,Atributos?)>
 <!ELEMENT Jerarquia (Generica,Derivadas)>

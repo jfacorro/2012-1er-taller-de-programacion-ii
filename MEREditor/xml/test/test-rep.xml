@@ -1,5 +1,5 @@
 <!DOCTYPE note SYSTEM "../modelo-rep.dtd">
-<Modelo>
+<Proyecto>
 	<Diagrama id="_41">
 		<Representaciones>
 			<Representacion id="_1">
@@ -22,4 +22,4 @@
 			</Representacion>
 		</Representaciones>
 	</Diagrama>
-</Modelo>
+</Proyecto>

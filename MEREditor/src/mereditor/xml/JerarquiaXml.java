@@ -1,15 +1,15 @@
 package mereditor.xml;
 
+import mereditor.control.JerarquiaControl;
 import mereditor.modelo.Entidad;
 import mereditor.modelo.base.Componente;
-import mereditor.control.JerarquiaControl;
 
 import org.w3c.dom.Element;
 
 public class JerarquiaXml extends JerarquiaControl implements Xmlizable {
 
 	@Override
-	public Element toXml() {
+	public Element toXml(ModeloParserXml parser) throws Exception {
 		// TODO Auto-generated method stub
 		return null;
 	}

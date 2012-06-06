@@ -9,6 +9,7 @@ import mereditor.modelo.Atributo;
 import mereditor.modelo.Validacion;
 import mereditor.modelo.base.Componente;
 
+import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -244,7 +245,6 @@ public class ModeloParserXml extends ParserXml {
 		validacion.fromXml(validacionXml, this);
 		return validacion;
 	}
-
 	
 	/**
 	 * Busca un elemento con el id especificado y trata de parsearlo según el
@@ -303,5 +303,65 @@ public class ModeloParserXml extends ParserXml {
 		}
 
 		throw new Exception("No existe un mapeo para: " + element.getNodeName());
+	}
+
+	Element crearElemento(String nombre) {
+		return XmlHelper.getNuevoElemento(this.root, nombre) ;
+	}
+	
+	Element agregarElemento(Element elemento, String nombre) {
+		return this.agregarElemento(elemento, nombre, null);
+	}
+	
+	Element agregarElemento(Element elemento, String nombre, String valor) {
+		Element hijo = XmlHelper.getNuevoElemento(elemento, nombre);
+		hijo.setNodeValue(valor);
+		elemento.appendChild(elemento);
+		return hijo;
+	}
+	
+	Attr agregarAtributo(Element elemento, String nombre, String valor) {
+		Attr atributo = XmlHelper.getNuevoAtributo(elemento, nombre);
+		atributo.setNodeValue(valor);
+		elemento.appendChild(atributo);
+		return atributo;
+	}
+	
+	Element agregarNombre(Element elemento, String valor) {
+		return this.agregarElemento(elemento, Constants.NOMBRE_TAG, valor);
+	}
+
+	Attr agregarId(Element elemento, String valor) {
+		return this.agregarAtributo(elemento, Constants.ID_ATTR, valor);
+	}
+	
+	Attr agregarTipo(Element elemento, String valor) {
+		return this.agregarAtributo(elemento, Constants.TIPO_ATTR, valor);
+	}
+
+	Element agregarElementoAtributos(Element elemento) {
+		return this.agregarElemento(elemento, Constants.ATRIBUTOS_TAG, "");
+	}
+
+	Element agregarIdentificadoresInternos(Element elemento) {
+		return this.agregarElemento(elemento, Constants.IDENTIFICADORES_INTERNOS_TAG);
+	}
+	
+	Element agregarIdentificadoresExternos(Element elemento) {
+		return this.agregarElemento(elemento, Constants.IDENTIFICADORES_EXTERNOS_TAG);
+	}
+
+	public Element agregarComponentes(Element elemento) {
+		return this.agregarElemento(elemento, Constants.COMPONENTES_TAG);
+	}
+
+	public Element agregarComponente(Element componentesElement, String id) {
+		Element componenteElement = this.agregarElemento(componentesElement, Constants.COMPONENTE_TAG);
+		this.agregarAtributo(componenteElement, Constants.IDREF_ATTR, id);
+		return componenteElement;		
+	}
+
+	public Element agregarDiagramas(Element elemento) {
+		return this.agregarElemento(elemento, Constants.DIAGRAMAS_TAG);
 	}
 }
