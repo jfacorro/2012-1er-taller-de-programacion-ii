@@ -16,7 +16,7 @@ public class TreeManager {
 	}
 
 	private TreeManager(Principal principal) {
-		this.tree = new Tree(principal.getShell(), SWT.NO_SCROLL);
+		this.tree = new Tree(principal.getSashForm(), SWT.CENTER);
 		this.tree.setBackground(new Color(null, 240, 240, 240));
 		this.init();
 	}
