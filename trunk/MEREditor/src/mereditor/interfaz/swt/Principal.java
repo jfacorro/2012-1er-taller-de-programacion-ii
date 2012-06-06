@@ -1,5 +1,7 @@
 package mereditor.interfaz.swt;
 
+import java.io.File;
+
 import mereditor.control.DiagramaControl;
 import mereditor.xml.ModeloParserXml;
 import mereditor.xml.RepresentacionParserXml;
@@ -11,7 +13,9 @@ import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.layout.FormAttachment;
 import org.eclipse.swt.layout.FormData;
 import org.eclipse.swt.layout.FormLayout;
+import org.eclipse.swt.widgets.DirectoryDialog;
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.ToolBar;
@@ -59,20 +63,19 @@ public class Principal {
 		this.toolBar = ToolBarBuilder.build(this);
 		this.tree = TreeManager.build(this);
 		this.initFigureCanvas();
-		
-		this.arregloLayout();
 
+		this.arregloLayout();
 	}
 
 	private void arregloLayout() {
 		// Canvas
 		FormData formData = new FormData();
 		formData.top = new FormAttachment(this.toolBar);
-		formData.bottom = new FormAttachment(100,0);
+		formData.bottom = new FormAttachment(100, 0);
 		formData.left = new FormAttachment(this.tree);
-		formData.right = new FormAttachment(100,0);
+		formData.right = new FormAttachment(100, 0);
 		this.figureCanvas.setLayoutData(formData);
-		
+
 		formData = new FormData();
 		formData.top = new FormAttachment(this.toolBar);
 		formData.bottom = new FormAttachment(100, 0);
@@ -92,27 +95,34 @@ public class Principal {
 	 * Genera el contenido.
 	 */
 	public void abrirProyecto() {
-		String path = PATH_ARCHIVO, nombre = NOMBRE_ARCHIVO;
+		DirectoryDialog dirDialog = new DirectoryDialog(this.shell);
 
-		this.panelDiagrama = new Figure();
-		this.panelDiagrama.setBackgroundColor(new Color(null, 255, 255, 255));
-
-		try {
-			ModeloParserXml modelo = new ModeloParserXml(path + nombre + "-comp.xml");
-			RepresentacionParserXml representacion = new RepresentacionParserXml(path + nombre + "-rep.xml");
-
-			this.diagrama = (DiagramaControl) modelo.diagramaPrincipal();
-			representacion.cargarRepresentaciones(modelo);
-
-			this.diagrama.dibujar(this.panelDiagrama, diagrama.getId());
-			
-			TreeManager.agregar(this.diagrama, this.tree);
-
-		} catch (Exception e) {
-			e.printStackTrace();
+		String path = dirDialog.open();
+		
+		if(path != null)
+		{
+			File file = new File(path);
+			String nombre = File.separator + file.getName();
+	
+			this.panelDiagrama = new Figure();
+			this.panelDiagrama.setBackgroundColor(new Color(null, 255, 255, 255));
+	
+			try {
+				ModeloParserXml modelo = new ModeloParserXml(path + nombre + "-comp.xml");
+				RepresentacionParserXml representacion = new RepresentacionParserXml(path + nombre + "-rep.xml");
+	
+				this.diagrama = (DiagramaControl) modelo.diagramaPrincipal();
+				representacion.cargarRepresentaciones(modelo);
+				this.diagrama.dibujar(this.panelDiagrama, diagrama.getId());
+	
+				TreeManager.agregar(this.diagrama, this.tree);
+	
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+	
+			this.figureCanvas.setContents(this.panelDiagrama);
 		}
-
-		this.figureCanvas.setContents(this.panelDiagrama);
 	}
 
 	/**
