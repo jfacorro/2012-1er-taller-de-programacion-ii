@@ -1,5 +1,7 @@
 package mereditor.modelo.base;
 
+import java.util.UUID;
+
 public abstract class Componente {
 	/**
 	 * Id del componente
@@ -11,7 +13,9 @@ public abstract class Componente {
 	 */
 	protected Componente padre;
 
-	public Componente() {}
+	public Componente() {
+		this(UUID.randomUUID().toString());
+	}
 	
 	public Componente(String id) {
 		this.id = id;

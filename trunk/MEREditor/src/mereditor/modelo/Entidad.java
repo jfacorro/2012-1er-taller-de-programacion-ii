@@ -21,6 +21,11 @@ public class Entidad extends ComponenteNombre {
 	protected TipoEntidad tipo;
 
 	public Entidad() {
+		super();
+	}
+	
+	public Entidad(String nombre) {
+		super(nombre);
 	}
 
 	public Entidad(String nombre, String id, TipoEntidad tipo) {

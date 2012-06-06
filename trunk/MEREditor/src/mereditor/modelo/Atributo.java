@@ -22,7 +22,13 @@ public class Atributo extends ComponenteNombre {
 	// Derivado calculo
 	protected String formula;
 	
-	public Atributo() {}
+	public Atributo() {
+		super();
+	}
+	
+	public Atributo(String nombre) {
+		super(nombre);
+	}
 
 	public Atributo(String nombre, String id, Componente padre) {
 		super(nombre, id, padre);
