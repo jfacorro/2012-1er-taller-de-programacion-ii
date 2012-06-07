@@ -26,6 +26,7 @@ public class Proyecto implements Control<Diagrama> {
 	
 	public Proyecto() {
 		this.raiz = new DiagramaControl();
+		this.agregar(this.raiz);
 		this.validacion = new Validacion();
 	}
 
@@ -39,6 +40,7 @@ public class Proyecto implements Control<Diagrama> {
 	}
 
 	public void setRaiz(Diagrama raiz) {
+		this.agregar(raiz);
 		this.raiz = (DiagramaControl)raiz;
 	}
 	

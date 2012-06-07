@@ -21,11 +21,11 @@ public class Atributo extends ComponenteNombre {
 
 	// Derivado calculo
 	protected String formula;
-	
+
 	public Atributo() {
 		super();
 	}
-	
+
 	public Atributo(String nombre) {
 		super(nombre);
 	}
@@ -34,8 +34,7 @@ public class Atributo extends ComponenteNombre {
 		super(nombre, id, padre);
 	}
 
-	public Atributo(String nombre, String id, Componente padre, String min,
-			String cardMax, TipoAtributo tipo,
+	public Atributo(String nombre, String id, Componente padre, String min, String cardMax, TipoAtributo tipo,
 			List<Atributo> atributos) {
 		this(nombre, id, padre);
 		this.atributos = atributos;

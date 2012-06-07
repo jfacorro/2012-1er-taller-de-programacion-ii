@@ -49,6 +49,10 @@ public class Entidad extends ComponenteNombre {
 	public List<Atributo> getAtributos() {
 		return this.atributos;
 	}
+	
+	public List<Componente> getIdentificadores() {
+		return this.identificadores;
+	}
 
 	public TipoEntidad getTipo() {
 		return this.tipo;

@@ -10,6 +10,19 @@ import org.w3c.dom.Element;
 
 public class RelacionXml extends RelacionControl implements Xmlizable {
 
+	public RelacionXml() {}
+
+	public RelacionXml(RelacionControl componente) {
+		this.id = componente.getId();
+		this.nombre = componente.getNombre();
+		this.tipo = componente.getTipo();
+
+		this.atributos = componente.getAtributos();
+		this.participantes = componente.getParticipantes();
+		
+		this.figures = componente.getFiguras();
+	}
+
 	@Override
 	public Element toXml(ModeloParserXml parser) throws Exception {
 		Element elemento = parser.crearElemento(Constants.RELACION_TAG);
@@ -28,7 +41,7 @@ public class RelacionXml extends RelacionControl implements Xmlizable {
 		if (this.atributos.size() > 0) {
 			Element atributosElement = parser.agregarElementoAtributos(elemento);
 			for (Atributo atributo : this.atributos)
-				atributosElement.appendChild(((Xmlizable) atributo).toXml(parser));
+				atributosElement.appendChild(parser.convertirXmlizable(atributo).toXml(parser));
 		}
 
 		return elemento;

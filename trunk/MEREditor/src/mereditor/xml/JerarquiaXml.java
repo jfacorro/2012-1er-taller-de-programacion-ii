@@ -8,6 +8,16 @@ import org.w3c.dom.Element;
 
 public class JerarquiaXml extends JerarquiaControl implements Xmlizable {
 
+	public JerarquiaXml() {
+	}
+
+	public JerarquiaXml(JerarquiaControl componente) {
+		this.id = componente.getId();
+		this.tipo = componente.getTipo();
+		this.generica = componente.getGenerica();
+		this.derivadas = componente.getDerivadas();
+	}
+
 	@Override
 	public Element toXml(ModeloParserXml parser) throws Exception {
 		Element elemento = parser.crearElemento(Constants.JERARQUIA_TAG);
@@ -15,11 +25,11 @@ public class JerarquiaXml extends JerarquiaControl implements Xmlizable {
 		parser.agregarTipo(elemento, this.tipo.toString());
 
 		parser.agregarGenerica(elemento, this.generica.getId());
-		
+
 		Element derivadasElement = parser.agregarDerivadas(elemento);
-		for(Componente componente : this.derivadas)
+		for (Componente componente : this.derivadas)
 			parser.agregarDerivada(derivadasElement, componente.getId());
-		
+
 		return elemento;
 	}
 

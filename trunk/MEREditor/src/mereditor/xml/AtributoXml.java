@@ -7,16 +7,35 @@ import org.w3c.dom.Element;
 
 public class AtributoXml extends AtributoControl implements Xmlizable {
 
+	public AtributoXml() {
+	}
+
+	public AtributoXml(AtributoControl componente) {
+		this.id = componente.getId();
+		this.nombre = componente.getNombre();
+		this.tipo = componente.getTipo();
+
+		this.atributos = componente.getAtributos();
+
+		this.cardinalidadMinima = componente.getCardinalidadMinima();
+		this.cardinalidadMaxima = componente.getCardinalidadMaxima();
+
+		this.original = componente.getOriginal();
+		this.formula = componente.getFormula();
+
+		this.figures = componente.getFiguras();
+	}
+
 	@Override
 	public Element toXml(ModeloParserXml parser) throws Exception {
 		Element elemento = parser.crearElemento(Constants.ATRIBUTO_TAG);
 		parser.agregarId(elemento, this.id.toString());
 		parser.agregarTipo(elemento, this.tipo.toString());
 		parser.agregarNombre(elemento, nombre);
-		
+
 		// Cardinalidad
 		parser.agregarCardinalidad(elemento, this.cardinalidadMinima, this.cardinalidadMaxima);
-		
+
 		// Formula u original según tipo
 		switch (this.tipo) {
 		case DERIVADO_CALCULO:
@@ -30,7 +49,7 @@ public class AtributoXml extends AtributoControl implements Xmlizable {
 		if (this.atributos.size() > 0) {
 			Element atributosElement = parser.agregarElementoAtributos(elemento);
 			for (Atributo atributo : this.atributos)
-				atributosElement.appendChild(((Xmlizable) atributo).toXml(parser));
+				atributosElement.appendChild(parser.convertirXmlizable(atributo).toXml(parser));
 		}
 
 		return elemento;
@@ -49,7 +68,7 @@ public class AtributoXml extends AtributoControl implements Xmlizable {
 			atributo.setPadre(this);
 			this.atributos.add(atributo);
 		}
-		
+
 		// Formula u original según tipo
 		switch (this.tipo) {
 		case DERIVADO_CALCULO:
