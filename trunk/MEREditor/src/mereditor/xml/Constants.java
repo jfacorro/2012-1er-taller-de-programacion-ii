@@ -36,8 +36,10 @@ public class Constants {
 	
 	public static final String IDENTIFICADORES_INTERNOS_TAG = "IdentificadoresInternos";
 	public static final String IDENTIFICADORES_EXTERNOS_TAG = "IdentificadoresExternos";
-	public static final String COMPONENTES_TAG = "COMPONENTES";
-	public static final String COMPONENTE_TAG = "COMPONENTE";
+	public static final String COMPONENTES_TAG = "Componentes";
+	public static final String COMPONENTE_TAG = "Componente";
+	
+	public static final String PROYECTO_TAG = "Proyecto";
 
 	/**********************************************************************************/
 	
@@ -70,4 +72,5 @@ public class Constants {
 	 */
 	public static final String DIAGRAMA_PADRE_QUERY = "./ancestor::Diagrama";
 	public static final String REPRESENTACION_ID_QUERY = "//Representacion[@id='%s']";
+	public static final String ELEMENTOS_PRIMER_NIVEL_QUERY = "Proyecto/*[name()!='Validacion']";
 }

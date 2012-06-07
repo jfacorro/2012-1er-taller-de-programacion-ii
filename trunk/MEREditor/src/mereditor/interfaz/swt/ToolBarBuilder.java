@@ -34,6 +34,7 @@ public class ToolBarBuilder {
 		item = new ToolItem(this.toolBar, SWT.PUSH);
 		item.setToolTipText("Guardar Proyecto");
 		item.setImage(this.getImagen("guardar.png"));
+		item.addSelectionListener(this.guardar);
 
 		item = new ToolItem(this.toolBar, SWT.PUSH);
 		item.setToolTipText("Imprimir");
@@ -80,13 +81,29 @@ public class ToolBarBuilder {
 	private SelectionListener abrir = new SelectionListener() {
 		@Override
 		public void widgetSelected(SelectionEvent e) {
-			principal.abrirProyecto();
+			principal.abrir();
 		}
 
 		@Override
 		public void widgetDefaultSelected(SelectionEvent e) {
 		}
 	};
+	
+	private SelectionListener guardar = new SelectionListener() {
+		@Override
+		public void widgetSelected(SelectionEvent e) {
+			try {
+				principal.guardar();
+			} catch (Exception e1) {
+				e1.printStackTrace();
+			}
+		}
+
+		@Override
+		public void widgetDefaultSelected(SelectionEvent e) {
+		}
+	};
+
 
 	private static final SelectionListener salir = new SelectionListener() {
 		@Override
