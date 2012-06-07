@@ -2,7 +2,7 @@ package mereditor.interfaz.swt;
 
 import java.io.File;
 
-import mereditor.modelo.Proyecto;
+import mereditor.control.Proyecto;
 import mereditor.xml.ModeloParserXml;
 import mereditor.xml.RepresentacionParserXml;
 
