@@ -31,7 +31,11 @@ public class Jerarquia extends Componente {
 		this.generica = generica;
 	}
 
-	public Object getGenerica() {
+	public Entidad getGenerica() {
 		return this.generica;
+	}
+	
+	public TipoJerarquia getTipo() {
+		return this.tipo;
 	}
 }

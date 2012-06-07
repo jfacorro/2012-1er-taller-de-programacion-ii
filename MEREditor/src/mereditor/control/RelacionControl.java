@@ -11,7 +11,7 @@ import mereditor.modelo.Relacion;
 import org.eclipse.draw2d.Figure;
 
 public class RelacionControl extends Relacion implements Control<Relacion> {
-	private Map<String, RelacionFigure> figures = new HashMap<>();
+	protected Map<String, RelacionFigure> figures = new HashMap<>();
 
 	@Override
 	public Figura<Relacion> getFigura(String idDiagrama) {
@@ -40,5 +40,9 @@ public class RelacionControl extends Relacion implements Control<Relacion> {
 			figure.conectarEntidad(entidadControl.getFigura(idDiagrama),
 					entidadRelacion.toString());
 		}
+	}
+
+	public Map<String, RelacionFigure> getFiguras() {
+		return this.figures;
 	}
 }

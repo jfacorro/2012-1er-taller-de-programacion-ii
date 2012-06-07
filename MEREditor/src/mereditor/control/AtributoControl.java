@@ -10,7 +10,7 @@ import mereditor.modelo.Atributo;
 import org.eclipse.draw2d.Figure;
 
 public class AtributoControl extends Atributo implements Control<Atributo> {
-	private Map<String, AtributoFigure> figures = new HashMap<>();
+	protected Map<String, AtributoFigure> figures = new HashMap<>();
 
 	@Override
 	public Figura<Atributo> getFigura(String idDiagrama) {
@@ -32,5 +32,9 @@ public class AtributoControl extends Atributo implements Control<Atributo> {
 
 			figura.agregarFiguraLoqueada(atributoControl.getFigura(idDiagrama));
 		}
+	}
+	
+	public Map<String, AtributoFigure> getFiguras() {
+		return this.figures;
 	}
 }

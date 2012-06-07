@@ -8,6 +8,19 @@ import org.w3c.dom.Element;
 
 public class DiagramaXml extends DiagramaControl implements Xmlizable {
 
+	public DiagramaXml() {
+	}
+
+	public DiagramaXml(DiagramaControl componente) {
+		this.id = componente.getId();
+		this.nombre = componente.getNombre();
+
+		this.componentes = componente.getComponentes();
+		this.diagramas = componente.getDiagramas();
+		
+		this.validacion = componente.getValidacion();
+	}
+
 	@Override
 	public Element toXml(ModeloParserXml parser) throws Exception {
 		Element elemento = parser.crearElemento(Constants.DIAGRAMA_TAG);
@@ -21,17 +34,17 @@ public class DiagramaXml extends DiagramaControl implements Xmlizable {
 				parser.agregarComponente(componentesElement, componente.getId());
 			}
 		}
-		
+
 		// Agregar los diagramas hijos
 		if (this.diagramas.size() > 0) {
 			Element diagramasElement = parser.agregarDiagramas(elemento);
 			for (Diagrama diagrama : this.diagramas) {
-				diagramasElement.appendChild(((Xmlizable)diagrama).toXml(parser));
+				diagramasElement.appendChild(parser.convertirXmlizable(diagrama).toXml(parser));
 			}
 		}
-		
+
 		// Agregar el resultado de la validacion
-		elemento.appendChild(((ValidacionXml)this.validacion).toXml(parser));
+		elemento.appendChild(parser.convertirXmlizable(this.validacion).toXml(parser));
 
 		return elemento;
 	}

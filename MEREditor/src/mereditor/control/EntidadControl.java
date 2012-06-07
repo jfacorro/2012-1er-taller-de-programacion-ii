@@ -11,7 +11,7 @@ import mereditor.modelo.Entidad;
 import org.eclipse.draw2d.Figure;
 
 public class EntidadControl extends Entidad implements Control<Entidad> {
-	private Map<String, EntidadFigure> figures = new HashMap<>();
+	protected Map<String, EntidadFigure> figures = new HashMap<>();
 
 	@Override
 	public Figura<Entidad> getFigura(String id) {
@@ -33,5 +33,9 @@ public class EntidadControl extends Entidad implements Control<Entidad> {
 			atributoControl.dibujar(contenedor, idDiagrama);
 			figure.agregarFiguraLoqueada(atributoControl.getFigura(idDiagrama));
 		}
+	}
+
+	public Map<String, EntidadFigure> getFiguras() {
+		return this.figures;
 	}
 }

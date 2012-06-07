@@ -4,7 +4,12 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import mereditor.control.AtributoControl;
+import mereditor.control.DiagramaControl;
+import mereditor.control.EntidadControl;
+import mereditor.control.JerarquiaControl;
 import mereditor.control.Proyecto;
+import mereditor.control.RelacionControl;
 import mereditor.modelo.Atributo;
 import mereditor.modelo.Diagrama;
 import mereditor.modelo.Entidad;
@@ -30,10 +35,12 @@ class ModeloParserXml extends ParserXml {
 	public ModeloParserXml(Proyecto proyecto) throws Exception {
 		this.proyecto = proyecto;
 	}
-	
+
 	/**
 	 * Genera un documento de XML del modelo del proyecto.
-	 * @param proyecto Instancia del proyecto del que se quiere generar el XML.
+	 * 
+	 * @param proyecto
+	 *            Instancia del proyecto del que se quiere generar el XML.
 	 * @return Documento XML.
 	 * @throws DOMException
 	 * @throws Exception
@@ -46,10 +53,10 @@ class ModeloParserXml extends ParserXml {
 		for (Componente componente : proyecto.getComponentes()) {
 			if (componente.es(Entidad.class) || componente.es(Relacion.class) || componente.es(Jerarquia.class)
 					|| componente == proyecto.getRaiz())
-				this.root.appendChild(((Xmlizable) componente).toXml(this));
+				this.root.appendChild(this.convertirXmlizable(componente).toXml(this));
 		}
-		
-		this.root.appendChild(new ValidacionXml(this.proyecto.getValidacion()).toXml(this));
+
+		this.root.appendChild(this.convertirXmlizable(this.proyecto.getValidacion()).toXml(this));
 
 		return doc;
 	}
@@ -67,17 +74,18 @@ class ModeloParserXml extends ParserXml {
 		Diagrama diagrama = (Diagrama) this.resolver(this.obtenerId(diagramaXml));
 		// Obtener la validacion principal
 		Validacion validacion = (Validacion) this.obtenerValidacion(this.root);
-		
+
 		this.proyecto.setRaiz(diagrama);
 		this.proyecto.setValidacion(validacion);
 
 		/*
-		 *  Recorrer todos los elemento de primer nivel (menos validacion)
-		 *  para tener en cuenta los que existen pero no fueron agregados a ningún diagrama.
-		 */		
+		 * Recorrer todos los elemento de primer nivel (menos validacion) para
+		 * tener en cuenta los que existen pero no fueron agregados a ningún
+		 * diagrama.
+		 */
 		List<Element> elementos = XmlHelper.query(this.root, Constants.ELEMENTOS_PRIMER_NIVEL_QUERY);
-		for(Element elemento : elementos)
-			this.resolver(this.obtenerId(elemento));		
+		for (Element elemento : elementos)
+			this.resolver(this.obtenerId(elemento));
 	}
 
 	/**
@@ -432,6 +440,23 @@ class ModeloParserXml extends ParserXml {
 		throw new Exception("No existe un mapeo para: " + element.getNodeName());
 	}
 
+	protected Xmlizable convertirXmlizable(Object componente) throws Exception {
+		if (Entidad.class.isInstance(componente))
+			return new EntidadXml((EntidadControl) componente);
+		if (Relacion.class.isInstance(componente))
+			return new RelacionXml((RelacionControl) componente);
+		if (Jerarquia.class.isInstance(componente))
+			return new JerarquiaXml((JerarquiaControl) componente);
+		if (Diagrama.class.isInstance(componente))
+			return new DiagramaXml((DiagramaControl) componente);
+		if (Atributo.class.isInstance(componente))
+			return new AtributoXml((AtributoControl) componente);
+		if (Validacion.class.isInstance(componente))
+			return new ValidacionXml((Validacion) componente);
+
+		throw new Exception("No existe un mapeo para: " + componente.toString());
+	}
+
 	Element agregarNombre(Element elemento, String valor) {
 		return this.agregarElemento(elemento, Constants.NOMBRE_TAG, valor);
 	}
@@ -532,6 +557,6 @@ class ModeloParserXml extends ParserXml {
 	}
 
 	Element agregarRol(Element elemento, String rol) {
-		return this.agregarElemento(elemento, Constants.ROL_TAG, rol);		
+		return this.agregarElemento(elemento, Constants.ROL_TAG, rol);
 	}
 }

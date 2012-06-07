@@ -8,6 +8,19 @@ import org.w3c.dom.Element;
 
 public class EntidadXml extends EntidadControl implements Xmlizable {
 
+	public EntidadXml() {}
+
+	public EntidadXml(EntidadControl componente) {
+		this.id = componente.getId();
+		this.nombre = componente.getNombre();
+		this.tipo = componente.getTipo();
+
+		this.atributos = componente.getAtributos();
+		this.identificadores = componente.getIdentificadores();
+		
+		this.figures = componente.getFiguras();
+	}
+
 	@Override
 	public Element toXml(ModeloParserXml parser) throws Exception {
 		Element elemento = parser.crearElemento(Constants.ENTIDAD_TAG);
@@ -18,7 +31,7 @@ public class EntidadXml extends EntidadControl implements Xmlizable {
 		if (this.atributos.size() > 0) {
 			Element atributosElement = parser.agregarElementoAtributos(elemento);
 			for (Atributo atributo : this.atributos)
-				atributosElement.appendChild(((Xmlizable) atributo).toXml(parser));
+				atributosElement.appendChild(parser.convertirXmlizable(atributo).toXml(parser));
 		}
 
 		if (this.identificadores.size() > 0) {
