@@ -2,6 +2,11 @@ package mereditor.interfaz.swt;
 
 import java.io.File;
 
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
+
 import mereditor.control.Proyecto;
 import mereditor.xml.ModeloParserXml;
 import mereditor.xml.RepresentacionParserXml;
@@ -16,6 +21,7 @@ import org.eclipse.swt.layout.FormData;
 import org.eclipse.swt.layout.FormLayout;
 import org.eclipse.swt.widgets.DirectoryDialog;
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.ToolBar;
 import org.eclipse.swt.widgets.Tree;
@@ -89,7 +95,7 @@ public class Principal {
 	/**
 	 * Genera el contenido.
 	 */
-	public void abrirProyecto() {
+	public void abrir() {
 		DirectoryDialog dirDialog = new DirectoryDialog(this.shell);
 
 		String path = dirDialog.open();
@@ -116,6 +122,22 @@ public class Principal {
 			}
 
 			this.figureCanvas.setContents(this.panelDiagrama);
+		}
+	}
+	
+	public void guardar() throws Exception {
+		FileDialog fileDialog = new FileDialog(this.shell);
+		String path = fileDialog.open();
+		if(path != null)
+		{
+			ModeloParserXml modelo = new ModeloParserXml(this.proyecto);
+
+			TransformerFactory transformerFactory = TransformerFactory.newInstance();
+			Transformer transformer = transformerFactory.newTransformer();
+			DOMSource source = new DOMSource(modelo.generarXml(proyecto));
+			StreamResult result = new StreamResult(new File(path));
+	 
+			transformer.transform(source, result);
 		}
 	}
 

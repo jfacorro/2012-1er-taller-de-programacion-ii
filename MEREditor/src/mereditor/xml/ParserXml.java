@@ -10,17 +10,23 @@ import org.w3c.dom.Element;
 
 public abstract class ParserXml {
 
-	protected Element root;
+	protected DocumentBuilder docBuilder;
 
-	public ParserXml(Document modeloXml) {
+	protected Element root;
+	
+	public ParserXml() throws Exception {
+		this.docBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
+	}
+	
+	public ParserXml(Document modeloXml) throws Exception {
+		this();
 		this.root = modeloXml.getDocumentElement();
 	}
 
 	public ParserXml(String modeloPath) throws Exception {
+		this();
 		File source = new File(modeloPath);
-		DocumentBuilder builder;
-		builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
-		this.root = builder.parse(source).getDocumentElement();
+		this.root = docBuilder.parse(source).getDocumentElement();
 	}
 	
 	/**

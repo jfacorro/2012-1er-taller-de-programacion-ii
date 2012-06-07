@@ -42,4 +42,9 @@ public abstract class Componente {
 	public boolean equals(Object obj) {
 		return obj == null ? false : this.getId().equals(((Componente)obj).getId());
 	}
+
+	public boolean es(Class<?> tipoComponente) {
+		return tipoComponente.isInstance(this);
+	}
+	
 }

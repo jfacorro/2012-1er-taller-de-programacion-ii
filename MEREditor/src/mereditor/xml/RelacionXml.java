@@ -23,6 +23,12 @@ public class RelacionXml extends RelacionControl implements Xmlizable {
 			parser.agregarReferenciaEntidad(participante, entidadRel.getEntidad().getId());
 			parser.agregarCardinalidad(participante, entidadRel.getCardinalidadMinima(), entidadRel.getCardinalidadMaxima());
 		}
+		
+		if (this.atributos.size() > 0) {
+			Element atributosElement = parser.agregarElementoAtributos(elemento);
+			for (Atributo atributo : this.atributos)
+				atributosElement.appendChild(((Xmlizable) atributo).toXml(parser));
+		}
 
 		return elemento;
 	}

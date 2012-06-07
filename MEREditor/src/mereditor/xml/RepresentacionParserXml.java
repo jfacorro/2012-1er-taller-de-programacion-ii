@@ -13,7 +13,7 @@ import org.w3c.dom.Element;
 
 public class RepresentacionParserXml extends ParserXml {
 
-	public RepresentacionParserXml(Document modeloXml) {
+	public RepresentacionParserXml(Document modeloXml) throws Exception {
 		super(modeloXml);
 	}
 	

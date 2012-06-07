@@ -6,30 +6,53 @@ import java.util.List;
 import mereditor.control.Proyecto;
 import mereditor.modelo.Atributo;
 import mereditor.modelo.Diagrama;
+import mereditor.modelo.Entidad;
+import mereditor.modelo.Jerarquia;
+import mereditor.modelo.Relacion;
 import mereditor.modelo.Validacion;
 import mereditor.modelo.base.Componente;
 
 import org.w3c.dom.Attr;
+import org.w3c.dom.DOMException;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 public class ModeloParserXml extends ParserXml {
 
 	protected Proyecto proyecto = new Proyecto();
+	protected Element outputRoot;
 
-	public ModeloParserXml(Document modeloXml) {
+	public ModeloParserXml(Proyecto proyecto) throws Exception {
+		super();
+		this.proyecto = proyecto;
+	}
+
+	public ModeloParserXml(Document modeloXml) throws Exception {
 		super(modeloXml);
 	}
 
 	public ModeloParserXml(String path) throws Exception {
 		super(path);
 	}
-	
+
 	public Proyecto getProyecto() throws Exception {
 		this.parsearProyecto();
 		return this.proyecto;
 	}
 
+	public Document generarXml(Proyecto proyecto) throws DOMException, Exception {
+		Document doc = this.docBuilder.newDocument();
+		this.outputRoot = doc.createElement(Constants.PROYECTO_TAG);
+		doc.appendChild(outputRoot);
+
+		for (Componente componente : proyecto.getComponentes()) {
+			if (componente.es(Entidad.class) || componente.es(Relacion.class) || componente.es(Jerarquia.class)
+					|| componente == proyecto.getRaiz())
+				this.outputRoot.appendChild(((Xmlizable) componente).toXml(this));
+		}
+
+		return doc;
+	}
 
 	/**
 	 * Encuentra, parsea y devuelve el diagrama principal. También carga las
@@ -40,10 +63,22 @@ public class ModeloParserXml extends ParserXml {
 	 * @throws Exception
 	 */
 	private void parsearProyecto() throws Exception {
-		this.proyecto = new Proyecto();		
+		this.proyecto = new Proyecto();
 		Element diagramaXml = XmlHelper.querySingle(this.root, Constants.DIAGRAMA_QUERY);
-		Diagrama diagrama = (Diagrama)this.resolver(this.obtenerId(diagramaXml));
-		this.proyecto.setRaiz(diagrama );
+		Diagrama diagrama = (Diagrama) this.resolver(this.obtenerId(diagramaXml));
+		Validacion validacion = (Validacion) this.obtenerValidacion(this.root);
+		
+		this.proyecto.setRaiz(diagrama);
+		this.proyecto.setValidacion(validacion);
+
+		/*
+		 *  Recorrer todos los elemento de primer nivel (menos validacion)
+		 *  para tener en cuenta los que existen pero no fueron agregados a ningún diagrama.
+		 */		
+		List<Element> elementos = XmlHelper.query(this.root, Constants.ELEMENTOS_PRIMER_NIVEL_QUERY);
+		for(Element elemento : elementos)
+			this.resolver(this.obtenerId(elemento));
+		
 	}
 
 	/**
@@ -238,7 +273,7 @@ public class ModeloParserXml extends ParserXml {
 		Element entidadRefXml = XmlHelper.querySingle(elemento, Constants.ENTIDAD_REF_QUERY);
 		return this.obtenerReferencia(entidadRefXml);
 	}
-	
+
 	/**
 	 * Obtiene el valor del estado de un elemento de validacion.
 	 * 
@@ -304,7 +339,7 @@ public class ModeloParserXml extends ParserXml {
 		return element == null ? null : element.getTextContent();
 	}
 
-		/**
+	/**
 	 * Obtiene los elemento de participantes de un elemento relacion.
 	 * 
 	 * @param elemento
@@ -354,7 +389,7 @@ public class ModeloParserXml extends ParserXml {
 		if (list.size() == 1)
 			return this.parsear(list.get(0));
 
-		throw new Exception("Identificador inexistente o duplicado: " + id);
+		throw new Exception("Identificador inexistente o duplicado: '" + id + "'");
 	}
 
 	/**
@@ -399,7 +434,7 @@ public class ModeloParserXml extends ParserXml {
 	}
 
 	Element crearElemento(String nombre) {
-		return XmlHelper.getNuevoElemento(this.root, nombre);
+		return XmlHelper.getNuevoElemento(this.outputRoot, nombre);
 	}
 
 	Element agregarElemento(Element elemento, String nombre) {
@@ -408,15 +443,15 @@ public class ModeloParserXml extends ParserXml {
 
 	Element agregarElemento(Element elemento, String nombre, String valor) {
 		Element hijo = XmlHelper.getNuevoElemento(elemento, nombre);
-		hijo.setNodeValue(valor);
-		elemento.appendChild(elemento);
+		hijo.setTextContent(valor);
+		elemento.appendChild(hijo);
 		return hijo;
 	}
 
 	Attr agregarAtributo(Element elemento, String nombre, String valor) {
 		Attr atributo = XmlHelper.getNuevoAtributo(elemento, nombre);
 		atributo.setNodeValue(valor);
-		elemento.appendChild(atributo);
+		elemento.setAttributeNode(atributo);
 		return atributo;
 	}
 
@@ -492,13 +527,13 @@ public class ModeloParserXml extends ParserXml {
 	Element agregarGenerica(Element elemento, String id) {
 		Element genericaElemento = this.agregarElemento(elemento, Constants.GENERICA_TAG);
 		this.agregarReferenciaEntidad(genericaElemento, id);
-		return genericaElemento;		
+		return genericaElemento;
 	}
-	
+
 	Element agregarDerivadas(Element elemento) {
 		return this.agregarElemento(elemento, Constants.DERIVADAS_TAG);
 	}
-	
+
 	Element agregarDerivada(Element derivadasElement, String id) {
 		return this.agregarReferenciaEntidad(derivadasElement, id);
 	}
@@ -512,10 +547,10 @@ public class ModeloParserXml extends ParserXml {
 	}
 
 	Attr agregarEstado(Element elemento, String estado) {
-		return this.agregarAtributo(elemento, Constants.ESTADO_ATTR, estado);		
+		return this.agregarAtributo(elemento, Constants.ESTADO_ATTR, estado);
 	}
 
 	Element agregarObservaciones(Element elemento, String observaciones) {
-		return this.agregarElemento(elemento, Constants.OBSERVACIONES_TAG, observaciones);		
+		return this.agregarElemento(elemento, Constants.OBSERVACIONES_TAG, observaciones);
 	}
 }

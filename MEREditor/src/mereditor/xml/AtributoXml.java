@@ -14,6 +14,7 @@ public class AtributoXml extends AtributoControl implements Xmlizable {
 		parser.agregarTipo(elemento, this.tipo.toString());
 		parser.agregarNombre(elemento, nombre);
 		
+		// Cardinalidad
 		parser.agregarCardinalidad(elemento, this.cardinalidadMinima, this.cardinalidadMaxima);
 		
 		// Formula u original según tipo

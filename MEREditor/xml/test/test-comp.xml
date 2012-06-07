@@ -15,7 +15,7 @@
 				<Nombre>copia</Nombre>
 				<Cardinalidad min="1" max="1" />
 				<Origen>
-				    <RefAtributo idref="_3"/>
+					<RefAtributo idref="_3" />
 				</Origen>
 			</Atributo>
 			<Atributo id="_2b" tipo="DERIVADO_CALCULO">
@@ -25,7 +25,7 @@
 			</Atributo>
 		</Atributos>
 		<IdentificadoresExternos>
-			<RefEntidad idref="_5"/>
+			<RefEntidad idref="_5" />
 		</IdentificadoresExternos>
 	</Entidad>
 	<Entidad id="_5" tipo="MAESTRA_COSA">
@@ -95,7 +95,7 @@
 			</Atributo>
 		</Atributos>
 		<IdentificadoresExternos>
-			<RefEntidad idref="_10"/>
+			<RefEntidad idref="_10" />
 		</IdentificadoresExternos>
 	</Entidad>
 	<Relacion id="_24" tipo="ASOCIACION">
@@ -177,13 +177,13 @@
 		</Atributos>
 	</Relacion>
 	<Jerarquia tipo="TOTAL_EXCLUSIVA" id="_50">
-	    <Generica>
-	        <RefEntidad idref="_1"/>
-	    </Generica>
-	    <Derivadas>
-	        <RefEntidad idref="_5"/>
-	        <RefEntidad idref="_19"/>
-	    </Derivadas>
+		<Generica>
+			<RefEntidad idref="_1" />
+		</Generica>
+		<Derivadas>
+			<RefEntidad idref="_5" />
+			<RefEntidad idref="_19" />
+		</Derivadas>
 	</Jerarquia>
 	<Diagrama id="_41">
 		<Nombre>BoleteriaTeatro</Nombre>
@@ -201,7 +201,7 @@
 				<Nombre>lala</Nombre>
 				<Componentes>
 					<Componente idref="_1" />
-				</Componentes>				
+				</Componentes>
 				<Validacion estado="VALIDADO">
 					<Observaciones></Observaciones>
 				</Validacion>
@@ -209,10 +209,10 @@
 		</Diagramas>
 		<Validacion estado="SIN_VALIDAR">
 			<Observaciones>Falta validar</Observaciones>
-		</Validacion> 
+		</Validacion>
 	</Diagrama>
 	<!-- Estado global de los diagramas -->
 	<Validacion estado="SIN_VALIDAR">
-		<Observaciones/>
-	</Validacion> 
+		<Observaciones />
+	</Validacion>
 </Proyecto>

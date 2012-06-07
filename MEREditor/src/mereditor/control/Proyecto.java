@@ -7,6 +7,7 @@ import java.util.Map;
 
 import mereditor.interfaz.swt.figuras.Figura;
 import mereditor.modelo.Diagrama;
+import mereditor.modelo.Validacion;
 import mereditor.modelo.base.Componente;
 
 import org.eclipse.draw2d.Figure;
@@ -18,6 +19,7 @@ public class Proyecto implements Control<Diagrama> {
 	 * Diagrama raiz del proyecto
 	 */
 	protected DiagramaControl raiz;
+	private Validacion validacion;
 
 	protected Map<String, Componente> componentes = new HashMap<>();
 	
@@ -36,6 +38,14 @@ public class Proyecto implements Control<Diagrama> {
 
 	public void setRaiz(Diagrama raiz) {
 		this.raiz = (DiagramaControl)raiz;
+	}
+	
+	public Validacion getValidacion() {
+		return this.validacion;		
+	}
+
+	public void setValidacion(Validacion validacion) {
+		this.validacion = validacion;		
 	}
 
 	public void agregar(Componente componente) {
