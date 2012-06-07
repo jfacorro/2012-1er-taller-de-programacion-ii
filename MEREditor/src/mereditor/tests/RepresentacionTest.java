@@ -4,16 +4,16 @@ import java.util.Map;
 
 import junit.framework.TestCase;
 import mereditor.representacion.PList;
-import mereditor.xml.RepresentacionParserXml;
+import mereditor.xml.ParserXml;
 
 public class RepresentacionTest extends TestCase {
 	
-	private static final String PATH_REPRESENTACION_TEST = "xml/test/test-rep.xml";
-	private RepresentacionParserXml parser;
+	private static final String PATH_TEST = "xml/test/test.xml";
+	private ParserXml parser;
 	
 	protected void setUp() throws Exception {
 		super.setUp();
-		this.parser = new RepresentacionParserXml(PATH_REPRESENTACION_TEST);
+		this.parser = new ParserXml(PATH_TEST);
 	}
 	
 	public void testEncontrarRepresentacionPorId() {

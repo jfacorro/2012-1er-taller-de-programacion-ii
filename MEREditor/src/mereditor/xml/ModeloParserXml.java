@@ -1,5 +1,6 @@
 package mereditor.xml;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,29 +18,19 @@ import org.w3c.dom.DOMException;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-public class ModeloParserXml extends ParserXml {
+class ModeloParserXml extends ParserXml {
 
-	protected Proyecto proyecto = new Proyecto();
-
-	public ModeloParserXml(Proyecto proyecto) throws Exception {
+	public ModeloParserXml(Proyecto proyecto, String path) throws Exception {
 		super();
+		File source = new File(path);
+		this.root = docBuilder.parse(source).getDocumentElement();
 		this.proyecto = proyecto;
 	}
 
-	public ModeloParserXml(String path) throws Exception {
-		super(path);
+	public ModeloParserXml(Proyecto proyecto) throws Exception {
+		this.proyecto = proyecto;
 	}
-
-	/**
-	 * Parsea el documento y devuelve el proyecto resultante.
-	 * @return
-	 * @throws Exception
-	 */
-	public Proyecto getProyecto() throws Exception {
-		this.parsear();
-		return this.proyecto;
-	}
-
+	
 	/**
 	 * Genera un documento de XML del modelo del proyecto.
 	 * @param proyecto Instancia del proyecto del que se quiere generar el XML.
@@ -70,8 +61,7 @@ public class ModeloParserXml extends ParserXml {
 	 * @return Diagrama principal
 	 * @throws Exception
 	 */
-	private void parsear() throws Exception {
-		this.proyecto = new Proyecto();
+	void parsearModelo() throws Exception {
 		// Obtener el id del diagrama principal
 		Element diagramaXml = XmlHelper.querySingle(this.root, Constants.DIAGRAMA_QUERY);
 		Diagrama diagrama = (Diagrama) this.resolver(this.obtenerId(diagramaXml));
@@ -87,8 +77,7 @@ public class ModeloParserXml extends ParserXml {
 		 */		
 		List<Element> elementos = XmlHelper.query(this.root, Constants.ELEMENTOS_PRIMER_NIVEL_QUERY);
 		for(Element elemento : elementos)
-			this.resolver(this.obtenerId(elemento));
-		
+			this.resolver(this.obtenerId(elemento));		
 	}
 
 	/**

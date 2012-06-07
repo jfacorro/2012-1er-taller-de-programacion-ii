@@ -8,8 +8,7 @@ import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
 import mereditor.control.Proyecto;
-import mereditor.xml.ModeloParserXml;
-import mereditor.xml.RepresentacionParserXml;
+import mereditor.xml.ParserXml;
 
 import org.eclipse.draw2d.Figure;
 import org.eclipse.draw2d.FigureCanvas;
@@ -19,7 +18,6 @@ import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.layout.FormAttachment;
 import org.eclipse.swt.layout.FormData;
 import org.eclipse.swt.layout.FormLayout;
-import org.eclipse.swt.widgets.DirectoryDialog;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.Shell;
@@ -96,23 +94,18 @@ public class Principal {
 	 * Genera el contenido.
 	 */
 	public void abrir() {
-		DirectoryDialog dirDialog = new DirectoryDialog(this.shell);
+		FileDialog fileDialog = new FileDialog(this.shell);
 
-		String path = dirDialog.open();
+		String path = fileDialog.open();
 
 		if (path != null) {
-			File file = new File(path);
-			String nombre = File.separator + file.getName();
-
 			this.panelDiagrama = new Figure();
 			this.panelDiagrama.setBackgroundColor(new Color(null, 255, 255, 255));
 
 			try {
-				ModeloParserXml modelo = new ModeloParserXml(path + nombre + "-comp.xml");
-				RepresentacionParserXml representacion = new RepresentacionParserXml(path + nombre + "-rep.xml");
+				ParserXml modelo = new ParserXml(path);
 
-				this.proyecto = modelo.getProyecto();
-				representacion.cargarRepresentaciones(modelo);
+				this.proyecto = modelo.parsear();
 				this.proyecto.dibujar(this.panelDiagrama);
 
 				TreeManager.agregar(this.proyecto.getRaiz(), this.tree);
@@ -130,11 +123,11 @@ public class Principal {
 		String path = fileDialog.open();
 		if(path != null)
 		{
-			ModeloParserXml modelo = new ModeloParserXml(this.proyecto);
+			ParserXml modelo = new ParserXml(this.proyecto);
 
 			TransformerFactory transformerFactory = TransformerFactory.newInstance();
 			Transformer transformer = transformerFactory.newTransformer();
-			DOMSource source = new DOMSource(modelo.generarXml());
+			DOMSource source = new DOMSource(modelo.generarXmlComponentes());
 			StreamResult result = new StreamResult(new File(path));
 	 
 			transformer.transform(source, result);
