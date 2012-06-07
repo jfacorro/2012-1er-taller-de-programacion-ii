@@ -1,16 +1,10 @@
 package mereditor.tests;
 
-import java.io.File;
 import java.util.Map;
-
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
 
 import junit.framework.TestCase;
 import mereditor.representacion.PList;
 import mereditor.xml.RepresentacionParserXml;
-
-import org.w3c.dom.Document;
 
 public class RepresentacionTest extends TestCase {
 	
@@ -19,10 +13,7 @@ public class RepresentacionTest extends TestCase {
 	
 	protected void setUp() throws Exception {
 		super.setUp();
-		File sourceRepresentacion = new File(PATH_REPRESENTACION_TEST);
-		DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
-		Document docRepresentacion = builder.parse(sourceRepresentacion);
-		this.parser = new RepresentacionParserXml(docRepresentacion);
+		this.parser = new RepresentacionParserXml(PATH_REPRESENTACION_TEST);
 	}
 	
 	public void testEncontrarRepresentacionPorId() {

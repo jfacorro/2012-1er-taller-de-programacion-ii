@@ -8,15 +8,10 @@ import mereditor.control.Control;
 import mereditor.modelo.base.Componente;
 import mereditor.representacion.PList;
 
-import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 public class RepresentacionParserXml extends ParserXml {
 
-	public RepresentacionParserXml(Document modeloXml) throws Exception {
-		super(modeloXml);
-	}
-	
 	public RepresentacionParserXml(String path) throws Exception {
 		super(path);
 	}
