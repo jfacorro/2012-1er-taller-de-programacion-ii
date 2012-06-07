@@ -1,6 +1,7 @@
 package mereditor.interfaz.swt;
 
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.graphics.Image;
@@ -8,6 +9,8 @@ import org.eclipse.swt.widgets.ToolBar;
 import org.eclipse.swt.widgets.ToolItem;
 
 public class ToolBarBuilder {
+	private static final String PATH_IMAGENES = "src/recursos/imagenes/";
+
 	private Principal principal;
 	private ToolBar toolBar;
 
@@ -25,6 +28,7 @@ public class ToolBarBuilder {
 		ToolItem item = new ToolItem(this.toolBar, SWT.PUSH);
 		item.setToolTipText("Nuevo Proyecto");
 		item.setImage(this.getImagen("nuevo.png"));
+		item.addSelectionListener(this.nuevo);
 
 		item = new ToolItem(this.toolBar, SWT.PUSH);
 		item.setToolTipText("Abrir Proyecto");
@@ -75,21 +79,24 @@ public class ToolBarBuilder {
 	}
 
 	private Image getImagen(String nombre) {
-		return new Image(this.toolBar.getDisplay(), "src/recursos/imagenes/" + nombre);
+		return new Image(this.toolBar.getDisplay(), PATH_IMAGENES + nombre);
 	}
+	
+	private SelectionListener nuevo = new SelectionAdapter() {
+		@Override
+		public void widgetSelected(SelectionEvent e) {
+			principal.nuevo();
+		}
+	};
 
-	private SelectionListener abrir = new SelectionListener() {
+	private SelectionListener abrir = new SelectionAdapter() {
 		@Override
 		public void widgetSelected(SelectionEvent e) {
 			principal.abrir();
 		}
-
-		@Override
-		public void widgetDefaultSelected(SelectionEvent e) {
-		}
 	};
 	
-	private SelectionListener guardar = new SelectionListener() {
+	private SelectionListener guardar = new SelectionAdapter() {
 		@Override
 		public void widgetSelected(SelectionEvent e) {
 			try {
@@ -98,21 +105,13 @@ public class ToolBarBuilder {
 				e1.printStackTrace();
 			}
 		}
-
-		@Override
-		public void widgetDefaultSelected(SelectionEvent e) {
-		}
 	};
 
 
-	private static final SelectionListener salir = new SelectionListener() {
+	private static final SelectionListener salir = new SelectionAdapter() {
 		@Override
 		public void widgetSelected(SelectionEvent e) {
 			System.exit(0);
-		}
-
-		@Override
-		public void widgetDefaultSelected(SelectionEvent e) {
 		}
 	};
 

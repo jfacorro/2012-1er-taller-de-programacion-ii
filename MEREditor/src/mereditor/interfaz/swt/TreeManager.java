@@ -1,5 +1,6 @@
 package mereditor.interfaz.swt;
 
+import mereditor.control.Proyecto;
 import mereditor.modelo.Diagrama;
 import mereditor.modelo.base.Componente;
 
@@ -48,7 +49,7 @@ public class TreeManager {
 	 * @param diagrama
 	 * @param item
 	 */
-	public static void agregar(Diagrama diagrama, TreeItem item) {
+	private static void agregar(Diagrama diagrama, TreeItem item) {
 		TreeItem hijo = new TreeItem(item, SWT.NULL);
 		hijo.setText(diagrama.getNombre());
 
@@ -65,8 +66,13 @@ public class TreeManager {
 	 * @param diagrama
 	 * @param item
 	 */
-	public static void agregar(Componente componente, TreeItem padre) {
+	private static void agregar(Componente componente, TreeItem padre) {
 		TreeItem hijo = new TreeItem(padre, SWT.NULL);
 		hijo.setText(componente.toString());
+	}
+
+	public static void cargar(Proyecto proyecto, Tree tree) {
+		tree.removeAll();
+		TreeManager.agregar(proyecto.getRaiz(), tree);		
 	}
 }
