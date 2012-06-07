@@ -432,32 +432,6 @@ class ModeloParserXml extends ParserXml {
 		throw new Exception("No existe un mapeo para: " + element.getNodeName());
 	}
 
-	Element crearElemento(String nombre) {
-		return XmlHelper.getNuevoElemento(this.root, nombre);
-	}
-	
-	Attr crearAtributo(String nombre) {
-		return XmlHelper.getNuevoAtributo(this.root, nombre);
-	}
-
-	Element agregarElemento(Element elemento, String nombre) {
-		return this.agregarElemento(elemento, nombre, null);
-	}
-
-	Element agregarElemento(Element elemento, String nombre, String valor) {
-		Element hijo = this.crearElemento(nombre);
-		hijo.setTextContent(valor);
-		elemento.appendChild(hijo);
-		return hijo;
-	}
-
-	Attr agregarAtributo(Element elemento, String nombre, String valor) {
-		Attr atributo = this.crearAtributo(nombre);
-		atributo.setNodeValue(valor);
-		elemento.setAttributeNode(atributo);
-		return atributo;
-	}
-
 	Element agregarNombre(Element elemento, String valor) {
 		return this.agregarElemento(elemento, Constants.NOMBRE_TAG, valor);
 	}

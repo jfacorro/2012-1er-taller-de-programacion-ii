@@ -113,7 +113,20 @@ public class Figura<T extends Componente> extends Figure {
 
 			this.setBounds(rect);
 		}
-	}	
+	}
+	
+	public PList getRepresentacion() {
+		PList repr = new PList();
+		Rectangle rect = this.getBounds();
+		repr.set("Posicion", new PList());
+		repr.<PList>get("Posicion").set("x", rect.x);
+		repr.<PList>get("Posicion").set("y", rect.y);		
+		repr.set("Dimension", new PList());
+		repr.<PList>get("Dimension").set("ancho", rect.width);
+		repr.<PList>get("Dimension").set("alto", rect.height);
+
+		return repr;
+	}
 
 	/**
 	 * Agrega la figura para que se mueva junto con esta.

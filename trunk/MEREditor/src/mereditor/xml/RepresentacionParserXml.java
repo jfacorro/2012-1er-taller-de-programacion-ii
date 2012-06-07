@@ -7,9 +7,11 @@ import java.util.Map;
 
 import mereditor.control.Control;
 import mereditor.control.Proyecto;
+import mereditor.modelo.Diagrama;
 import mereditor.modelo.base.Componente;
 import mereditor.representacion.PList;
 
+import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 class RepresentacionParserXml extends ParserXml {
@@ -20,17 +22,17 @@ class RepresentacionParserXml extends ParserXml {
 		this.root = docBuilder.parse(source).getDocumentElement();
 		this.proyecto = proyecto;
 	}
-	
+
 	public RepresentacionParserXml(Proyecto proyecto) throws Exception {
 		this.proyecto = proyecto;
 	}
-	
+
 	/**
 	 * Recorre la coleccion de componentes parseados y busca sus
 	 * representaciones para cada diagrama en el que estén presentes.
 	 */
 	public void parsearRepresentacion() {
-		// Para cada componente del proyecto 
+		// Para cada componente del proyecto
 		for (Componente componente : this.proyecto.getComponentes()) {
 			// Buscar las representaciones en cada diagrama
 			Map<String, PList> representaciones = this.obtenerRepresentaciones(componente.getId());
@@ -40,7 +42,7 @@ class RepresentacionParserXml extends ParserXml {
 				control.getFigura(idDiagrama).setRepresentacion(representaciones.get(idDiagrama));
 		}
 	}
-	
+
 	/**
 	 * Devuelve un mapa con las representaciones del componente por cada
 	 * diagrama en el que se encuentra.
@@ -66,7 +68,7 @@ class RepresentacionParserXml extends ParserXml {
 
 		return representaciones;
 	}
-	
+
 	/**
 	 * Parsea un elemento de representación básico con posición y dimensión.
 	 * 
@@ -75,13 +77,56 @@ class RepresentacionParserXml extends ParserXml {
 	 */
 	protected PList obtenerRepresentacion(Element elemento) {
 		PList representacion = new PList();
-		for(Element element : XmlHelper.query(elemento, "./*")) {
+		for (Element element : XmlHelper.query(elemento, "./*")) {
 			PList hijo = this.obtenerRepresentacion(element);
 			representacion.set(element.getNodeName(), hijo);
 		}
-		for(String nombre : XmlHelper.attributeNames(elemento)) {
+		for (String nombre : XmlHelper.attributeNames(elemento)) {
 			representacion.set(nombre, elemento.getAttribute(nombre));
 		}
 		return representacion;
+	}
+
+	public Document generarXml() {
+		Document doc = this.docBuilder.newDocument();
+		this.root = doc.createElement(Constants.PROYECTO_TAG);
+		doc.appendChild(this.root);
+
+		this.generarDiagramaXml(this.root, this.proyecto.getRaiz());
+
+		return doc;
+	}
+
+	protected void generarDiagramaXml(Element elemento, Diagrama diagrama) {
+		Element diagramaElem = this.agregarElemento(elemento, Constants.DIAGRAMA_TAG);
+		this.agregarAtributo(diagramaElem, Constants.ID_ATTR, diagrama.getId());
+
+		for (Componente componente : diagrama.getComponentes()) {
+			Control<?> control = (Control<?>) componente;
+			PList plist = control.getFigura(diagrama.getId()).getRepresentacion();
+			if (plist != null) {
+				Element reprElement = this.agregarElemento(diagramaElem, Constants.REPRESENTACION_TAG);
+				this.agregarAtributo(reprElement, Constants.ID_ATTR, componente.getId());
+
+				this.agregarRepresentacion(reprElement, plist);
+			}
+		}
+
+		for (Diagrama diagramaHijo : diagrama.getDiagramas()) {
+			this.generarDiagramaXml(elemento, diagramaHijo);
+		}
+	}
+
+	private void agregarRepresentacion(Element elemento, PList repr) {
+		for (String nombre : repr.getNames()) {
+			Object valor = repr.get(nombre);
+
+			if (valor instanceof PList) {
+				Element elemHijo = this.agregarElemento(elemento, nombre);
+				this.agregarRepresentacion(elemHijo, (PList) valor);
+			} else {
+				this.agregarAtributo(elemento, nombre, valor.toString());
+			}
+		}
 	}
 }
