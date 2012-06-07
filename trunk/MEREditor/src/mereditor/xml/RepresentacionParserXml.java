@@ -1,28 +1,40 @@
 package mereditor.xml;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import mereditor.control.Control;
+import mereditor.control.Proyecto;
 import mereditor.modelo.base.Componente;
 import mereditor.representacion.PList;
 
 import org.w3c.dom.Element;
 
-public class RepresentacionParserXml extends ParserXml {
+class RepresentacionParserXml extends ParserXml {
 
-	public RepresentacionParserXml(String path) throws Exception {
-		super(path);
+	public RepresentacionParserXml(Proyecto proyecto, String path) throws Exception {
+		super();
+		File source = new File(path);
+		this.root = docBuilder.parse(source).getDocumentElement();
+		this.proyecto = proyecto;
+	}
+	
+	public RepresentacionParserXml(Proyecto proyecto) throws Exception {
+		this.proyecto = proyecto;
 	}
 	
 	/**
 	 * Recorre la coleccion de componentes parseados y busca sus
 	 * representaciones para cada diagrama en el que estén presentes.
 	 */
-	public void cargarRepresentaciones(ModeloParserXml modeloParser) {
-		for (Componente componente : modeloParser.proyecto.getComponentes()) {
+	public void parsearRepresentacion() {
+		// Para cada componente del proyecto 
+		for (Componente componente : this.proyecto.getComponentes()) {
+			// Buscar las representaciones en cada diagrama
 			Map<String, PList> representaciones = this.obtenerRepresentaciones(componente.getId());
+			// Asignarselas a las figura correspondiente de cada diagrama
 			Control<?> control = (Control<?>) componente;
 			for (String idDiagrama : representaciones.keySet())
 				control.getFigura(idDiagrama).setRepresentacion(representaciones.get(idDiagrama));

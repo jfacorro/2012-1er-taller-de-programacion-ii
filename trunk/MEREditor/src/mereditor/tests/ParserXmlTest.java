@@ -1,7 +1,5 @@
 package mereditor.tests;
 
-import org.w3c.dom.Document;
-
 import junit.framework.TestCase;
 import mereditor.control.Proyecto;
 import mereditor.modelo.Atributo;
@@ -14,16 +12,18 @@ import mereditor.modelo.Relacion;
 import mereditor.modelo.Relacion.EntidadRelacion;
 import mereditor.modelo.Validacion.EstadoValidacion;
 import mereditor.modelo.base.Componente;
-import mereditor.xml.ModeloParserXml;
+import mereditor.xml.ParserXml;
+
+import org.w3c.dom.Document;
 
 public class ParserXmlTest extends TestCase {
 
-	private static final String PATH_MODELO_TEST = "xml/test/test-comp.xml";
-	private ModeloParserXml parser;
+	private static final String PATH_TEST = "xml/test/test.xml";
+	private ParserXml parser;
 
 	protected void setUp() throws Exception {
 		super.setUp();
-		this.parser = new ModeloParserXml(PATH_MODELO_TEST);
+		this.parser = new ParserXml(PATH_TEST);
 	}
 
 	public void testEncontrarEntidadPorId() throws Exception {
@@ -134,16 +134,17 @@ public class ParserXmlTest extends TestCase {
 	}
 
 	public void testCargarProyecto() throws Exception {
-		Proyecto proyecto = this.parser.getProyecto();
+		Proyecto proyecto = this.parser.parsear();
 		assertTrue(proyecto != null);
+		assertTrue(proyecto.getComponentes().size() > 0);
 	}
 	
 	public void testCargarProyectoConvertirXml() throws Exception {
-		Proyecto proyecto = this.parser.getProyecto();
+		Proyecto proyecto = this.parser.parsear();
 		assertTrue(proyecto != null);
 		// Crear parser nuevo con proyecto parseado.
-		this.parser = new ModeloParserXml(proyecto);
-		Document doc =  this.parser.generarXml();
+		this.parser = new ParserXml(proyecto);
+		Document doc =  this.parser.generarXmlComponentes();
 		assertTrue(doc != null);
 	}
 
