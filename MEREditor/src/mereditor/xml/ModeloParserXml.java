@@ -14,17 +14,17 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 public class ModeloParserXml extends ParserXml {
-	
+
 	protected Map<String, Componente> componentes = new HashMap<String, Componente>();
 
 	public ModeloParserXml(Document modeloXml) {
 		super(modeloXml);
 	}
-	
+
 	public ModeloParserXml(String path) throws Exception {
 		super(path);
 	}
-	
+
 	/**
 	 * Encuentra, parsea y devuelve el diagrama principal. También carga las
 	 * representaciones que haya presentes en el archivo de representaciones
@@ -38,7 +38,7 @@ public class ModeloParserXml extends ParserXml {
 		Componente diagrama = this.resolver(this.obtenerId(diagramaXml));
 		return diagrama;
 	}
-	
+
 	/**
 	 * Devuelve el componente con el id asociado. Si no se encuentra registrado
 	 * en la tabla de componentes, lo busca en el XML del modelo y lo parsea.
@@ -53,7 +53,7 @@ public class ModeloParserXml extends ParserXml {
 
 		return this.buscarParsear(id);
 	}
-	
+
 	/**
 	 * Registra el componente en la tabla de componentes utilizando el id como
 	 * clave.
@@ -70,7 +70,7 @@ public class ModeloParserXml extends ParserXml {
 
 		this.componentes.put(componente.getId(), componente);
 	}
-	
+
 	/**
 	 * Obtiene una lista de atributos correspondientes a un componente.
 	 * 
@@ -89,7 +89,7 @@ public class ModeloParserXml extends ParserXml {
 
 		return atributos;
 	}
-	
+
 	/**
 	 * Toma el id de referencia del elemento y lo trata de resolver.
 	 * 
@@ -101,7 +101,7 @@ public class ModeloParserXml extends ParserXml {
 		String id = elemento.getAttribute(Constants.IDREF_ATTR);
 		return this.resolver(id);
 	}
-	
+
 	/**
 	 * Obtiene una lista de los identificadores externos de una entidad.
 	 * 
@@ -118,7 +118,7 @@ public class ModeloParserXml extends ParserXml {
 
 		return identificadores;
 	}
-	
+
 	/**
 	 * Obtiene todos los componentes hijos de un diagrama.
 	 * 
@@ -135,7 +135,7 @@ public class ModeloParserXml extends ParserXml {
 
 		return componentes;
 	}
-	
+
 	/**
 	 * Obtiene todos los diagramas hijos de un diagrama.
 	 * 
@@ -152,7 +152,7 @@ public class ModeloParserXml extends ParserXml {
 
 		return diagramas;
 	}
-	
+
 	/**
 	 * Obtiene una lista de los identificadores internos de una entidad.
 	 * 
@@ -170,7 +170,7 @@ public class ModeloParserXml extends ParserXml {
 
 		return atributos;
 	}
-	
+
 	/**
 	 * Obtiene el atributo original de un atributo de tipo copia.
 	 * 
@@ -186,7 +186,7 @@ public class ModeloParserXml extends ParserXml {
 
 		return null;
 	}
-	
+
 	/**
 	 * Obtiene la entidad generica de una jerarquia.
 	 * 
@@ -200,7 +200,7 @@ public class ModeloParserXml extends ParserXml {
 
 		return this.resolver(id);
 	}
-	
+
 	/**
 	 * Obtiene la lista de entidades derivadas de una jerarquia.
 	 * 
@@ -219,7 +219,7 @@ public class ModeloParserXml extends ParserXml {
 
 		return derivadas;
 	}
-	
+
 	/**
 	 * Obtiene la entidad participante de la relacion.
 	 * 
@@ -231,7 +231,7 @@ public class ModeloParserXml extends ParserXml {
 		Element entidadRefXml = XmlHelper.querySingle(elemento, Constants.ENTIDAD_REF_QUERY);
 		return this.obtenerReferencia(entidadRefXml);
 	}
-	
+
 	/**
 	 * Obtiene el objeto de validacion asociado con un diagrama.
 	 * 
@@ -245,7 +245,7 @@ public class ModeloParserXml extends ParserXml {
 		validacion.fromXml(validacionXml, this);
 		return validacion;
 	}
-	
+
 	/**
 	 * Busca un elemento con el id especificado y trata de parsearlo según el
 	 * tipo de elemento.
@@ -263,7 +263,7 @@ public class ModeloParserXml extends ParserXml {
 
 		throw new Exception("Identificador inexistente o duplicado: " + id);
 	}
-	
+
 	/**
 	 * Parsea un elemento según la implementacion de la instancia devuelta por
 	 * mapElement.
@@ -277,7 +277,7 @@ public class ModeloParserXml extends ParserXml {
 		xmlizable.fromXml(element, this);
 		return (Componente) xmlizable;
 	}
-	
+
 	/**
 	 * Devuelve una instancia de la clase correspondiente de parseo según el
 	 * nombre del elemento a parsear.
@@ -306,27 +306,27 @@ public class ModeloParserXml extends ParserXml {
 	}
 
 	Element crearElemento(String nombre) {
-		return XmlHelper.getNuevoElemento(this.root, nombre) ;
+		return XmlHelper.getNuevoElemento(this.root, nombre);
 	}
-	
+
 	Element agregarElemento(Element elemento, String nombre) {
 		return this.agregarElemento(elemento, nombre, null);
 	}
-	
+
 	Element agregarElemento(Element elemento, String nombre, String valor) {
 		Element hijo = XmlHelper.getNuevoElemento(elemento, nombre);
 		hijo.setNodeValue(valor);
 		elemento.appendChild(elemento);
 		return hijo;
 	}
-	
+
 	Attr agregarAtributo(Element elemento, String nombre, String valor) {
 		Attr atributo = XmlHelper.getNuevoAtributo(elemento, nombre);
 		atributo.setNodeValue(valor);
 		elemento.appendChild(atributo);
 		return atributo;
 	}
-	
+
 	Element agregarNombre(Element elemento, String valor) {
 		return this.agregarElemento(elemento, Constants.NOMBRE_TAG, valor);
 	}
@@ -334,7 +334,7 @@ public class ModeloParserXml extends ParserXml {
 	Attr agregarId(Element elemento, String valor) {
 		return this.agregarAtributo(elemento, Constants.ID_ATTR, valor);
 	}
-	
+
 	Attr agregarTipo(Element elemento, String valor) {
 		return this.agregarAtributo(elemento, Constants.TIPO_ATTR, valor);
 	}
@@ -346,7 +346,7 @@ public class ModeloParserXml extends ParserXml {
 	Element agregarIdentificadoresInternos(Element elemento) {
 		return this.agregarElemento(elemento, Constants.IDENTIFICADORES_INTERNOS_TAG);
 	}
-	
+
 	Element agregarIdentificadoresExternos(Element elemento) {
 		return this.agregarElemento(elemento, Constants.IDENTIFICADORES_EXTERNOS_TAG);
 	}
@@ -358,10 +358,71 @@ public class ModeloParserXml extends ParserXml {
 	Element agregarComponente(Element componentesElement, String id) {
 		Element componenteElement = this.agregarElemento(componentesElement, Constants.COMPONENTE_TAG);
 		this.agregarAtributo(componenteElement, Constants.IDREF_ATTR, id);
-		return componenteElement;		
+		return componenteElement;
 	}
 
 	Element agregarDiagramas(Element elemento) {
 		return this.agregarElemento(elemento, Constants.DIAGRAMAS_TAG);
+	}
+
+	Element agregarCardinalidad(Element elemento, String cardinalidadMinima, String cardinalidadMaxima) {
+		Element cardinalidad = this.agregarElemento(elemento, Constants.CARDINALIDAD_TAG);
+		this.agregarAtributo(cardinalidad, Constants.CARDINALIDAD_MIN_ATTR, cardinalidadMinima);
+		this.agregarAtributo(cardinalidad, Constants.CARDINALIDAD_MAX_ATTR, cardinalidadMaxima);
+		return cardinalidad;
+	}
+
+	Element agregarFormula(Element elemento, String formula) {
+		Element formulaElemento = this.agregarElemento(elemento, Constants.FORMULA_TAG, formula);
+		return formulaElemento;
+	}
+
+	Element agregarOriginal(Element elemento, String id) {
+		Element origen = this.agregarElemento(elemento, Constants.ORIGEN_TAG);
+		Element refAtributo = this.agregarElemento(origen, Constants.REFATRIBUTO_TAG);
+		this.agregarAtributo(refAtributo, Constants.IDREF_ATTR, id);
+		return origen;
+	}
+
+	Element agregarReferenciaAtributo(Element elemento, String id) {
+		Element refAtributo = this.agregarElemento(elemento, Constants.REFATRIBUTO_TAG);
+		this.agregarAtributo(refAtributo, Constants.IDREF_ATTR, id);
+		return refAtributo;
+	}
+
+	Element agregarReferenciaEntidad(Element elemento, String id) {
+		Element refEntidad = this.agregarElemento(elemento, Constants.REFENTIDAD_TAG);
+		this.agregarAtributo(refEntidad, Constants.IDREF_ATTR, id);
+		return refEntidad;
+	}
+
+	Element agregarGenerica(Element elemento, String id) {
+		Element genericaElemento = this.agregarElemento(elemento, Constants.GENERICA_TAG);
+		this.agregarReferenciaEntidad(genericaElemento, id);
+		return genericaElemento;		
+	}
+	
+	Element agregarDerivadas(Element elemento) {
+		return this.agregarElemento(elemento, Constants.DERIVADAS_TAG);
+	}
+	
+	Element agregarDerivada(Element derivadasElement, String id) {
+		return this.agregarReferenciaEntidad(derivadasElement, id);
+	}
+
+	Element agregarParticipantes(Element elemento) {
+		return this.agregarElemento(elemento, Constants.PARTICIPANTES_TAG);
+	}
+
+	Element agregarParticipante(Element elemento) {
+		return this.agregarElemento(elemento, Constants.PARTICIPANTE_TAG);
+	}
+
+	Attr agregarEstado(Element elemento, String estado) {
+		return this.agregarAtributo(elemento, Constants.ESTADO_ATTR, estado);		
+	}
+
+	Element agregarObservaciones(Element elemento, String observaciones) {
+		return this.agregarElemento(elemento, Constants.OBSERVACIONES_TAG, observaciones);		
 	}
 }

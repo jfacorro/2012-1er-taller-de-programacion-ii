@@ -17,21 +17,21 @@ public class EntidadXml extends EntidadControl implements Xmlizable {
 
 		if (this.atributos.size() > 0) {
 			Element atributosElement = parser.agregarElementoAtributos(elemento);
-			for (Atributo atributo : this.atributos) {
+			for (Atributo atributo : this.atributos)
 				atributosElement.appendChild(((Xmlizable) atributo).toXml(parser));
-			}
 		}
 
 		if (this.identificadores.size() > 0) {
 			Element idsInternos = parser.agregarIdentificadoresInternos(elemento);
 			Element idsExternos = parser.agregarIdentificadoresExternos(elemento);
+
 			for (Componente componente : this.identificadores) {
 				if (componente instanceof AtributoXml)
-					idsInternos.appendChild(((Xmlizable) componente).toXml(parser));
+					parser.agregarReferenciaAtributo(idsInternos, componente.getId());
 				else if (componente instanceof EntidadXml)
-					idsExternos.appendChild(((Xmlizable) componente).toXml(parser));
+					parser.agregarReferenciaEntidad(idsExternos, componente.getId());
 				else
-					throw new Exception("No se puede serializar el identificador.");
+					throw new Exception("El identificador no es una entidad ni un atributo.");
 			}
 		}
 
