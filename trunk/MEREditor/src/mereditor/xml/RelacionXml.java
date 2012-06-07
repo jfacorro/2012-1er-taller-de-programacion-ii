@@ -12,8 +12,19 @@ public class RelacionXml extends RelacionControl implements Xmlizable {
 
 	@Override
 	public Element toXml(ModeloParserXml parser) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		Element elemento = parser.crearElemento(Constants.RELACION_TAG);
+		parser.agregarId(elemento, this.id.toString());
+		parser.agregarTipo(elemento, this.tipo.toString());
+		parser.agregarNombre(elemento, nombre);
+
+		Element participantesElem = parser.agregarParticipantes(elemento);
+		for (EntidadRelacion entidadRel : this.participantes) {
+			Element participante = parser.agregarParticipante(participantesElem);
+			parser.agregarReferenciaEntidad(participante, entidadRel.getEntidad().getId());
+			parser.agregarCardinalidad(participante, entidadRel.getCardinalidadMinima(), entidadRel.getCardinalidadMaxima());
+		}
+
+		return elemento;
 	}
 
 	@Override

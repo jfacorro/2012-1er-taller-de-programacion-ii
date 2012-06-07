@@ -10,8 +10,15 @@ public class JerarquiaXml extends JerarquiaControl implements Xmlizable {
 
 	@Override
 	public Element toXml(ModeloParserXml parser) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		Element elemento = parser.crearElemento(Constants.JERARQUIA_TAG);
+
+		parser.agregarGenerica(elemento, this.generica.getId());
+		
+		Element derivadasElement = parser.agregarDerivadas(elemento);
+		for(Componente componente : this.derivadas)
+			parser.agregarDerivada(derivadasElement, componente.getId());
+		
+		return elemento;
 	}
 
 	@Override

@@ -8,8 +8,11 @@ public class ValidacionXml extends Validacion implements Xmlizable {
 
 	@Override
 	public Element toXml(ModeloParserXml parser) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		Element elemento = parser.crearElemento(Constants.VALIDACION_TAG);
+		parser.agregarEstado(elemento, this.estado.toString());
+		parser.agregarObservaciones(elemento, this.observaciones);
+		
+		return elemento;
 	}
 
 	@Override

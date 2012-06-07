@@ -17,11 +17,22 @@ public class Constants {
 	public static final String ENTIDAD_TAG = "Entidad";
 	public static final String ATRIBUTOS_TAG = "Atributos";
 	public static final String ATRIBUTO_TAG = "Atributo";
-	public static final String RELACION_TAG = "Relacion";	
+	public static final String CARDINALIDAD_TAG = "Cardinalidad";
+	public static final String FORMULA_TAG = "Formula";
+	public static final String ORIGEN_TAG = "Origen";
+	public static final String REFATRIBUTO_TAG = "RefAtributo";
+	public static final String REFENTIDAD_TAG = "RefEntidad";
+	public static final String RELACION_TAG = "Relacion";
+	public static final String PARTICIPANTES_TAG = "Participantes";
+	public static final String PARTICIPANTE_TAG = "Participante";
 	public static final String DIAGRAMA_TAG = "Diagrama";
 	public static final String DIAGRAMAS_TAG = "Diagramas";
 	public static final String JERARQUIA_TAG = "Jerarquia";
 	public static final String VALIDACION_TAG = "Validacion";
+	public static final String OBSERVACIONES_TAG = "Observaciones";
+
+	public static final String GENERICA_TAG = "Generica";
+	public static final String DERIVADAS_TAG = "Derivadas";
 	
 	public static final String IDENTIFICADORES_INTERNOS_TAG = "IdentificadoresInternos";
 	public static final String IDENTIFICADORES_EXTERNOS_TAG = "IdentificadoresExternos";

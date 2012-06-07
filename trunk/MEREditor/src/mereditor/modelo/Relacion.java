@@ -91,6 +91,10 @@ public class Relacion extends ComponenteNombre {
 		public String getCardinalidadMinima() {
 			return cardinalidadMinima;
 		}
+		
+		public String getCardinalidadMaxima() {
+			return cardinalidadMaxima;
+		}
 
 		public void setCardinalidadMinima(String cardinalidadMinima) {
 			this.cardinalidadMinima = cardinalidadMinima;
