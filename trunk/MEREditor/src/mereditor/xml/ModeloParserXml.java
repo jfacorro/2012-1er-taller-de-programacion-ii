@@ -49,7 +49,7 @@ class ModeloParserXml extends ParserXml {
 				this.root.appendChild(((Xmlizable) componente).toXml(this));
 		}
 		
-		this.root.appendChild(((Xmlizable)this.proyecto.getValidacion()).toXml(this));
+		this.root.appendChild(new ValidacionXml(this.proyecto.getValidacion()).toXml(this));
 
 		return doc;
 	}

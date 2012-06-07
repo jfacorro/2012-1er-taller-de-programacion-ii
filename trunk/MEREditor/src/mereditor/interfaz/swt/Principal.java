@@ -8,6 +8,7 @@ import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
 import mereditor.control.Proyecto;
+import mereditor.interfaz.swt.DialogBuilder.PromptResult;
 import mereditor.xml.ParserXml;
 
 import org.eclipse.draw2d.Figure;
@@ -89,6 +90,20 @@ public class Principal {
 		this.figureCanvas.setBackground(Principal.defaultBackgroundColor);
 		this.figureCanvas.getViewport().setContentsTracksHeight(true);
 		this.figureCanvas.getViewport().setContentsTracksWidth(true);
+		this.panelDiagrama = new Figure();
+		this.panelDiagrama.setBackgroundColor(new Color(null, 255, 255, 255));
+		this.figureCanvas.setContents(this.panelDiagrama);
+	}
+	
+	/**
+	 * Crea un nuevo proyecto
+	 */
+	public void nuevo() {
+		PromptResult resultado = DialogBuilder.prompt(this.shell, "Ingresar nombre", "Nombre");
+		
+		this.proyecto = new Proyecto(resultado.value);
+		this.proyecto.dibujar(this.panelDiagrama);
+		TreeManager.cargar(this.proyecto, this.tree);
 	}
 
 	/**
@@ -100,22 +115,17 @@ public class Principal {
 		String path = fileDialog.open();
 
 		if (path != null) {
-			this.panelDiagrama = new Figure();
-			this.panelDiagrama.setBackgroundColor(new Color(null, 255, 255, 255));
-
 			try {
 				ParserXml modelo = new ParserXml(path);
 
 				this.proyecto = modelo.parsear();
 				this.proyecto.dibujar(this.panelDiagrama);
 
-				TreeManager.agregar(this.proyecto.getRaiz(), this.tree);
+				TreeManager.cargar(this.proyecto, this.tree);
 
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-
-			this.figureCanvas.setContents(this.panelDiagrama);
 		}
 	}
 

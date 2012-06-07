@@ -11,7 +11,7 @@ public class Validacion {
 	protected EstadoValidacion estado;
 	
 	public Validacion() {
-		super();
+		this.estado = EstadoValidacion.SIN_VALIDAR;
 	}
 
 	public Validacion(EstadoValidacion estado, String observaciones) {

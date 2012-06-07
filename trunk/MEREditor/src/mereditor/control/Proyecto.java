@@ -25,7 +25,8 @@ public class Proyecto implements Control<Diagrama> {
 	protected Map<String, Componente> componentes = new HashMap<>();
 	
 	public Proyecto() {
-		this.raiz = new DiagramaControl();		
+		this.raiz = new DiagramaControl();
+		this.validacion = new Validacion();
 	}
 
 	public Proyecto(String nombre) {
@@ -77,6 +78,7 @@ public class Proyecto implements Control<Diagrama> {
 	}
 	
 	public void dibujar(Figure contenedor) {
+		contenedor.removeAll();
 		this.raiz.dibujar(contenedor, null);		
 	}
 
