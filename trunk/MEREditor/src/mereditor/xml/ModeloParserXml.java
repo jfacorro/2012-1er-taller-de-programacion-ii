@@ -1,11 +1,11 @@
 package mereditor.xml;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import mereditor.modelo.Atributo;
+import mereditor.modelo.Diagrama;
+import mereditor.modelo.Proyecto;
 import mereditor.modelo.Validacion;
 import mereditor.modelo.base.Componente;
 
@@ -15,7 +15,7 @@ import org.w3c.dom.Element;
 
 public class ModeloParserXml extends ParserXml {
 
-	protected Map<String, Componente> componentes = new HashMap<String, Componente>();
+	protected Proyecto proyecto = new Proyecto();
 
 	public ModeloParserXml(Document modeloXml) {
 		super(modeloXml);
@@ -24,6 +24,12 @@ public class ModeloParserXml extends ParserXml {
 	public ModeloParserXml(String path) throws Exception {
 		super(path);
 	}
+	
+	public Proyecto getProyecto() throws Exception {
+		this.parsearProyecto();
+		return this.proyecto;
+	}
+
 
 	/**
 	 * Encuentra, parsea y devuelve el diagrama principal. También carga las
@@ -33,10 +39,11 @@ public class ModeloParserXml extends ParserXml {
 	 * @return Diagrama principal
 	 * @throws Exception
 	 */
-	public Componente diagramaPrincipal() throws Exception {
+	private void parsearProyecto() throws Exception {
+		this.proyecto = new Proyecto();		
 		Element diagramaXml = XmlHelper.querySingle(this.root, Constants.DIAGRAMA_QUERY);
-		Componente diagrama = this.resolver(this.obtenerId(diagramaXml));
-		return diagrama;
+		Diagrama diagrama = (Diagrama)this.resolver(this.obtenerId(diagramaXml));
+		this.proyecto.setRaiz(diagrama );
 	}
 
 	/**
@@ -48,8 +55,8 @@ public class ModeloParserXml extends ParserXml {
 	 * @throws Exception
 	 */
 	public Componente resolver(String id) throws Exception {
-		if (this.componentes.containsKey(id))
-			return this.componentes.get(id);
+		if (this.proyecto.contiene(id))
+			return this.proyecto.getComponente(id);
 
 		return this.buscarParsear(id);
 	}
@@ -65,10 +72,10 @@ public class ModeloParserXml extends ParserXml {
 		if (componente.getId() == null)
 			throw new Exception("No se puede agregar un componente sin identificador.");
 
-		if (this.componentes.containsKey(componente.getId()))
+		if (this.proyecto.contiene(componente.getId()))
 			throw new Exception("Identificador duplicado: " + componente.getId());
 
-		this.componentes.put(componente.getId(), componente);
+		this.proyecto.agregar(componente);
 	}
 
 	/**
@@ -230,6 +237,92 @@ public class ModeloParserXml extends ParserXml {
 	Componente obtenerEntidadParticipante(Element elemento) throws Exception {
 		Element entidadRefXml = XmlHelper.querySingle(elemento, Constants.ENTIDAD_REF_QUERY);
 		return this.obtenerReferencia(entidadRefXml);
+	}
+	
+	/**
+	 * Obtiene el valor del estado de un elemento de validacion.
+	 * 
+	 * @param elemento
+	 * @return
+	 */
+	String obtenerEstado(Element elemento) {
+		String estado = elemento.getAttribute(Constants.ESTADO_ATTR);
+		return estado;
+	}
+
+	/**
+	 * Obtiene las observacion de un elemento de validacion.
+	 * 
+	 * @param elemento
+	 * @return
+	 */
+	String obtenerObservaciones(Element elemento) {
+		Element observacionesXml = XmlHelper.querySingle(elemento, Constants.OBSERVACIONES_QUERY);
+		return observacionesXml == null ? null : observacionesXml.getTextContent();
+	}
+
+	/**
+	 * Obtiene el valor contenido en el tag hijo "Nombre" de un elemento.
+	 * 
+	 * @param elemento
+	 * @return
+	 */
+	String obtenerNombre(Element elemento) {
+		return XmlHelper.querySingle(elemento, Constants.NOMBRE_TAG).getTextContent();
+	}
+
+	/**
+	 * Obtiene el valor del atributo tipo de un elemento.
+	 * 
+	 * @param elemento
+	 * @return
+	 */
+	String obtenerTipo(Element elemento) {
+		return elemento.getAttribute(Constants.TIPO_ATTR);
+	}
+
+	/**
+	 * Obtiene la cardinalidad minima y maxima de un atributo o relacion.
+	 * 
+	 * @param elemento
+	 * @return
+	 */
+	String[] obtenerCardinalidad(Element elemento) {
+		Element cardinalidad = XmlHelper.querySingle(elemento, Constants.CARDINALIDAD_QUERY);
+		return new String[] { cardinalidad.getAttribute(Constants.CARDINALIDAD_MIN_ATTR),
+				cardinalidad.getAttribute(Constants.CARDINALIDAD_MAX_ATTR) };
+	}
+
+	/**
+	 * Obtiene el valor de la formula de un atributo.
+	 * 
+	 * @param elemento
+	 * @return
+	 */
+	String obtenerFormulaAtributo(Element elemento) {
+		Element element = XmlHelper.querySingle(elemento, Constants.FORMULA_QUERY);
+		return element == null ? null : element.getTextContent();
+	}
+
+		/**
+	 * Obtiene los elemento de participantes de un elemento relacion.
+	 * 
+	 * @param elemento
+	 * @return
+	 */
+	List<Element> obtenerParticipantes(Element elemento) {
+		return XmlHelper.query(elemento, Constants.PARTICIPANTES_QUERY);
+	}
+
+	/**
+	 * Obtiene el rol de la entidad participante de la relacion.
+	 * 
+	 * @param elemento
+	 * @return
+	 */
+	String obtenerRol(Element elemento) {
+		Element rolXml = XmlHelper.querySingle(elemento, Constants.ROL_QUERY);
+		return rolXml == null ? null : rolXml.getTextContent();
 	}
 
 	/**

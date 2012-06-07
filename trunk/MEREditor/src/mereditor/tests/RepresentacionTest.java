@@ -14,7 +14,7 @@ import org.w3c.dom.Document;
 
 public class RepresentacionTest extends TestCase {
 	
-	private static final String PATH_REPRESENTACION_TEST = "xml/tests/representacion.xml";
+	private static final String PATH_REPRESENTACION_TEST = "xml/test/test-rep.xml";
 	private RepresentacionParserXml parser;
 	
 	protected void setUp() throws Exception {

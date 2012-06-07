@@ -15,7 +15,7 @@ import mereditor.xml.ModeloParserXml;
 
 public class ParserXmlTest extends TestCase {
 	
-	private static final String PATH_MODELO_TEST = "xml/tests/modelo.xml";
+	private static final String PATH_MODELO_TEST = "xml/test/test-comp.xml";
 	private ModeloParserXml parser;
 
 	protected void setUp() throws Exception {
