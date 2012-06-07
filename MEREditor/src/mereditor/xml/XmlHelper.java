@@ -64,6 +64,7 @@ public class XmlHelper {
 
 	/**
 	 * Devuelve una lista con los nombre de los atributos del elemento
+	 * 
 	 * @param elemento
 	 * @return
 	 */
@@ -75,11 +76,27 @@ public class XmlHelper {
 		}
 		return nombres;
 	}
-	
+
+	/**
+	 * Genera un nuevo elemento utilizando el documento del elemento
+	 * proporcionado.
+	 * 
+	 * @param elemento
+	 * @param nombre
+	 * @return
+	 */
 	public static Element getNuevoElemento(Element elemento, String nombre) {
 		return elemento.getOwnerDocument().createElement(nombre);
 	}
 
+	/**
+	 * Genera un nuevo atributo utilizando el documento del elemento
+	 * proporcionado.
+	 * 
+	 * @param elemento
+	 * @param nombre
+	 * @return
+	 */
 	public static Attr getNuevoAtributo(Element elemento, String nombre) {
 		return elemento.getOwnerDocument().createAttribute(nombre);
 	}

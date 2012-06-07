@@ -25,6 +25,7 @@ public class Constants {
 	public static final String RELACION_TAG = "Relacion";
 	public static final String PARTICIPANTES_TAG = "Participantes";
 	public static final String PARTICIPANTE_TAG = "Participante";
+	public static final String ROL_TAG = "Rol";
 	public static final String DIAGRAMA_TAG = "Diagrama";
 	public static final String DIAGRAMAS_TAG = "Diagramas";
 	public static final String JERARQUIA_TAG = "Jerarquia";
@@ -72,5 +73,5 @@ public class Constants {
 	 */
 	public static final String DIAGRAMA_PADRE_QUERY = "./ancestor::Diagrama";
 	public static final String REPRESENTACION_ID_QUERY = "//Representacion[@id='%s']";
-	public static final String ELEMENTOS_PRIMER_NIVEL_QUERY = "Proyecto/*[name()!='Validacion']";
+	public static final String ELEMENTOS_PRIMER_NIVEL_QUERY = "./*[name()!='Validacion']";
 }

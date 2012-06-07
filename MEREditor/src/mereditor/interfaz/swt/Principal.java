@@ -134,7 +134,7 @@ public class Principal {
 
 			TransformerFactory transformerFactory = TransformerFactory.newInstance();
 			Transformer transformer = transformerFactory.newTransformer();
-			DOMSource source = new DOMSource(modelo.generarXml(proyecto));
+			DOMSource source = new DOMSource(modelo.generarXml());
 			StreamResult result = new StreamResult(new File(path));
 	 
 			transformer.transform(source, result);

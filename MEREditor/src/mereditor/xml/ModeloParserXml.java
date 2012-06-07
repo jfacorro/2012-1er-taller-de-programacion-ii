@@ -20,52 +20,62 @@ import org.w3c.dom.Element;
 public class ModeloParserXml extends ParserXml {
 
 	protected Proyecto proyecto = new Proyecto();
-	protected Element outputRoot;
 
 	public ModeloParserXml(Proyecto proyecto) throws Exception {
 		super();
 		this.proyecto = proyecto;
 	}
 
-	public ModeloParserXml(Document modeloXml) throws Exception {
-		super(modeloXml);
-	}
-
 	public ModeloParserXml(String path) throws Exception {
 		super(path);
 	}
 
+	/**
+	 * Parsea el documento y devuelve el proyecto resultante.
+	 * @return
+	 * @throws Exception
+	 */
 	public Proyecto getProyecto() throws Exception {
-		this.parsearProyecto();
+		this.parsear();
 		return this.proyecto;
 	}
 
-	public Document generarXml(Proyecto proyecto) throws DOMException, Exception {
+	/**
+	 * Genera un documento de XML del modelo del proyecto.
+	 * @param proyecto Instancia del proyecto del que se quiere generar el XML.
+	 * @return Documento XML.
+	 * @throws DOMException
+	 * @throws Exception
+	 */
+	public Document generarXml() throws DOMException, Exception {
 		Document doc = this.docBuilder.newDocument();
-		this.outputRoot = doc.createElement(Constants.PROYECTO_TAG);
-		doc.appendChild(outputRoot);
+		this.root = doc.createElement(Constants.PROYECTO_TAG);
+		doc.appendChild(this.root);
 
 		for (Componente componente : proyecto.getComponentes()) {
 			if (componente.es(Entidad.class) || componente.es(Relacion.class) || componente.es(Jerarquia.class)
 					|| componente == proyecto.getRaiz())
-				this.outputRoot.appendChild(((Xmlizable) componente).toXml(this));
+				this.root.appendChild(((Xmlizable) componente).toXml(this));
 		}
+		
+		this.root.appendChild(((Xmlizable)this.proyecto.getValidacion()).toXml(this));
 
 		return doc;
 	}
 
 	/**
-	 * Encuentra, parsea y devuelve el diagrama principal. También carga las
-	 * representaciones que haya presentes en el archivo de representaciones
+	 * Parsea y devuelve el modelo del proyecto contenido en el archivo XML
 	 * asociado.
 	 * 
 	 * @return Diagrama principal
 	 * @throws Exception
 	 */
-	private void parsearProyecto() throws Exception {
+	private void parsear() throws Exception {
 		this.proyecto = new Proyecto();
+		// Obtener el id del diagrama principal
 		Element diagramaXml = XmlHelper.querySingle(this.root, Constants.DIAGRAMA_QUERY);
 		Diagrama diagrama = (Diagrama) this.resolver(this.obtenerId(diagramaXml));
+		// Obtener la validacion principal
 		Validacion validacion = (Validacion) this.obtenerValidacion(this.root);
 		
 		this.proyecto.setRaiz(diagrama);
@@ -387,7 +397,7 @@ public class ModeloParserXml extends ParserXml {
 		List<Element> list = XmlHelper.query(this.root, query);
 
 		if (list.size() == 1)
-			return this.parsear(list.get(0));
+			return this.parsearComponente(list.get(0));
 
 		throw new Exception("Identificador inexistente o duplicado: '" + id + "'");
 	}
@@ -400,7 +410,7 @@ public class ModeloParserXml extends ParserXml {
 	 * @return
 	 * @throws Exception
 	 */
-	protected Componente parsear(Element element) throws Exception {
+	protected Componente parsearComponente(Element element) throws Exception {
 		Xmlizable xmlizable = this.mapeoXmlizable(element);
 		xmlizable.fromXml(element, this);
 		return (Componente) xmlizable;
@@ -434,7 +444,11 @@ public class ModeloParserXml extends ParserXml {
 	}
 
 	Element crearElemento(String nombre) {
-		return XmlHelper.getNuevoElemento(this.outputRoot, nombre);
+		return XmlHelper.getNuevoElemento(this.root, nombre);
+	}
+	
+	Attr crearAtributo(String nombre) {
+		return XmlHelper.getNuevoAtributo(this.root, nombre);
 	}
 
 	Element agregarElemento(Element elemento, String nombre) {
@@ -442,14 +456,14 @@ public class ModeloParserXml extends ParserXml {
 	}
 
 	Element agregarElemento(Element elemento, String nombre, String valor) {
-		Element hijo = XmlHelper.getNuevoElemento(elemento, nombre);
+		Element hijo = this.crearElemento(nombre);
 		hijo.setTextContent(valor);
 		elemento.appendChild(hijo);
 		return hijo;
 	}
 
 	Attr agregarAtributo(Element elemento, String nombre, String valor) {
-		Attr atributo = XmlHelper.getNuevoAtributo(elemento, nombre);
+		Attr atributo = this.crearAtributo(nombre);
 		atributo.setNodeValue(valor);
 		elemento.setAttributeNode(atributo);
 		return atributo;
@@ -552,5 +566,9 @@ public class ModeloParserXml extends ParserXml {
 
 	Element agregarObservaciones(Element elemento, String observaciones) {
 		return this.agregarElemento(elemento, Constants.OBSERVACIONES_TAG, observaciones);
+	}
+
+	Element agregarRol(Element elemento, String rol) {
+		return this.agregarElemento(elemento, Constants.ROL_TAG, rol);		
 	}
 }

@@ -141,7 +141,9 @@ public class ParserXmlTest extends TestCase {
 	public void testCargarProyectoConvertirXml() throws Exception {
 		Proyecto proyecto = this.parser.getProyecto();
 		assertTrue(proyecto != null);
-		Document doc =  parser.generarXml(proyecto);
+		// Crear parser nuevo con proyecto parseado.
+		this.parser = new ModeloParserXml(proyecto);
+		Document doc =  this.parser.generarXml();
 		assertTrue(doc != null);
 	}
 
