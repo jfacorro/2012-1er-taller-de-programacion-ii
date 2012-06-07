@@ -26,7 +26,7 @@ public class RepresentacionParserXml extends ParserXml {
 	 * representaciones para cada diagrama en el que estén presentes.
 	 */
 	public void cargarRepresentaciones(ModeloParserXml modeloParser) {
-		for (Componente componente : modeloParser.componentes.values()) {
+		for (Componente componente : modeloParser.proyecto.getComponentes()) {
 			Map<String, PList> representaciones = this.obtenerRepresentaciones(componente.getId());
 			Control<?> control = (Control<?>) componente;
 			for (String idDiagrama : representaciones.keySet())

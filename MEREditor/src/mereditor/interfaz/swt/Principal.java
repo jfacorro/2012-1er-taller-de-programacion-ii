@@ -2,7 +2,7 @@ package mereditor.interfaz.swt;
 
 import java.io.File;
 
-import mereditor.control.DiagramaControl;
+import mereditor.modelo.Proyecto;
 import mereditor.xml.ModeloParserXml;
 import mereditor.xml.RepresentacionParserXml;
 
@@ -36,7 +36,7 @@ public class Principal {
 	private FigureCanvas figureCanvas;
 
 	private Figure panelDiagrama;
-	private DiagramaControl diagrama;
+	private Proyecto proyecto;
 
 	public static void main(String args[]) {
 		Display display = Display.getDefault();
@@ -105,11 +105,11 @@ public class Principal {
 				ModeloParserXml modelo = new ModeloParserXml(path + nombre + "-comp.xml");
 				RepresentacionParserXml representacion = new RepresentacionParserXml(path + nombre + "-rep.xml");
 
-				this.diagrama = (DiagramaControl) modelo.diagramaPrincipal();
+				this.proyecto = modelo.getProyecto();
 				representacion.cargarRepresentaciones(modelo);
-				this.diagrama.dibujar(this.panelDiagrama, diagrama.getId());
+				this.proyecto.dibujar(this.panelDiagrama);
 
-				TreeManager.agregar(this.diagrama, this.tree);
+				TreeManager.agregar(this.proyecto.getRaiz(), this.tree);
 
 			} catch (Exception e) {
 				e.printStackTrace();

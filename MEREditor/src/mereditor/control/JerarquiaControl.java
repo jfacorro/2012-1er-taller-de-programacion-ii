@@ -7,11 +7,13 @@ import mereditor.modelo.Jerarquia;
 import org.eclipse.draw2d.Connection;
 import org.eclipse.draw2d.Figure;
 
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+
 public class JerarquiaControl extends Jerarquia implements Control<Jerarquia> {
 
 	@Override
 	public Figura<Jerarquia> getFigura(String id) {
-		return null;
+		throw new NotImplementedException();
 	}
 
 	@Override
