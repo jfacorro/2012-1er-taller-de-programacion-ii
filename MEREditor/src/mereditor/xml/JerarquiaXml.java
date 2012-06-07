@@ -11,6 +11,8 @@ public class JerarquiaXml extends JerarquiaControl implements Xmlizable {
 	@Override
 	public Element toXml(ModeloParserXml parser) throws Exception {
 		Element elemento = parser.crearElemento(Constants.JERARQUIA_TAG);
+		parser.agregarId(elemento, this.id.toString());
+		parser.agregarTipo(elemento, this.tipo.toString());
 
 		parser.agregarGenerica(elemento, this.generica.getId());
 		

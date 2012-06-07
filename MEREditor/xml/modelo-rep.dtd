@@ -1,7 +1,6 @@
 <!ELEMENT Proyecto (Diagrama+)>
-<!ELEMENT Diagrama (Representaciones+)>
-<!ELEMENT Representaciones (Representacion+)>
-<!ELEMENT Representacion (Posicion, Dimension, ColorFondo?, ColorLinea?, Representaciones*)>
+<!ELEMENT Diagrama (Representacion+)>
+<!ELEMENT Representacion (Posicion, Dimension, ColorFondo?, ColorLinea?, Representacion*)>
 <!ELEMENT Posicion (#PCDATA)>
 <!ELEMENT Dimension (#PCDATA)>
 <!ELEMENT ColorFondo (#PCDATA)>

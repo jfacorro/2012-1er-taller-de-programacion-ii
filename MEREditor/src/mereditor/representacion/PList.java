@@ -1,6 +1,8 @@
 package mereditor.representacion;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class PList {
@@ -35,5 +37,10 @@ public class PList {
 	public void remove(String name) {
 		if (this.has(name))
 			this.set(name, NOT_PRESENT);
+	}
+
+	public List<String> getNames() {
+		return new ArrayList<>(this.properties.keySet());
+		
 	}
 }

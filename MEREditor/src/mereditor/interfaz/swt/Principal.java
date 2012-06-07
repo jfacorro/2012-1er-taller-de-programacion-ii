@@ -23,6 +23,7 @@ import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.ToolBar;
 import org.eclipse.swt.widgets.Tree;
+import org.w3c.dom.Document;
 
 /**
  * Formulario principal de la aplicación.
@@ -71,7 +72,7 @@ public class Principal {
 
 	private void arregloLayout() {
 		FormData formData = null;
-	
+
 		// Separacion vertical entre arbol y gráfico.
 		formData = new FormData();
 		formData.top = new FormAttachment(this.toolBar); // Attach to top
@@ -117,21 +118,27 @@ public class Principal {
 			this.figureCanvas.setContents(this.panelDiagrama);
 		}
 	}
-	
+
 	public void guardar() throws Exception {
 		FileDialog fileDialog = new FileDialog(this.shell);
 		String path = fileDialog.open();
-		if(path != null)
-		{
-			ParserXml modelo = new ParserXml(this.proyecto);
 
-			TransformerFactory transformerFactory = TransformerFactory.newInstance();
-			Transformer transformer = transformerFactory.newTransformer();
-			DOMSource source = new DOMSource(modelo.generarXmlComponentes());
-			StreamResult result = new StreamResult(new File(path));
-	 
-			transformer.transform(source, result);
+		if (path != null) {
+			String dir = new File(path).getParent() + File.separator;
+			this.proyecto.setPath(path);
+			ParserXml modelo = new ParserXml(this.proyecto);
+			this.guardarXml(modelo.generarXmlProyecto(), path);
+			this.guardarXml(modelo.generarXmlComponentes(), dir + this.proyecto.getComponentesPath());
+			this.guardarXml(modelo.generarXmlRepresentacion(), dir + this.proyecto.getRepresentacionPath());
 		}
+	}
+
+	private void guardarXml(Document doc, String path) throws Exception {
+		TransformerFactory transformerFactory = TransformerFactory.newInstance();
+		Transformer transformer = transformerFactory.newTransformer();
+		DOMSource source = new DOMSource(doc);
+		StreamResult result = new StreamResult(new File(path));
+		transformer.transform(source, result);
 	}
 
 	/**

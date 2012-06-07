@@ -19,7 +19,8 @@ public class Proyecto implements Control<Diagrama> {
 	 * Diagrama raiz del proyecto
 	 */
 	protected DiagramaControl raiz;
-	private Validacion validacion;
+	protected Validacion validacion;
+	protected String path;
 
 	protected Map<String, Componente> componentes = new HashMap<>();
 	
@@ -77,5 +78,17 @@ public class Proyecto implements Control<Diagrama> {
 	
 	public void dibujar(Figure contenedor) {
 		this.raiz.dibujar(contenedor, null);		
+	}
+
+	public void setPath(String path) {
+		this.path = path;
+	}
+
+	public String getComponentesPath() {
+		return this.raiz.getNombre() + "-comp.xml";
+	}
+
+	public String getRepresentacionPath() {
+		return this.raiz.getNombre() + "-rep.xml";
 	}
 }

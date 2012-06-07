@@ -11,6 +11,7 @@ public class DiagramaXml extends DiagramaControl implements Xmlizable {
 	@Override
 	public Element toXml(ModeloParserXml parser) throws Exception {
 		Element elemento = parser.crearElemento(Constants.DIAGRAMA_TAG);
+		parser.agregarId(elemento, this.id.toString());
 		parser.agregarNombre(elemento, nombre);
 
 		// Agregar las referencias a los componentes
