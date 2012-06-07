@@ -1,18 +1,17 @@
-package mereditor.modelo;
+package mereditor.control;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import mereditor.interfaz.swt.figuras.Figura;
+import mereditor.modelo.Diagrama;
+import mereditor.modelo.base.Componente;
+
 import org.eclipse.draw2d.Figure;
 
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
-
-import mereditor.control.Control;
-import mereditor.control.DiagramaControl;
-import mereditor.interfaz.swt.figuras.Figura;
-import mereditor.modelo.base.Componente;
 
 public class Proyecto implements Control<Diagrama> {
 	/**

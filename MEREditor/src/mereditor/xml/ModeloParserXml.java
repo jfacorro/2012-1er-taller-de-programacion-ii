@@ -3,9 +3,9 @@ package mereditor.xml;
 import java.util.ArrayList;
 import java.util.List;
 
+import mereditor.control.Proyecto;
 import mereditor.modelo.Atributo;
 import mereditor.modelo.Diagrama;
-import mereditor.modelo.Proyecto;
 import mereditor.modelo.Validacion;
 import mereditor.modelo.base.Componente;
 
