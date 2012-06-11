@@ -1,23 +1,22 @@
 package mereditor.interfaz.swt.listeners;
 
-import mereditor.editores.EntidadEditor;
+//import mereditor.editores.EntidadEditor;
+import mereditor.control.Control;
 import mereditor.interfaz.swt.figuras.Figura;
 
 import org.eclipse.draw2d.MouseEvent;
 import org.eclipse.draw2d.MouseListener;
 import org.eclipse.draw2d.geometry.Point;
-import org.eclipse.swt.SWT;
-import org.eclipse.swt.widgets.Display;
 
 public class MouseClickControlador implements MouseListener {
 	
 	protected Figura<?> figura;
 	private Point current;
 
-	public MouseClickControlador(Figura<?> figura) {
+	public MouseClickControlador(Control<?> control, Figura<?> figura) {
 		this.figura = figura;
 		this.current = this.figura.getLocation();
-		this.figura.addMouseListener(this);
+		this.figura.addMouseListener(control);
 	}
 	
 	@Override

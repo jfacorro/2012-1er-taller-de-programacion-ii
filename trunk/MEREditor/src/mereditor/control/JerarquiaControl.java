@@ -6,6 +6,7 @@ import mereditor.modelo.Jerarquia;
 
 import org.eclipse.draw2d.Connection;
 import org.eclipse.draw2d.Figure;
+import org.eclipse.draw2d.MouseEvent;
 
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
@@ -28,5 +29,23 @@ public class JerarquiaControl extends Jerarquia implements Control<Jerarquia> {
 
 			contenedor.add(connection);
 		}
+	}
+
+	@Override
+	public void mouseDoubleClicked(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mousePressed(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		
 	}
 }
