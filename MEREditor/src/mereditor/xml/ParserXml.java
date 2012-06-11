@@ -96,15 +96,15 @@ public class ParserXml {
 	 * @throws DOMException
 	 * @throws Exception
 	 */
-	public Document generarXmlProyecto() throws DOMException, Exception {
+	public Document generarXmlProyecto(String nombre) throws DOMException, Exception {
 		Document doc = this.docBuilder.newDocument();
 		this.root = doc.createElement(Constants.PROYECTO_TAG);
 		doc.appendChild(this.root);
 
 		Element modelo = this.crearElemento(Constants.MODELO_TAG);
 		Element representacion = this.crearElemento(Constants.REPRESENTACION_TAG);
-		modelo.setTextContent(this.proyecto.getComponentesPath());
-		representacion.setTextContent(this.proyecto.getRepresentacionPath());
+		modelo.setTextContent(this.proyecto.getComponentesPath(nombre));
+		representacion.setTextContent(this.proyecto.getRepresentacionPath(nombre));
 
 		this.root.appendChild(modelo);
 		this.root.appendChild(representacion);

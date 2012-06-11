@@ -8,11 +8,11 @@ public class EntidadFigure extends Figura<Entidad> {
 	public EntidadFigure(Entidad entidad) {
 		super(entidad);
 	}
-	
+
 	@Override
 	protected void init() {
 		super.init();
-		
+
 		this.update();
 	}
 
@@ -23,5 +23,4 @@ public class EntidadFigure extends Figura<Entidad> {
 	public void conectarAtributo(Figura<Atributo> figura) {
 		this.getParent().add(Figura.conectar(this, figura));
 	}
-	
 }

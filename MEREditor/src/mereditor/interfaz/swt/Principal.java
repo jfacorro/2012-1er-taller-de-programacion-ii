@@ -144,15 +144,17 @@ public class Principal {
 		String path = fileDialog.open();
 
 		if (path != null) {
-			String dir = new File(path).getParent() + File.separator;
+			File file = new File(path);
+			String dir = file.getParent() + File.separator;
+			String nombre = file.getName().replaceFirst("[.][^.]+$", "");			
 			this.proyecto.setPath(path);
 			ParserXml modelo = new ParserXml(this.proyecto);
-			this.guardarXml(modelo.generarXmlProyecto(), path);
-			this.guardarXml(modelo.generarXmlComponentes(), dir + this.proyecto.getComponentesPath());
-			this.guardarXml(modelo.generarXmlRepresentacion(), dir + this.proyecto.getRepresentacionPath());
+			this.guardarXml(modelo.generarXmlProyecto(nombre), path);
+			this.guardarXml(modelo.generarXmlComponentes(), dir + this.proyecto.getComponentesPath(nombre));
+			this.guardarXml(modelo.generarXmlRepresentacion(), dir + this.proyecto.getRepresentacionPath(nombre));
 		}
 	}
-
+	
 	/**
 	 * Guarda un objecto Document en un archivo físico
 	 * en el path especificado

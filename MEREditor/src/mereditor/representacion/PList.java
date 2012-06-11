@@ -24,7 +24,7 @@ public class PList {
 
 	public void set(String name, Object value) {
 		// Si es entero convertir automáticamente
-		if (value != null && value.toString().matches("\\d*"))
+		if (value != null && value.toString().matches("-?\\d*"))
 			value = Integer.parseInt(value.toString());
 
 		this.properties.put(name, value);

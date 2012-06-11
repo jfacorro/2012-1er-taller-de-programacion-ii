@@ -68,8 +68,9 @@ public class EntidadXml extends EntidadControl implements Xmlizable {
 		for (Componente componente : parser.obtenerIdentificadoresInternos(elemento)) {
 			if (!this.atributos.contains(componente))
 				throw new Exception("El identificador debe ser un hijo: " + id);
-
-			this.identificadores.add(componente);
+			Atributo atributo = (Atributo)componente;
+			atributo.setIdentificador(true);
+			this.identificadores.add(atributo);
 		}
 
 		// Obtener identificadores externos

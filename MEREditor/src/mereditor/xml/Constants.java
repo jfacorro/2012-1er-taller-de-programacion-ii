@@ -43,6 +43,7 @@ public class Constants {
 	public static final String PROYECTO_TAG = "Proyecto";
 	public static final String MODELO_TAG = "Modelo";
 	public static final String REPRESENTACION_TAG = "Representacion";
+	public static final String REPRESENTACIONES_TAG = "Representaciones";
 	
 	/**********************************************************************************/
 	

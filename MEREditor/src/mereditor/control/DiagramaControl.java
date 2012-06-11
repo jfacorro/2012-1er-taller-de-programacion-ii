@@ -8,13 +8,11 @@ import org.eclipse.draw2d.Figure;
 import org.eclipse.draw2d.MouseEvent;
 import org.eclipse.draw2d.MouseListener;
 
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
-
 public class DiagramaControl extends Diagrama implements Control<Diagrama>, MouseListener {
 
 	@Override
 	public Figura<Diagrama> getFigura(String idDiagrama) {
-		throw new NotImplementedException();
+		return null;
 	}
 
 	@Override
