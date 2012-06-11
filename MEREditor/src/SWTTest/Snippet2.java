@@ -1,5 +1,7 @@
 package SWTTest;
 
+import mereditor.interfaz.swt.listeners.MenuArbolControlador;
+
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.custom.CTabItem;
@@ -146,7 +148,7 @@ public class Snippet2 {
 		i.setText("Copiar");
 		i = new MenuItem(m, SWT.DROP_DOWN);
 		i.setText("Pegar");
-		arbolHandler.arbol.addListener(SWT.MouseDown, new MenuArbolListener(arbolHandler.arbol, m));
+		new MenuArbolControlador(arbolHandler.arbol, m);
 	}
 
 }
