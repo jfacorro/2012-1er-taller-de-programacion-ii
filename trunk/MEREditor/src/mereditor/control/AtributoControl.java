@@ -17,7 +17,7 @@ public class AtributoControl extends Atributo implements Control<Atributo> {
 	public Figura<Atributo> getFigura(String idDiagrama) {
 		if (!this.figures.containsKey(idDiagrama)) {
 			AtributoFigure figura = new AtributoFigure(this);
-			this.figures.put(id, figura);
+			this.figures.put(idDiagrama, figura);
 			// Agregar este controlador como listener para mouse clicks
 			figura.addMouseListener(this);
 		}

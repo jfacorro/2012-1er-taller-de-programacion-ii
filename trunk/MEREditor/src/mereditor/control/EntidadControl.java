@@ -3,6 +3,8 @@ package mereditor.control;
 import java.util.HashMap;
 import java.util.Map;
 
+import mereditor.interfaz.swt.Principal;
+import mereditor.interfaz.swt.examples.EdicionDialog;
 import mereditor.interfaz.swt.figuras.EntidadFigure;
 import mereditor.interfaz.swt.figuras.Figura;
 import mereditor.modelo.Atributo;
@@ -15,15 +17,15 @@ public class EntidadControl extends Entidad implements Control<Entidad> {
 	protected Map<String, EntidadFigure> figures = new HashMap<>();
 
 	@Override
-	public Figura<Entidad> getFigura(String id) {
-		if (!this.figures.containsKey(id)) {
+	public Figura<Entidad> getFigura(String idDiagrama) {
+		if (!this.figures.containsKey(idDiagrama)) {
 			EntidadFigure figura = new EntidadFigure(this);
-			this.figures.put(id, figura);
+			this.figures.put(idDiagrama, figura);
 			// Agregar este controlador como listener para mouse clicks
 			figura.addMouseListener(this);
 		}
 
-		return this.figures.get(id);
+		return this.figures.get(idDiagrama);
 	}
 
 	@Override
@@ -46,16 +48,18 @@ public class EntidadControl extends Entidad implements Control<Entidad> {
 
 	@Override
 	public void mouseDoubleClicked(MouseEvent event) {
-		
+		EdicionDialog window = new EdicionDialog(Principal.getInstance());
+		window.setBlockOnOpen(true);
+		window.open();
 	}
 
 	@Override
 	public void mousePressed(MouseEvent arg0) {
-		
+
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent arg0) {
-		
+
 	}
 }

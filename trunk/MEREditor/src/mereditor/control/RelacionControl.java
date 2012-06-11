@@ -18,7 +18,7 @@ public class RelacionControl extends Relacion implements Control<Relacion> {
 	public Figura<Relacion> getFigura(String idDiagrama) {
 		if (!this.figures.containsKey(idDiagrama)) {
 			RelacionFigure figura = new RelacionFigure(this);
-			this.figures.put(id, figura);
+			this.figures.put(idDiagrama, figura);
 			// Agregar este controlador como listener para mouse clicks
 			figura.addMouseListener(this);
 		}

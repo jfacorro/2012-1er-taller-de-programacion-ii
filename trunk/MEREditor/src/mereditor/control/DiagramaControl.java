@@ -12,7 +12,7 @@ import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 public class DiagramaControl extends Diagrama implements Control<Diagrama> {
 
 	@Override
-	public Figura<Diagrama> getFigura(String id) {
+	public Figura<Diagrama> getFigura(String idDiagrama) {
 		throw new NotImplementedException();
 	}
 

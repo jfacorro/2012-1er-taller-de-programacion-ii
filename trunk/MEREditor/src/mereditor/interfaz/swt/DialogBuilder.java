@@ -24,7 +24,7 @@ public class DialogBuilder {
 		final PromptResult result = new PromptResult();
 
 		dialog.setText(title);
-		 FormLayout formLayout = new FormLayout ();
+		FormLayout formLayout = new FormLayout ();
 		formLayout.marginWidth = 10;
 		formLayout.marginHeight = 10;
 		formLayout.spacing = 10;
