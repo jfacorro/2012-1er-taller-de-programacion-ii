@@ -10,8 +10,9 @@ import mereditor.modelo.Relacion;
 
 import org.eclipse.draw2d.Figure;
 import org.eclipse.draw2d.MouseEvent;
+import org.eclipse.draw2d.MouseListener;
 
-public class RelacionControl extends Relacion implements Control<Relacion> {
+public class RelacionControl extends Relacion implements Control<Relacion>, MouseListener {
 	protected Map<String, RelacionFigure> figures = new HashMap<>();
 
 	@Override
