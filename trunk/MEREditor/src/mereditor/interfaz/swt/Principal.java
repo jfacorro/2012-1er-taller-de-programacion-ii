@@ -27,7 +27,7 @@ import org.eclipse.swt.widgets.Tree;
 import org.w3c.dom.Document;
 
 /**
- * Formulario principal de la aplicación.
+ * Formulario principal de la aplicaciï¿½n.
  * 
  */
 public class Principal {
@@ -72,6 +72,7 @@ public class Principal {
 		this.toolBar = ToolBarBuilder.build(this);
 		this.sashForm = new SashForm(this.shell, SWT.HORIZONTAL);
 		this.tree = TreeManager.build(this);
+		MenuArbolBuilder.build(this);
 		this.initFigureCanvas();
 
 		this.arregloLayout();
@@ -80,7 +81,7 @@ public class Principal {
 	private void arregloLayout() {
 		FormData formData = null;
 
-		// Separacion vertical entre arbol y gráfico.
+		// Separacion vertical entre arbol y grï¿½fico.
 		formData = new FormData();
 		formData.top = new FormAttachment(this.toolBar); // Attach to top
 		formData.bottom = new FormAttachment(100, 0); // Attach to bottom
@@ -156,7 +157,7 @@ public class Principal {
 	}
 	
 	/**
-	 * Guarda un objecto Document en un archivo físico
+	 * Guarda un objecto Document en un archivo fï¿½sico
 	 * en el path especificado
 	 * @param doc
 	 * @param path
@@ -171,7 +172,7 @@ public class Principal {
 	}
 
 	/**
-	 * Abrir la aplicación.
+	 * Abrir la aplicaciï¿½n.
 	 */
 	public void mostrar() {
 		this.shell.open();
@@ -184,4 +185,9 @@ public class Principal {
 	public SashForm getSashForm() {
 		return this.sashForm;
 	}
+
+	public Tree getTree() {
+		return tree;
+	}
+	
 }

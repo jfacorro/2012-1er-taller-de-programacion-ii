@@ -1,5 +1,6 @@
-package SWTTest;
+package mereditor.interfaz.swt.listeners;
 
+import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.widgets.Event;
@@ -10,14 +11,15 @@ import org.eclipse.swt.widgets.TreeItem;
 
 /*Activa Menu desplegable en el item donde recibió el evento*/
 
-public class MenuArbolListener implements Listener{
+public class MenuArbolControlador implements Listener{
 
 	Tree observado;
 	Menu menu;
 	
-	public MenuArbolListener(Tree t, Menu m){
-		observado= t;
+	public MenuArbolControlador(Tree tree, Menu m){
+		observado= tree;
 		menu= m;
+		tree.addListener(SWT.MouseDown, this);
 	}
 	
 	public void handleEvent(Event event) {
