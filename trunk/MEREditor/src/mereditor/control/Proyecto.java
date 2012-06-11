@@ -5,16 +5,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import mereditor.interfaz.swt.figuras.Figura;
 import mereditor.modelo.Diagrama;
 import mereditor.modelo.Validacion;
 import mereditor.modelo.base.Componente;
 
 import org.eclipse.draw2d.Figure;
 
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
-
-public class Proyecto implements Control<Diagrama> {
+public class Proyecto {
 	/**
 	 * Diagrama raiz del proyecto
 	 */
@@ -68,12 +65,6 @@ public class Proyecto implements Control<Diagrama> {
 		return this.componentes.containsKey(id);
 	}
 
-	@Override
-	public Figura<Diagrama> getFigura(String idDiagrama) {
-		throw new NotImplementedException();
-	}
-	
-	@Override
 	public void dibujar(Figure contenedor, String idDiagrama) {
 		DiagramaControl diagrama = (DiagramaControl)this.componentes.get(idDiagrama);
 		diagrama.dibujar(contenedor, idDiagrama);
@@ -88,11 +79,11 @@ public class Proyecto implements Control<Diagrama> {
 		this.path = path;
 	}
 
-	public String getComponentesPath() {
-		return this.raiz.getNombre() + "-comp.xml";
+	public String getComponentesPath(String nombre) {
+		return nombre + "-comp.xml";
 	}
-
-	public String getRepresentacionPath() {
-		return this.raiz.getNombre() + "-rep.xml";
+	
+	public String getRepresentacionPath(String nombre) {
+		return nombre + "-rep.xml";
 	}
 }

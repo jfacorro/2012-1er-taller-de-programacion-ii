@@ -11,6 +11,7 @@ public class Atributo extends ComponenteNombre {
 		CARACTERIZACION, DERIVADO_COPIA, DERIVADO_CALCULO
 	}
 
+	protected boolean identificador;
 	protected TipoAtributo tipo;
 	protected String cardinalidadMinima;
 	protected String cardinalidadMaxima;
@@ -40,6 +41,14 @@ public class Atributo extends ComponenteNombre {
 		this.atributos = atributos;
 		this.cardinalidadMinima = min;
 		this.cardinalidadMaxima = cardMax;
+	}
+
+	public boolean isIdentificador() {
+		return identificador;
+	}
+
+	public void setIdentificador(boolean identificador) {
+		this.identificador = identificador;
 	}
 
 	public TipoAtributo getTipo() {

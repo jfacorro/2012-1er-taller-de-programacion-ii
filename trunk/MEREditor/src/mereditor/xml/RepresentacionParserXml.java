@@ -1,12 +1,14 @@
 package mereditor.xml;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import mereditor.control.Control;
 import mereditor.control.Proyecto;
+import mereditor.interfaz.swt.figuras.Figura;
 import mereditor.modelo.Diagrama;
 import mereditor.modelo.base.Componente;
 import mereditor.representacion.PList;
@@ -77,13 +79,34 @@ class RepresentacionParserXml extends ParserXml {
 	 */
 	protected PList obtenerRepresentacion(Element elemento) {
 		PList representacion = new PList();
-		for (Element element : XmlHelper.query(elemento, "./*")) {
-			PList hijo = this.obtenerRepresentacion(element);
-			representacion.set(element.getNodeName(), hijo);
+		for (Element elementoHijo : XmlHelper.query(elemento, "./*")) {
+			// Si es una lista de representaciones
+			if (elementoHijo.getNodeName() == Constants.REPRESENTACIONES_TAG) {
+				representacion.set(elementoHijo.getNodeName(), this.obtenerRepresentaciones(elementoHijo));
+			} else {
+				PList hijo = this.obtenerRepresentacion(elementoHijo);
+				representacion.set(elementoHijo.getNodeName(), hijo);
+			}
 		}
 		for (String nombre : XmlHelper.attributeNames(elemento)) {
 			representacion.set(nombre, elemento.getAttribute(nombre));
 		}
+		return representacion;
+	}
+
+	/**
+	 * Obtiene una lista de Representaciones parseades en PLists.
+	 * 
+	 * @param elementoHijo
+	 * @return
+	 */
+	protected List<PList> obtenerRepresentaciones(Element elemento) {
+		List<PList> representacion = new ArrayList<>();
+		for (Element elementoHijo : XmlHelper.query(elemento, "./*")) {
+			PList hijo = this.obtenerRepresentacion(elementoHijo);
+			representacion.add(hijo);
+		}
+
 		return representacion;
 	}
 
@@ -97,34 +120,60 @@ class RepresentacionParserXml extends ParserXml {
 		return doc;
 	}
 
+	/**
+	 * Genera el element de XML de representación de un diagrama y sus hijos.
+	 * Agrega el elemento generado al nodo raíz.
+	 * 
+	 * @param elemento
+	 * @param diagrama
+	 */
 	protected void generarDiagramaXml(Element elemento, Diagrama diagrama) {
 		Element diagramaElem = this.agregarElemento(elemento, Constants.DIAGRAMA_TAG);
 		this.agregarAtributo(diagramaElem, Constants.ID_ATTR, diagrama.getId());
 
-		for (Componente componente : diagrama.getComponentes()) {
+		// Recorrer todos los componentes del proyecto
+		for (Componente componente : this.proyecto.getComponentes()) {
 			Control<?> control = (Control<?>) componente;
-			PList plist = control.getFigura(diagrama.getId()).getRepresentacion();
-			if (plist != null) {
-				Element reprElement = this.agregarElemento(diagramaElem, Constants.REPRESENTACION_TAG);
-				this.agregarAtributo(reprElement, Constants.ID_ATTR, componente.getId());
-
-				this.agregarRepresentacion(reprElement, plist);
+			Figura<?> figura = control.getFigura(diagrama.getId());
+			if (figura != null) {
+				PList plist = figura.getRepresentacion();
+				if (plist != null) {
+					Element reprElement = this.agregarElemento(diagramaElem, Constants.REPRESENTACION_TAG);
+					this.agregarAtributo(reprElement, Constants.ID_ATTR, componente.getId());
+					this.agregarRepresentacion(reprElement, plist);
+				}
 			}
 		}
 
+		// Recorrer todos los diagramas hijos del principal
 		for (Diagrama diagramaHijo : diagrama.getDiagramas()) {
 			this.generarDiagramaXml(elemento, diagramaHijo);
 		}
 	}
 
+	/**
+	 * Genera una element Representación XML desde una PList.
+	 * 
+	 * @param elemento
+	 * @param repr
+	 */
+	@SuppressWarnings("unchecked")
 	private void agregarRepresentacion(Element elemento, PList repr) {
 		for (String nombre : repr.getNames()) {
 			Object valor = repr.get(nombre);
 
 			if (valor instanceof PList) {
+				// Si el valor es una PList entonces armar un elemento
 				Element elemHijo = this.agregarElemento(elemento, nombre);
 				this.agregarRepresentacion(elemHijo, (PList) valor);
+			} else if (valor instanceof List<?>) {
+				// Si el valor es una List<> entonces armar una lista de
+				// representaciones
+				Element representaciones = this.agregarElemento(elemento, Constants.REPRESENTACIONES_TAG);
+				for (PList plist : (List<PList>) valor)
+					this.agregarRepresentacion(representaciones, plist);
 			} else {
+				// Si no agregar como par atributo/valor
 				this.agregarAtributo(elemento, nombre, valor.toString());
 			}
 		}

@@ -28,6 +28,9 @@ public class Figura<T extends Componente> extends Figure {
 	private static Dimension defaultSize = new Dimension(80, 50);
 	private static Font defaultFont = new Font(null, "Helvetica", 10, SWT.NONE);
 
+	protected Font font = defaultFont;
+	protected Color lineColor = defaultLineColor;
+	protected Color backColor = defaultBackColor;
 	protected T componente;
 	protected Label lblName;
 	/**
@@ -43,7 +46,7 @@ public class Figura<T extends Componente> extends Figure {
 	public Figura(T componente) {
 		this.componente = componente;
 
-		this.setFont(defaultFont);
+		this.setFont(this.font);
 		this.setLayoutManager(new BorderLayout());
 
 		// Agregar controlador para arrastre
@@ -66,16 +69,16 @@ public class Figura<T extends Componente> extends Figure {
 		this.setSize(Figura.defaultSize);
 
 		this.lblName = new Label();
-		this.lblName.setFont(defaultFont);
+		this.lblName.setFont(this.font);
 		this.add(lblName, BorderLayout.CENTER);
 	}
 
 	protected Color getBackColor() {
-		return Figura.defaultBackColor;
+		return this.backColor;
 	}
 
 	protected Color getLineColor() {
-		return Figura.defaultLineColor;
+		return this.lineColor;
 	}
 
 	/**
@@ -85,8 +88,6 @@ public class Figura<T extends Componente> extends Figure {
 	 * @param repr
 	 */
 	public void setRepresentacion(PList repr) {
-		this.init();
-
 		if (repr != null) {
 			Rectangle rect = new Rectangle(
 				repr.<PList>get("Posicion").<Integer>get("x"),
@@ -95,24 +96,23 @@ public class Figura<T extends Componente> extends Figure {
 				repr.<PList>get("Dimension").<Integer>get("alto"));
 
 			if(repr.<PList>get("ColorFondo") != null) {
-				this.setBackgroundColor(new Color(null, 
+				this.lineColor = new Color(null, 
 					repr.<PList>get("ColorFondo").<Integer>get("r"),
 					repr.<PList>get("ColorFondo").<Integer>get("g"),
-					repr.<PList>get("ColorFondo").<Integer>get("b"))
-				);
+					repr.<PList>get("ColorFondo").<Integer>get("b"));
 			}
 			
 			if(repr.<PList>get("ColorLinea") != null) {
-				Color lineColor = new Color(null, 
+				this.lineColor = new Color(null, 
 					repr.<PList>get("ColorLinea").<Integer>get("r"),
 					repr.<PList>get("ColorLinea").<Integer>get("g"),
 					repr.<PList>get("ColorLinea").<Integer>get("b"));
-
-				this.setBorder(new LineBorder(lineColor));				
 			}
 
 			this.setBounds(rect);
 		}
+		
+		this.init();
 	}
 	
 	public PList getRepresentacion() {
