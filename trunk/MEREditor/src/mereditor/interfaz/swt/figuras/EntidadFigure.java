@@ -23,4 +23,5 @@ public class EntidadFigure extends Figura<Entidad> {
 	public void conectarAtributo(Figura<Atributo> figura) {
 		this.getParent().add(Figura.conectar(this, figura));
 	}
+	
 }

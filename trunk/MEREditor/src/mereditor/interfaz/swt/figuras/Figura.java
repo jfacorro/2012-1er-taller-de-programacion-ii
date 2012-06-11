@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import mereditor.interfaz.swt.listeners.DragDropControlador;
+import mereditor.interfaz.swt.listeners.MouseClickControlador;
 import mereditor.interfaz.swt.listeners.MovimientoControlador;
 import mereditor.modelo.base.Componente;
 import mereditor.representacion.PList;
@@ -50,6 +51,8 @@ public class Figura<T extends Componente> extends Figure {
 		new DragDropControlador(this);
 		// Agregar controlador para el movivimento de las figuras loqueadas
 		new MovimientoControlador(this);
+		
+		new MouseClickControlador(this);
 		
 		this.init();
 	}
@@ -159,7 +162,7 @@ public class Figura<T extends Componente> extends Figure {
 	}
 
 	/**
-	 * Genera una conexión entre la figura de origen y destino
+	 * Genera una conexiï¿½n entre la figura de origen y destino
 	 * 
 	 * @param figOrigen
 	 * @param figDestino
