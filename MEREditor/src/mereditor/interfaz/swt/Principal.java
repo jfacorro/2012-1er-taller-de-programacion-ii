@@ -43,20 +43,26 @@ public class Principal {
 
 	private Figure panelDiagrama;
 	private Proyecto proyecto;
+	
+	private static Principal instancia;
 
 	public static void main(String args[]) {
 		Display display = Display.getDefault();
 		Shell shell = new Shell(display, SWT.SHELL_TRIM);
 
-		Principal principal = new Principal(shell);
-		principal.mostrar();
+		Principal.instancia = new Principal(shell);
+		instancia.mostrar();
 
 		while (!shell.isDisposed())
 			while (!display.readAndDispatch())
 				display.sleep();
 	}
+	
+	public static Principal getInstance() {
+		return Principal.instancia;
+	}
 
-	public Principal(Shell shell) {
+	private Principal(Shell shell) {
 		this.shell = shell;
 		this.shell.setMaximized(true);
 		this.shell.setText(APP_NOMBRE);
@@ -107,7 +113,7 @@ public class Principal {
 	}
 
 	/**
-	 * Genera el contenido.
+	 * Abre un proyecto
 	 */
 	public void abrir() {
 		FileDialog fileDialog = new FileDialog(this.shell);
@@ -129,6 +135,10 @@ public class Principal {
 		}
 	}
 
+	/**
+	 * Guarda un proyecto en el archivo especificado 
+	 * @throws Exception
+	 */
 	public void guardar() throws Exception {
 		FileDialog fileDialog = new FileDialog(this.shell);
 		String path = fileDialog.open();
@@ -143,6 +153,13 @@ public class Principal {
 		}
 	}
 
+	/**
+	 * Guarda un objecto Document en un archivo físico
+	 * en el path especificado
+	 * @param doc
+	 * @param path
+	 * @throws Exception
+	 */
 	private void guardarXml(Document doc, String path) throws Exception {
 		TransformerFactory transformerFactory = TransformerFactory.newInstance();
 		Transformer transformer = transformerFactory.newTransformer();

@@ -13,7 +13,7 @@ import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 public class JerarquiaControl extends Jerarquia implements Control<Jerarquia> {
 
 	@Override
-	public Figura<Jerarquia> getFigura(String id) {
+	public Figura<Jerarquia> getFigura(String idDiagrama) {
 		throw new NotImplementedException();
 	}
 
