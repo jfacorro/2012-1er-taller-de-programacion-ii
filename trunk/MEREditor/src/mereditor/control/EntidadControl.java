@@ -12,8 +12,9 @@ import mereditor.modelo.Entidad;
 
 import org.eclipse.draw2d.Figure;
 import org.eclipse.draw2d.MouseEvent;
+import org.eclipse.draw2d.MouseListener;
 
-public class EntidadControl extends Entidad implements Control<Entidad> {
+public class EntidadControl extends Entidad implements Control<Entidad>, MouseListener {
 	protected Map<String, EntidadFigure> figures = new HashMap<>();
 
 	@Override

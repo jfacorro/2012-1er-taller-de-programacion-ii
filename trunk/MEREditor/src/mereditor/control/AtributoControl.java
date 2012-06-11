@@ -9,8 +9,9 @@ import mereditor.modelo.Atributo;
 
 import org.eclipse.draw2d.Figure;
 import org.eclipse.draw2d.MouseEvent;
+import org.eclipse.draw2d.MouseListener;
 
-public class AtributoControl extends Atributo implements Control<Atributo> {
+public class AtributoControl extends Atributo implements Control<Atributo>, MouseListener {
 	protected Map<String, AtributoFigure> figures = new HashMap<>();
 
 	@Override

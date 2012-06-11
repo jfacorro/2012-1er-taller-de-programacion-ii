@@ -6,10 +6,11 @@ import mereditor.modelo.base.Componente;
 
 import org.eclipse.draw2d.Figure;
 import org.eclipse.draw2d.MouseEvent;
+import org.eclipse.draw2d.MouseListener;
 
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
-public class DiagramaControl extends Diagrama implements Control<Diagrama> {
+public class DiagramaControl extends Diagrama implements Control<Diagrama>, MouseListener {
 
 	@Override
 	public Figura<Diagrama> getFigura(String idDiagrama) {
@@ -40,6 +41,6 @@ public class DiagramaControl extends Diagrama implements Control<Diagrama> {
 	@Override
 	public void mouseReleased(MouseEvent arg0) {
 		// TODO Auto-generated method stub
-		
+
 	}
 }

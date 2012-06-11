@@ -7,10 +7,11 @@ import mereditor.modelo.Jerarquia;
 import org.eclipse.draw2d.Connection;
 import org.eclipse.draw2d.Figure;
 import org.eclipse.draw2d.MouseEvent;
+import org.eclipse.draw2d.MouseListener;
 
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
-public class JerarquiaControl extends Jerarquia implements Control<Jerarquia> {
+public class JerarquiaControl extends Jerarquia implements Control<Jerarquia>, MouseListener {
 
 	@Override
 	public Figura<Jerarquia> getFigura(String idDiagrama) {
