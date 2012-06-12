@@ -85,7 +85,11 @@ public class ToolBarBuilder {
 	private SelectionListener nuevo = new SelectionAdapter() {
 		@Override
 		public void widgetSelected(SelectionEvent e) {
-			principal.nuevo();
+			try {
+				principal.nuevo();
+			} catch (Exception ex) {
+				ex.printStackTrace();
+			}
 		}
 	};
 

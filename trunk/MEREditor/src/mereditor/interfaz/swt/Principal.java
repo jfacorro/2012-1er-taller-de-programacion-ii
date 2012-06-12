@@ -104,8 +104,9 @@ public class Principal {
 	
 	/**
 	 * Crea un nuevo proyecto
+	 * @throws Exception 
 	 */
-	public void nuevo() {
+	public void nuevo() throws Exception {
 		PromptResult resultado = DialogBuilder.prompt(this.shell, "Ingresar nombre", "Nombre");
 		
 		this.proyecto = new Proyecto(resultado.value);
@@ -147,12 +148,11 @@ public class Principal {
 		if (path != null) {
 			File file = new File(path);
 			String dir = file.getParent() + File.separator;
-			String nombre = file.getName().replaceFirst("[.][^.]+$", "");			
 			this.proyecto.setPath(path);
 			ParserXml modelo = new ParserXml(this.proyecto);
-			this.guardarXml(modelo.generarXmlProyecto(nombre), path);
-			this.guardarXml(modelo.generarXmlComponentes(), dir + this.proyecto.getComponentesPath(nombre));
-			this.guardarXml(modelo.generarXmlRepresentacion(), dir + this.proyecto.getRepresentacionPath(nombre));
+			this.guardarXml(modelo.generarXmlProyecto(), path);
+			this.guardarXml(modelo.generarXmlComponentes(), dir + this.proyecto.getComponentesPath());
+			this.guardarXml(modelo.generarXmlRepresentacion(), dir + this.proyecto.getRepresentacionPath());
 		}
 	}
 	

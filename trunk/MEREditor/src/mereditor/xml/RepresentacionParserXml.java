@@ -1,7 +1,6 @@
 package mereditor.xml;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -16,21 +15,45 @@ import mereditor.representacion.PList;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
+/**
+ * Genera y parsea el xml de representación del proyecto.
+ * 
+ * @author jfacorro
+ * 
+ */
 class RepresentacionParserXml extends ParserXml {
 
+	/**
+	 * Constructor utilizado para leer el xml del path especificado
+	 * 
+	 * @param proyecto
+	 *            Instancia vacía del proyecto.
+	 * @param path
+	 *            Ubicación del archivo XML de representación.
+	 * @throws Exception
+	 */
 	public RepresentacionParserXml(Proyecto proyecto, String path) throws Exception {
 		super();
 		File source = new File(path);
 		this.root = docBuilder.parse(source).getDocumentElement();
 		this.proyecto = proyecto;
+		if (proyecto.getComponentes().size() > 1)
+			throw new Exception("El proyecto debe contener sólo el diagrama raíz.");
 	}
 
+	/**
+	 * Constructor a utilizar cuando se quiere generar el XML de representación
+	 * en base el objeto proyecto.
+	 * 
+	 * @param proyecto
+	 * @throws Exception
+	 */
 	public RepresentacionParserXml(Proyecto proyecto) throws Exception {
 		this.proyecto = proyecto;
 	}
 
 	/**
-	 * Recorre la coleccion de componentes parseados y busca sus
+	 * Recorre la coleccion de componentes del proyecto y busca sus
 	 * representaciones para cada diagrama en el que estén presentes.
 	 */
 	public void parsearRepresentacion() {
@@ -81,12 +104,8 @@ class RepresentacionParserXml extends ParserXml {
 		PList representacion = new PList();
 		for (Element elementoHijo : XmlHelper.query(elemento, "./*")) {
 			// Si es una lista de representaciones
-			if (elementoHijo.getNodeName() == Constants.REPRESENTACIONES_TAG) {
-				representacion.set(elementoHijo.getNodeName(), this.obtenerRepresentaciones(elementoHijo));
-			} else {
-				PList hijo = this.obtenerRepresentacion(elementoHijo);
-				representacion.set(elementoHijo.getNodeName(), hijo);
-			}
+			PList hijo = this.obtenerRepresentacion(elementoHijo);
+			representacion.set(elementoHijo.getNodeName(), hijo);
 		}
 		for (String nombre : XmlHelper.attributeNames(elemento)) {
 			representacion.set(nombre, elemento.getAttribute(nombre));
@@ -95,21 +114,9 @@ class RepresentacionParserXml extends ParserXml {
 	}
 
 	/**
-	 * Obtiene una lista de Representaciones parseades en PLists.
-	 * 
-	 * @param elementoHijo
+	 * Generar el XML de rerpesentación.
 	 * @return
 	 */
-	protected List<PList> obtenerRepresentaciones(Element elemento) {
-		List<PList> representacion = new ArrayList<>();
-		for (Element elementoHijo : XmlHelper.query(elemento, "./*")) {
-			PList hijo = this.obtenerRepresentacion(elementoHijo);
-			representacion.add(hijo);
-		}
-
-		return representacion;
-	}
-
 	public Document generarXml() {
 		Document doc = this.docBuilder.newDocument();
 		this.root = doc.createElement(Constants.PROYECTO_TAG);
@@ -152,12 +159,11 @@ class RepresentacionParserXml extends ParserXml {
 	}
 
 	/**
-	 * Genera una element Representación XML desde una PList.
+	 * Genera un elemento Representación XML desde una PList.
 	 * 
 	 * @param elemento
 	 * @param repr
 	 */
-	@SuppressWarnings("unchecked")
 	private void agregarRepresentacion(Element elemento, PList repr) {
 		for (String nombre : repr.getNames()) {
 			Object valor = repr.get(nombre);
@@ -166,12 +172,6 @@ class RepresentacionParserXml extends ParserXml {
 				// Si el valor es una PList entonces armar un elemento
 				Element elemHijo = this.agregarElemento(elemento, nombre);
 				this.agregarRepresentacion(elemHijo, (PList) valor);
-			} else if (valor instanceof List<?>) {
-				// Si el valor es una List<> entonces armar una lista de
-				// representaciones
-				Element representaciones = this.agregarElemento(elemento, Constants.REPRESENTACIONES_TAG);
-				for (PList plist : (List<PList>) valor)
-					this.agregarRepresentacion(representaciones, plist);
 			} else {
 				// Si no agregar como par atributo/valor
 				this.agregarAtributo(elemento, nombre, valor.toString());
