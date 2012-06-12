@@ -56,8 +56,9 @@ public class Proyecto {
 	}
 
 	public void setRaiz(Diagrama raiz) throws Exception {
-		this.agregar(raiz);
 		this.raiz = (DiagramaControl)raiz;
+		if(!this.componentes.containsKey(raiz.getId()))
+			this.agregar(raiz);
 	}
 	
 	public Validacion getValidacion() {
