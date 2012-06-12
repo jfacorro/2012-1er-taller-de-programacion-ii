@@ -26,9 +26,7 @@ public class MenuArbolBuilder {
 		i.setText("Abrir");
 		//i.addListener(SWT.Selection, new AbrirDiagramaListener(principal.getTree(), menuArbol, carpetaDeDibujo));
 		i = new MenuItem(menuArbol, SWT.DROP_DOWN);
-		i.setText("Copiar");
-		i = new MenuItem(menuArbol, SWT.DROP_DOWN);
-		i.setText("Pegar");
+		i.setText("Cortar");
 		i = new MenuItem(menuArbol, SWT.DROP_DOWN);
 		i.setText("Eliminar");
 		new MenuArbolControlador (principal.getTree(), menuArbol);
