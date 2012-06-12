@@ -133,11 +133,11 @@ class RepresentacionParserXml extends ParserXml {
 
 		// Recorrer todos los componentes del proyecto
 		for (Componente componente : this.proyecto.getComponentes()) {
-			Control<?> control = (Control<?>) componente;
-			Figura<?> figura = control.getFigura(diagrama.getId());
-			if (figura != null) {
-				PList plist = figura.getRepresentacion();
-				if (plist != null) {
+			if (diagrama.contiene(componente)) {
+				Control<?> control = (Control<?>) componente;
+				Figura<?> figura = control.getFigura(diagrama.getId());
+				if (figura != null && figura.getRepresentacion() != null) {
+					PList plist = figura.getRepresentacion();
 					Element reprElement = this.agregarElemento(diagramaElem, Constants.REPRESENTACION_TAG);
 					this.agregarAtributo(reprElement, Constants.ID_ATTR, componente.getId());
 					this.agregarRepresentacion(reprElement, plist);

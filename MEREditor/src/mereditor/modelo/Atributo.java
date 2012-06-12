@@ -74,4 +74,15 @@ public class Atributo extends ComponenteNombre {
 	public List<Atributo> getAtributos() {
 		return this.atributos;
 	}
+	
+	@Override
+	public boolean contiene(Componente componente) {
+		boolean contiene = this.atributos.contains(componente);
+		if(contiene) return contiene;
+		for(Componente hijo : this.atributos) {
+			contiene = hijo.contiene(componente);
+			if(contiene) return contiene;
+		}
+		return false;
+	}
 }

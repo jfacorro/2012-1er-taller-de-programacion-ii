@@ -47,4 +47,7 @@ public abstract class Componente {
 		return tipoComponente.isInstance(this);
 	}
 	
+	public boolean contiene(Componente componente) {
+		return false;
+	}	
 }
