@@ -54,6 +54,17 @@ public class Relacion extends ComponenteNombre {
 	public List<Atributo> getAtributos() {
 		return atributos;
 	}
+	
+	@Override
+	public boolean contiene(Componente componente) {
+		boolean contiene = this.atributos.contains(componente);
+		if(contiene) return contiene;
+		for(Componente hijo : this.atributos) {
+			contiene = hijo.contiene(componente);
+			if(contiene) return contiene;
+		}
+		return super.contiene(componente);
+	}
 
 	/*
 	 * Contiene la entidad que pertence a la relacion y su informacion

@@ -1,0 +1,6 @@
+Juan:
+-----
+- Representación:
+	- Eliminar los componentes que no pertenecen a un diagrama que aparecen con un elemento en el XML de Representación.
+- Agregar el tipo de identificadores faltantes y la representacion de ellos.
+- Implementar la figura de Jerarquía.
