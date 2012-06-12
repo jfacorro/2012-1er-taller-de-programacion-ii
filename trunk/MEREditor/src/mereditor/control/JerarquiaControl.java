@@ -30,14 +30,11 @@ public class JerarquiaControl extends Jerarquia implements Control<Jerarquia>, M
 
 	@Override
 	public void dibujar(Figure contenedor, String idDiagrama) {
-		Figure generica = ((EntidadControl)this.generica).getFigura(idDiagrama);
-		
-		for(Entidad derivada : this.derivadas)
-		{
-			Figure derivadaFigure = ((EntidadControl)derivada).getFigura(idDiagrama);
-			
-			Connection connection = Figura.conectar(derivadaFigure, generica);
+		Figure generica = ((EntidadControl) this.generica).getFigura(idDiagrama);
 
+		for (Entidad derivada : this.derivadas) {
+			Figure derivadaFigure = ((EntidadControl) derivada).getFigura(idDiagrama);
+			Connection connection = Figura.conectar(derivadaFigure, generica);
 			contenedor.add(connection);
 		}
 	}
@@ -45,18 +42,18 @@ public class JerarquiaControl extends Jerarquia implements Control<Jerarquia>, M
 	@Override
 	public void mouseDoubleClicked(MouseEvent arg0) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void mousePressed(MouseEvent arg0) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent arg0) {
 		// TODO Auto-generated method stub
-		
+
 	}
 }
