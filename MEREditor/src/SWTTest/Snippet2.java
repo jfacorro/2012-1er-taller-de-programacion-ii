@@ -1,5 +1,6 @@
 package SWTTest;
 
+import mereditor.interfaz.swt.MenuArbolBuilder;
 import mereditor.interfaz.swt.listeners.MenuArbolControlador;
 
 import org.eclipse.swt.SWT;
@@ -35,7 +36,7 @@ public class Snippet2 {
 		tree.setLayoutData(fdata);
 
 		crearCarpeta(shell);
-		inicializarMenuArbol(shell);
+
 
 		shell.open();
 
@@ -135,20 +136,10 @@ public class Snippet2 {
 		treeForm.top = new FormAttachment(barHeaderTree);
 		treeForm.bottom = new FormAttachment(shell.getClientArea().height);
 		tree.setLayoutData(treeForm);
+		
+		/*Menu del arbol*/
+		MenuArbolBuilder.build(shell, tree);
 		return f;
-	}
-
-	/* Carpeta de dibujo init, arbolHandler init */
-	public static void inicializarMenuArbol(Shell shell) {
-		Menu m = new Menu(shell, SWT.POP_UP);
-		MenuItem i = new MenuItem(m, SWT.DROP_DOWN);
-		i.setText("Abrir");
-		i.addListener(SWT.Selection, new AbrirDiagramaListener(arbolHandler, m, carpetaDeDibujo));
-		i = new MenuItem(m, SWT.DROP_DOWN);
-		i.setText("Copiar");
-		i = new MenuItem(m, SWT.DROP_DOWN);
-		i.setText("Pegar");
-		new MenuArbolControlador(arbolHandler.arbol, m);
 	}
 
 }

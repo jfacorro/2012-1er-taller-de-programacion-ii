@@ -72,7 +72,7 @@ public class Principal {
 		this.toolBar = ToolBarBuilder.build(this);
 		this.sashForm = new SashForm(this.shell, SWT.HORIZONTAL);
 		this.tree = TreeManager.build(this);
-		MenuArbolBuilder.build(this);
+		MenuArbolBuilder.build(this.shell,this.tree);
 		this.initFigureCanvas();
 
 		this.arregloLayout();
