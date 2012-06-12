@@ -8,7 +8,6 @@ import mereditor.interfaz.swt.figuras.JerarquiaFigura;
 import mereditor.modelo.Entidad;
 import mereditor.modelo.Jerarquia;
 
-import org.eclipse.draw2d.Connection;
 import org.eclipse.draw2d.Figure;
 import org.eclipse.draw2d.MouseEvent;
 import org.eclipse.draw2d.MouseListener;
@@ -30,12 +29,15 @@ public class JerarquiaControl extends Jerarquia implements Control<Jerarquia>, M
 
 	@Override
 	public void dibujar(Figure contenedor, String idDiagrama) {
-		Figure generica = ((EntidadControl) this.generica).getFigura(idDiagrama);
+		JerarquiaFigura figura = (JerarquiaFigura) this.getFigura(idDiagrama);
+		contenedor.add(figura);
+
+		Figure generica = ((Control<?>) this.generica).getFigura(idDiagrama);
+		figura.conectarGenerica(figura, generica);
 
 		for (Entidad derivada : this.derivadas) {
-			Figure derivadaFigure = ((EntidadControl) derivada).getFigura(idDiagrama);
-			Connection connection = Figura.conectar(derivadaFigure, generica);
-			contenedor.add(connection);
+			Figure derivadaFigure = ((Control<?>) derivada).getFigura(idDiagrama);
+			figura.conectarDerivada(figura, derivadaFigure);
 		}
 	}
 

@@ -169,8 +169,8 @@ public class Figura<T extends Componente> extends Figure {
 		PolylineConnection conexion = new PolylineConnection();
 		ChopboxAnchor origen = new ChopboxAnchor(figOrigen);
 		ChopboxAnchor destino = new ChopboxAnchor(figDestino);
-		conexion.setTargetAnchor(origen);
-		conexion.setSourceAnchor(destino);
+		conexion.setSourceAnchor(origen);
+		conexion.setTargetAnchor(destino);
 		return conexion;
 	}
 }

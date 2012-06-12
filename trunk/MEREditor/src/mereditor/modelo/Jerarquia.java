@@ -38,4 +38,9 @@ public class Jerarquia extends Componente {
 	public TipoJerarquia getTipo() {
 		return this.tipo;
 	}
+	
+	@Override
+	public String toString() {
+		return "Jerarquia: " + this.generica.getNombre();
+	}
 }
