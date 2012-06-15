@@ -3,6 +3,7 @@ package mereditor.control;
 import java.util.HashMap;
 import java.util.Map;
 
+import mereditor.editores.EntidadEditor;
 import mereditor.interfaz.swt.Principal;
 import mereditor.interfaz.swt.examples.EdicionDialog;
 import mereditor.interfaz.swt.figuras.EntidadFigure;
@@ -49,7 +50,7 @@ public class EntidadControl extends Entidad implements Control<Entidad>, MouseLi
 
 	@Override
 	public void mouseDoubleClicked(MouseEvent event) {
-		EdicionDialog window = new EdicionDialog(Principal.getInstance());
+		EntidadEditor window = new EntidadEditor(Principal.getInstance(), this);
 		window.setBlockOnOpen(true);
 		window.open();
 	}
