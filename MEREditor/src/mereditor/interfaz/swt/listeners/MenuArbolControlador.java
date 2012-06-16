@@ -16,7 +16,7 @@ import org.eclipse.swt.widgets.TreeItem;
 public class MenuArbolControlador implements Listener{
 
 	Tree observado;
-	String treeItemCortadoData;
+	TreeItem treeItemCortado;
 	TreeItem treeItemActivo;
 	Menu menu;
 	
@@ -24,7 +24,7 @@ public class MenuArbolControlador implements Listener{
 		observado= tree;
 		menu= m;
 		observado.addListener(SWT.MouseDown, this);
-		treeItemCortadoData= null;
+		treeItemCortado= null;
 		treeItemActivo= null;
 		agregarMenuListeners ();
 	}
@@ -72,17 +72,33 @@ public class MenuArbolControlador implements Listener{
 			}
 			else
 			if (accion.equals(ACCION_CORTAR)) {
-				treeItemCortadoData= treeItemActivo.getText();
-				menuItem.setText(ACCION_PEGAR);
-				treeItemActivo.dispose();
-				treeItemActivo= null;
+				cortarItem(menuItem);
 			}
 			else
 			if (accion.equals(ACCION_PEGAR)) {
 				TreeItem nuevoItem = new TreeItem (treeItemActivo,SWT.NULL);
-				nuevoItem.setText(treeItemCortadoData);
+				nuevoItem.setText(treeItemCortado.getText());
+				pegarHijos(nuevoItem,treeItemCortado);
+				treeItemCortado.dispose();	
 				menuItem.setText(ACCION_CORTAR);
 			}
+		}
+
+		private void pegarHijos(TreeItem itemDestino, TreeItem itemOrigen) {
+			TreeItem[] hijos = itemOrigen.getItems();
+			TreeItem destinoActual = null;
+			for (int i=0;i<hijos.length;i++){
+				destinoActual= new TreeItem (itemDestino,SWT.NONE);
+				destinoActual.setText(hijos[i].getText());
+				pegarHijos(destinoActual,hijos[i]);
+			}
+		}
+
+		private void cortarItem(MenuItem menuItem) {
+			treeItemCortado= treeItemActivo;
+			menuItem.setText(ACCION_PEGAR);
+			treeItemActivo= null;
+			
 		}
 
 	}
