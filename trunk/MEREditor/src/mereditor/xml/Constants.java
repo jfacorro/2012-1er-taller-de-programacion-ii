@@ -35,8 +35,8 @@ public class Constants {
 	public static final String GENERICA_TAG = "Generica";
 	public static final String DERIVADAS_TAG = "Derivadas";
 	
-	public static final String IDENTIFICADORES_INTERNOS_TAG = "IdentificadoresInternos";
-	public static final String IDENTIFICADORES_EXTERNOS_TAG = "IdentificadoresExternos";
+	public static final String IDENTIFICADORES_TAG = "Identificadores";
+	public static final String IDENTIFICADOR_TAG = "Identificador";
 	public static final String COMPONENTES_TAG = "Componentes";
 	public static final String COMPONENTE_TAG = "Componente";
 	
@@ -53,8 +53,7 @@ public class Constants {
 	
 	public static final String ATRIBUTOS_QUERY = "./Atributos/Atributo";
 
-	public static final String IDENTIFICADORES_INTERNOS_QUERY = "./IdentificadoresInternos/RefAtributo";
-	public static final String IDENTIFICADORES_EXTERNOS_QUERY = "./IdentificadoresExternos/RefEntidad";
+	public static final String IDENTIFICADORES_QUERY = "./Identificadores/Identificador";
 	
 	public static final String ID_QUERY = "//*[@id='%s']";
 	public static final String ID_CHILD_QUERY = ".//*[@id='%s']";
@@ -64,6 +63,7 @@ public class Constants {
 	public static final String DERIVADAS_QUERY = "./Derivadas/RefEntidad";
 	public static final String PARTICIPANTES_QUERY = "./Participantes/Participante";
 	public static final String ENTIDAD_REF_QUERY = "./RefEntidad";
+	public static final String ATRIBUTO_REF_QUERY = "./RefAtributo";
 	public static final String ROL_QUERY = "./Rol";
 	public static final String CARDINALIDAD_QUERY = "./Cardinalidad";
 	public static final String VALIDACION_QUERY = "./Validacion";

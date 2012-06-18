@@ -2,7 +2,7 @@ package mereditor.xml;
 
 import mereditor.control.EntidadControl;
 import mereditor.modelo.Atributo;
-import mereditor.modelo.base.Componente;
+import mereditor.modelo.Entidad;
 
 import org.w3c.dom.Element;
 
@@ -35,16 +35,16 @@ public class EntidadXml extends EntidadControl implements Xmlizable {
 		}
 
 		if (this.identificadores.size() > 0) {
-			Element idsInternos = parser.agregarIdentificadoresInternos(elemento);
-			Element idsExternos = parser.agregarIdentificadoresExternos(elemento);
+			Element identificadoresXml = parser.agregarIdentificadores(elemento);
 
-			for (Componente componente : this.identificadores) {
-				if (componente instanceof AtributoXml)
-					parser.agregarReferenciaAtributo(idsInternos, componente.getId());
-				else if (componente instanceof EntidadXml)
-					parser.agregarReferenciaEntidad(idsExternos, componente.getId());
-				else
-					throw new Exception("El identificador no es una entidad ni un atributo.");
+			for (Identificador identificador : this.identificadores) {
+				Element identificadorXml = parser.agregarIdentificador(identificadoresXml);
+				
+				for(Atributo attr : identificador.getAtributos())
+					parser.agregarReferenciaAtributo(identificadorXml, attr.getId());
+				
+				for(Entidad entidad : identificador.getEntidades())
+					parser.agregarReferenciaEntidad(identificadorXml, entidad.getId());
 			}
 		}
 
@@ -64,16 +64,7 @@ public class EntidadXml extends EntidadControl implements Xmlizable {
 			this.atributos.add(atributo);
 		}
 
-		// Obtener identificadores internos
-		for (Componente componente : parser.obtenerIdentificadoresInternos(elemento)) {
-			if (!this.atributos.contains(componente))
-				throw new Exception("El identificador debe ser un hijo: " + id);
-			Atributo atributo = (Atributo)componente;
-			atributo.setIdentificador(true);
-			this.identificadores.add(atributo);
-		}
-
 		// Obtener identificadores externos
-		this.identificadores.addAll(parser.obtenerIdentificadoresExternos(elemento));
+		this.identificadores.addAll(parser.obtenerIdentificadores(elemento, this));
 	}
 }

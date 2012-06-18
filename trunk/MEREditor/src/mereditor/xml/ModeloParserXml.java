@@ -13,6 +13,7 @@ import mereditor.control.RelacionControl;
 import mereditor.modelo.Atributo;
 import mereditor.modelo.Diagrama;
 import mereditor.modelo.Entidad;
+import mereditor.modelo.Entidad.Identificador;
 import mereditor.modelo.Jerarquia;
 import mereditor.modelo.Relacion;
 import mereditor.modelo.Validacion;
@@ -158,14 +159,45 @@ class ModeloParserXml extends ParserXml {
 	 * @return
 	 * @throws Exception
 	 */
-	List<Componente> obtenerIdentificadoresExternos(Element elemento) throws Exception {
-		List<Element> idsExternosXml = XmlHelper.query(elemento, Constants.IDENTIFICADORES_EXTERNOS_QUERY);
-		List<Componente> identificadores = new ArrayList<>();
+	List<Identificador> obtenerIdentificadores(Element elemento, Entidad entidad) throws Exception {
+		List<Element> identificadoresXml = XmlHelper.query(elemento, Constants.IDENTIFICADORES_QUERY);
+		List<Identificador> identificadores = new ArrayList<>();
 
-		for (Element idExternoXml : idsExternosXml)
-			identificadores.add(this.obtenerReferencia(idExternoXml));
+		for (Element identificadorXml : identificadoresXml) {
+			Identificador identificador = entidad.new Identificador(entidad);
+			
+			for(Entidad identificadorEntidad : this.obtenerReferenciasEntidad(identificadorXml)) {
+				identificador.addEntidad(identificadorEntidad);
+			}
+			
+			for(Atributo identificadorAtributo : this.obtenerReferenciasAtributo(identificadorXml)) {
+				identificador.addAtributo(identificadorAtributo);
+			}
+		}
 
 		return identificadores;
+	}
+	
+	List<Entidad> obtenerReferenciasEntidad(Element elemento) throws Exception {
+		List<Element> referenciasXml = XmlHelper.query(elemento, Constants.ENTIDAD_REF_QUERY);
+		List<Entidad> entidades = new ArrayList<>();
+		
+		for (Element referenciaXml : referenciasXml) {
+			entidades.add((Entidad)this.obtenerReferencia(referenciaXml));
+		}
+		
+		return entidades;
+	}
+
+	List<Atributo> obtenerReferenciasAtributo(Element elemento) throws Exception {
+		List<Element> referenciasXml = XmlHelper.query(elemento, Constants.ATRIBUTO_REF_QUERY);
+		List<Atributo> atributos = new ArrayList<>();
+		
+		for (Element referenciaXml : referenciasXml) {
+			atributos.add((Atributo)this.obtenerReferencia(referenciaXml));
+		}
+		
+		return atributos;
 	}
 
 	/**
@@ -200,24 +232,6 @@ class ModeloParserXml extends ParserXml {
 			diagramas.add(this.resolver(this.obtenerId(diagramaXml)));
 
 		return diagramas;
-	}
-
-	/**
-	 * Obtiene una lista de los identificadores internos de una entidad.
-	 * 
-	 * @param elemento
-	 * @return
-	 * @throws Exception
-	 */
-	List<Componente> obtenerIdentificadoresInternos(Element elemento) throws Exception {
-		List<Element> idsInternosXml = XmlHelper.query(elemento, Constants.IDENTIFICADORES_INTERNOS_QUERY);
-		List<Componente> atributos = new ArrayList<>();
-
-		for (Element idInternoXml : idsInternosXml) {
-			atributos.add(this.obtenerReferencia(idInternoXml));
-		}
-
-		return atributos;
 	}
 
 	/**
@@ -473,12 +487,12 @@ class ModeloParserXml extends ParserXml {
 		return this.agregarElemento(elemento, Constants.ATRIBUTOS_TAG, "");
 	}
 
-	Element agregarIdentificadoresInternos(Element elemento) {
-		return this.agregarElemento(elemento, Constants.IDENTIFICADORES_INTERNOS_TAG);
+	Element agregarIdentificadores(Element elemento) {
+		return this.agregarElemento(elemento, Constants.IDENTIFICADORES_TAG);
 	}
-
-	Element agregarIdentificadoresExternos(Element elemento) {
-		return this.agregarElemento(elemento, Constants.IDENTIFICADORES_EXTERNOS_TAG);
+	
+	Element agregarIdentificador(Element elemento) {
+		return this.agregarElemento(elemento, Constants.IDENTIFICADOR_TAG);
 	}
 
 	Element agregarComponentes(Element elemento) {

@@ -5,7 +5,6 @@ import java.util.Map;
 
 import mereditor.editores.EntidadEditor;
 import mereditor.interfaz.swt.Principal;
-import mereditor.interfaz.swt.examples.EdicionDialog;
 import mereditor.interfaz.swt.figuras.EntidadFigure;
 import mereditor.interfaz.swt.figuras.Figura;
 import mereditor.modelo.Atributo;

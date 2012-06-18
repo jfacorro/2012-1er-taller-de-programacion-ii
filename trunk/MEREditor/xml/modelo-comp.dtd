@@ -1,5 +1,5 @@
 <!ELEMENT Proyecto (Entidad*,Relacion*,Jerarquia*,Diagrama,Validacion)>
-<!ELEMENT Entidad (Nombre,Atributos?,IdentificadoresInternos?,IdentificadoresExternos?)>
+<!ELEMENT Entidad (Nombre,Atributos?,Identificadores)>
 <!ELEMENT Relacion (Nombre,Participantes,Atributos?)>
 <!ELEMENT Jerarquia (Generica,Derivadas)>
 <!ELEMENT Diagrama (Nombre, Componentes?, Diagramas?, Validacion)>
@@ -8,9 +8,8 @@
 <!ELEMENT Nombre (#PCDATA)>
 <!ELEMENT Atributos (Atributo+)>
 <!ELEMENT Atributo (Nombre,Cardinalidad,Formula?,Origen?,Atributos?) >
-<!ELEMENT IdentificadoresInternos (RefAtributo*, Compuesto*)>
-<!ELEMENT Compuesto (RefAtributo+)>
-<!ELEMENT IdentificadoresExternos (RefEntidad+)>
+<!ELEMENT Identificadores (Identificador+)>
+<!ELEMENT Identificador (RefAtributo*, RefEntidad*)>
 <!ELEMENT Participantes (Participante+)>
 <!ELEMENT Participante (RefEntidad,Cardinalidad,Rol?)>
 <!ELEMENT Formula (#PCDATA)>

@@ -44,7 +44,10 @@ public abstract class Componente {
 	 */
 	@Override
 	public boolean equals(Object obj) {
-		return obj == null ? false : this.getId().equals(((Componente) obj).getId());
+		if(Componente.class.isInstance(obj))
+			return obj == null ? false : this.getId().equals(((Componente) obj).getId());
+		else 
+			return false;
 	}
 
 	/**
