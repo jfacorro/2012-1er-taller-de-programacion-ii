@@ -30,7 +30,7 @@ public class ArbolDeComponentes {
 		Entidad e2 = new Entidad("casa", "id2", d, TipoEntidad.MAESTRA_COSA);
 		ComponenteArbol c2 = new ComponenteArbol(e2);
 		Atributo a = new Atributo("direccion", "id3", e2, "1", "1", TipoAtributo.CARACTERIZACION, null);
-		e2.agregarAtributo(a);
+		e2.addAtributo(a);
 		ComponenteArbol c3 = new ComponenteArbol(a);
 		TreeItem t = c.agregarA(arbol);
 		TreeItem t2 = c2.agregarA(t);

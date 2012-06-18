@@ -24,9 +24,11 @@
 				<Formula>1 + 1</Formula>
 			</Atributo>
 		</Atributos>
-		<IdentificadoresExternos>
-			<RefEntidad idref="_5" />
-		</IdentificadoresExternos>
+		<Identificadores>
+			<Identificador>
+				<RefEntidad idref="_5" />
+			</Identificador>
+		</Identificadores>
 	</Entidad>
 	<Entidad id="_5" tipo="MAESTRA_COSA">
 		<Nombre>SeccionSala</Nombre>
@@ -40,10 +42,14 @@
 				<Cardinalidad min="1" max="1" />
 			</Atributo>
 		</Atributos>
-		<IdentificadoresInternos>
-			<RefAtributo idref="_6" />
-			<RefAtributo idref="_7" />
-		</IdentificadoresInternos>
+		<Identificadores>
+			<Identificador>
+				<RefAtributo idref="_7" />
+			</Identificador>
+			<Identificador>
+				<RefAtributo idref="_6" />
+			</Identificador>
+		</Identificadores>
 	</Entidad>
 	<Entidad id="_10" tipo="MAESTRA_COSA">
 		<Nombre>Obra</Nombre>
@@ -73,10 +79,14 @@
 				<Cardinalidad min="1" max="1" />
 			</Atributo>
 		</Atributos>
-		<IdentificadoresInternos>
-			<RefAtributo idref="_11" />
-			<RefAtributo idref="_12" />
-		</IdentificadoresInternos>
+		<Identificadores>
+			<Identificador>
+				<RefAtributo idref="_11" />
+			</Identificador>
+			<Identificador>
+				<RefAtributo idref="_12" />
+			</Identificador>
+		</Identificadores>
 	</Entidad>
 	<Entidad id="_19" tipo="MAESTRA_COSA">
 		<Nombre>Funcion</Nombre>
@@ -94,9 +104,11 @@
 				<Cardinalidad min="1" max="1" />
 			</Atributo>
 		</Atributos>
-		<IdentificadoresExternos>
-			<RefEntidad idref="_10" />
-		</IdentificadoresExternos>
+		<Identificadores>
+			<Identificador>
+				<RefEntidad idref="_10" />
+			</Identificador>
+		</Identificadores>
 	</Entidad>
 	<Relacion id="_24" tipo="ASOCIACION">
 		<Nombre>SL</Nombre>

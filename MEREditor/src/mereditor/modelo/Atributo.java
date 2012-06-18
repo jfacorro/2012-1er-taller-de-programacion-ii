@@ -47,6 +47,12 @@ public class Atributo extends ComponenteNombre {
 		return identificador;
 	}
 
+	/**
+	 * Indica que el atributo es parte de un identificador del componente al que
+	 * pertence.
+	 * 
+	 * @param identificador
+	 */
 	public void setIdentificador(boolean identificador) {
 		this.identificador = identificador;
 	}
@@ -74,14 +80,16 @@ public class Atributo extends ComponenteNombre {
 	public List<Atributo> getAtributos() {
 		return this.atributos;
 	}
-	
+
 	@Override
 	public boolean contiene(Componente componente) {
 		boolean contiene = this.atributos.contains(componente);
-		if(contiene) return contiene;
-		for(Componente hijo : this.atributos) {
+		if (contiene)
+			return contiene;
+		for (Componente hijo : this.atributos) {
 			contiene = hijo.contiene(componente);
-			if(contiene) return contiene;
+			if (contiene)
+				return contiene;
 		}
 		return false;
 	}

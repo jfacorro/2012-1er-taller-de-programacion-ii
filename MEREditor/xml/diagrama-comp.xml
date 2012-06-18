@@ -19,12 +19,11 @@
 				</Atributos>
 			</Atributo>
 		</Atributos>
-		<IdentificadoresInternos>
-			<RefAtributo idref="_1" />
-		</IdentificadoresInternos>
-		<IdentificadoresExternos>
-			<RefEntidad idref="_1" />
-		</IdentificadoresExternos>
+		<Identificadores>
+			<Identificador>
+				<RefAtributo idref="_1" />
+			</Identificador>
+		</Identificadores>
 	</Entidad>
 	<Relacion id="_5" tipo="ASOCIACION">
 		<Nombre />

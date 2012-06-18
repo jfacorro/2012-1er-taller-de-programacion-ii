@@ -1,8 +1,9 @@
 package mereditor.editores;
 
+import java.util.List;
+
 import org.eclipse.jface.viewers.IStructuredContentProvider;
 import org.eclipse.jface.viewers.Viewer;
-import java.util.List;
 
 public class AtributoProvider implements IStructuredContentProvider {
 
@@ -18,7 +19,7 @@ public class AtributoProvider implements IStructuredContentProvider {
 	}
 
 	public Object[] getElements(Object inputElement) {
-	    return ((List) inputElement).toArray();
+	    return ((List<?>) inputElement).toArray();
 	}
 
 }

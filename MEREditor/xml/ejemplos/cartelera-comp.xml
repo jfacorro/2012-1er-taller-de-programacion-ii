@@ -12,10 +12,14 @@
 				<Cardinalidad min="1" max="" />
 			</Atributo>
 		</Atributos>
-		<IdentificadoresInternos>
-			<RefAtributo idref="_11" />
-			<RefAtributo idref="_12" />
-		</IdentificadoresInternos>
+		<Identificadores>
+			<Identificador>
+				<RefAtributo idref="_11" />
+			</Identificador>
+			<Identificador>
+				<RefAtributo idref="_12" />
+			</Identificador>
+		</Identificadores>
 	</Entidad>
 	<Entidad id="_2" tipo="MAESTRA_COSA">
 		<Nombre>Obra</Nombre>
@@ -55,13 +59,15 @@
 				</Atributos>
 			</Atributo>
 		</Atributos>
-		<IdentificadoresInternos>
-			<RefAtributo idref="_21" />
-			<Compuesto>
+		<Identificadores>
+			<Identificador>
+				<RefAtributo idref="_21" />
+			</Identificador>
+			<Identificador>
 				<RefAtributo idref="_22" />
 				<RefAtributo idref="_23" />
-			</Compuesto>
-		</IdentificadoresInternos>
+			</Identificador>
+		</Identificadores>
 	</Entidad>
 	<Relacion id="_3" tipo="COMPOSICION">
 		<Nombre>Elenco</Nombre>
