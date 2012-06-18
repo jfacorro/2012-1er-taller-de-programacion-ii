@@ -3,6 +3,7 @@ package mereditor.modelo;
 import java.util.LinkedList;
 import java.util.List;
 
+import mereditor.modelo.Entidad.Identificador;
 import mereditor.modelo.base.Componente;
 import mereditor.modelo.base.ComponenteNombre;
 
@@ -11,7 +12,6 @@ public class Atributo extends ComponenteNombre {
 		CARACTERIZACION, DERIVADO_COPIA, DERIVADO_CALCULO
 	}
 
-	protected boolean identificador;
 	protected TipoAtributo tipo;
 	protected String cardinalidadMinima;
 	protected String cardinalidadMaxima;
@@ -41,20 +41,6 @@ public class Atributo extends ComponenteNombre {
 		this.atributos = atributos;
 		this.cardinalidadMinima = min;
 		this.cardinalidadMaxima = cardMax;
-	}
-
-	public boolean isIdentificador() {
-		return identificador;
-	}
-
-	/**
-	 * Indica que el atributo es parte de un identificador del componente al que
-	 * pertence.
-	 * 
-	 * @param identificador
-	 */
-	public void setIdentificador(boolean identificador) {
-		this.identificador = identificador;
 	}
 
 	public TipoAtributo getTipo() {
@@ -91,6 +77,19 @@ public class Atributo extends ComponenteNombre {
 			if (contiene)
 				return contiene;
 		}
+		return false;
+	}
+
+	public boolean esIdentificador() {
+		if(Entidad.class.isInstance(this.padre)) {
+			List<Identificador> identificadores = ((Entidad)this.padre).identificadores;
+			
+			for(Identificador identificador : identificadores) {
+				if(identificador.contiene(this) && identificador.getEntidades().isEmpty()) 
+					return true;
+			}
+		}
+			
 		return false;
 	}
 }

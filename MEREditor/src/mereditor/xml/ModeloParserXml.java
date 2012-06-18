@@ -173,6 +173,8 @@ class ModeloParserXml extends ParserXml {
 			for(Atributo identificadorAtributo : this.obtenerReferenciasAtributo(identificadorXml)) {
 				identificador.addAtributo(identificadorAtributo);
 			}
+
+			identificadores.add(identificador);
 		}
 
 		return identificadores;
