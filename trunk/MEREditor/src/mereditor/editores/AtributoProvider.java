@@ -1,9 +1,10 @@
 package mereditor.editores;
 
-import org.eclipse.jface.viewers.IContentProvider;
+import org.eclipse.jface.viewers.IStructuredContentProvider;
 import org.eclipse.jface.viewers.Viewer;
+import java.util.List;
 
-public class AtributoProvider implements IContentProvider {
+public class AtributoProvider implements IStructuredContentProvider {
 
 	@Override
 	public void dispose() {
@@ -16,11 +17,8 @@ public class AtributoProvider implements IContentProvider {
 		//TODO: se llama cuando se modifica un parámetro
 	}
 
-	/**
-	* Retorna los objetos atributos
-	*/
-//	public Object[] getElements(Object inputElement) {
-//	    return ((List) inputElement).toArray();
-//	}
+	public Object[] getElements(Object inputElement) {
+	    return ((List) inputElement).toArray();
+	}
 
 }
