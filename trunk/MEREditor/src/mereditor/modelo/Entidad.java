@@ -90,7 +90,6 @@ public class Entidad extends ComponenteNombre {
 				throw new RuntimeException("Un atributo debe pertenecer a la entidad para ser identificador.");
 				
 			this.atributos.add(atributo);
-			atributo.setIdentificador(true);
 		}
 		
 		public void addEntidad(Entidad entidad) {
@@ -103,8 +102,13 @@ public class Entidad extends ComponenteNombre {
 		public List<Atributo> getAtributos() {
 			return Collections.unmodifiableList(atributos);
 		}
+
 		public List<Entidad> getEntidades() {
 			return Collections.unmodifiableList(entidades);
+		}
+		
+		public boolean contiene(Componente componente) {
+			return this.atributos.contains(componente) || this.entidades.contains(componente);
 		}
 	}
 }

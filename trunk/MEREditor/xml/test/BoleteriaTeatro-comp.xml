@@ -106,6 +106,12 @@
 		</Atributos>
 		<Identificadores>
 			<Identificador>
+				<RefAtributo idref="_21"/>
+				<RefAtributo idref="_22"/>
+				<RefEntidad idref="_10" />
+			</Identificador>
+			<Identificador>
+				<RefAtributo idref="_20"/>
 				<RefEntidad idref="_10" />
 			</Identificador>
 		</Identificadores>

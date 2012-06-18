@@ -30,7 +30,7 @@ public class AtributoFigure extends Figura<Atributo> {
 		this.ellipse.setLocation(this.getLocation());
 
 		// Si es un atributo simple representar con circulo
-		if (this.componente.getAtributos().size() == 0) {
+		if (this.componente.getAtributos().isEmpty()) {
 			ellipse.setSize(new Dimension(10, 10));
 		} else {
 			ellipse.setLayoutManager(new BorderLayout());
@@ -39,7 +39,7 @@ public class AtributoFigure extends Figura<Atributo> {
 		}
 
 		// Si es un identificador usar fondo negro
-		if (this.componente.isIdentificador()) {
+		if (this.componente.esIdentificador()) {
 			ellipse.setBackgroundColor(new Color(null, 0, 0, 0));
 			ellipse.setBorder(null);
 		}
@@ -47,7 +47,7 @@ public class AtributoFigure extends Figura<Atributo> {
 		this.setBounds(ellipse.getBounds());
 		this.add(ellipse);
 	}
-
+	
 	@Override
 	protected void onSetParent() {
 		super.onSetParent();
