@@ -4,10 +4,12 @@ import java.util.ArrayList;
 
 import mereditor.interfaz.swt.Principal;
 import mereditor.modelo.Atributo;
+import mereditor.modelo.Atributo.TipoAtributo;
 import mereditor.modelo.Entidad;
 
 import org.eclipse.jface.viewers.CellEditor;
 import org.eclipse.jface.viewers.CheckboxCellEditor;
+import org.eclipse.jface.viewers.ComboBoxCellEditor;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.TextCellEditor;
 import org.eclipse.jface.window.ApplicationWindow;
@@ -34,6 +36,8 @@ public class EntidadEditor extends ApplicationWindow {
 	public static final String TIPO = "Tipo";
 	public static final String[] PROPS = { NOMBRE, TIPO };
 
+	public static final String[] TIPOS_STR = { TipoAtributo.CARACTERIZACION.name(), TipoAtributo.DERIVADO_COPIA.name(), TipoAtributo.DERIVADO_CALCULO.name() };
+	
 	public EntidadEditor(Principal principal, Entidad entidad) {
 		super(principal.getShell());
 
@@ -58,13 +62,13 @@ public class EntidadEditor extends ApplicationWindow {
 		btnNuevoAtributo.setText("Crear un nuevo atributo");
 
 		// TableViewer
-		final TableViewer tv = new TableViewer(composite, SWT.FULL_SELECTION);
-		tv.setContentProvider(new AtributoProvider());
-		tv.setLabelProvider(new AtributoLabelProvider());
-		tv.setInput(this.atributos);
+		final TableViewer tablev = new TableViewer(composite, SWT.FULL_SELECTION);
+		tablev.setContentProvider(new AtributoProvider());
+		tablev.setLabelProvider(new AtributoLabelProvider());
+		tablev.setInput(this.atributos);
 
 		// Configurar tabla
-		Table table = tv.getTable();
+		Table table = tablev.getTable();
 		table.setLayoutData(new GridData(GridData.FILL_BOTH));
 
 		new TableColumn(table, SWT.CENTER).setText(NOMBRE);
@@ -81,32 +85,36 @@ public class EntidadEditor extends ApplicationWindow {
 		for (Atributo attr : this.entidad.getAtributos()) {
 			atributos.add(attr);
 		}
-		tv.refresh();
+		tablev.refresh();
 
 		// Agregar un nuevo atributo cuando se hace click sobre el botón
 		btnNuevoAtributo.addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent event) {
 				Atributo atr = new Atributo();
 				atr.setNombre("Nombre");
-				// TODO: completar el resto de los valores iniciales del
-				// atributo
+				atr.setTipo(TipoAtributo.CARACTERIZACION);
 
 				atributos.add(atr);
-				tv.refresh();
 
-				// TODO: impactar sobre el modelo
+				//Actualización del modelo
+				entidad.addAtributo(atr);
+
+				tablev.refresh();
+				
+				// TODO: refresh diagrama
 			}
 		});
-
+		  
 		// Crear editores de celda
-		CellEditor[] editors = new CellEditor[2];
+		CellEditor[] editors = new CellEditor[3];
 		editors[0] = new TextCellEditor(table);
 		editors[1] = new CheckboxCellEditor(table);
+	    editors[2] = new ComboBoxCellEditor(table, TIPOS_STR, SWT.READ_ONLY);
 
 		//
-		tv.setColumnProperties(PROPS);
-		tv.setCellModifier(new AtributoCellModifier(tv));
-		tv.setCellEditors(editors);
+		tablev.setColumnProperties(PROPS);
+		tablev.setCellModifier(new AtributoCellModifier(tablev));
+		tablev.setCellEditors(editors);
 
 		return composite;
 	}

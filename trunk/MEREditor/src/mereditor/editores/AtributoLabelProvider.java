@@ -17,8 +17,8 @@ public class AtributoLabelProvider implements ITableLabelProvider {
 		switch (columnIndex) {
 		case 0:
 			return atr.getNombre();
-			//case 1:
-				//	return
+		case 1:
+			return EntidadEditor.TIPOS_STR[ atr.getTipo().ordinal() ];
 		}
 		return null;
 	}

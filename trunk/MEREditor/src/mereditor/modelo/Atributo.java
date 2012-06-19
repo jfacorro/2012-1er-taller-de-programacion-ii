@@ -46,6 +46,11 @@ public class Atributo extends ComponenteNombre {
 	public TipoAtributo getTipo() {
 		return this.tipo;
 	}
+	
+	public void setTipo(TipoAtributo tipo) {
+		this.tipo = tipo;
+	}
+
 
 	public String getCardinalidadMaxima() {
 		return this.cardinalidadMaxima;
