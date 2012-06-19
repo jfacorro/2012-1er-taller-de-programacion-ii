@@ -11,7 +11,6 @@ import mereditor.control.Proyecto;
 import mereditor.interfaz.swt.DialogBuilder.PromptResult;
 import mereditor.xml.ParserXml;
 
-import org.eclipse.draw2d.Figure;
 import org.eclipse.draw2d.FigureCanvas;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.SashForm;
@@ -41,7 +40,7 @@ public class Principal {
 	private Tree tree;
 	private FigureCanvas figureCanvas;
 
-	private Figure panelDiagrama;
+	private PanelDisegno panelDisegno;
 	private Proyecto proyecto;
 	
 	private static Principal instancia;
@@ -97,9 +96,7 @@ public class Principal {
 		this.figureCanvas.setBackground(Principal.defaultBackgroundColor);
 		this.figureCanvas.getViewport().setContentsTracksHeight(true);
 		this.figureCanvas.getViewport().setContentsTracksWidth(true);
-		this.panelDiagrama = new Figure();
-		this.panelDiagrama.setBackgroundColor(new Color(null, 255, 255, 255));
-		this.figureCanvas.setContents(this.panelDiagrama);
+		this.panelDisegno = new PanelDisegno(this.figureCanvas);
 	}
 	
 	/**
@@ -110,7 +107,7 @@ public class Principal {
 		PromptResult resultado = DialogBuilder.prompt(this.shell, "Ingresar nombre", "Nombre");
 		
 		this.proyecto = new Proyecto(resultado.value);
-		this.proyecto.dibujar(this.panelDiagrama);
+		this.panelDisegno.setDiagrama(this.proyecto.getRaiz());
 		TreeManager.cargar(this.proyecto, this.tree);
 	}
 
@@ -127,7 +124,7 @@ public class Principal {
 				ParserXml modelo = new ParserXml(path);
 
 				this.proyecto = modelo.parsear();
-				this.proyecto.dibujar(this.panelDiagrama);
+				this.panelDisegno.setDiagrama(this.proyecto.getRaiz());
 
 				TreeManager.cargar(this.proyecto, this.tree);
 

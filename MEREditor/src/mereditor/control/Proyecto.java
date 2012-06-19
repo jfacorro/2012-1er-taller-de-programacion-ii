@@ -97,11 +97,6 @@ public class Proyecto {
 		diagrama.dibujar(contenedor, idDiagrama);
 	}
 	
-	public void dibujar(Figure contenedor) {
-		contenedor.removeAll();
-		this.raiz.dibujar(contenedor, null);		
-	}
-
 	public void setPath(String path) {
 		this.path = path;
 	}
