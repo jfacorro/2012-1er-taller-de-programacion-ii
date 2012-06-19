@@ -23,6 +23,8 @@ public class AtributoControl extends Atributo implements Control<Atributo>, Mous
 			figura.addMouseListener(this);
 		}
 
+		this.figures.get(idDiagrama).actualizar();
+
 		return this.figures.get(idDiagrama);
 	}
 

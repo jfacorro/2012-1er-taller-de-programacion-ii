@@ -23,6 +23,8 @@ public class RelacionControl extends Relacion implements Control<Relacion>, Mous
 			// Agregar este controlador como listener para mouse clicks
 			figura.addMouseListener(this);
 		}
+		
+		this.figures.get(idDiagrama).actualizar();
 
 		return this.figures.get(idDiagrama);
 	}

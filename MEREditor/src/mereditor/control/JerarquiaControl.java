@@ -23,6 +23,8 @@ public class JerarquiaControl extends Jerarquia implements Control<Jerarquia>, M
 			// Agregar este controlador como listener para mouse clicks
 			figura.addMouseListener(this);
 		}
+		
+		this.figures.get(idDiagrama).actualizar();
 
 		return this.figures.get(idDiagrama);
 	}

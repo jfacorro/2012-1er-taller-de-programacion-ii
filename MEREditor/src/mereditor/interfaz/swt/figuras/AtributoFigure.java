@@ -32,6 +32,7 @@ public class AtributoFigure extends Figura<Atributo> {
 		// Si es un atributo simple representar con circulo
 		if (this.componente.getAtributos().isEmpty()) {
 			ellipse.setSize(new Dimension(10, 10));
+			new DragDropControlador(this.lblName);
 		} else {
 			ellipse.setLayoutManager(new BorderLayout());
 			ellipse.setSize(this.lblName.getTextBounds().getSize().getExpanded(20, 5));
@@ -51,12 +52,10 @@ public class AtributoFigure extends Figura<Atributo> {
 	@Override
 	protected void onSetParent() {
 		super.onSetParent();
-		if (this.getParent() != null && this.componente.getAtributos().size() == 0) {
-			// Agregar el label como figura loqueada
-			this.agregarFiguraLoqueada(this.lblName);
-
+		if (this.getParent() != null && this.componente.getAtributos().isEmpty()) {
 			this.getParent().add(this.lblName, 0);
-			new DragDropControlador(this.lblName);
+			this.agregarFiguraLoqueada(this.lblName);
+				
 		}
 	}
 
@@ -85,5 +84,10 @@ public class AtributoFigure extends Figura<Atributo> {
 		}
 
 		return repr;
+	}
+	
+	@Override
+	public void actualizar() {
+		this.lblName.setText(this.componente.getNombre());		
 	}
 }

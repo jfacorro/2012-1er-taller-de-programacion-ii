@@ -2,13 +2,13 @@ package mereditor.editores;
 
 import java.util.ArrayList;
 
+import mereditor.control.AtributoControl;
 import mereditor.interfaz.swt.Principal;
 import mereditor.modelo.Atributo;
 import mereditor.modelo.Atributo.TipoAtributo;
 import mereditor.modelo.Entidad;
 
 import org.eclipse.jface.viewers.CellEditor;
-import org.eclipse.jface.viewers.CheckboxCellEditor;
 import org.eclipse.jface.viewers.ComboBoxCellEditor;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.TextCellEditor;
@@ -27,7 +27,7 @@ import org.eclipse.swt.widgets.TableColumn;
 
 public class EntidadEditor extends ApplicationWindow {
 
-	private Shell shell;
+	private Principal principal;
 	private Entidad entidad;
 	private ArrayList<Atributo> atributos;
 
@@ -41,7 +41,7 @@ public class EntidadEditor extends ApplicationWindow {
 	public EntidadEditor(Principal principal, Entidad entidad) {
 		super(principal.getShell());
 
-		this.shell = principal.getShell();
+		this.principal = principal;
 		this.entidad = entidad;
 
 		this.atributos = new ArrayList<>();
@@ -94,7 +94,7 @@ public class EntidadEditor extends ApplicationWindow {
 		// Agregar un nuevo atributo cuando se hace click sobre el botón
 		btnNuevoAtributo.addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent event) {
-				Atributo atr = new Atributo();
+				AtributoControl atr = new AtributoControl();
 				atr.setNombre("Nombre");
 				atr.setTipo(TipoAtributo.CARACTERIZACION);
 
@@ -109,10 +109,7 @@ public class EntidadEditor extends ApplicationWindow {
 		
 		btnCerrar.addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent event) {
-				
-				// TODO: refresh diagrama
-				//shell.?
-				
+				principal.getPanelDisegno().actualizar();
 				parent.dispose();
 			}
 		});

@@ -1,7 +1,7 @@
 package mereditor.interfaz.swt.figuras;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 import mereditor.interfaz.swt.listeners.DragDropControlador;
 import mereditor.interfaz.swt.listeners.MovimientoControlador;
@@ -22,7 +22,7 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Font;
 
-public class Figura<T extends Componente> extends Figure {
+public abstract class Figura<T extends Componente> extends Figure {
 	private static Color defaultBackColor = new Color(null, 255, 255, 206);
 	private static Color defaultLineColor = new Color(null, 0, 0, 0);
 	private static Dimension defaultSize = new Dimension(80, 50);
@@ -36,7 +36,7 @@ public class Figura<T extends Componente> extends Figure {
 	/**
 	 * Lista de figuras que se deben mover junto con esta
 	 */
-	private List<Figure> figurasLoqueadas = new ArrayList<>();
+	private Set<Figure> figurasLoqueadas = new  LinkedHashSet<>();
 
 	public Figura(T componente, Dimension dim) {
 		this(componente);
@@ -80,6 +80,8 @@ public class Figura<T extends Componente> extends Figure {
 	protected Color getLineColor() {
 		return this.lineColor;
 	}
+	
+	public abstract void actualizar();
 
 	/**
 	 * Establece la posicion y dimension de la figura en base al objeto de
@@ -133,8 +135,8 @@ public class Figura<T extends Componente> extends Figure {
 	 * 
 	 * @param figura
 	 */
-	public void agregarFiguraLoqueada(Figure figura) {
-		this.figurasLoqueadas.add(figura);
+	public boolean agregarFiguraLoqueada(Figure figura) {
+		return this.figurasLoqueadas.add(figura);
 	}
 
 	/**
@@ -142,7 +144,7 @@ public class Figura<T extends Componente> extends Figure {
 	 * 
 	 * @return
 	 */
-	public List<Figure> getFigurasLoqueadas() {
+	public Set<Figure> getFigurasLoqueadas() {
 		return this.figurasLoqueadas;
 	}
 
