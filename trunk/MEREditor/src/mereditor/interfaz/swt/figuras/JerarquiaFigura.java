@@ -3,6 +3,7 @@ package mereditor.interfaz.swt.figuras;
 import mereditor.modelo.Jerarquia;
 
 import org.eclipse.draw2d.Figure;
+import org.eclipse.draw2d.ManhattanConnectionRouter;
 import org.eclipse.draw2d.PolygonDecoration;
 import org.eclipse.draw2d.PolylineConnection;
 import org.eclipse.draw2d.geometry.Dimension;
@@ -16,23 +17,24 @@ public class JerarquiaFigura extends Figura<Jerarquia> {
 	@Override
 	protected void init() {
 		super.init();
-		this.setSize(new Dimension(this.getSize().width, 10));
+		this.setSize(new Dimension(this.getSize().width, 5));
 	}
 
 	public void conectarGenerica(Figure figura, Figure generica) {
 		PolylineConnection connection = (PolylineConnection)Figura.conectar(figura, generica);
-		PolygonDecoration polyDecoration = new PolygonDecoration();
-		connection.setTargetDecoration(polyDecoration);
+		connection.setConnectionRouter(new ManhattanConnectionRouter());
+		connection.setTargetDecoration(new PolygonDecoration());
 		this.getParent().add(connection);
 	}
 	
 	public void conectarDerivada(Figure figura, Figure derivada) {
 		PolylineConnection connection = (PolylineConnection)Figura.conectar(figura, derivada);
+		connection.setConnectionRouter(new ManhattanConnectionRouter());
 		this.getParent().add(connection);
 	}
 	
 	@Override
 	public void actualizar() {
-		this.lblName.setText(this.componente.toString());		
+
 	}
 }

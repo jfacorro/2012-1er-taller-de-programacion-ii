@@ -1,6 +1,6 @@
 package mereditor.modelo;
 
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 
 import mereditor.modelo.base.Componente;
@@ -12,8 +12,8 @@ public class Relacion extends ComponenteNombre {
 	}
 
 	protected TipoRelacion tipo;
-	protected List<Atributo> atributos = new LinkedList<Atributo>();
-	protected List<EntidadRelacion> participantes = new LinkedList<EntidadRelacion>();
+	protected List<Atributo> atributos = new ArrayList<>();
+	protected List<EntidadRelacion> participantes = new ArrayList<>();
 
 	public Relacion() {
 		super();
@@ -58,13 +58,23 @@ public class Relacion extends ComponenteNombre {
 	@Override
 	public boolean contiene(Componente componente) {
 		boolean contiene = this.atributos.contains(componente);
+		
 		if (contiene)
 			return contiene;
+		
+		// Verificar los hijos de los atributos
 		for (Componente hijo : this.atributos) {
 			contiene = hijo.contiene(componente);
 			if (contiene)
 				return contiene;
 		}
+
+		// Verificar las entidades participantes
+		for (EntidadRelacion entidadRelacion : this.participantes) {
+			if (entidadRelacion.getEntidad().equals(componente))
+				return true;
+		}
+
 		return super.contiene(componente);
 	}
 

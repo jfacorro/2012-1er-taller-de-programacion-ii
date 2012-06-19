@@ -1,6 +1,8 @@
 package mereditor.control;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import mereditor.editores.EntidadEditor;
@@ -10,6 +12,7 @@ import mereditor.interfaz.swt.figuras.Figura;
 import mereditor.modelo.Atributo;
 import mereditor.modelo.Entidad;
 
+import org.eclipse.draw2d.Connection;
 import org.eclipse.draw2d.Figure;
 import org.eclipse.draw2d.MouseEvent;
 import org.eclipse.draw2d.MouseListener;
@@ -33,15 +36,27 @@ public class EntidadControl extends Entidad implements Control<Entidad>, MouseLi
 
 	@Override
 	public void dibujar(Figure contenedor, String idDiagrama) {
-		EntidadFigure figure = (EntidadFigure) this.getFigura(idDiagrama);
-		contenedor.add(figure);
+		EntidadFigure figuraEntidad = (EntidadFigure) this.getFigura(idDiagrama);
+		contenedor.add(figuraEntidad);
 
 		for (Atributo atributo : this.atributos) {
 			AtributoControl atributoControl = (AtributoControl) atributo;
 
-			figure.conectarAtributo(atributoControl.getFigura(idDiagrama));
+			figuraEntidad.conectarAtributo(atributoControl.getFigura(idDiagrama));
 			atributoControl.dibujar(contenedor, idDiagrama);
-			figure.agregarFiguraLoqueada(atributoControl.getFigura(idDiagrama));
+			figuraEntidad.agregarFiguraLoqueada(atributoControl.getFigura(idDiagrama));
+		}
+		
+		// Procesar identificadores internos de la entidad
+		for (Identificador identificador : this.getIdentificadores()) {
+			if (identificador.getEntidades().isEmpty()) {
+				List<Connection> conexiones = new ArrayList<>();
+
+				for (Atributo atributo : identificador.getAtributos())
+					conexiones.add(figuraEntidad.getConexion(atributo.getId()));
+
+				figuraEntidad.conectarIdentificador(conexiones);
+			}
 		}
 	}
 

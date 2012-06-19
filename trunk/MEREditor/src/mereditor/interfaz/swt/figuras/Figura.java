@@ -1,6 +1,8 @@
 package mereditor.interfaz.swt.figuras;
 
+import java.util.HashMap;
 import java.util.LinkedHashSet;
+import java.util.Map;
 import java.util.Set;
 
 import mereditor.interfaz.swt.listeners.DragDropControlador;
@@ -36,7 +38,12 @@ public abstract class Figura<T extends Componente> extends Figure {
 	/**
 	 * Lista de figuras que se deben mover junto con esta
 	 */
-	private Set<Figure> figurasLoqueadas = new  LinkedHashSet<>();
+	private Set<Figure> figurasLoqueadas = new LinkedHashSet<>();
+
+	/**
+	 * Mapa de conexiones con figuras hijas
+	 */
+	protected Map<String, Connection> conexiones = new HashMap<>();
 
 	public Figura(T componente, Dimension dim) {
 		this(componente);
@@ -53,7 +60,7 @@ public abstract class Figura<T extends Componente> extends Figure {
 		new DragDropControlador(this);
 		// Agregar controlador para el movivimento de las figuras loqueadas
 		new MovimientoControlador(this);
-		
+
 		this.init();
 	}
 
@@ -80,7 +87,23 @@ public abstract class Figura<T extends Componente> extends Figure {
 	protected Color getLineColor() {
 		return this.lineColor;
 	}
-	
+
+	public T getComponente() {
+		return this.componente;
+	}
+
+	public Connection getConexion(String id) {
+		if (!this.conexiones.containsKey(id)) {
+			String error = "La figura de id %s no tiene ninguna conexion con la figura del componente con id: %s";
+			throw new RuntimeException(String.format(error, this.componente.getId(), id));
+		}
+
+		return this.conexiones.get(id);
+	}
+
+	/**
+	 * Actualizar la figura en base a los valores de su componente asociado.
+	 */
 	public abstract void actualizar();
 
 	/**
@@ -91,41 +114,37 @@ public abstract class Figura<T extends Componente> extends Figure {
 	 */
 	public void setRepresentacion(PList repr) {
 		if (repr != null) {
-			Rectangle rect = new Rectangle(
-				repr.<PList>get("Posicion").<Integer>get("x"),
-				repr.<PList>get("Posicion").<Integer>get("y"),
-				repr.<PList>get("Dimension").<Integer>get("ancho"),
-				repr.<PList>get("Dimension").<Integer>get("alto"));
+			Rectangle rect = new Rectangle(repr.<PList> get("Posicion").<Integer> get("x"), repr
+					.<PList> get("Posicion").<Integer> get("y"), repr.<PList> get("Dimension").<Integer> get("ancho"),
+					repr.<PList> get("Dimension").<Integer> get("alto"));
 
-			if(repr.<PList>get("ColorFondo") != null) {
-				this.lineColor = new Color(null, 
-					repr.<PList>get("ColorFondo").<Integer>get("r"),
-					repr.<PList>get("ColorFondo").<Integer>get("g"),
-					repr.<PList>get("ColorFondo").<Integer>get("b"));
+			if (repr.<PList> get("ColorFondo") != null) {
+				this.lineColor = new Color(null, repr.<PList> get("ColorFondo").<Integer> get("r"), repr
+						.<PList> get("ColorFondo").<Integer> get("g"), repr.<PList> get("ColorFondo")
+						.<Integer> get("b"));
 			}
-			
-			if(repr.<PList>get("ColorLinea") != null) {
-				this.lineColor = new Color(null, 
-					repr.<PList>get("ColorLinea").<Integer>get("r"),
-					repr.<PList>get("ColorLinea").<Integer>get("g"),
-					repr.<PList>get("ColorLinea").<Integer>get("b"));
+
+			if (repr.<PList> get("ColorLinea") != null) {
+				this.lineColor = new Color(null, repr.<PList> get("ColorLinea").<Integer> get("r"), repr
+						.<PList> get("ColorLinea").<Integer> get("g"), repr.<PList> get("ColorLinea")
+						.<Integer> get("b"));
 			}
 
 			this.setBounds(rect);
 		}
-		
+
 		this.init();
 	}
-	
+
 	public PList getRepresentacion() {
 		PList repr = new PList();
 		Rectangle rect = this.getBounds();
 		repr.set("Posicion", new PList());
-		repr.<PList>get("Posicion").set("x", rect.x);
-		repr.<PList>get("Posicion").set("y", rect.y);		
+		repr.<PList> get("Posicion").set("x", rect.x);
+		repr.<PList> get("Posicion").set("y", rect.y);
 		repr.set("Dimension", new PList());
-		repr.<PList>get("Dimension").set("ancho", rect.width);
-		repr.<PList>get("Dimension").set("alto", rect.height);
+		repr.<PList> get("Dimension").set("ancho", rect.width);
+		repr.<PList> get("Dimension").set("alto", rect.height);
 
 		return repr;
 	}
