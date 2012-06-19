@@ -18,7 +18,7 @@ public class Relacion extends ComponenteNombre {
 	public Relacion() {
 		super();
 	}
-	
+
 	public Relacion(String nombre) {
 		super(nombre);
 	}
@@ -54,27 +54,29 @@ public class Relacion extends ComponenteNombre {
 	public List<Atributo> getAtributos() {
 		return atributos;
 	}
-	
+
 	@Override
 	public boolean contiene(Componente componente) {
 		boolean contiene = this.atributos.contains(componente);
-		if(contiene) return contiene;
-		for(Componente hijo : this.atributos) {
+		if (contiene)
+			return contiene;
+		for (Componente hijo : this.atributos) {
 			contiene = hijo.contiene(componente);
-			if(contiene) return contiene;
+			if (contiene)
+				return contiene;
 		}
 		return super.contiene(componente);
 	}
 
 	/*
-	 * Contiene la entidad que pertence a la relacion y su informacion
-	 * asociada a la misma.
+	 * Contiene la entidad que pertence a la relacion y su informacion asociada
+	 * a la misma.
 	 */
 	public class EntidadRelacion {
 		protected Entidad entidad;
 		protected String rol;
-		protected String cardinalidadMinima;
-		protected String cardinalidadMaxima;
+		protected String cardinalidadMinima = "1";
+		protected String cardinalidadMaxima = "1";
 
 		public EntidadRelacion(Entidad entidad, String rol, String cardinalidadMinima, String cardinalidadMaxima) {
 			this.entidad = entidad;
@@ -102,7 +104,7 @@ public class Relacion extends ComponenteNombre {
 		public String getCardinalidadMinima() {
 			return cardinalidadMinima;
 		}
-		
+
 		public String getCardinalidadMaxima() {
 			return cardinalidadMaxima;
 		}
@@ -114,12 +116,17 @@ public class Relacion extends ComponenteNombre {
 		public void setCardinalidadMaxima(String cardinalidadMaxima) {
 			this.cardinalidadMaxima = cardinalidadMaxima;
 		}
-		
+
 		@Override
 		public String toString() {
-			String label = "(" + this.cardinalidadMinima + ", " + this.cardinalidadMinima +")";
-			if(this.rol != null) label += " " + this.rol;
-			return  label;
+			String label = "";
+			if (!this.cardinalidadMinima.equals("1") || !this.cardinalidadMaxima.equals("1"))
+				label = "(" + this.cardinalidadMinima + ", " + this.cardinalidadMaxima + ")";
+
+			if (this.rol != null)
+				label += " " + this.rol;
+
+			return label;
 		}
 	}
 }
