@@ -48,17 +48,21 @@ public class AtributoFigure extends Figura<Atributo> {
 		this.setBounds(ellipse.getBounds());
 		this.add(ellipse);
 	}
-	
+
 	@Override
 	protected void onSetParent() {
 		super.onSetParent();
 		if (this.getParent() != null && this.componente.getAtributos().isEmpty()) {
 			this.getParent().add(this.lblName, 0);
 			this.agregarFiguraLoqueada(this.lblName);
-				
 		}
 	}
 
+	/**
+	 * Conecta este atributo con uno de sus atributos hijos
+	 * 
+	 * @param figura
+	 */
 	public void conectarAtributo(Figura<Atributo> figura) {
 		this.getParent().add(Figura.conectar(this, figura));
 	}
@@ -85,9 +89,9 @@ public class AtributoFigure extends Figura<Atributo> {
 
 		return repr;
 	}
-	
+
 	@Override
 	public void actualizar() {
-		this.lblName.setText(this.componente.getNombre());		
+		this.lblName.setText(this.componente.getNombre());
 	}
 }

@@ -31,15 +31,15 @@ public class JerarquiaControl extends Jerarquia implements Control<Jerarquia>, M
 
 	@Override
 	public void dibujar(Figure contenedor, String idDiagrama) {
-		JerarquiaFigura figura = (JerarquiaFigura) this.getFigura(idDiagrama);
-		contenedor.add(figura);
+		JerarquiaFigura figuraJerarquia = (JerarquiaFigura) this.getFigura(idDiagrama);
+		contenedor.add(figuraJerarquia);
 
-		Figure generica = ((Control<?>) this.generica).getFigura(idDiagrama);
-		figura.conectarGenerica(figura, generica);
+		Figure figuraGenerica = ((Control<?>) this.generica).getFigura(idDiagrama);
+		figuraJerarquia.conectarGenerica(figuraJerarquia, figuraGenerica);
 
 		for (Entidad derivada : this.derivadas) {
-			Figure derivadaFigure = ((Control<?>) derivada).getFigura(idDiagrama);
-			figura.conectarDerivada(figura, derivadaFigure);
+			Figure figuraDerivada = ((Control<?>) derivada).getFigura(idDiagrama);
+			figuraJerarquia.conectarDerivada(figuraDerivada, figuraJerarquia);
 		}
 	}
 

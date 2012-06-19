@@ -31,7 +31,7 @@ public class RelacionFigure extends Figura<Relacion> {
 		this.setBorder(null);
 		this.setOpaque(false);
 
-		// Quitar todos los controles del padre
+		// Quitar todos los controles hijos
 		this.removeAll();
 
 		this.rombo = new PolygonShape();
@@ -43,10 +43,6 @@ public class RelacionFigure extends Figura<Relacion> {
 		this.generarPuntos();
 
 		this.lblName.setText(this.componente.getNombre());
-	}
-
-	public void update() {
-		// this.lblName.setText(this.componente.getNombre());
 	}
 
 	/**
@@ -72,17 +68,22 @@ public class RelacionFigure extends Figura<Relacion> {
 	}
 
 	public void conectarEntidad(Figura<Entidad> figura, String label) {
-		Connection conecccion = Figura.conectar(this, figura);
+		Connection conexion = Figura.conectar(this, figura);
 
 		// Agregad cardinalidad y rol
 		Label lblCardinalidad = new Label(label);
-		conecccion.add(lblCardinalidad, new MidpointLocator(conecccion, 0));
+		conexion.add(lblCardinalidad, new MidpointLocator(conexion, 0));
 
-		this.getParent().add(conecccion);
+		this.getParent().add(conexion);
+		
+		this.conexiones.put(figura.getComponente().getId(), conexion);
 	}
 
 	public void conectarAtributo(Figura<Atributo> figura) {
-		this.getParent().add(Figura.conectar(this, figura));
+		Connection conexion = Figura.conectar(this, figura);
+		this.getParent().add(conexion);
+		
+		this.conexiones.put(figura.getComponente().getId(), conexion);
 	}
 	
 	@Override

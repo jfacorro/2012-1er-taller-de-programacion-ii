@@ -161,22 +161,12 @@
 				<Nombre>butaca</Nombre>
 				<Cardinalidad max="1" min="1" />
 			</Atributo>
-			<Atributo id="_2a" tipo="DERIVADO_COPIA">
-				<Nombre>copia</Nombre>
-				<Cardinalidad max="1" min="1" />
-				<Origen>
-					<RefAtributo idref="_3" />
-				</Origen>
-			</Atributo>
-			<Atributo id="_2b" tipo="DERIVADO_CALCULO">
-				<Nombre>copia</Nombre>
-				<Cardinalidad max="1" min="1" />
-				<Formula>1 + 1</Formula>
-			</Atributo>
 		</Atributos>
 		<Identificadores>
 			<Identificador>
 				<RefEntidad idref="_5" />
+				<RefAtributo idref="_2" />
+				<RefAtributo idref="_3" />
 			</Identificador>
 		</Identificadores>
 	</Entidad>

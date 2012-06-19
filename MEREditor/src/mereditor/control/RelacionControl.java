@@ -1,13 +1,19 @@
 package mereditor.control;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
+import mereditor.interfaz.swt.figuras.EntidadFigure;
 import mereditor.interfaz.swt.figuras.Figura;
 import mereditor.interfaz.swt.figuras.RelacionFigure;
 import mereditor.modelo.Atributo;
+import mereditor.modelo.Entidad;
+import mereditor.modelo.Entidad.Identificador;
 import mereditor.modelo.Relacion;
 
+import org.eclipse.draw2d.Connection;
 import org.eclipse.draw2d.Figure;
 import org.eclipse.draw2d.MouseEvent;
 import org.eclipse.draw2d.MouseListener;
@@ -23,7 +29,7 @@ public class RelacionControl extends Relacion implements Control<Relacion>, Mous
 			// Agregar este controlador como listener para mouse clicks
 			figura.addMouseListener(this);
 		}
-		
+
 		this.figures.get(idDiagrama).actualizar();
 
 		return this.figures.get(idDiagrama);
@@ -31,21 +37,60 @@ public class RelacionControl extends Relacion implements Control<Relacion>, Mous
 
 	@Override
 	public void dibujar(Figure contenedor, String idDiagrama) {
-		RelacionFigure figure = (RelacionFigure) this.getFigura(idDiagrama);
-		contenedor.add(figure);
+		RelacionFigure figuraRelacion = (RelacionFigure) this.getFigura(idDiagrama);
+		contenedor.add(figuraRelacion);
 
 		for (Atributo atributo : this.atributos) {
 			AtributoControl atributoControl = (AtributoControl) atributo;
 
-			figure.conectarAtributo(atributoControl.getFigura(idDiagrama));
+			figuraRelacion.conectarAtributo(atributoControl.getFigura(idDiagrama));
 			atributoControl.dibujar(contenedor, idDiagrama);
-			figure.agregarFiguraLoqueada(atributoControl.getFigura(idDiagrama));
+			figuraRelacion.agregarFiguraLoqueada(atributoControl.getFigura(idDiagrama));
 		}
 
 		for (EntidadRelacion entidadRelacion : this.participantes) {
 			EntidadControl entidadControl = (EntidadControl) entidadRelacion.getEntidad();
-			figure.conectarEntidad(entidadControl.getFigura(idDiagrama), entidadRelacion.toString());
+			Figura<Entidad> figuraEntidad = entidadControl.getFigura(idDiagrama);
+
+			figuraRelacion.conectarEntidad(figuraEntidad, entidadRelacion.toString());
 		}
+
+		// Procesar identificadores externos de cada entidad
+		for (EntidadRelacion entidadRelacion : this.participantes) {
+			EntidadControl entidadControl = (EntidadControl) entidadRelacion.getEntidad();
+			EntidadFigure figuraEntidad = (EntidadFigure) entidadControl.getFigura(idDiagrama);
+
+			for (Identificador identificador : entidadControl.getIdentificadores()) {
+				// Solo los que pertencen a la relación y son externos 
+				if (this.pertenece(identificador) && !identificador.getEntidades().isEmpty()) {
+					List<Connection> conexiones = new ArrayList<>();
+
+					for (Entidad entidad : identificador.getEntidades())
+						conexiones.add(figuraRelacion.getConexion(entidad.getId()));
+
+					for (Atributo atributo : identificador.getAtributos())
+						conexiones.add(figuraEntidad.getConexion(atributo.getId()));
+
+					figuraEntidad.conectarIdentificador(conexiones);
+				}
+			}
+		}
+	}
+
+	/**
+	 * Indica si todas la entidades del identificador pertencen a la relación
+	 * 
+	 * @param identificador
+	 * @return
+	 */
+	private boolean pertenece(Identificador identificador) {
+		boolean pertenece = false;
+
+		for (Entidad entidad : identificador.getEntidades())
+			if (this.contiene(entidad))
+				return true;
+
+		return pertenece;
 	}
 
 	public Map<String, RelacionFigure> getFiguras() {
