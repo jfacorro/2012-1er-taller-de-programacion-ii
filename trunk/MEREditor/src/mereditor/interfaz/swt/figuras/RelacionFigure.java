@@ -39,7 +39,7 @@ public class RelacionFigure extends Figura<Relacion> {
 		this.rombo.setBackgroundColor(this.getBackColor());
 		this.rombo.setOpaque(false);
 		this.rombo.add(this.lblName, BorderLayout.CENTER);
-		this.add(rombo, BorderLayout.CENTER);
+		this.add(this.rombo, BorderLayout.CENTER);
 		this.generarPuntos();
 
 		this.lblName.setText(this.componente.getNombre());

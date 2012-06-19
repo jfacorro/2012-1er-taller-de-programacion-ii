@@ -1,4 +1,14 @@
 Juan:
 -----
-	- Agregar el tipo de identificadores faltantes y la representacion de ellos.
-	- Implementar la figura de Jerarquía.
+	Pendiente:
+	----------
+		- Implementar la figura de Jerarquía mejor.
+		- Considerar las diferentes representaciones para los diferentes tipos de cada componentes (por ejemplo Entidad: Maestra/Transaccional)
+		- Mejorar las conexiones para que salgan del centro.
+		- Crear anchors que puedan:
+			- En Entidades: Moverse sobre el borde de las figuras.
+			- En Relaciones: Utilizar sólo las puntas del rombo.
+
+	Hecho:
+	------
+		- Agregar el tipo de identificadores faltantes y la representacion de ellos.

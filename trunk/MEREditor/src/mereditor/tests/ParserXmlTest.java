@@ -116,6 +116,19 @@ public class ParserXmlTest extends TestCase {
 		EntidadRelacion participante = relacion.getParticipantes().get(0);
 		assertEquals(participante.getRol(), "Bosss");
 	}
+	
+	public void testEncontrarRelacionPorIdVerificarCardinalidades() throws Exception {
+		Relacion relacion = (Relacion) this.parser.resolver("_24");
+		assertEquals(relacion.getParticipantes().size(), 2);
+		
+		EntidadRelacion participante = relacion.getParticipantes().get(0);
+		assertEquals(participante.getCardinalidadMinima(), "1");
+		assertEquals(participante.getCardinalidadMaxima(), "1");
+		
+		participante = relacion.getParticipantes().get(1);
+		assertEquals(participante.getCardinalidadMinima(), "1");
+		assertEquals(participante.getCardinalidadMaxima(), "n");
+	}
 
 	public void testEncontrarDiagramaPorId() throws Exception {
 		Diagrama diagrama = (Diagrama) this.parser.resolver("_41");
