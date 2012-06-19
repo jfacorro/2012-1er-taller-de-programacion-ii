@@ -30,4 +30,9 @@ public class JerarquiaFigura extends Figura<Jerarquia> {
 		PolylineConnection connection = (PolylineConnection)Figura.conectar(figura, derivada);
 		this.getParent().add(connection);
 	}
+	
+	@Override
+	public void actualizar() {
+		this.lblName.setText(this.componente.toString());		
+	}
 }

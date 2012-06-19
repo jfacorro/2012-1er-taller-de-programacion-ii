@@ -25,6 +25,8 @@ public class EntidadControl extends Entidad implements Control<Entidad>, MouseLi
 			// Agregar este controlador como listener para mouse clicks
 			figura.addMouseListener(this);
 		}
+		
+		this.figures.get(idDiagrama).actualizar();
 
 		return this.figures.get(idDiagrama);
 	}

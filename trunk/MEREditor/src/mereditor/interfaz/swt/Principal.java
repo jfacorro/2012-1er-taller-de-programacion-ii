@@ -186,5 +186,9 @@ public class Principal {
 	public Tree getTree() {
 		return tree;
 	}
+
+	public PanelDisegno getPanelDisegno() {
+		return this.panelDisegno;
+	}
 	
 }

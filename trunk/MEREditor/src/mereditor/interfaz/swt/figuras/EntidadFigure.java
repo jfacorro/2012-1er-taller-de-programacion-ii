@@ -23,4 +23,9 @@ public class EntidadFigure extends Figura<Entidad> {
 	public void conectarAtributo(Figura<Atributo> figura) {
 		this.getParent().add(Figura.conectar(this, figura));
 	}
+	
+	@Override
+	public void actualizar() {
+		this.lblName.setText(this.componente.getNombre());		
+	}
 }

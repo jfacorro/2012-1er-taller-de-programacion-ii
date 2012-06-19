@@ -1,6 +1,5 @@
 package mereditor.editores;
 
-
 import mereditor.modelo.Atributo;
 import mereditor.modelo.Atributo.TipoAtributo;
 
@@ -17,7 +16,7 @@ public class AtributoCellModifier implements ICellModifier {
 	}
 
 	public boolean canModify(Object element, String property) {
-		//queda forzado q se puedan editar todas las propiedades
+		// queda forzado q se puedan editar todas las propiedades
 		return true;
 	}
 
@@ -40,7 +39,7 @@ public class AtributoCellModifier implements ICellModifier {
 		if (EntidadEditor.NOMBRE.equals(property))
 			atr.setNombre((String) value);
 		else if (EntidadEditor.TIPO.equals(property))
-			atr.setTipo( TipoAtributo.class.getEnumConstants()[(int) value] );
+			atr.setTipo(TipoAtributo.class.getEnumConstants()[(int) value]);
 
 		viewer.refresh();
 	}

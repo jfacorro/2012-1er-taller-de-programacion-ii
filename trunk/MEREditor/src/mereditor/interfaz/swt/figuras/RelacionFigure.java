@@ -84,4 +84,9 @@ public class RelacionFigure extends Figura<Relacion> {
 	public void conectarAtributo(Figura<Atributo> figura) {
 		this.getParent().add(Figura.conectar(this, figura));
 	}
+	
+	@Override
+	public void actualizar() {
+		this.lblName.setText(this.componente.getNombre());		
+	}
 }
