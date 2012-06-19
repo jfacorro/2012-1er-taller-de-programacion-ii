@@ -23,6 +23,10 @@ public class DiagramaControl extends Diagrama implements Control<Diagrama>, Mous
 			((Control<?>) componente).dibujar(contenedor, idDiagrama);
 		}
 	}
+	
+	public void dibujar(Figure contenedor) {
+		this.dibujar(contenedor, this.id);
+	}
 
 	@Override
 	public void mouseDoubleClicked(MouseEvent arg0) {
