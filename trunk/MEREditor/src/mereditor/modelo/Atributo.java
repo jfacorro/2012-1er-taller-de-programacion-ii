@@ -46,11 +46,10 @@ public class Atributo extends ComponenteNombre {
 	public TipoAtributo getTipo() {
 		return this.tipo;
 	}
-	
+
 	public void setTipo(TipoAtributo tipo) {
 		this.tipo = tipo;
 	}
-
 
 	public String getCardinalidadMaxima() {
 		return this.cardinalidadMaxima;
@@ -85,16 +84,21 @@ public class Atributo extends ComponenteNombre {
 		return false;
 	}
 
+	/**
+	 * Indica si el atributo es un identificador principal.
+	 * 
+	 * @return
+	 */
 	public boolean esIdentificador() {
-		if(Entidad.class.isInstance(this.padre)) {
-			List<Identificador> identificadores = ((Entidad)this.padre).identificadores;
-			
-			for(Identificador identificador : identificadores) {
-				if(identificador.contiene(this) && identificador.getEntidades().isEmpty()) 
+		if (Entidad.class.isInstance(this.padre)) {
+			List<Identificador> identificadores = ((Entidad) this.padre).identificadores;
+
+			for (Identificador identificador : identificadores) {
+				if (identificador.contiene(this) && identificador.getEntidades().isEmpty() && identificador.getAtributos().size() == 1)
 					return true;
 			}
 		}
-			
+
 		return false;
 	}
 }
