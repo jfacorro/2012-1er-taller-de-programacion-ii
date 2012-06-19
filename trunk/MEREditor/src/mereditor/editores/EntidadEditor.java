@@ -53,13 +53,17 @@ public class EntidadEditor extends ApplicationWindow {
 		shell.setSize(400, 400);
 	}
 
-	protected Control createContents(Composite parent) {
+	protected Control createContents(final Composite parent) {
 
 		Composite composite = new Composite(parent, SWT.NONE);
 		composite.setLayout(new GridLayout(1, false));
 
 		Button btnNuevoAtributo = new Button(composite, SWT.PUSH);
 		btnNuevoAtributo.setText("Crear un nuevo atributo");
+		
+		Button btnCerrar = new Button(composite, SWT.PUSH);
+		btnCerrar.setText("Cerrar");
+
 
 		// TableViewer
 		final TableViewer tablev = new TableViewer(composite, SWT.FULL_SELECTION);
@@ -100,16 +104,23 @@ public class EntidadEditor extends ApplicationWindow {
 				entidad.addAtributo(atr);
 
 				tablev.refresh();
+			}
+		});
+		
+		btnCerrar.addSelectionListener(new SelectionAdapter() {
+			public void widgetSelected(SelectionEvent event) {
 				
 				// TODO: refresh diagrama
+				//shell.?
+				
+				parent.dispose();
 			}
 		});
 		  
 		// Crear editores de celda
-		CellEditor[] editors = new CellEditor[3];
+		CellEditor[] editors = new CellEditor[2];
 		editors[0] = new TextCellEditor(table);
-		editors[1] = new CheckboxCellEditor(table);
-	    editors[2] = new ComboBoxCellEditor(table, TIPOS_STR, SWT.READ_ONLY);
+	    editors[1] = new ComboBoxCellEditor(table, TIPOS_STR, SWT.READ_ONLY);
 
 		//
 		tablev.setColumnProperties(PROPS);
