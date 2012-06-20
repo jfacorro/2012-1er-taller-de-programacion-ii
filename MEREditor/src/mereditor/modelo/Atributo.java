@@ -35,8 +35,8 @@ public class Atributo extends ComponenteNombre {
 		super(nombre, id, padre);
 	}
 
-	public Atributo(String nombre, String id, Componente padre, String min, String cardMax, TipoAtributo tipo,
-			List<Atributo> atributos) {
+	public Atributo(String nombre, String id, Componente padre, String min,
+			String cardMax, TipoAtributo tipo, List<Atributo> atributos) {
 		this(nombre, id, padre);
 		this.atributos = atributos;
 		this.cardinalidadMinima = min;
@@ -94,11 +94,24 @@ public class Atributo extends ComponenteNombre {
 			List<Identificador> identificadores = ((Entidad) this.padre).identificadores;
 
 			for (Identificador identificador : identificadores) {
-				if (identificador.contiene(this) && identificador.getEntidades().isEmpty() && identificador.getAtributos().size() == 1)
+				if (identificador.contiene(this)
+						&& identificador.getEntidades().isEmpty()
+						&& identificador.getAtributos().size() == 1)
 					return true;
 			}
 		}
 
 		return false;
+	}
+
+	public String getCardinalidadString() {
+		String cardinalidad = "";
+
+		if (!this.cardinalidadMinima.equals("1")
+				|| !this.cardinalidadMaxima.equals("1"))
+			cardinalidad = " (" + this.cardinalidadMinima.toString() + ", "
+					+ this.cardinalidadMaxima.toString() + ")";
+
+		return cardinalidad;
 	}
 }

@@ -23,8 +23,10 @@ public class AtributoFigure extends Figura<Atributo> {
 	protected void init() {
 		this.lblName = new Label();
 		this.lblName.setFont(this.getFont());
-		this.lblName.setText(this.componente.getNombre());
-		this.lblName.setBounds(this.lblName.getTextBounds().translate(this.getLocation()));
+		this.lblName.setText(this.componente.getNombre()
+				+ this.componente.getCardinalidadString());
+		this.lblName.setBounds(this.lblName.getTextBounds().translate(
+				this.getLocation()));
 
 		this.ellipse = new Ellipse();
 		this.ellipse.setLocation(this.getLocation());
@@ -35,7 +37,8 @@ public class AtributoFigure extends Figura<Atributo> {
 			new DragDropControlador(this.lblName);
 		} else {
 			ellipse.setLayoutManager(new BorderLayout());
-			ellipse.setSize(this.lblName.getTextBounds().getSize().getExpanded(20, 5));
+			ellipse.setSize(this.lblName.getTextBounds().getSize()
+					.getExpanded(20, 5));
 			ellipse.add(this.lblName, BorderLayout.CENTER);
 		}
 
@@ -52,7 +55,8 @@ public class AtributoFigure extends Figura<Atributo> {
 	@Override
 	protected void onSetParent() {
 		super.onSetParent();
-		if (this.getParent() != null && this.componente.getAtributos().isEmpty()) {
+		if (this.getParent() != null
+				&& this.componente.getAtributos().isEmpty()) {
 			this.getParent().add(this.lblName, 0);
 			this.agregarFiguraLoqueada(this.lblName);
 		}
@@ -73,7 +77,8 @@ public class AtributoFigure extends Figura<Atributo> {
 
 		if (this.lblName != null && repr.get("Label") != null) {
 			PList labelRepr = repr.<PList> get("Label");
-			this.lblName.setLocation(new Point(labelRepr.<Integer> get("x"), labelRepr.<Integer> get("y")));
+			this.lblName.setLocation(new Point(labelRepr.<Integer> get("x"),
+					labelRepr.<Integer> get("y")));
 		}
 	}
 
@@ -92,6 +97,7 @@ public class AtributoFigure extends Figura<Atributo> {
 
 	@Override
 	public void actualizar() {
-		this.lblName.setText(this.componente.getNombre());
+		this.lblName.setText(this.componente.getNombre()
+				+ this.componente.getCardinalidadString());
 	}
 }
