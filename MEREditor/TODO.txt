@@ -7,8 +7,8 @@ Juan:
 		- Mejorar las conexiones para que salgan del centro.
 		- Crear anchors que puedan:
 			- En Entidades: Moverse sobre el borde de las figuras.
-			- En Relaciones: Utilizar sólo las puntas del rombo.
-
+			- En Relaciones: Utilizar sólo las puntas del rombo
+		- Mostrar las cardinalidades de los atributos.
 	Hecho:
 	------
 		- Agregar el tipo de identificadores faltantes y la representacion de ellos.

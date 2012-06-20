@@ -1,5 +1,9 @@
 package mereditor.interfaz.swt.listeners;
 
+import mereditor.interfaz.swt.Principal;
+import mereditor.modelo.Diagrama;
+import mereditor.modelo.base.Componente;
+
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
@@ -40,8 +44,15 @@ public class MenuArbolControlador implements Listener {
 	}
 
 	public void eliminarItemActivo() {
-		if (treeItemActivo != null && !treeItemActivo.isDisposed())
+		if (treeItemActivo != null && !treeItemActivo.isDisposed()) {
+			Componente componente = (Componente) treeItemActivo.getData();
+			Diagrama diagrama = (Diagrama)treeItemActivo.getParent().getData();
+			diagrama.eliminar(componente);
+
+			Principal.getInstance().getPanelDisegno().actualizar();
+			
 			treeItemActivo.dispose();
+		}			
 	}
 
 	public void cortarItemActivo() {
