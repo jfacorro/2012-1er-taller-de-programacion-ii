@@ -46,7 +46,7 @@ public class EntidadFigure extends Figura<Entidad> {
 	 * @param conexiones
 	 */
 	public void conectarIdentificador(List<Connection> conexiones) {
-		if (conexiones.size() > 1) {
+		if (conexiones.size() > 1 && this.getParent() != null) {
 			Connection conexionOrigen = conexiones.get(0);
 			Ellipse circuloOrigen = this.circuloIdentificador();
 			conexionOrigen.add(circuloOrigen, new MidpointLocator(conexionOrigen, 0));

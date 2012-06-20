@@ -33,6 +33,7 @@ public class TreeManager {
 	 */
 	public static void agregar(Diagrama diagrama, Tree raiz) {
 		raiz.removeAll();
+		raiz.setData(diagrama);
 		TreeItem item = new TreeItem(raiz, SWT.NULL);
 		item.setText(diagrama.getNombre());
 		item.setData(diagrama);
@@ -75,7 +76,6 @@ public class TreeManager {
 	}
 
 	public static void cargar(Proyecto proyecto, Tree tree) {
-		tree.removeAll();
 		TreeManager.agregar(proyecto.getRaiz(), tree);		
 	}
 }
