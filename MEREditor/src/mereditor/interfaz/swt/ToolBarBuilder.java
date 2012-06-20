@@ -19,7 +19,8 @@ public class ToolBarBuilder {
 	}
 
 	private ToolBarBuilder(Principal principal) {
-		this.toolBar = new ToolBar(principal.getShell(), SWT.HORIZONTAL | SWT.FLAT);
+		this.toolBar = new ToolBar(principal.getShell(), SWT.HORIZONTAL
+				| SWT.FLAT);
 		this.principal = principal;
 		this.init();
 	}
@@ -57,12 +58,13 @@ public class ToolBarBuilder {
 		item.setImage(this.getImagen("relacion.png"));
 
 		item = new ToolItem(this.toolBar, SWT.PUSH);
-		item.setToolTipText("Nueva Jerarquía");
+		item.setToolTipText("Nueva Jerarquï¿½a");
 		item.setImage(this.getImagen("jerarquia.png"));
 
 		item = new ToolItem(this.toolBar, SWT.PUSH);
 		item.setToolTipText("Nuevo Diagrama");
 		item.setImage(this.getImagen("diagrama.png"));
+		item.addSelectionListener(nuevoDiagrama);
 
 		item = new ToolItem(this.toolBar, SWT.PUSH);
 		item.setToolTipText("Validar");
@@ -73,6 +75,11 @@ public class ToolBarBuilder {
 		item.setImage(this.getImagen("zoom.png"));
 
 		item = new ToolItem(this.toolBar, SWT.PUSH);
+		item.setToolTipText("Explorador del Proyecto");
+		item.setImage(this.getImagen("tree_mode.png"));
+		item.addSelectionListener(mostrarArbol);
+
+		item = new ToolItem(this.toolBar, SWT.PUSH);
 		item.setToolTipText("Salir");
 		item.setImage(this.getImagen("salir.png"));
 		item.addSelectionListener(salir);
@@ -81,7 +88,7 @@ public class ToolBarBuilder {
 	private Image getImagen(String nombre) {
 		return new Image(this.toolBar.getDisplay(), PATH_IMAGENES + nombre);
 	}
-	
+
 	private SelectionListener nuevo = new SelectionAdapter() {
 		@Override
 		public void widgetSelected(SelectionEvent e) {
@@ -99,7 +106,7 @@ public class ToolBarBuilder {
 			principal.abrir();
 		}
 	};
-	
+
 	private SelectionListener guardar = new SelectionAdapter() {
 		@Override
 		public void widgetSelected(SelectionEvent e) {
@@ -111,6 +118,29 @@ public class ToolBarBuilder {
 		}
 	};
 
+	private SelectionListener mostrarArbol = new SelectionAdapter() {
+		@Override
+		public void widgetSelected(SelectionEvent e) {
+			try {
+
+				TreeManager.mostrar();
+
+			} catch (Exception ex) {
+				ex.printStackTrace();
+			}
+		}
+	};
+
+	private SelectionListener nuevoDiagrama = new SelectionAdapter() {
+		@Override
+		public void widgetSelected(SelectionEvent e) {
+			try {
+				principal.nuevoDiagrama();
+			} catch (Exception ex) {
+				ex.printStackTrace();
+			}
+		}
+	};
 
 	private static final SelectionListener salir = new SelectionAdapter() {
 		@Override

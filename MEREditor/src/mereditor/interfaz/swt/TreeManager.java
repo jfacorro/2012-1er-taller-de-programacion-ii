@@ -5,24 +5,34 @@ import mereditor.modelo.Diagrama;
 import mereditor.modelo.base.Componente;
 
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.custom.CTabFolder;
+import org.eclipse.swt.custom.CTabItem;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeItem;
 
 public class TreeManager {
-	private Tree tree;
+	private static Tree tree;
+	private static CTabItem tab;
+	private static CTabFolder folder;
 
 	public static Tree build(Principal principal) {
-		return new TreeManager(principal).tree;
+		new TreeManager(principal);
+		return TreeManager.tree;
 	}
 
 	private TreeManager(Principal principal) {
-		this.tree = new Tree(principal.getSashForm(), SWT.CENTER);
-		this.tree.setBackground(new Color(null, 240, 240, 240));
+		folder = new CTabFolder(principal.getSashForm(), SWT.CENTER);
+		tab = new CTabItem(folder, SWT.CLOSE | SWT.BOTTOM);
+		tree = new Tree(folder, SWT.NO_SCROLL);
 		this.init();
 	}
 
 	private void init() {
+		tree.setBackground(new Color(null, 240, 240, 240));
+		folder.setEnabled(false);
+		folder.setSimple(false);
+		tab.setControl(tree);
 	}
 
 	/**
@@ -55,7 +65,7 @@ public class TreeManager {
 		TreeItem hijo = new TreeItem(item, SWT.NULL);
 		hijo.setText(diagrama.getNombre());
 		hijo.setData(diagrama);
-
+		
 		for (Diagrama diagramaHijo : diagrama.getDiagramas())
 			agregar(diagramaHijo, hijo);
 
@@ -76,6 +86,22 @@ public class TreeManager {
 	}
 
 	public static void cargar(Proyecto proyecto, Tree tree) {
-		TreeManager.agregar(proyecto.getRaiz(), tree);		
+		TreeManager.agregar(proyecto.getRaiz(), tree);
+		tab.setText(proyecto.getRaiz().getNombre());
+		folder.setEnabled(true);
 	}
+	
+	public static void mostrar() {
+		if (tab.isDisposed()) {
+			tab = new CTabItem(folder, SWT.CLOSE | SWT.BOTTOM);
+			tab.setText(( (Diagrama)tree.getTopItem().getData() ).getNombre());
+			tab.setControl(tree);
+		}
+	}
+
+	public static void agregarADiagramaActual(Diagrama nuevoDiagrama) {
+		agregar (nuevoDiagrama,tree.getTopItem());
+	}
+	
+	
 }

@@ -9,6 +9,7 @@ import javax.xml.transform.stream.StreamResult;
 
 import mereditor.control.Proyecto;
 import mereditor.interfaz.swt.DialogBuilder.PromptResult;
+import mereditor.modelo.Diagrama;
 import mereditor.xml.ParserXml;
 
 import org.eclipse.draw2d.FigureCanvas;
@@ -30,7 +31,8 @@ import org.w3c.dom.Document;
  * 
  */
 public class Principal {
-	public static final Color defaultBackgroundColor = new Color(null, 255, 255, 255);
+	public static final Color defaultBackgroundColor = new Color(null, 255,
+			255, 255);
 	public static final String APP_NOMBRE = "MER Editor";
 
 	private Shell shell;
@@ -42,7 +44,7 @@ public class Principal {
 
 	private PanelDisegno panelDisegno;
 	private Proyecto proyecto;
-	
+
 	private static Principal instancia;
 
 	public static void main(String args[]) {
@@ -56,7 +58,7 @@ public class Principal {
 			while (!display.readAndDispatch())
 				display.sleep();
 	}
-	
+
 	public static Principal getInstance() {
 		return Principal.instancia;
 	}
@@ -71,7 +73,7 @@ public class Principal {
 		this.toolBar = ToolBarBuilder.build(this);
 		this.sashForm = new SashForm(this.shell, SWT.HORIZONTAL);
 		this.tree = TreeManager.build(this);
-		MenuArbolBuilder.build(this.shell,this.tree);
+		MenuArbolBuilder.build(this.shell, this.tree);
 		this.initFigureCanvas();
 
 		this.arregloLayout();
@@ -92,20 +94,23 @@ public class Principal {
 	}
 
 	private void initFigureCanvas() {
-		this.figureCanvas = new FigureCanvas(this.sashForm, SWT.V_SCROLL | SWT.H_SCROLL);
+		this.figureCanvas = new FigureCanvas(this.sashForm, SWT.V_SCROLL
+				| SWT.H_SCROLL);
 		this.figureCanvas.setBackground(Principal.defaultBackgroundColor);
 		this.figureCanvas.getViewport().setContentsTracksHeight(true);
 		this.figureCanvas.getViewport().setContentsTracksWidth(true);
 		this.panelDisegno = new PanelDisegno(this.figureCanvas);
 	}
-	
+
 	/**
 	 * Crea un nuevo proyecto
-	 * @throws Exception 
+	 * 
+	 * @throws Exception
 	 */
 	public void nuevo() throws Exception {
-		PromptResult resultado = DialogBuilder.prompt(this.shell, "Ingresar nombre", "Nombre");
-		
+		PromptResult resultado = DialogBuilder.prompt(this.shell,
+				"Ingresar nombre", "Nombre");
+
 		this.proyecto = new Proyecto(resultado.value);
 		this.panelDisegno.setDiagrama(this.proyecto.getRaiz());
 		TreeManager.cargar(this.proyecto, this.tree);
@@ -135,7 +140,8 @@ public class Principal {
 	}
 
 	/**
-	 * Guarda un proyecto en el archivo especificado 
+	 * Guarda un proyecto en el archivo especificado
+	 * 
 	 * @throws Exception
 	 */
 	public void guardar() throws Exception {
@@ -148,24 +154,39 @@ public class Principal {
 			this.proyecto.setPath(path);
 			ParserXml modelo = new ParserXml(this.proyecto);
 			this.guardarXml(modelo.generarXmlProyecto(), path);
-			this.guardarXml(modelo.generarXmlComponentes(), dir + this.proyecto.getComponentesPath());
-			this.guardarXml(modelo.generarXmlRepresentacion(), dir + this.proyecto.getRepresentacionPath());
+			this.guardarXml(modelo.generarXmlComponentes(),
+					dir + this.proyecto.getComponentesPath());
+			this.guardarXml(modelo.generarXmlRepresentacion(), dir
+					+ this.proyecto.getRepresentacionPath());
 		}
 	}
-	
+
 	/**
-	 * Guarda un objecto Document en un archivo f�sico
-	 * en el path especificado.
+	 * Guarda un objecto Document en un archivo f�sico en el path especificado.
+	 * 
 	 * @param doc
 	 * @param path
 	 * @throws Exception
 	 */
 	private void guardarXml(Document doc, String path) throws Exception {
-		TransformerFactory transformerFactory = TransformerFactory.newInstance();
+		TransformerFactory transformerFactory = TransformerFactory
+				.newInstance();
 		Transformer transformer = transformerFactory.newTransformer();
 		DOMSource source = new DOMSource(doc);
 		StreamResult result = new StreamResult(new File(path));
 		transformer.transform(source, result);
+	}
+
+	/**
+	 * Agrega un Diagrama al proyecto
+	 * @throws Exception
+	 */
+	public void nuevoDiagrama() throws Exception {
+		PromptResult resultado = DialogBuilder.prompt(this.shell,
+				"Ingresar nombre", "Nombre");
+		Diagrama nuevoDiagrama = new Diagrama(resultado.value);
+		this.proyecto.agregar(nuevoDiagrama);
+		TreeManager.agregarADiagramaActual(nuevoDiagrama);
 	}
 
 	/**
@@ -190,4 +211,5 @@ public class Principal {
 	public PanelDisegno getPanelDisegno() {
 		return this.panelDisegno;
 	}
+
 }
