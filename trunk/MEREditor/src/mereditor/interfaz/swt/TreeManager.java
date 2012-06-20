@@ -35,6 +35,7 @@ public class TreeManager {
 		raiz.removeAll();
 		TreeItem item = new TreeItem(raiz, SWT.NULL);
 		item.setText(diagrama.getNombre());
+		item.setData(diagrama);
 
 		for (Diagrama diagramaHijo : diagrama.getDiagramas())
 			agregar(diagramaHijo, item);
@@ -52,6 +53,7 @@ public class TreeManager {
 	private static void agregar(Diagrama diagrama, TreeItem item) {
 		TreeItem hijo = new TreeItem(item, SWT.NULL);
 		hijo.setText(diagrama.getNombre());
+		hijo.setData(diagrama);
 
 		for (Diagrama diagramaHijo : diagrama.getDiagramas())
 			agregar(diagramaHijo, hijo);
@@ -69,6 +71,7 @@ public class TreeManager {
 	private static void agregar(Componente componente, TreeItem padre) {
 		TreeItem hijo = new TreeItem(padre, SWT.NULL);
 		hijo.setText(componente.toString());
+		hijo.setData(componente);
 	}
 
 	public static void cargar(Proyecto proyecto, Tree tree) {

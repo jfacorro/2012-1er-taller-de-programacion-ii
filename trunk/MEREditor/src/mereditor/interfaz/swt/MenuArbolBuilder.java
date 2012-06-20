@@ -55,8 +55,12 @@ public class MenuArbolBuilder {
 
 		@Override
 		public void handleEvent(Event arg0) {
-			// TODO Auto-generated method stub
-
+			/*
+			Componente componente = (Componente) controlador.getDataActiva();
+			Editor editor = EditorFactory(componente);
+			editor.abrir();
+			*/
+			
 		}
 
 	};

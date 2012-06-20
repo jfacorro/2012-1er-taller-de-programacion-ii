@@ -51,4 +51,8 @@ public class Diagrama extends ComponenteNombre {
 		}
 		return false;
 	}
+
+	public void eliminar(Componente componente) {
+		this.componentes.remove(componente);
+	}
 }

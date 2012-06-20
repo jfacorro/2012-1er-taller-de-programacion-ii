@@ -190,5 +190,4 @@ public class Principal {
 	public PanelDisegno getPanelDisegno() {
 		return this.panelDisegno;
 	}
-	
 }
