@@ -155,7 +155,7 @@ public class Principal {
 	
 	/**
 	 * Guarda un objecto Document en un archivo f�sico
-	 * en el path especificado
+	 * en el path especificado.
 	 * @param doc
 	 * @param path
 	 * @throws Exception
