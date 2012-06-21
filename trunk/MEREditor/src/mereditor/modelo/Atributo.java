@@ -71,6 +71,15 @@ public class Atributo extends ComponenteNombre {
 		return this.atributos;
 	}
 
+	/**
+	 * Indica si tiene atributos hijos.
+	 * 
+	 * @return
+	 */
+	public boolean esCompuesto() {
+		return !this.atributos.isEmpty();
+	}
+
 	@Override
 	public boolean contiene(Componente componente) {
 		boolean contiene = this.atributos.contains(componente);
@@ -102,16 +111,5 @@ public class Atributo extends ComponenteNombre {
 		}
 
 		return false;
-	}
-
-	public String getCardinalidadString() {
-		String cardinalidad = "";
-
-		if (!this.cardinalidadMinima.equals("1")
-				|| !this.cardinalidadMaxima.equals("1"))
-			cardinalidad = " (" + this.cardinalidadMinima.toString() + ", "
-					+ this.cardinalidadMaxima.toString() + ")";
-
-		return cardinalidad;
 	}
 }
