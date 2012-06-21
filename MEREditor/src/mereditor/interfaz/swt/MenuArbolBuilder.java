@@ -44,15 +44,12 @@ public class MenuArbolBuilder {
 	}
 
 	private Listener eliminar = new Listener() {
-
 		public void handleEvent(Event arg0) {
 			controlador.eliminarItemActivo();
 		}
-
 	};
 
 	private Listener editar = new Listener() {
-
 		@Override
 		public void handleEvent(Event arg0) {
 			/*
@@ -60,9 +57,7 @@ public class MenuArbolBuilder {
 			Editor editor = EditorFactory(componente);
 			editor.abrir();
 			*/
-			
 		}
-
 	};
 
 	private Listener cortar = new Listener() {

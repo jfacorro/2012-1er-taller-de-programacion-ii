@@ -103,7 +103,7 @@ public class EntidadEditor extends Editor<Entidad> {
 		
 		btnCerrar.addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent event) {
-				principal.getPanelDisegno().actualizar();
+				principal.actualizar();
 				parent.dispose();
 			}
 		});
