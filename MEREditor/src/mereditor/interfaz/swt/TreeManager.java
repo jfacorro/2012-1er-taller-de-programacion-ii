@@ -23,7 +23,7 @@ public class TreeManager {
 	}
 
 	private TreeManager(Principal principal) {
-		folder = new CTabFolder(principal.getSashForm(), SWT.CENTER);
+		folder = new CTabFolder(principal.getSashForm(), SWT.CENTER );
 		tab = new CTabItem(folder, SWT.CLOSE | SWT.BOTTOM);
 		tree = new Tree(folder, SWT.NO_SCROLL);
 		this.init();
@@ -33,6 +33,7 @@ public class TreeManager {
 		tree.setBackground(new Color(null, 240, 240, 240));
 		folder.setEnabled(false);
 		folder.setSimple(false);
+		folder.setSelection(tab);
 		tab.setControl(tree);
 	}
 
@@ -95,9 +96,10 @@ public class TreeManager {
 
 	public static void mostrar() {
 		if (tab.isDisposed()) {
-			tab = new CTabItem(folder, SWT.CLOSE | SWT.BOTTOM);
+			tab = new CTabItem(folder, SWT.CLOSE | SWT.BOTTOM );
 			tab.setText(((Diagrama) tree.getTopItem().getData()).getNombre());
 			tab.setControl(tree);
+			folder.setSelection(tab);
 		}
 	}
 
