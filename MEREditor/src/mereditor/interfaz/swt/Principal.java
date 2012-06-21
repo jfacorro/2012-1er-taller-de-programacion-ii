@@ -11,6 +11,7 @@ import mereditor.control.DiagramaControl;
 import mereditor.control.Proyecto;
 import mereditor.interfaz.swt.DialogBuilder.PromptResult;
 import mereditor.interfaz.swt.DialogBuilder.Resultado;
+import mereditor.modelo.Diagrama;
 import mereditor.xml.ParserXml;
 
 import org.eclipse.draw2d.FigureCanvas;
@@ -238,10 +239,12 @@ public class Principal {
 	/**
 	 * Abre el diagrama para su visualizacion y/o edicion
 	 * @param diagrama
-	 *
+	 **/
 	public void abrir(Diagrama diagrama) {
+		/*
 		this.panelDisegno.setDiagrama(diagrama);
 		this.actualizar();
+		*/
 	}
-	 */
+	 
 }
