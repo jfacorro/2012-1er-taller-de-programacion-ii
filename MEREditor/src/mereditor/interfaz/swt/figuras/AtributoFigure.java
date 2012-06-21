@@ -23,23 +23,22 @@ public class AtributoFigure extends Figura<Atributo> {
 	protected void init() {
 		this.lblName = new Label();
 		this.lblName.setFont(this.getFont());
-		this.lblName.setText(this.componente.getNombre()
-				+ this.componente.getCardinalidadString());
+		this.lblName.setText(this.getTextoLabel());
 		this.lblName.setBounds(this.lblName.getTextBounds().translate(
 				this.getLocation()));
 
 		this.ellipse = new Ellipse();
 		this.ellipse.setLocation(this.getLocation());
 
-		// Si es un atributo simple representar con circulo
-		if (this.componente.getAtributos().isEmpty()) {
-			ellipse.setSize(new Dimension(10, 10));
-			new DragDropControlador(this.lblName);
-		} else {
+		// Si es un atributo compuesto representar con circulo
+		if (this.componente.esCompuesto()) {
 			ellipse.setLayoutManager(new BorderLayout());
 			ellipse.setSize(this.lblName.getTextBounds().getSize()
 					.getExpanded(20, 5));
 			ellipse.add(this.lblName, BorderLayout.CENTER);
+		} else {
+			ellipse.setSize(new Dimension(10, 10));
+			new DragDropControlador(this.lblName);
 		}
 
 		// Si es un identificador usar fondo negro
@@ -60,6 +59,17 @@ public class AtributoFigure extends Figura<Atributo> {
 			this.getParent().add(this.lblName, 0);
 			this.agregarFiguraLoqueada(this.lblName);
 		}
+	}
+
+	private String getTextoLabel() {
+		String texto = this.componente.getNombre();
+
+		if (!this.componente.getCardinalidadMinima().equals("1")
+				|| !this.componente.getCardinalidadMaxima().equals("1"))
+			texto += " (" + this.componente.getCardinalidadMinima().toString() + ", "
+					+ this.componente.getCardinalidadMaxima().toString() + ")";
+
+		return texto;
 	}
 
 	/**
@@ -97,7 +107,6 @@ public class AtributoFigure extends Figura<Atributo> {
 
 	@Override
 	public void actualizar() {
-		this.lblName.setText(this.componente.getNombre()
-				+ this.componente.getCardinalidadString());
+		this.lblName.setText(this.getTextoLabel());
 	}
 }
