@@ -63,6 +63,10 @@ public class AtributoFigure extends Figura<Atributo> {
 		}
 	}
 
+	/**
+	 * Devuelve el texto que se debe mostrar en el diagrama.
+	 * @return
+	 */
 	private String getTextoLabel() {
 		String texto = this.componente.getNombre();
 

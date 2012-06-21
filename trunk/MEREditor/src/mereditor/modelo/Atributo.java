@@ -83,13 +83,14 @@ public class Atributo extends ComponenteNombre {
 	@Override
 	public boolean contiene(Componente componente) {
 		boolean contiene = this.atributos.contains(componente);
-		if (contiene)
-			return contiene;
+
+		if (contiene) return contiene;
+
 		for (Componente hijo : this.atributos) {
 			contiene = hijo.contiene(componente);
-			if (contiene)
-				return contiene;
+			if (contiene) return contiene;
 		}
+
 		return false;
 	}
 
@@ -99,8 +100,8 @@ public class Atributo extends ComponenteNombre {
 	 * @return
 	 */
 	public boolean esIdentificador() {
-		if (Entidad.class.isInstance(this.padres)) {
-			List<Identificador> identificadores = ((Entidad) this.padres).identificadores;
+		if (Entidad.class.isInstance(this.getPadre())) {
+			List<Identificador> identificadores = ((Entidad) this.getPadre()).identificadores;
 
 			for (Identificador identificador : identificadores) {
 				if (identificador.contiene(this)

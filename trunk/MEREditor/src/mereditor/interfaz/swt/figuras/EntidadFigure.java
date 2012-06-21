@@ -66,6 +66,10 @@ public class EntidadFigure extends Figura<Entidad> {
 		}
 	}
 	
+	/**
+	 * Devuelve una figura circulo que se utiliza para unir los identificadores. 
+	 * @return
+	 */
 	private Ellipse circuloIdentificador() {
 		Color negro = new Color(null, 0, 0, 0);
 		Ellipse circulo = new Ellipse();
