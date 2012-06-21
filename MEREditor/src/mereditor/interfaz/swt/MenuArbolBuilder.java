@@ -1,6 +1,9 @@
 package mereditor.interfaz.swt;
 
+import mereditor.interfaz.swt.listeners.EditarComponenteListener;
 import mereditor.interfaz.swt.listeners.MenuArbolControlador;
+import mereditor.modelo.Diagrama;
+import mereditor.modelo.base.Componente;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Event;
@@ -11,9 +14,11 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Tree;
 
 public class MenuArbolBuilder {
+
 	private Menu menuArbol;
 	private MenuArbolControlador controlador;
 	private MenuItem itemPegar;
+	private boolean cortarActivo;
 
 	public static Menu build(Shell shell, Tree tree) {
 		return new MenuArbolBuilder(shell, tree).menuArbol;
@@ -21,7 +26,8 @@ public class MenuArbolBuilder {
 
 	private MenuArbolBuilder(Shell shell, Tree tree) {
 		menuArbol = new Menu(shell, SWT.POP_UP);
-		controlador = new MenuArbolControlador(tree, menuArbol);
+		controlador = new MenuArbolControlador(tree, this);
+		cortarActivo = false;
 		this.init();
 	}
 
@@ -29,7 +35,7 @@ public class MenuArbolBuilder {
 
 		MenuItem i = new MenuItem(menuArbol, SWT.DROP_DOWN);
 		i.setText("Editar");
-		i.addListener(SWT.Selection, this.editar);
+		i.addListener(SWT.Selection, new EditarComponenteListener(controlador));
 		i = new MenuItem(menuArbol, SWT.DROP_DOWN);
 		i.setText("Cortar");
 		i.addListener(SWT.Selection, this.cortar);
@@ -44,27 +50,20 @@ public class MenuArbolBuilder {
 	}
 
 	private Listener eliminar = new Listener() {
+
 		public void handleEvent(Event arg0) {
 			controlador.eliminarItemActivo();
 		}
+
 	};
 
-	private Listener editar = new Listener() {
-		@Override
-		public void handleEvent(Event arg0) {
-			/*
-			Componente componente = (Componente) controlador.getDataActiva();
-			Editor editor = EditorFactory(componente);
-			editor.abrir();
-			*/
-		}
-	};
+	
 
 	private Listener cortar = new Listener() {
 
 		public void handleEvent(Event arg0) {
 			controlador.cortarItemActivo();
-			itemPegar.setEnabled(true);
+			cortarActivo = true;
 		}
 
 	};
@@ -74,7 +73,19 @@ public class MenuArbolBuilder {
 		public void handleEvent(Event arg0) {
 			controlador.pegarItemCortado();
 			itemPegar.setEnabled(false);
+			cortarActivo = false;
 		}
 
 	};
+
+	public void mostrarOpciones(Componente componente) {
+		if (componente instanceof Diagrama && cortarActivo) {
+			itemPegar.setEnabled(true);
+		}
+	}
+
+	public Menu getMenu() {
+		return menuArbol;
+	}
+
 }
