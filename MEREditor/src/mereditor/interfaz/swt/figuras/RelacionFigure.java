@@ -12,6 +12,7 @@ import org.eclipse.draw2d.MidpointLocator;
 import org.eclipse.draw2d.PolygonShape;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
+import org.eclipse.swt.SWT;
 
 public class RelacionFigure extends Figura<Relacion> {
 	private PolygonShape rombo;
@@ -35,6 +36,7 @@ public class RelacionFigure extends Figura<Relacion> {
 		this.removeAll();
 
 		this.rombo = new PolygonShape();
+		this.rombo.setAntialias(SWT.ON);
 		this.rombo.setLayoutManager(new BorderLayout());
 		this.rombo.setBackgroundColor(this.getBackColor());
 		this.rombo.setOpaque(false);

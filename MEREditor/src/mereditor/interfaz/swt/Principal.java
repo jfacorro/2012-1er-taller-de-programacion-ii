@@ -18,6 +18,7 @@ import org.eclipse.draw2d.FigureCanvas;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.SashForm;
 import org.eclipse.swt.graphics.Color;
+import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.layout.FormAttachment;
 import org.eclipse.swt.layout.FormData;
 import org.eclipse.swt.layout.FormLayout;
@@ -52,7 +53,7 @@ public class Principal {
 	public static void main(String args[]) {
 		Display display = Display.getDefault();
 		Shell shell = new Shell(display, SWT.SHELL_TRIM);
-
+		
 		Principal.instancia = new Principal(shell);
 		instancia.mostrar();
 
@@ -96,11 +97,14 @@ public class Principal {
 	}
 
 	private void initFigureCanvas() {
-		this.figureCanvas = new FigureCanvas(this.sashForm, SWT.V_SCROLL
-				| SWT.H_SCROLL);
+		this.figureCanvas = new FigureCanvas(this.sashForm);
+		GC gc = new GC(figureCanvas);
+		gc.setAdvanced(true);
+		gc.setAntialias(SWT.ON);
 		this.figureCanvas.setBackground(Principal.defaultBackgroundColor);
 		this.figureCanvas.getViewport().setContentsTracksHeight(true);
 		this.figureCanvas.getViewport().setContentsTracksWidth(true);
+
 	}
 
 	/**
