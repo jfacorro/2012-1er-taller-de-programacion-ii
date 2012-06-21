@@ -32,7 +32,7 @@ public class MenuArbolControlador implements Listener {
 	}
 
 	public void handleEvent(Event event) {
-		// Mostrar el menú si no es el boton derecho
+		// Mostrar el menu si no es el boton derecho
 		if (event.button > 1) {
 			Point point = new Point(event.x, event.y);
 			TreeItem treeItem = tree.getItem(point);
@@ -43,6 +43,7 @@ public class MenuArbolControlador implements Listener {
 				p = tree.toDisplay(p);
 				menu.setLocation(p.x, p.y);
 				menu.setVisible(true);
+				menu.mostrarOpciones ((Componente) treeItem.getData());
 			}
 		}
 	}
@@ -64,8 +65,7 @@ public class MenuArbolControlador implements Listener {
 	}
 
 	public void pegarItemCortado() {
-		if (treeItemCortado != null && treeItemCortado != treeItemActivo
-				&& !treeItemCortado.isDisposed() && validarPegar()) {
+		if ( validarPegar() ) {
 			TreeItem nuevoItem = new TreeItem(treeItemActivo, SWT.NULL);
 			nuevoItem.setText(treeItemCortado.getText());
 			pegarHijos(nuevoItem, treeItemCortado);
@@ -85,6 +85,10 @@ public class MenuArbolControlador implements Listener {
 	}
 
 	private boolean validarPegar() {
+		if (treeItemCortado == null && treeItemCortado == treeItemActivo
+				&& treeItemCortado.isDisposed()) {
+			return false;
+		}
 		boolean valido = true;
 		TreeItem itemActual = treeItemActivo;
 		while (valido && (tree.indexOf(itemActual) < 0)) {
@@ -94,4 +98,8 @@ public class MenuArbolControlador implements Listener {
 		return valido;
 	}
 
+	public TreeItem getTreeItemActivo() {
+		return treeItemActivo;
+	}
+	
 }

@@ -15,6 +15,7 @@ public class TreeManager {
 	private static Tree tree;
 	private static CTabItem tab;
 	private static CTabFolder folder;
+	private static TreeItem diagramaActivo;
 
 	public static Tree build(Principal principal) {
 		new TreeManager(principal);
@@ -47,6 +48,7 @@ public class TreeManager {
 		TreeItem item = new TreeItem(raiz, SWT.NULL);
 		item.setText(diagrama.getNombre());
 		item.setData(diagrama);
+		diagramaActivo= item;
 
 		for (Diagrama diagramaHijo : diagrama.getDiagramas())
 			agregar(diagramaHijo, item);
@@ -102,4 +104,13 @@ public class TreeManager {
 	public static void agregarADiagramaActual(Diagrama nuevoDiagrama) {
 		agregar(nuevoDiagrama, tree.getTopItem());
 	}
+	
+	public static TreeItem getDiagramaActivo() {
+		return diagramaActivo;
+	}
+
+	public static void setDiagramaActivo(TreeItem diagramaActivo) {
+		TreeManager.diagramaActivo = diagramaActivo;
+	}
+	
 }
