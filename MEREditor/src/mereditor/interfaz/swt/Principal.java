@@ -238,10 +238,10 @@ public class Principal {
 	/**
 	 * Abre el diagrama para su visualizacion y/o edicion
 	 * @param diagrama
-	 */
+	 *
 	public void abrir(Diagrama diagrama) {
 		this.panelDisegno.setDiagrama(diagrama);
 		this.actualizar();
 	}
-
+	 */
 }
