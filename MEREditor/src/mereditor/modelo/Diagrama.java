@@ -1,16 +1,16 @@
 package mereditor.modelo;
 
-import java.util.ArrayList;
 import java.util.Collections;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import mereditor.modelo.base.Componente;
 import mereditor.modelo.base.ComponenteNombre;
 
 public class Diagrama extends ComponenteNombre {
 
-	protected List<Diagrama> diagramas = new ArrayList<Diagrama>();
-	protected List<Componente> componentes = new ArrayList<Componente>();
+	protected Set<Diagrama> diagramas = new HashSet<Diagrama>();
+	protected Set<Componente> componentes = new HashSet<Componente>();
 	protected Validacion validacion = new Validacion();
 
 	public Diagrama() {
@@ -29,12 +29,12 @@ public class Diagrama extends ComponenteNombre {
 		super(nombre, id, padre);
 	}
 
-	public List<Diagrama> getDiagramas() {
-		return Collections.unmodifiableList(diagramas);
+	public Set<Diagrama> getDiagramas() {
+		return Collections.unmodifiableSet(diagramas);
 	}
 
-	public List<Componente> getComponentes() {
-		return Collections.unmodifiableList(componentes);
+	public Set<Componente> getComponentes() {
+		return Collections.unmodifiableSet(componentes);
 	}
 
 	public Validacion getValidacion() {

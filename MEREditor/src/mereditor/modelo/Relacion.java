@@ -2,7 +2,9 @@ package mereditor.modelo;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import mereditor.modelo.base.Componente;
 import mereditor.modelo.base.ComponenteNombre;
@@ -13,8 +15,8 @@ public class Relacion extends ComponenteNombre {
 	}
 
 	protected TipoRelacion tipo;
-	protected List<Atributo> atributos = new ArrayList<>();
-	protected List<EntidadRelacion> participantes = new ArrayList<>();
+	protected Set<Atributo> atributos = new HashSet<>();
+	protected Set<EntidadRelacion> participantes = new HashSet<>();
 
 	public Relacion() {
 		super();
@@ -48,8 +50,8 @@ public class Relacion extends ComponenteNombre {
 		this.tipo = tipo;
 	}
 
-	public List<EntidadRelacion> getParticipantes() {
-		return Collections.unmodifiableList(participantes);
+	public Set<EntidadRelacion> getParticipantes() {
+		return Collections.unmodifiableSet(participantes);
 	}
 	
 	public List<Entidad> getEntidadesParticipantes() {
@@ -61,8 +63,8 @@ public class Relacion extends ComponenteNombre {
 		return entidades;
 	}
 
-	public List<Atributo> getAtributos() {
-		return Collections.unmodifiableList(atributos);
+	public Set<Atributo> getAtributos() {
+		return Collections.unmodifiableSet(atributos);
 	}
 
 	@Override
@@ -79,14 +81,6 @@ public class Relacion extends ComponenteNombre {
 				return contiene;
 		}
 		
-		/*
-		// Verificar las entidades participantes
-		for (EntidadRelacion entidadRelacion : this.participantes) {
-			if (entidadRelacion.getEntidad().equals(componente))
-				return true;
-		}
-		*/
-
 		return super.contiene(componente);
 	}
 

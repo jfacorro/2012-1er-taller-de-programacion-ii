@@ -4,7 +4,9 @@ import java.io.File;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 import mereditor.modelo.Diagrama;
 import mereditor.modelo.Validacion;
@@ -152,5 +154,15 @@ public class Proyecto {
 		File file = new File(path);
 		String nombre = file.getName().replaceFirst("[.][^.]+$", "");
 		return nombre + "-rep.xml";
+	}
+
+	public <T extends Componente> Set<T> getLista(Class<T> clazz) {
+		Set<T> lista = new HashSet<>();
+
+		for(Componente componente : this.componentes.values())
+			if(clazz.isInstance(componente))
+				lista.add(clazz.cast(componente));
+
+		return lista;
 	}
 }
