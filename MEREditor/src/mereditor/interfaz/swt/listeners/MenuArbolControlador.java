@@ -1,5 +1,6 @@
 package mereditor.interfaz.swt.listeners;
 
+import mereditor.interfaz.swt.MenuArbolBuilder;
 import mereditor.interfaz.swt.Principal;
 import mereditor.modelo.Diagrama;
 import mereditor.modelo.base.Componente;
@@ -9,7 +10,6 @@ import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
-import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeItem;
 
@@ -21,9 +21,9 @@ public class MenuArbolControlador implements Listener {
 	private Tree tree;
 	private TreeItem treeItemCortado;
 	private TreeItem treeItemActivo;
-	private Menu menu;
+	private MenuArbolBuilder menu;
 
-	public MenuArbolControlador(Tree tree, Menu menu) {
+	public MenuArbolControlador(Tree tree, MenuArbolBuilder menu) {
 		this.tree = tree;
 		this.menu = menu;
 		tree.addListener(SWT.MouseDown, this);
@@ -41,8 +41,8 @@ public class MenuArbolControlador implements Listener {
 				Rectangle area = treeItem.getBounds();
 				Point p = new Point(area.x, area.y + area.height);
 				p = tree.toDisplay(p);
-				menu.setLocation(p.x, p.y);
-				menu.setVisible(true);
+				menu.getMenu().setLocation(p.x, p.y);
+				menu.getMenu().setVisible(true);
 				menu.mostrarOpciones ((Componente) treeItem.getData());
 			}
 		}
