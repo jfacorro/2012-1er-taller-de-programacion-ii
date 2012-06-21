@@ -8,6 +8,7 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.custom.CTabItem;
 import org.eclipse.swt.graphics.Color;
+import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeItem;
 
@@ -17,13 +18,13 @@ public class TreeManager {
 	private static CTabFolder folder;
 	private static TreeItem diagramaActivo;
 
-	public static Tree build(Principal principal) {
-		new TreeManager(principal);
+	public static Tree build(Composite composite) {
+		new TreeManager(composite);
 		return TreeManager.tree;
 	}
 
-	private TreeManager(Principal principal) {
-		folder = new CTabFolder(principal.getSashForm(), SWT.CENTER );
+	private TreeManager(Composite composite) {
+		folder = new CTabFolder(composite, SWT.CENTER);
 		tab = new CTabItem(folder, SWT.CLOSE | SWT.BOTTOM);
 		tree = new Tree(folder, SWT.NO_SCROLL);
 		this.init();
