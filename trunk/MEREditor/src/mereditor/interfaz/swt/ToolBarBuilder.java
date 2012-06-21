@@ -1,6 +1,6 @@
 package mereditor.interfaz.swt;
 
-import mereditor.interfaz.swt.dialogs.NuevaEntidadDialog;
+import mereditor.interfaz.swt.dialogs.AgregarEntidadDialog;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
@@ -133,7 +133,7 @@ public class ToolBarBuilder {
 	private SelectionListener nuevaEntidad = new SelectionAdapter() {
 		@Override
 		public void widgetSelected(SelectionEvent e) {
-			new NuevaEntidadDialog().abrir();
+			new AgregarEntidadDialog().abrir();
 		}
 	};
 

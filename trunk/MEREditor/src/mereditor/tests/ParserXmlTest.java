@@ -1,5 +1,7 @@
 package mereditor.tests;
 
+import java.util.Iterator;
+
 import junit.framework.TestCase;
 import mereditor.control.Proyecto;
 import mereditor.modelo.Atributo;
@@ -107,13 +109,13 @@ public class ParserXmlTest extends TestCase {
 
 	public void testEncontrarRelacionPorIdVerificarAtributoCompuesto() throws Exception {
 		Relacion relacion = (Relacion) this.parser.resolver("_30");
-		assertEquals(relacion.getAtributos().get(0).getAtributos().size(), 5);
+		assertEquals(relacion.getAtributos().iterator().next().getAtributos().size(), 5);
 	}
 
 	public void testEncontrarRelacionPorIdVerificarRolParticipante() throws Exception {
 		Relacion relacion = (Relacion) this.parser.resolver("_24");
 		assertEquals(relacion.getParticipantes().size(), 2);
-		EntidadRelacion participante = relacion.getParticipantes().get(0);
+		EntidadRelacion participante = relacion.getParticipantes().iterator().next();
 		assertEquals(participante.getRol(), "Bosss");
 	}
 	
@@ -121,13 +123,15 @@ public class ParserXmlTest extends TestCase {
 		Relacion relacion = (Relacion) this.parser.resolver("_24");
 		assertEquals(relacion.getParticipantes().size(), 2);
 		
-		EntidadRelacion participante = relacion.getParticipantes().get(0);
-		assertEquals(participante.getCardinalidadMinima(), "1");
-		assertEquals(participante.getCardinalidadMaxima(), "1");
+		Iterator<EntidadRelacion> iterator = relacion.getParticipantes().iterator();
 		
-		participante = relacion.getParticipantes().get(1);
+		EntidadRelacion participante = iterator.next();
 		assertEquals(participante.getCardinalidadMinima(), "1");
 		assertEquals(participante.getCardinalidadMaxima(), "n");
+		
+		participante = iterator.next();
+		assertEquals(participante.getCardinalidadMinima(), "1");
+		assertEquals(participante.getCardinalidadMaxima(), "1");
 	}
 
 	public void testEncontrarDiagramaPorId() throws Exception {

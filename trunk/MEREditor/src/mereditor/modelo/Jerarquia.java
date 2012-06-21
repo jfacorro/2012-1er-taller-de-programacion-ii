@@ -1,7 +1,8 @@
 package mereditor.modelo;
 
-import java.util.LinkedList;
-import java.util.List;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
 
 import mereditor.modelo.base.Componente;
 
@@ -11,7 +12,7 @@ public class Jerarquia extends Componente {
 	}
 
 	protected Entidad generica;
-	protected List<Entidad> derivadas = new LinkedList<Entidad>();
+	protected Set<Entidad> derivadas = new HashSet<>();
 
 	protected TipoJerarquia tipo;
 
@@ -23,8 +24,8 @@ public class Jerarquia extends Componente {
 		super(id);
 	}
 
-	public List<Entidad> getDerivadas() {
-		return derivadas;
+	public Set<Entidad> getDerivadas() {
+		return Collections.unmodifiableSet(derivadas);
 	}
 
 	public void setGenerica(Entidad generica) {

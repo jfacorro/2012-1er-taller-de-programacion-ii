@@ -1,7 +1,8 @@
 package mereditor.modelo;
 
-import java.util.LinkedList;
-import java.util.List;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
 
 import mereditor.modelo.Entidad.Identificador;
 import mereditor.modelo.base.Componente;
@@ -15,7 +16,7 @@ public class Atributo extends ComponenteNombre {
 	protected TipoAtributo tipo;
 	protected String cardinalidadMinima;
 	protected String cardinalidadMaxima;
-	protected List<Atributo> atributos = new LinkedList<Atributo>();
+	protected Set<Atributo> atributos = new HashSet<Atributo>();
 
 	// Derivado copia
 	protected Atributo original;
@@ -36,7 +37,7 @@ public class Atributo extends ComponenteNombre {
 	}
 
 	public Atributo(String nombre, String id, Componente padre, String min,
-			String cardMax, TipoAtributo tipo, List<Atributo> atributos) {
+			String cardMax, TipoAtributo tipo, Set<Atributo> atributos) {
 		this(nombre, id, padre);
 		this.atributos = atributos;
 		this.cardinalidadMinima = min;
@@ -67,8 +68,8 @@ public class Atributo extends ComponenteNombre {
 		return this.formula;
 	}
 
-	public List<Atributo> getAtributos() {
-		return this.atributos;
+	public Set<Atributo> getAtributos() {
+		return Collections.unmodifiableSet(this.atributos);
 	}
 
 	/**
@@ -101,7 +102,7 @@ public class Atributo extends ComponenteNombre {
 	 */
 	public boolean esIdentificador() {
 		if (Entidad.class.isInstance(this.getPadre())) {
-			List<Identificador> identificadores = ((Entidad) this.getPadre()).identificadores;
+			Set<Identificador> identificadores = ((Entidad) this.getPadre()).identificadores;
 
 			for (Identificador identificador : identificadores) {
 				if (identificador.contiene(this)

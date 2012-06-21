@@ -2,8 +2,9 @@ package mereditor.modelo;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.LinkedList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import mereditor.modelo.base.Componente;
 import mereditor.modelo.base.ComponenteNombre;
@@ -14,11 +15,11 @@ public class Entidad extends ComponenteNombre {
 		MAESTRA_COSA, MAESTRA_DOMINIO, TRANSACCIONAL_HISTORICA, TRANSACCIONAL_PROGRAMADA
 	}
 
-	protected List<Atributo> atributos = new LinkedList<Atributo>();
+	protected Set<Atributo> atributos = new HashSet<Atributo>();
 	/**
 	 * Pueden ser tanto Atributos como Entidades
 	 */
-	protected List<Identificador> identificadores = new ArrayList<Identificador>();
+	protected Set<Identificador> identificadores = new HashSet<Identificador>();
 	protected TipoEntidad tipo;
 
 	public Entidad() {
@@ -47,12 +48,12 @@ public class Entidad extends ComponenteNombre {
 		this.atributos.add(atributo);
 	}
 
-	public List<Atributo> getAtributos() {
-		return this.atributos;
+	public Set<Atributo> getAtributos() {
+		return Collections.unmodifiableSet(this.atributos);
 	}
 	
-	public List<Identificador> getIdentificadores() {
-		return this.identificadores;
+	public Set<Identificador> getIdentificadores() {
+		return Collections.unmodifiableSet(this.identificadores);
 	}
 
 	public TipoEntidad getTipo() {
