@@ -50,7 +50,7 @@ public class TreeManager {
 
 		for (Diagrama diagramaHijo : diagrama.getDiagramas())
 			agregar(diagramaHijo, item);
-		
+
 		for (Componente componente : diagrama.getComponentes())
 			agregar(componente, item);
 	}
@@ -65,7 +65,7 @@ public class TreeManager {
 		TreeItem hijo = new TreeItem(item, SWT.NULL);
 		hijo.setText(diagrama.getNombre());
 		hijo.setData(diagrama);
-		
+
 		for (Diagrama diagramaHijo : diagrama.getDiagramas())
 			agregar(diagramaHijo, hijo);
 
@@ -90,18 +90,16 @@ public class TreeManager {
 		tab.setText(proyecto.getRaiz().getNombre());
 		folder.setEnabled(true);
 	}
-	
+
 	public static void mostrar() {
 		if (tab.isDisposed()) {
 			tab = new CTabItem(folder, SWT.CLOSE | SWT.BOTTOM);
-			tab.setText(( (Diagrama)tree.getTopItem().getData() ).getNombre());
+			tab.setText(((Diagrama) tree.getTopItem().getData()).getNombre());
 			tab.setControl(tree);
 		}
 	}
 
 	public static void agregarADiagramaActual(Diagrama nuevoDiagrama) {
-		agregar (nuevoDiagrama,tree.getTopItem());
+		agregar(nuevoDiagrama, tree.getTopItem());
 	}
-	
-	
 }
