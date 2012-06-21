@@ -3,6 +3,7 @@ package mereditor.control;
 import java.util.HashMap;
 import java.util.Map;
 
+import mereditor.editores.EditorFactory;
 import mereditor.interfaz.swt.figuras.AtributoFigure;
 import mereditor.interfaz.swt.figuras.Figura;
 import mereditor.modelo.Atributo;
@@ -48,8 +49,7 @@ public class AtributoControl extends Atributo implements Control<Atributo>, Mous
 
 	@Override
 	public void mouseDoubleClicked(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-		
+		EditorFactory.getEditor(this).abrir();		
 	}
 
 	@Override
