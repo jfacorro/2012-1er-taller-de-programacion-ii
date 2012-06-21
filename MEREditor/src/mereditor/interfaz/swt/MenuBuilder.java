@@ -89,7 +89,7 @@ public class MenuBuilder {
 	private SelectionListener abrir = new SelectionAdapter() {
 		@Override
 		public void widgetSelected(SelectionEvent arg0) {
-			Principal.getInstance().abrir();
+			Principal.getInstance().abrirProyecto();
 		}
 	};
 	

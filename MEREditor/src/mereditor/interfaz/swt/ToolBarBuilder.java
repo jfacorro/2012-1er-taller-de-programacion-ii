@@ -1,5 +1,7 @@
 package mereditor.interfaz.swt;
 
+import mereditor.interfaz.swt.dialogs.NuevaEntidadDialog;
+
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
@@ -19,8 +21,7 @@ public class ToolBarBuilder {
 	}
 
 	private ToolBarBuilder(Principal principal) {
-		this.toolBar = new ToolBar(principal.getShell(), SWT.HORIZONTAL
-				| SWT.FLAT);
+		this.toolBar = new ToolBar(principal.getShell(), SWT.HORIZONTAL | SWT.FLAT);
 		this.principal = principal;
 		this.init();
 	}
@@ -52,13 +53,14 @@ public class ToolBarBuilder {
 		item = new ToolItem(this.toolBar, SWT.PUSH);
 		item.setToolTipText("Nueva Entidad");
 		item.setImage(this.getImagen("entidad.png"));
+		item.addSelectionListener(this.nuevaEntidad);
 
 		item = new ToolItem(this.toolBar, SWT.PUSH);
 		item.setToolTipText("Nueva Relacion");
 		item.setImage(this.getImagen("relacion.png"));
 
 		item = new ToolItem(this.toolBar, SWT.PUSH);
-		item.setToolTipText("Nueva Jerarqu�a");
+		item.setToolTipText("Nueva Jerarquia");
 		item.setImage(this.getImagen("jerarquia.png"));
 
 		item = new ToolItem(this.toolBar, SWT.PUSH);
@@ -103,7 +105,7 @@ public class ToolBarBuilder {
 	private SelectionListener abrir = new SelectionAdapter() {
 		@Override
 		public void widgetSelected(SelectionEvent e) {
-			principal.abrir();
+			principal.abrirProyecto();
 		}
 	};
 
@@ -122,12 +124,16 @@ public class ToolBarBuilder {
 		@Override
 		public void widgetSelected(SelectionEvent e) {
 			try {
-
 				TreeManager.mostrar();
-
 			} catch (Exception ex) {
 				ex.printStackTrace();
 			}
+		}
+	};
+	private SelectionListener nuevaEntidad = new SelectionAdapter() {
+		@Override
+		public void widgetSelected(SelectionEvent e) {
+			new NuevaEntidadDialog().abrir();
 		}
 	};
 
