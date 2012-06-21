@@ -10,6 +10,7 @@ import mereditor.interfaz.swt.figuras.EntidadFigure;
 import mereditor.interfaz.swt.figuras.Figura;
 import mereditor.interfaz.swt.figuras.RelacionFigure;
 import mereditor.modelo.Atributo;
+import mereditor.modelo.Diagrama;
 import mereditor.modelo.Entidad;
 import mereditor.modelo.Entidad.Identificador;
 import mereditor.modelo.Relacion;
@@ -53,14 +54,20 @@ public class RelacionControl extends Relacion implements Control<Relacion>,
 					.getFigura(idDiagrama));
 		}
 
+		// Obtener el diagrama padre correspondiente
+		Diagrama padre = (Diagrama) this.getPadre(idDiagrama);
+
 		for (EntidadRelacion entidadRelacion : this.participantes) {
 			EntidadControl entidadControl = (EntidadControl) entidadRelacion
 					.getEntidad();
-			Figura<Entidad> figuraEntidad = entidadControl
-					.getFigura(idDiagrama);
+			// Verificar que la entidad pertenece al diagrama
+			if (padre.contiene(entidadControl)) {
+				Figura<Entidad> figuraEntidad = entidadControl
+						.getFigura(idDiagrama);
 
-			figuraRelacion.conectarEntidad(figuraEntidad,
-					entidadRelacion.toString());
+				figuraRelacion.conectarEntidad(figuraEntidad,
+						entidadRelacion.toString());
+			}
 		}
 
 		// Procesar identificadores externos de cada entidad
@@ -98,13 +105,13 @@ public class RelacionControl extends Relacion implements Control<Relacion>,
 	 * @return
 	 */
 	private boolean pertenece(Identificador identificador) {
-		boolean pertenece = false;
+		List<Entidad> entidadesParticipantes = this.getEntidadesParticipantes();
 
 		for (Entidad entidad : identificador.getEntidades())
-			if (this.contiene(entidad))
-				return true;
+			if (!entidadesParticipantes.contains(entidad))
+				return false;
 
-		return pertenece;
+		return true;
 	}
 
 	/**

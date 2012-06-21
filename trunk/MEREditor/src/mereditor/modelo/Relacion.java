@@ -1,6 +1,7 @@
 package mereditor.modelo;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import mereditor.modelo.base.Componente;
@@ -48,11 +49,20 @@ public class Relacion extends ComponenteNombre {
 	}
 
 	public List<EntidadRelacion> getParticipantes() {
-		return participantes;
+		return Collections.unmodifiableList(participantes);
+	}
+	
+	public List<Entidad> getEntidadesParticipantes() {
+		List<Entidad> entidades = new ArrayList<>();
+
+		for(EntidadRelacion entidadRelacion : this.participantes)
+			entidades.add(entidadRelacion.getEntidad());
+
+		return entidades;
 	}
 
 	public List<Atributo> getAtributos() {
-		return atributos;
+		return Collections.unmodifiableList(atributos);
 	}
 
 	@Override
@@ -68,12 +78,14 @@ public class Relacion extends ComponenteNombre {
 			if (contiene)
 				return contiene;
 		}
-
+		
+		/*
 		// Verificar las entidades participantes
 		for (EntidadRelacion entidadRelacion : this.participantes) {
 			if (entidadRelacion.getEntidad().equals(componente))
 				return true;
 		}
+		*/
 
 		return super.contiene(componente);
 	}

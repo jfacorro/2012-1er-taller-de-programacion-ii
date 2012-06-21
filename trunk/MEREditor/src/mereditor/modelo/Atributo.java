@@ -99,8 +99,8 @@ public class Atributo extends ComponenteNombre {
 	 * @return
 	 */
 	public boolean esIdentificador() {
-		if (Entidad.class.isInstance(this.padre)) {
-			List<Identificador> identificadores = ((Entidad) this.padre).identificadores;
+		if (Entidad.class.isInstance(this.padres)) {
+			List<Identificador> identificadores = ((Entidad) this.padres).identificadores;
 
 			for (Identificador identificador : identificadores) {
 				if (identificador.contiene(this)
