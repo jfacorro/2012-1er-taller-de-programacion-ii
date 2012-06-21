@@ -1,24 +1,13 @@
 package mereditor.editores;
 
-import mereditor.interfaz.swt.Principal;
+import mereditor.interfaz.swt.dialogs.Dialog;
 import mereditor.modelo.base.Componente;
 
-import org.eclipse.jface.window.ApplicationWindow;
-
-public class Editor<T extends Componente> extends ApplicationWindow {
-	protected Principal principal = Principal.getInstance();
+public class Editor<T extends Componente> extends Dialog {
 	protected T componente;
 
 	public Editor(T componente) {
-		super(Principal.getInstance().getShell());
+		super();
 		this.componente = componente;
-	}
-
-	/**
-	 * Abre el editor como ventana modal.
-	 */
-	public void abrir() {
-		this.setBlockOnOpen(true);
-		this.open();
 	}
 }

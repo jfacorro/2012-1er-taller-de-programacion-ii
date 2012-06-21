@@ -74,7 +74,7 @@ public class Principal {
 		MenuBuilder.build(this);
 		this.toolBar = ToolBarBuilder.build(this);
 		this.sashForm = new SashForm(this.shell, SWT.HORIZONTAL);
-		this.tree = TreeManager.build(this);
+		this.tree = TreeManager.build(this.sashForm);
 		MenuArbolBuilder.build(this.shell, this.tree);
 		this.initFigureCanvas();
 
@@ -215,14 +215,6 @@ public class Principal {
 
 	public Shell getShell() {
 		return this.shell;
-	}
-
-	public SashForm getSashForm() {
-		return this.sashForm;
-	}
-
-	public Tree getTree() {
-		return tree;
 	}
 
 	/**
