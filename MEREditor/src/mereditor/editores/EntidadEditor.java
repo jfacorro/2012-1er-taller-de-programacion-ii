@@ -3,7 +3,6 @@ package mereditor.editores;
 import java.util.ArrayList;
 
 import mereditor.control.AtributoControl;
-import mereditor.interfaz.swt.Principal;
 import mereditor.modelo.Atributo;
 import mereditor.modelo.Atributo.TipoAtributo;
 import mereditor.modelo.Entidad;
@@ -12,7 +11,6 @@ import org.eclipse.jface.viewers.CellEditor;
 import org.eclipse.jface.viewers.ComboBoxCellEditor;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.TextCellEditor;
-import org.eclipse.jface.window.ApplicationWindow;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
@@ -25,9 +23,8 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 
-public class EntidadEditor extends ApplicationWindow {
+public class EntidadEditor extends Editor<Entidad> {
 
-	private Principal principal;
 	private Entidad entidad;
 	private ArrayList<Atributo> atributos;
 
@@ -38,12 +35,9 @@ public class EntidadEditor extends ApplicationWindow {
 
 	public static final String[] TIPOS_STR = { TipoAtributo.CARACTERIZACION.name(), TipoAtributo.DERIVADO_COPIA.name(), TipoAtributo.DERIVADO_CALCULO.name() };
 	
-	public EntidadEditor(Principal principal, Entidad entidad) {
-		super(principal.getShell());
-
-		this.principal = principal;
+	public EntidadEditor(Entidad entidad) {
+		super(entidad);
 		this.entidad = entidad;
-
 		this.atributos = new ArrayList<>();
 	}
 

@@ -3,12 +3,12 @@ Juan:
 	Pendiente:
 	----------
 		- Implementar la figura de Jerarquía mejor.
-		- Considerar las diferentes representaciones para los diferentes tipos de cada componentes (por ejemplo Entidad: Maestra/Transaccional)
+		- Considerar las diferentes representaciones para los diferentes tipos de cada componente (por ejemplo Entidad: Maestra/Transaccional)
 		- Mejorar las conexiones para que salgan del centro.
 		- Crear anchors que puedan:
 			- En Entidades: Moverse sobre el borde de las figuras.
 			- En Relaciones: Utilizar sólo las puntas del rombo
-		- Mostrar las cardinalidades de los atributos.
 	Hecho:
 	------
 		- Agregar el tipo de identificadores faltantes y la representacion de ellos.
+		- Mostrar las cardinalidades de los atributos.

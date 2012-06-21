@@ -5,8 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import mereditor.editores.EntidadEditor;
-import mereditor.interfaz.swt.Principal;
+import mereditor.editores.EditorFactory;
 import mereditor.interfaz.swt.figuras.EntidadFigure;
 import mereditor.interfaz.swt.figuras.Figura;
 import mereditor.modelo.Atributo;
@@ -66,9 +65,7 @@ public class EntidadControl extends Entidad implements Control<Entidad>, MouseLi
 
 	@Override
 	public void mouseDoubleClicked(MouseEvent event) {
-		EntidadEditor window = new EntidadEditor(Principal.getInstance(), this);
-		window.setBlockOnOpen(true);
-		window.open();
+		EditorFactory.getEditor(this).abrir();
 	}
 
 	@Override

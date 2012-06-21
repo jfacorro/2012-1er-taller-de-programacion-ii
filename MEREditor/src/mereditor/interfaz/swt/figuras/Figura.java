@@ -13,6 +13,7 @@ import mereditor.representacion.PList;
 import org.eclipse.draw2d.BorderLayout;
 import org.eclipse.draw2d.ChopboxAnchor;
 import org.eclipse.draw2d.Connection;
+import org.eclipse.draw2d.ConnectionAnchor;
 import org.eclipse.draw2d.Figure;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.Label;
@@ -95,7 +96,8 @@ public abstract class Figura<T extends Componente> extends Figure {
 	public Connection getConexion(String id) {
 		if (!this.conexiones.containsKey(id)) {
 			String error = "La figura de id %s no tiene ninguna conexion con la figura del componente con id: %s";
-			throw new RuntimeException(String.format(error, this.componente.getId(), id));
+			throw new RuntimeException(String.format(error,
+					this.componente.getId(), id));
 		}
 
 		return this.conexiones.get(id);
@@ -114,19 +116,23 @@ public abstract class Figura<T extends Componente> extends Figure {
 	 */
 	public void setRepresentacion(PList repr) {
 		if (repr != null) {
-			Rectangle rect = new Rectangle(repr.<PList> get("Posicion").<Integer> get("x"), repr
-					.<PList> get("Posicion").<Integer> get("y"), repr.<PList> get("Dimension").<Integer> get("ancho"),
-					repr.<PList> get("Dimension").<Integer> get("alto"));
+			Rectangle rect = new Rectangle(repr.<PList> get("Posicion")
+					.<Integer> get("x"), repr.<PList> get("Posicion")
+					.<Integer> get("y"), repr.<PList> get("Dimension")
+					.<Integer> get("ancho"), repr.<PList> get("Dimension")
+					.<Integer> get("alto"));
 
 			if (repr.<PList> get("ColorFondo") != null) {
-				this.lineColor = new Color(null, repr.<PList> get("ColorFondo").<Integer> get("r"), repr
-						.<PList> get("ColorFondo").<Integer> get("g"), repr.<PList> get("ColorFondo")
+				this.lineColor = new Color(null, repr.<PList> get("ColorFondo")
+						.<Integer> get("r"), repr.<PList> get("ColorFondo")
+						.<Integer> get("g"), repr.<PList> get("ColorFondo")
 						.<Integer> get("b"));
 			}
 
 			if (repr.<PList> get("ColorLinea") != null) {
-				this.lineColor = new Color(null, repr.<PList> get("ColorLinea").<Integer> get("r"), repr
-						.<PList> get("ColorLinea").<Integer> get("g"), repr.<PList> get("ColorLinea")
+				this.lineColor = new Color(null, repr.<PList> get("ColorLinea")
+						.<Integer> get("r"), repr.<PList> get("ColorLinea")
+						.<Integer> get("g"), repr.<PList> get("ColorLinea")
 						.<Integer> get("b"));
 			}
 
@@ -180,7 +186,7 @@ public abstract class Figura<T extends Componente> extends Figure {
 	}
 
 	/**
-	 * Genera una conexi�n entre la figura de origen y destino
+	 * Genera una conexion entre la figura de origen y destino
 	 * 
 	 * @param figOrigen
 	 * @param figDestino
@@ -188,10 +194,13 @@ public abstract class Figura<T extends Componente> extends Figure {
 	 */
 	public static Connection conectar(Figure figOrigen, Figure figDestino) {
 		PolylineConnection conexion = new PolylineConnection();
-		ChopboxAnchor origen = new ChopboxAnchor(figOrigen);
-		ChopboxAnchor destino = new ChopboxAnchor(figDestino);
+
+		ConnectionAnchor origen = new ChopboxAnchor(figOrigen);
+		ConnectionAnchor destino = new ChopboxAnchor(figDestino);
+
 		conexion.setSourceAnchor(origen);
 		conexion.setTargetAnchor(destino);
+
 		return conexion;
 	}
 }

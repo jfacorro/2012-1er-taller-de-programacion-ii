@@ -3,6 +3,7 @@ package mereditor.control;
 import java.util.HashMap;
 import java.util.Map;
 
+import mereditor.editores.EditorFactory;
 import mereditor.interfaz.swt.figuras.Figura;
 import mereditor.interfaz.swt.figuras.JerarquiaFigura;
 import mereditor.modelo.Entidad;
@@ -45,8 +46,7 @@ public class JerarquiaControl extends Jerarquia implements Control<Jerarquia>, M
 
 	@Override
 	public void mouseDoubleClicked(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-
+		EditorFactory.getEditor(this).abrir();
 	}
 
 	@Override
