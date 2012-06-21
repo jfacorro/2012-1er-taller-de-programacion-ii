@@ -93,7 +93,7 @@ public class ToolBarBuilder {
 		@Override
 		public void widgetSelected(SelectionEvent e) {
 			try {
-				principal.nuevo();
+				principal.nuevoProyecto();
 			} catch (Exception ex) {
 				ex.printStackTrace();
 			}

@@ -1,9 +1,9 @@
 package mereditor.control;
 
 import java.io.File;
-import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import mereditor.modelo.Diagrama;
@@ -18,6 +18,10 @@ public class Proyecto {
 	 */
 	protected DiagramaControl raiz;
 	/**
+	 * Diagrama que se encuetra abierto.
+	 */
+	protected DiagramaControl diagramaActual;
+	/**
 	 * Validación del proyecto entero.
 	 */
 	protected Validacion validacion;
@@ -30,10 +34,11 @@ public class Proyecto {
 	 * Mapa de todos los componentes presentes en el proyecto.
 	 */
 	protected Map<String, Componente> componentes = new HashMap<>();
-	
+
 	/**
 	 * Constructor para crear un nuevo proyecto.
-	 * @throws Exception 
+	 * 
+	 * @throws Exception
 	 */
 	public Proyecto() throws Exception {
 		this.raiz = new DiagramaControl();
@@ -43,8 +48,9 @@ public class Proyecto {
 
 	/**
 	 * Constructor para crear un proyecto con un diagrama con nombre.
+	 * 
 	 * @param nombre
-	 * @throws Exception 
+	 * @throws Exception
 	 */
 	public Proyecto(String nombre) throws Exception {
 		this();
@@ -56,36 +62,70 @@ public class Proyecto {
 	}
 
 	public void setRaiz(Diagrama raiz) throws Exception {
-		this.raiz = (DiagramaControl)raiz;
-		if(!this.componentes.containsKey(raiz.getId()))
+		this.raiz = (DiagramaControl) raiz;
+		if (!this.componentes.containsKey(raiz.getId()))
 			this.agregar(raiz);
-	}
-	
-	public Validacion getValidacion() {
-		return this.validacion;		
-	}
-
-	public void setValidacion(Validacion validacion) {
-		this.validacion = validacion;		
 	}
 
 	/**
-	 * Agregar un componente nuevo al proyecto.
+	 * Devuelve la validación de todo el proyecto.
+	 * 
+	 * @return
+	 */
+	public Validacion getValidacion() {
+		return this.validacion;
+	}
+
+	/**
+	 * Establece la validación de todo el proyecto.
+	 * 
+	 * @param validacion
+	 */
+	public void setValidacion(Validacion validacion) {
+		this.validacion = validacion;
+	}
+
+	/**
+	 * Establece el diagrama actual
+	 * 
+	 * @param id
+	 */
+	public void setDiagramaActual(String id) {
+		if (this.componentes.containsKey(id)) {
+			Componente diagrama = this.componentes.get(id);
+			if (DiagramaControl.class.isInstance(diagrama))
+				this.diagramaActual = (DiagramaControl) diagrama;
+		}
+	}
+
+	public DiagramaControl getDiagramaActual() {
+		return this.diagramaActual;
+	}
+
+	/**
+	 * Agregar un componente nuevo al proyecto y al diagrama actual si es que
+	 * hay uno establecido.
+	 * 
 	 * @param componente
-	 * @throws Exception 
+	 * @throws Exception
 	 */
 	public void agregar(Componente componente) throws Exception {
-		if(this.componentes.containsKey(componente.getId()))
-			throw new Exception("Un mismo componente no se puede agregar dos veces. Id: " + componente.getId());
+		if (this.componentes.containsKey(componente.getId()))
+			throw new Exception("No se puede agregar dos veces. Id: "
+					+ componente.getId());
+
 		this.componentes.put(componente.getId(), componente);
+
+		if (this.diagramaActual != null)
+			this.diagramaActual.agregar(componente);
 	}
 
 	public Componente getComponente(String id) {
 		return this.componentes.get(id);
 	}
-	
-	public List<Componente> getComponentes() {
-		return new ArrayList<>(this.componentes.values());
+
+	public Collection<Componente> getComponentes() {
+		return Collections.unmodifiableCollection(this.componentes.values());
 	}
 
 	public boolean contiene(String id) {
@@ -93,10 +133,11 @@ public class Proyecto {
 	}
 
 	public void dibujar(Figure contenedor, String idDiagrama) {
-		DiagramaControl diagrama = (DiagramaControl)this.componentes.get(idDiagrama);
+		DiagramaControl diagrama = (DiagramaControl) this.componentes
+				.get(idDiagrama);
 		diagrama.dibujar(contenedor, idDiagrama);
 	}
-	
+
 	public void setPath(String path) {
 		this.path = path;
 	}
@@ -106,7 +147,7 @@ public class Proyecto {
 		String nombre = file.getName().replaceFirst("[.][^.]+$", "");
 		return nombre + "-comp.xml";
 	}
-	
+
 	public String getRepresentacionPath() {
 		File file = new File(path);
 		String nombre = file.getName().replaceFirst("[.][^.]+$", "");

@@ -33,19 +33,19 @@ public class MenuBuilder {
 		
 		MenuItem fileNewItem = new MenuItem(fileMenu, SWT.PUSH);
 		fileNewItem.setText("&Nuevo");
-		fileNewItem.addSelectionListener(this.nuevoListener);
+		fileNewItem.addSelectionListener(this.nuevo);
 
 		MenuItem fileOpenItem = new MenuItem(fileMenu, SWT.PUSH);
 		fileOpenItem.setText("&Abrir");
-		fileOpenItem.addSelectionListener(this.abrirListener);
+		fileOpenItem.addSelectionListener(this.abrir);
 
 		MenuItem fileSaveItem = new MenuItem(fileMenu, SWT.PUSH);
 		fileSaveItem.setText("&Guardar");
-		fileSaveItem.addSelectionListener(this.guardarListener);
+		fileSaveItem.addSelectionListener(this.guardar);
 
 		MenuItem fileExitItem = new MenuItem(fileMenu, SWT.PUSH);
 		fileExitItem.setText("&Salir");
-		fileExitItem.addSelectionListener(this.salirListener);
+		fileExitItem.addSelectionListener(this.salir);
 		
 		/*
 		 * Proyecto
@@ -56,7 +56,9 @@ public class MenuBuilder {
 		Menu proyectoMenu = new Menu(principal.getShell(), SWT.DROP_DOWN);
 		proyectoMenuHeader.setMenu(proyectoMenu);
 
-		
+		MenuItem nuevoDiagramaItem = new MenuItem(proyectoMenu, SWT.PUSH);
+		nuevoDiagramaItem.setText("&Nuevo Diagrama");
+		nuevoDiagramaItem.addSelectionListener(this.nuevoDiagrama);
 
 		/*
 		 * Ayuda
@@ -73,25 +75,25 @@ public class MenuBuilder {
 		principal.getShell().setMenuBar(menuBar);
 	}
 
-	private SelectionListener nuevoListener = new SelectionAdapter() {
+	private SelectionListener nuevo = new SelectionAdapter() {
 		@Override
 		public void widgetSelected(SelectionEvent arg0) {
 			try {
-				Principal.getInstance().nuevo();
+				Principal.getInstance().nuevoProyecto();
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
 	};
 
-	private SelectionListener abrirListener = new SelectionAdapter() {
+	private SelectionListener abrir = new SelectionAdapter() {
 		@Override
 		public void widgetSelected(SelectionEvent arg0) {
 			Principal.getInstance().abrir();
 		}
 	};
 	
-	private SelectionListener guardarListener = new SelectionAdapter() {
+	private SelectionListener guardar = new SelectionAdapter() {
 		@Override
 		public void widgetSelected(SelectionEvent arg0) {
 			try {
@@ -102,10 +104,21 @@ public class MenuBuilder {
 		}
 	};
 
-	private SelectionListener salirListener = new SelectionAdapter() {
+	private SelectionListener salir = new SelectionAdapter() {
 		@Override
 		public void widgetSelected(SelectionEvent arg0) {
 			Principal.getInstance().salir();
+		}
+	};
+	
+	private SelectionListener nuevoDiagrama = new SelectionAdapter() {
+		@Override
+		public void widgetSelected(SelectionEvent arg0) {
+			try {
+				Principal.getInstance().nuevoDiagrama();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
 	};
 }

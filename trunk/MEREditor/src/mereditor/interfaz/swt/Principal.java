@@ -7,9 +7,10 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
+import mereditor.control.DiagramaControl;
 import mereditor.control.Proyecto;
 import mereditor.interfaz.swt.DialogBuilder.PromptResult;
-import mereditor.modelo.Diagrama;
+import mereditor.interfaz.swt.DialogBuilder.Resultado;
 import mereditor.xml.ParserXml;
 
 import org.eclipse.draw2d.FigureCanvas;
@@ -82,12 +83,12 @@ public class Principal {
 	private void arregloLayout() {
 		FormData formData = null;
 
-		// Separacion vertical entre arbol y gr�fico.
+		// Separacion vertical entre arbol y grafico.
 		formData = new FormData();
-		formData.top = new FormAttachment(this.toolBar); // Attach to top
-		formData.bottom = new FormAttachment(100, 0); // Attach to bottom
-		formData.left = new FormAttachment(0, 0); // Attach halfway acros
-		formData.right = new FormAttachment(100, 0); // Attach halfway acros
+		formData.top = new FormAttachment(this.toolBar);
+		formData.bottom = new FormAttachment(100, 0);
+		formData.left = new FormAttachment(0, 0);
+		formData.right = new FormAttachment(100, 0);
 		this.sashForm.setLayoutData(formData);
 
 		sashForm.setWeights(new int[] { 3, 16 });
@@ -99,25 +100,28 @@ public class Principal {
 		this.figureCanvas.setBackground(Principal.defaultBackgroundColor);
 		this.figureCanvas.getViewport().setContentsTracksHeight(true);
 		this.figureCanvas.getViewport().setContentsTracksWidth(true);
-		this.panelDisegno = new PanelDisegno(this.figureCanvas);
 	}
 
 	/**
-	 * Crea un nuevo proyecto
+	 * Crea un nuevo proyecto.
 	 * 
 	 * @throws Exception
 	 */
-	public void nuevo() throws Exception {
+	public void nuevoProyecto() throws Exception {
 		PromptResult resultado = DialogBuilder.prompt(this.shell,
 				"Ingresar nombre", "Nombre");
-
-		this.proyecto = new Proyecto(resultado.value);
-		this.panelDisegno.setDiagrama(this.proyecto.getRaiz());
-		TreeManager.cargar(this.proyecto, this.tree);
+		
+		if (resultado.result == Resultado.OK) {
+			this.proyecto = new Proyecto(resultado.value);
+			this.proyecto.setDiagramaActual(this.proyecto.getRaiz().getId());
+			this.panelDisegno = new PanelDisegno(this.figureCanvas, this.proyecto);
+			this.panelDisegno.actualizar();
+			TreeManager.cargar(this.proyecto, this.tree);
+		}
 	}
 
 	/**
-	 * Abre un proyecto
+	 * Abre un proyecto.
 	 */
 	public void abrir() {
 		FileDialog fileDialog = new FileDialog(this.shell);
@@ -129,7 +133,9 @@ public class Principal {
 				ParserXml modelo = new ParserXml(path);
 
 				this.proyecto = modelo.parsear();
-				this.panelDisegno.setDiagrama(this.proyecto.getRaiz());
+				this.proyecto.setDiagramaActual(this.proyecto.getRaiz().getId());
+				this.panelDisegno = new PanelDisegno(this.figureCanvas, this.proyecto);
+				this.panelDisegno.actualizar();
 
 				TreeManager.cargar(this.proyecto, this.tree);
 
@@ -140,7 +146,7 @@ public class Principal {
 	}
 
 	/**
-	 * Guarda un proyecto en el archivo especificado
+	 * Guarda un proyecto en el archivo especificado.
 	 * 
 	 * @throws Exception
 	 */
@@ -162,7 +168,7 @@ public class Principal {
 	}
 
 	/**
-	 * Guarda un objecto Document en un archivo f�sico en el path especificado.
+	 * Guarda un objecto Document en un archivo fisico en el path especificado.
 	 * 
 	 * @param doc
 	 * @param path
@@ -178,19 +184,26 @@ public class Principal {
 	}
 
 	/**
-	 * Agrega un Diagrama al proyecto
+	 * Agrega un Diagrama al proyecto.
+	 * 
 	 * @throws Exception
 	 */
 	public void nuevoDiagrama() throws Exception {
 		PromptResult resultado = DialogBuilder.prompt(this.shell,
 				"Ingresar nombre", "Nombre");
-		Diagrama nuevoDiagrama = new Diagrama(resultado.value);
-		this.proyecto.agregar(nuevoDiagrama);
-		TreeManager.agregarADiagramaActual(nuevoDiagrama);
+		if (resultado.result == Resultado.OK) {
+			DiagramaControl nuevoDiagrama = new DiagramaControl();
+			nuevoDiagrama.setNombre(resultado.value);
+
+			this.proyecto.agregar(nuevoDiagrama);
+			this.panelDisegno.actualizar();
+
+			TreeManager.agregarADiagramaActual(nuevoDiagrama);
+		}
 	}
 
 	/**
-	 * Abrir la aplicaci�n.
+	 * Abrir la aplicacion.
 	 */
 	public void mostrar() {
 		this.shell.open();
@@ -209,7 +222,7 @@ public class Principal {
 	}
 
 	/**
-	 * Actualiza la vista. 
+	 * Actualiza la vista.
 	 */
 	public void actualizar() {
 		this.panelDisegno.actualizar();
@@ -219,6 +232,6 @@ public class Principal {
 	 * Cierra el programa.
 	 */
 	public void salir() {
-		System.exit(0);		
+		System.exit(0);
 	}
 }
