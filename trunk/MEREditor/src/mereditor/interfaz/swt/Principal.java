@@ -208,8 +208,17 @@ public class Principal {
 		return tree;
 	}
 
-	public PanelDisegno getPanelDisegno() {
-		return this.panelDisegno;
+	/**
+	 * Actualiza la vista. 
+	 */
+	public void actualizar() {
+		this.panelDisegno.actualizar();
 	}
 
+	/**
+	 * Cierra el programa.
+	 */
+	public void salir() {
+		System.exit(0);		
+	}
 }

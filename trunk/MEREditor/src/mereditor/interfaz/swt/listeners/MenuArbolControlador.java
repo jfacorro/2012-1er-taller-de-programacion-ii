@@ -13,46 +13,50 @@ import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeItem;
 
-/*Activa Menu desplegable en el item donde recibiÃ³ el evento*/
-
+/**
+ * Activa Menu desplegable en el item donde recibio el evento
+ */
 public class MenuArbolControlador implements Listener {
 
-	Tree tree;
-	TreeItem treeItemCortado;
-	TreeItem treeItemActivo;
-	Menu menu;
+	private Tree tree;
+	private TreeItem treeItemCortado;
+	private TreeItem treeItemActivo;
+	private Menu menu;
 
-	public MenuArbolControlador(Tree tree, Menu m) {
+	public MenuArbolControlador(Tree tree, Menu menu) {
 		this.tree = tree;
-		menu = m;
+		this.menu = menu;
 		tree.addListener(SWT.MouseDown, this);
 		treeItemCortado = null;
 		treeItemActivo = null;
 	}
 
 	public void handleEvent(Event event) {
-		Point point = new Point(event.x, event.y);
-		TreeItem treeItem = tree.getItem(point);
-		if (treeItem != null) {
-			treeItemActivo = treeItem;
-			Rectangle area = treeItem.getBounds();
-			Point p = new Point(area.x, area.y + area.height);
-			p = tree.toDisplay(p);
-			menu.setLocation(p.x, p.y);
-			menu.setVisible(true);
+		// Mostrar el menú si no es el boton derecho
+		if (event.button > 1) {
+			Point point = new Point(event.x, event.y);
+			TreeItem treeItem = tree.getItem(point);
+			if (treeItem != null) {
+				treeItemActivo = treeItem;
+				Rectangle area = treeItem.getBounds();
+				Point p = new Point(area.x, area.y + area.height);
+				p = tree.toDisplay(p);
+				menu.setLocation(p.x, p.y);
+				menu.setVisible(true);
+			}
 		}
 	}
 
 	public void eliminarItemActivo() {
 		if (treeItemActivo != null && !treeItemActivo.isDisposed()) {
 			Componente componente = (Componente) treeItemActivo.getData();
-			Diagrama diagrama = (Diagrama)treeItemActivo.getParent().getData();
+			Diagrama diagrama = (Diagrama) treeItemActivo.getParent().getData();
 			diagrama.eliminar(componente);
 
-			Principal.getInstance().getPanelDisegno().actualizar();
-			
+			Principal.getInstance().actualizar();
+
 			treeItemActivo.dispose();
-		}			
+		}
 	}
 
 	public void cortarItemActivo() {
@@ -61,7 +65,7 @@ public class MenuArbolControlador implements Listener {
 
 	public void pegarItemCortado() {
 		if (treeItemCortado != null && treeItemCortado != treeItemActivo
-				&& !treeItemCortado.isDisposed() && validarPegar() ) {
+				&& !treeItemCortado.isDisposed() && validarPegar()) {
 			TreeItem nuevoItem = new TreeItem(treeItemActivo, SWT.NULL);
 			nuevoItem.setText(treeItemCortado.getText());
 			pegarHijos(nuevoItem, treeItemCortado);
@@ -71,13 +75,13 @@ public class MenuArbolControlador implements Listener {
 	}
 
 	private void pegarHijos(TreeItem itemDestino, TreeItem itemOrigen) {
-			TreeItem[] hijos = itemOrigen.getItems();
-			TreeItem destinoActual = null;
-			for (int i = 0; i < hijos.length; i++) {
-				destinoActual = new TreeItem(itemDestino, SWT.NONE);
-				destinoActual.setText(hijos[i].getText());
-				pegarHijos(destinoActual, hijos[i]);
-			}
+		TreeItem[] hijos = itemOrigen.getItems();
+		TreeItem destinoActual = null;
+		for (int i = 0; i < hijos.length; i++) {
+			destinoActual = new TreeItem(itemDestino, SWT.NONE);
+			destinoActual.setText(hijos[i].getText());
+			pegarHijos(destinoActual, hijos[i]);
+		}
 	}
 
 	private boolean validarPegar() {

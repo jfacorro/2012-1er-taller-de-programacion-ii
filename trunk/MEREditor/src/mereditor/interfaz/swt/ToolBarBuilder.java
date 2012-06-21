@@ -142,10 +142,10 @@ public class ToolBarBuilder {
 		}
 	};
 
-	private static final SelectionListener salir = new SelectionAdapter() {
+	private final SelectionListener salir = new SelectionAdapter() {
 		@Override
 		public void widgetSelected(SelectionEvent e) {
-			System.exit(0);
+			principal.salir();
 		}
 	};
 
