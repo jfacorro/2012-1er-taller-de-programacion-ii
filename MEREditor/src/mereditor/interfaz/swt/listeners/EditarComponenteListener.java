@@ -1,5 +1,6 @@
 package mereditor.interfaz.swt.listeners;
 
+import mereditor.editores.EditorFactory;
 import mereditor.interfaz.swt.Principal;
 import mereditor.interfaz.swt.TreeManager;
 import mereditor.modelo.Diagrama;
@@ -32,9 +33,8 @@ public class EditarComponenteListener implements Listener {
 			abrirDiagramaParaEdicion(componenteAEditar);
 			return;
 		}
-		/*
-		 * Editor editor = EditorFactory(componente); editor.abrir();
-		 */
+		
+		EditorFactory.getEditor(componenteAEditar).abrir();
 
 	}
 

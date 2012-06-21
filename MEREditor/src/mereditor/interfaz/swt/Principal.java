@@ -111,11 +111,12 @@ public class Principal {
 	public void nuevoProyecto() throws Exception {
 		PromptResult resultado = DialogBuilder.prompt(this.shell,
 				"Ingresar nombre", "Nombre");
-		
+
 		if (resultado.result == Resultado.OK) {
 			this.proyecto = new Proyecto(resultado.value);
 			this.proyecto.setDiagramaActual(this.proyecto.getRaiz().getId());
-			this.panelDisegno = new PanelDisegno(this.figureCanvas, this.proyecto);
+			this.panelDisegno = new PanelDisegno(this.figureCanvas,
+					this.proyecto);
 			this.panelDisegno.actualizar();
 			TreeManager.cargar(this.proyecto, this.tree);
 		}
@@ -134,8 +135,10 @@ public class Principal {
 				ParserXml modelo = new ParserXml(path);
 
 				this.proyecto = modelo.parsear();
-				this.proyecto.setDiagramaActual(this.proyecto.getRaiz().getId());
-				this.panelDisegno = new PanelDisegno(this.figureCanvas, this.proyecto);
+				this.proyecto
+						.setDiagramaActual(this.proyecto.getRaiz().getId());
+				this.panelDisegno = new PanelDisegno(this.figureCanvas,
+						this.proyecto);
 				this.panelDisegno.actualizar();
 
 				TreeManager.cargar(this.proyecto, this.tree);
@@ -235,16 +238,15 @@ public class Principal {
 	public void salir() {
 		System.exit(0);
 	}
-	
+
 	/**
 	 * Abre el diagrama para su visualizacion y/o edicion
+	 * 
 	 * @param diagrama
 	 **/
 	public void abrir(Diagrama diagrama) {
-		/*
-		this.panelDisegno.setDiagrama(diagrama);
+		this.proyecto.setDiagramaActual(diagrama.getId());
 		this.actualizar();
-		*/
 	}
-	 
+
 }
