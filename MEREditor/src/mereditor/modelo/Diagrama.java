@@ -1,7 +1,7 @@
 package mereditor.modelo;
 
+import java.util.ArrayList;
 import java.util.Collections;
-import java.util.LinkedList;
 import java.util.List;
 
 import mereditor.modelo.base.Componente;
@@ -9,8 +9,8 @@ import mereditor.modelo.base.ComponenteNombre;
 
 public class Diagrama extends ComponenteNombre {
 
-	protected List<Diagrama> diagramas = new LinkedList<Diagrama>();
-	protected List<Componente> componentes = new LinkedList<Componente>();
+	protected List<Diagrama> diagramas = new ArrayList<Diagrama>();
+	protected List<Componente> componentes = new ArrayList<Componente>();
 	protected Validacion validacion = new Validacion();
 
 	public Diagrama() {

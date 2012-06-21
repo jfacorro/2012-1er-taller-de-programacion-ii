@@ -1,5 +1,7 @@
 package mereditor.modelo.base;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 
 public abstract class Componente {
@@ -11,7 +13,7 @@ public abstract class Componente {
 	/**
 	 * Id del padre del componente
 	 */
-	protected Componente padre;
+	protected Map<String, Componente> padres = new HashMap<>();
 
 	public Componente() {
 		this(UUID.randomUUID().toString());
@@ -23,7 +25,7 @@ public abstract class Componente {
 
 	public Componente(String id, Componente padre) {
 		this.id = id;
-		this.padre = padre;
+		this.setPadre(padre);
 	}
 
 	public String getId() {
@@ -31,22 +33,30 @@ public abstract class Componente {
 	}
 
 	public Componente getPadre() {
-		return padre;
+		if (this.padres.size() > 1)
+			throw new RuntimeException("Tiene más de un padre.");
+
+		return this.padres.isEmpty() ? null : padres.values().iterator().next();
+	}
+	
+	public Componente getPadre(String id) {
+		return padres.get(id);
 	}
 
 	public void setPadre(Componente padre) {
-		this.padre = padre;
+		this.padres.put(padre.getId(), padre);
 	}
 
 	/**
-	 * Implementación de la evaluación de igualdad por
-	 * comparación de ids de componentes.
+	 * Implementación de la evaluación de igualdad por comparación de ids de
+	 * componentes.
 	 */
 	@Override
 	public boolean equals(Object obj) {
-		if(Componente.class.isInstance(obj))
-			return obj == null ? false : this.getId().equals(((Componente) obj).getId());
-		else 
+		if (Componente.class.isInstance(obj))
+			return obj == null ? false : this.getId().equals(
+					((Componente) obj).getId());
+		else
 			return false;
 	}
 

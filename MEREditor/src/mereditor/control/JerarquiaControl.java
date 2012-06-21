@@ -6,6 +6,7 @@ import java.util.Map;
 import mereditor.editores.EditorFactory;
 import mereditor.interfaz.swt.figuras.Figura;
 import mereditor.interfaz.swt.figuras.JerarquiaFigura;
+import mereditor.modelo.Diagrama;
 import mereditor.modelo.Entidad;
 import mereditor.modelo.Jerarquia;
 
@@ -13,7 +14,8 @@ import org.eclipse.draw2d.Figure;
 import org.eclipse.draw2d.MouseEvent;
 import org.eclipse.draw2d.MouseListener;
 
-public class JerarquiaControl extends Jerarquia implements Control<Jerarquia>, MouseListener {
+public class JerarquiaControl extends Jerarquia implements Control<Jerarquia>,
+		MouseListener {
 	protected Map<String, JerarquiaFigura> figures = new HashMap<>();
 
 	@Override
@@ -24,7 +26,7 @@ public class JerarquiaControl extends Jerarquia implements Control<Jerarquia>, M
 			// Agregar este controlador como listener para mouse clicks
 			figura.addMouseListener(this);
 		}
-		
+
 		this.figures.get(idDiagrama).actualizar();
 
 		return this.figures.get(idDiagrama);
@@ -32,15 +34,27 @@ public class JerarquiaControl extends Jerarquia implements Control<Jerarquia>, M
 
 	@Override
 	public void dibujar(Figure contenedor, String idDiagrama) {
-		JerarquiaFigura figuraJerarquia = (JerarquiaFigura) this.getFigura(idDiagrama);
-		contenedor.add(figuraJerarquia);
+		// Obtener el diagrama padre correspondiente
+		Diagrama padre = (Diagrama) this.getPadre(idDiagrama);
+		// Dibujar solo si la generica está en el diagrama
+		if (padre.contiene(this.generica)) {
+			JerarquiaFigura figuraJerarquia = (JerarquiaFigura) this
+					.getFigura(idDiagrama);
+			contenedor.add(figuraJerarquia);
 
-		Figure figuraGenerica = ((Control<?>) this.generica).getFigura(idDiagrama);
-		figuraJerarquia.conectarGenerica(figuraJerarquia, figuraGenerica);
+			Figure figuraGenerica = ((Control<?>) this.generica)
+					.getFigura(idDiagrama);
+			figuraJerarquia.conectarGenerica(figuraJerarquia, figuraGenerica);
 
-		for (Entidad derivada : this.derivadas) {
-			Figure figuraDerivada = ((Control<?>) derivada).getFigura(idDiagrama);
-			figuraJerarquia.conectarDerivada(figuraDerivada, figuraJerarquia);
+			for (Entidad derivada : this.derivadas) {
+				// Dibujar la conexión sólo si la derivada pertenece al diagrama
+				if (padre.contiene(derivada)) {
+					Figure figuraDerivada = ((Control<?>) derivada)
+							.getFigura(idDiagrama);
+					figuraJerarquia.conectarDerivada(figuraDerivada,
+							figuraJerarquia);
+				}
+			}
 		}
 	}
 
