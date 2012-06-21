@@ -61,7 +61,7 @@ public abstract class Figura<T extends Componente> extends Figure {
 		new DragDropControlador(this);
 		// Agregar controlador para el movivimento de las figuras loqueadas
 		new MovimientoControlador(this);
-
+		
 		this.init();
 	}
 
@@ -194,6 +194,7 @@ public abstract class Figura<T extends Componente> extends Figure {
 	 */
 	public static Connection conectar(Figure figOrigen, Figure figDestino) {
 		PolylineConnection conexion = new PolylineConnection();
+		conexion.setAntialias(SWT.ON);
 
 		ConnectionAnchor origen = new ChopboxAnchor(figOrigen);
 		ConnectionAnchor destino = new ChopboxAnchor(figDestino);

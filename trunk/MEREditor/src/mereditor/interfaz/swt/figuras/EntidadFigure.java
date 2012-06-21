@@ -5,6 +5,7 @@ import java.util.List;
 import org.eclipse.draw2d.Connection;
 import org.eclipse.draw2d.Ellipse;
 import org.eclipse.draw2d.MidpointLocator;
+import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Color;
 
 import mereditor.modelo.Atributo;
@@ -68,6 +69,7 @@ public class EntidadFigure extends Figura<Entidad> {
 	private Ellipse circuloIdentificador() {
 		Color negro = new Color(null, 0, 0, 0);
 		Ellipse circulo = new Ellipse();
+		circulo.setAntialias(SWT.ON);
 		circulo.setSize(10, 10);
 		circulo.setBackgroundColor(negro);
 		return circulo;

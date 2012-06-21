@@ -9,6 +9,7 @@ import org.eclipse.draw2d.Ellipse;
 import org.eclipse.draw2d.Label;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
+import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Color;
 
 public class AtributoFigure extends Figura<Atributo> {
@@ -29,6 +30,7 @@ public class AtributoFigure extends Figura<Atributo> {
 
 		this.ellipse = new Ellipse();
 		this.ellipse.setLocation(this.getLocation());
+		this.ellipse.setAntialias(SWT.ON);
 
 		// Si es un atributo compuesto representar con circulo
 		if (this.componente.esCompuesto()) {
