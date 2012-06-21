@@ -109,9 +109,9 @@ public class Proyecto {
 	 * @param componente
 	 * @throws Exception
 	 */
-	public void agregar(Componente componente) throws Exception {
+	public void agregar(Componente componente) {
 		if (this.componentes.containsKey(componente.getId()))
-			throw new Exception("No se puede agregar dos veces. Id: "
+			throw new RuntimeException("No se puede agregar dos veces. Id: "
 					+ componente.getId());
 
 		this.componentes.put(componente.getId(), componente);

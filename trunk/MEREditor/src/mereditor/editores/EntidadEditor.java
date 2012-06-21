@@ -85,7 +85,7 @@ public class EntidadEditor extends Editor<Entidad> {
 		}
 		tablev.refresh();
 
-		// Agregar un nuevo atributo cuando se hace click sobre el botón
+		// Agregar un nuevo atributo cuando se hace click sobre el boton
 		btnNuevoAtributo.addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent event) {
 				AtributoControl atr = new AtributoControl();

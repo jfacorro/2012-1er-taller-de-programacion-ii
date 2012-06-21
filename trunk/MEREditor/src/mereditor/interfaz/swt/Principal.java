@@ -125,7 +125,7 @@ public class Principal {
 	/**
 	 * Abre un proyecto.
 	 */
-	public void abrir() {
+	public void abrirProyecto() {
 		FileDialog fileDialog = new FileDialog(this.shell);
 
 		String path = fileDialog.open();
@@ -213,10 +213,6 @@ public class Principal {
 		this.shell.open();
 	}
 
-	public Shell getShell() {
-		return this.shell;
-	}
-
 	/**
 	 * Actualiza la vista.
 	 */
@@ -240,5 +236,12 @@ public class Principal {
 		this.proyecto.setDiagramaActual(diagrama.getId());
 		this.actualizar();
 	}
-
+	
+	public Shell getShell() {
+		return this.shell;
+	}
+	
+	public Proyecto getProyecto() {
+		return this.proyecto;
+	}
 }
