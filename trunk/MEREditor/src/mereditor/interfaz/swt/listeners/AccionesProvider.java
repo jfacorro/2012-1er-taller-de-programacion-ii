@@ -8,7 +8,9 @@ import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
 
 public class AccionesProvider {
-	private static Principal principal = Principal.getInstance();
+	private static Principal principal() {
+		return Principal.getInstance();
+	}
 
 	/**
 	 * Nuevo proyecto.
@@ -17,7 +19,7 @@ public class AccionesProvider {
 		@Override
 		public void widgetSelected(SelectionEvent e) {
 			try {
-				principal.nuevoProyecto();
+				principal().nuevoProyecto();
 			} catch (Exception ex) {
 				ex.printStackTrace();
 			}
@@ -30,7 +32,7 @@ public class AccionesProvider {
 	public static final SelectionListener abrir = new SelectionAdapter() {
 		@Override
 		public void widgetSelected(SelectionEvent e) {
-			principal.abrirProyecto();
+			principal().abrirProyecto();
 		}
 	};
 
@@ -41,11 +43,29 @@ public class AccionesProvider {
 		@Override
 		public void widgetSelected(SelectionEvent e) {
 			try {
-				principal.guardar();
+				principal().guardar();
 			} catch (Exception e1) {
 				e1.printStackTrace();
 			}
 		}
+	};
+
+	/**
+	 * Agregar una Relacion al diagrama actual.
+	 */
+	public static final SelectionListener agregarRelacion = new SelectionAdapter() {
+		public void widgetSelected(SelectionEvent e) {
+			principal().agregarRelacion();
+		};
+	};
+
+	/**
+	 * Agregar una Jerarquia al diagrama actual.
+	 */
+	public static final SelectionListener agregarJerarquia = new SelectionAdapter() {
+		public void widgetSelected(SelectionEvent e) {
+			principal().agregarJerarquia();
+		};
 	};
 
 	/**
@@ -68,7 +88,7 @@ public class AccionesProvider {
 	public static final SelectionListener agregarEntidad = new SelectionAdapter() {
 		@Override
 		public void widgetSelected(SelectionEvent e) {
-			principal.agregarEntidad();
+			principal().agregarEntidad();
 		}
 	};
 
@@ -79,7 +99,7 @@ public class AccionesProvider {
 		@Override
 		public void widgetSelected(SelectionEvent e) {
 			try {
-				principal.nuevoDiagrama();
+				principal().nuevoDiagrama();
 			} catch (Exception ex) {
 				ex.printStackTrace();
 			}
@@ -92,7 +112,7 @@ public class AccionesProvider {
 	public static final SelectionListener salir = new SelectionAdapter() {
 		@Override
 		public void widgetSelected(SelectionEvent e) {
-			principal.salir();
+			principal().salir();
 		}
 	};
 

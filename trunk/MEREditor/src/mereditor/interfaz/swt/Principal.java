@@ -20,7 +20,6 @@ import org.eclipse.draw2d.FigureCanvas;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.SashForm;
 import org.eclipse.swt.graphics.Color;
-import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.layout.FormAttachment;
 import org.eclipse.swt.layout.FormData;
 import org.eclipse.swt.layout.FormLayout;
@@ -101,13 +100,9 @@ public class Principal extends Observable {
 
 	private void initFigureCanvas() {
 		this.figureCanvas = new FigureCanvas(this.sashForm);
-		GC gc = new GC(figureCanvas);
-		gc.setAdvanced(true);
-		gc.setAntialias(SWT.ON);
 		this.figureCanvas.setBackground(Principal.defaultBackgroundColor);
 		this.figureCanvas.getViewport().setContentsTracksHeight(true);
 		this.figureCanvas.getViewport().setContentsTracksWidth(true);
-
 	}
 
 	/**
@@ -264,9 +259,23 @@ public class Principal extends Observable {
 	}
 
 	/**
-	 * Abre el diálogo para agregar una entidad al diagrama que se encuentra abierto.
+	 * Abre el diálogo para agregar una Entidad al diagrama que se encuentra abierto.
 	 */
 	public void agregarEntidad() {
 		new AgregarEntidadDialog().abrir();		
+	}
+
+	/**
+	 * Abre el diálogo para agregar una Relacion al diagrama que se encuentra abierto.
+	 */
+	public void agregarRelacion() {
+		new AgregarEntidadDialog().abrir();	
+	}
+
+	/**
+	 * Abre el diálogo para agregar una Jerarquia al diagrama que se encuentra abierto.
+	 */
+	public void agregarJerarquia() {
+		new AgregarEntidadDialog().abrir();
 	}
 }

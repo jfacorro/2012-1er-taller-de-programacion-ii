@@ -65,11 +65,13 @@ public class ToolBarBuilder implements Observer {
 		item = new ToolItem(this.toolBar, SWT.PUSH);
 		item.setToolTipText("Agregar Relacion");
 		item.setImage(this.getImagen("relacion.png"));
+		item.addSelectionListener(AccionesProvider.agregarRelacion);
 		proyectoItems.add(item);
 
 		item = new ToolItem(this.toolBar, SWT.PUSH);
 		item.setToolTipText("Agregar Jerarquia");
 		item.setImage(this.getImagen("jerarquia.png"));
+		item.addSelectionListener(AccionesProvider.agregarJerarquia);
 		proyectoItems.add(item);
 	
 		item = new ToolItem(this.toolBar, SWT.SEPARATOR);
