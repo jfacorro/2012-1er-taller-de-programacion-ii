@@ -6,7 +6,7 @@ import java.util.Map;
 import java.util.Set;
 
 import mereditor.control.EntidadControl;
-import mereditor.editores.EditorFactory;
+import mereditor.interfaz.swt.editores.EditorFactory;
 import mereditor.modelo.Entidad;
 
 import org.eclipse.swt.SWT;

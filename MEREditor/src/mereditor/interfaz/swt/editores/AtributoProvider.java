@@ -1,4 +1,4 @@
-package mereditor.editores;
+package mereditor.interfaz.swt.editores;
 
 import java.util.List;
 

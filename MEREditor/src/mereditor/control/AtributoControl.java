@@ -3,7 +3,7 @@ package mereditor.control;
 import java.util.HashMap;
 import java.util.Map;
 
-import mereditor.editores.EditorFactory;
+import mereditor.interfaz.swt.editores.EditorFactory;
 import mereditor.interfaz.swt.figuras.AtributoFigure;
 import mereditor.interfaz.swt.figuras.Figura;
 import mereditor.modelo.Atributo;

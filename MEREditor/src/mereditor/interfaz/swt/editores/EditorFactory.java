@@ -1,4 +1,4 @@
-package mereditor.editores;
+package mereditor.interfaz.swt.editores;
 
 import mereditor.modelo.Atributo;
 import mereditor.modelo.Entidad;
