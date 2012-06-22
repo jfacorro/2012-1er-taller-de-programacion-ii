@@ -17,12 +17,9 @@ import org.eclipse.swt.SWT;
 public class RelacionFigure extends Figura<Relacion> {
 	private PolygonShape rombo;
 
-	public RelacionFigure(Relacion relacion, Dimension dim) {
-		super(relacion, dim);
-	}
-
 	public RelacionFigure(Relacion relacion) {
 		super(relacion);
+		this.setRepresentacion(EstilosFiguras.get(Relacion.class, this.componente.getTipo()));
 	}
 
 	@Override
@@ -38,7 +35,8 @@ public class RelacionFigure extends Figura<Relacion> {
 		this.rombo = new PolygonShape();
 		this.rombo.setAntialias(SWT.ON);
 		this.rombo.setLayoutManager(new BorderLayout());
-		this.rombo.setBackgroundColor(this.getBackColor());
+		this.rombo.setBackgroundColor(this.backColor);
+		this.aplicarEstiloBorde(this.rombo);
 		this.rombo.setOpaque(false);
 		this.rombo.add(this.lblName, BorderLayout.CENTER);
 		this.add(this.rombo, BorderLayout.CENTER);

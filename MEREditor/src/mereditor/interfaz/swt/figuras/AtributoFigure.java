@@ -13,11 +13,12 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Color;
 
 public class AtributoFigure extends Figura<Atributo> {
-
 	private Ellipse ellipse;
+	private Color identificadorBackColor = new Color(null, 0, 0, 0);
 
 	public AtributoFigure(Atributo componente) {
 		super(componente);
+		this.setRepresentacion(EstilosFiguras.get(Atributo.class, this.componente.getTipo()));
 	}
 
 	@Override
@@ -31,6 +32,8 @@ public class AtributoFigure extends Figura<Atributo> {
 		this.ellipse = new Ellipse();
 		this.ellipse.setLocation(this.getLocation());
 		this.ellipse.setAntialias(SWT.ON);
+		this.ellipse.setBackgroundColor(this.backColor);
+		this.aplicarEstiloBorde(this.ellipse);
 
 		// Si es un atributo compuesto representar con circulo
 		if (this.componente.esCompuesto()) {
@@ -40,12 +43,13 @@ public class AtributoFigure extends Figura<Atributo> {
 			ellipse.add(this.lblName, BorderLayout.CENTER);
 		} else {
 			ellipse.setSize(new Dimension(10, 10));
+			// Permitir que el label se mueva
 			new DragDropControlador(this.lblName);
 		}
 
 		// Si es un identificador usar fondo negro
 		if (this.componente.esIdentificador()) {
-			ellipse.setBackgroundColor(new Color(null, 0, 0, 0));
+			ellipse.setBackgroundColor(this.identificadorBackColor);
 			ellipse.setBorder(null);
 		}
 
@@ -65,6 +69,7 @@ public class AtributoFigure extends Figura<Atributo> {
 
 	/**
 	 * Devuelve el texto que se debe mostrar en el diagrama.
+	 * 
 	 * @return
 	 */
 	private String getTextoLabel() {
@@ -72,8 +77,9 @@ public class AtributoFigure extends Figura<Atributo> {
 
 		if (!this.componente.getCardinalidadMinima().equals("1")
 				|| !this.componente.getCardinalidadMaxima().equals("1"))
-			texto += " (" + this.componente.getCardinalidadMinima().toString() + ", "
-					+ this.componente.getCardinalidadMaxima().toString() + ")";
+			texto += " (" + this.componente.getCardinalidadMinima().toString()
+					+ ", " + this.componente.getCardinalidadMaxima().toString()
+					+ ")";
 
 		return texto;
 	}

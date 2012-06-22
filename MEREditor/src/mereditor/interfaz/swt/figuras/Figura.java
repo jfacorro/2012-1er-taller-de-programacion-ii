@@ -10,15 +10,18 @@ import mereditor.interfaz.swt.listeners.MovimientoControlador;
 import mereditor.modelo.base.Componente;
 import mereditor.representacion.PList;
 
+import org.eclipse.draw2d.Border;
 import org.eclipse.draw2d.BorderLayout;
 import org.eclipse.draw2d.ChopboxAnchor;
 import org.eclipse.draw2d.Connection;
 import org.eclipse.draw2d.ConnectionAnchor;
 import org.eclipse.draw2d.Figure;
+import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.Label;
 import org.eclipse.draw2d.LineBorder;
 import org.eclipse.draw2d.PolylineConnection;
+import org.eclipse.draw2d.Shape;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.SWT;
@@ -33,6 +36,8 @@ public abstract class Figura<T extends Componente> extends Figure {
 
 	protected Font font = defaultFont;
 	protected Color lineColor = defaultLineColor;
+	protected int lineStyle = Graphics.LINE_SOLID;
+	protected int lineWidth = 1;
 	protected Color backColor = defaultBackColor;
 	protected T componente;
 	protected Label lblName;
@@ -42,7 +47,7 @@ public abstract class Figura<T extends Componente> extends Figure {
 	private Set<Figure> figurasLoqueadas = new LinkedHashSet<>();
 
 	/**
-	 * Mapa de conexiones con figuras hijas
+	 * Mapa de conexiones con otras figuras
 	 */
 	protected Map<String, Connection> conexiones = new HashMap<>();
 
@@ -70,8 +75,8 @@ public abstract class Figura<T extends Componente> extends Figure {
 	 * nombre del componente
 	 */
 	protected void init() {
-		this.setBorder(new LineBorder(this.getLineColor(), 1));
-		this.setBackgroundColor(this.getBackColor());
+		this.setBorder(this.getEstiloBorde());
+		this.setBackgroundColor(this.backColor);
 
 		this.setOpaque(true);
 		this.setSize(Figura.defaultSize);
@@ -79,14 +84,6 @@ public abstract class Figura<T extends Componente> extends Figure {
 		this.lblName = new Label();
 		this.lblName.setFont(this.font);
 		this.add(lblName, BorderLayout.CENTER);
-	}
-
-	protected Color getBackColor() {
-		return this.backColor;
-	}
-
-	protected Color getLineColor() {
-		return this.lineColor;
 	}
 
 	public T getComponente() {
@@ -116,14 +113,18 @@ public abstract class Figura<T extends Componente> extends Figure {
 	 */
 	public void setRepresentacion(PList repr) {
 		if (repr != null) {
-			Rectangle rect = new Rectangle(repr.<PList> get("Posicion")
-					.<Integer> get("x"), repr.<PList> get("Posicion")
-					.<Integer> get("y"), repr.<PList> get("Dimension")
-					.<Integer> get("ancho"), repr.<PList> get("Dimension")
-					.<Integer> get("alto"));
+			if (repr.<PList> get("Posicion") != null) {
+				Rectangle rect = new Rectangle(repr.<PList> get("Posicion")
+						.<Integer> get("x"), repr.<PList> get("Posicion")
+						.<Integer> get("y"), repr.<PList> get("Dimension")
+						.<Integer> get("ancho"), repr.<PList> get("Dimension")
+						.<Integer> get("alto"));
+
+				this.setBounds(rect);
+			}
 
 			if (repr.<PList> get("ColorFondo") != null) {
-				this.lineColor = new Color(null, repr.<PList> get("ColorFondo")
+				this.backColor = new Color(null, repr.<PList> get("ColorFondo")
 						.<Integer> get("r"), repr.<PList> get("ColorFondo")
 						.<Integer> get("g"), repr.<PList> get("ColorFondo")
 						.<Integer> get("b"));
@@ -136,7 +137,13 @@ public abstract class Figura<T extends Componente> extends Figure {
 						.<Integer> get("b"));
 			}
 
-			this.setBounds(rect);
+			if (repr.<PList> get("AnchoLinea") != null) {
+				this.lineWidth = repr.<Integer> get("AnchoLinea");
+			}
+
+			if (repr.<Integer> get("EstiloLinea") != null) {
+				this.lineStyle = repr.<Integer> get("EstiloLinea");
+			}
 		}
 
 		this.init();
@@ -183,6 +190,17 @@ public abstract class Figura<T extends Componente> extends Figure {
 	 * Ejecutado cuando se setea la figura padre
 	 */
 	protected void onSetParent() {
+	}
+	
+	protected Border getEstiloBorde() {
+		return new LineBorder(this.lineColor, this.lineWidth,
+				this.lineStyle);
+	}
+	
+	protected void aplicarEstiloBorde(Shape shape) {
+		shape.setLineStyle(this.lineStyle);
+		shape.setLineWidth(this.lineWidth);
+		shape.setForegroundColor(this.lineColor);
 	}
 
 	/**

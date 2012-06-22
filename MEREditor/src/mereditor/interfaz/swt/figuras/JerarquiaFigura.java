@@ -12,8 +12,10 @@ public class JerarquiaFigura extends Figura<Jerarquia> {
 
 	public JerarquiaFigura(Jerarquia componente) {
 		super(componente);
+		this.setRepresentacion(EstilosFiguras.get(Jerarquia.class,
+				this.componente.getTipo()));
 	}
-	
+
 	@Override
 	protected void init() {
 		super.init();
@@ -21,18 +23,24 @@ public class JerarquiaFigura extends Figura<Jerarquia> {
 	}
 
 	public void conectarGenerica(Figure figura, Figure generica) {
-		PolylineConnection connection = (PolylineConnection)Figura.conectar(figura, generica);
+		PolylineConnection connection = (PolylineConnection) Figura.conectar(
+				figura, generica);
+
+		this.aplicarEstiloBorde(connection);
+
 		connection.setConnectionRouter(new ManhattanConnectionRouter());
 		connection.setTargetDecoration(new PolygonDecoration());
 		this.getParent().add(connection);
 	}
-	
+
 	public void conectarDerivada(Figure figura, Figure derivada) {
-		PolylineConnection connection = (PolylineConnection)Figura.conectar(figura, derivada);
+		PolylineConnection connection = (PolylineConnection) Figura.conectar(
+				figura, derivada);
+		connection.setLineStyle(this.lineStyle);
 		connection.setConnectionRouter(new ManhattanConnectionRouter());
 		this.getParent().add(connection);
 	}
-	
+
 	@Override
 	public void actualizar() {
 
