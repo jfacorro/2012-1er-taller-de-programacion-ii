@@ -5,12 +5,9 @@ import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
-import mereditor.interfaz.swt.dialogs.AgregarEntidadDialog;
+import mereditor.interfaz.swt.listeners.AccionesProvider;
 
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.SelectionAdapter;
-import org.eclipse.swt.events.SelectionEvent;
-import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.ToolBar;
 import org.eclipse.swt.widgets.ToolItem;
@@ -38,43 +35,43 @@ public class ToolBarBuilder implements Observer {
 		ToolItem item = new ToolItem(this.toolBar, SWT.PUSH);
 		item.setToolTipText("Nuevo Proyecto");
 		item.setImage(this.getImagen("nuevo.png"));
-		item.addSelectionListener(this.nuevo);
+		item.addSelectionListener(AccionesProvider.nuevo);
 
 		item = new ToolItem(this.toolBar, SWT.PUSH);
 		item.setToolTipText("Abrir Proyecto");
 		item.setImage(this.getImagen("abrir.png"));
-		item.addSelectionListener(this.abrir);
+		item.addSelectionListener(AccionesProvider.abrir);
 
 		item = new ToolItem(this.toolBar, SWT.PUSH);
 		item.setToolTipText("Guardar Proyecto");
 		item.setImage(this.getImagen("guardar.png"));
-		item.addSelectionListener(this.guardar);
+		item.addSelectionListener(AccionesProvider.guardar);
 		proyectoItems.add(item);
 		
 		item = new ToolItem(this.toolBar, SWT.SEPARATOR);
 
 		item = new ToolItem(this.toolBar, SWT.PUSH);
-		item.setToolTipText("Nueva Entidad");
-		item.setImage(this.getImagen("entidad.png"));
-		item.addSelectionListener(this.agregarEntidad);
+		item.setToolTipText("Nuevo Diagrama");
+		item.setImage(this.getImagen("diagrama.png"));
+		item.addSelectionListener(AccionesProvider.nuevoDiagrama);
 		proyectoItems.add(item);
 
 		item = new ToolItem(this.toolBar, SWT.PUSH);
-		item.setToolTipText("Nueva Relacion");
+		item.setToolTipText("Agregar Entidad");
+		item.setImage(this.getImagen("entidad.png"));
+		item.addSelectionListener(AccionesProvider.agregarEntidad);
+		proyectoItems.add(item);
+
+		item = new ToolItem(this.toolBar, SWT.PUSH);
+		item.setToolTipText("Agregar Relacion");
 		item.setImage(this.getImagen("relacion.png"));
 		proyectoItems.add(item);
 
 		item = new ToolItem(this.toolBar, SWT.PUSH);
-		item.setToolTipText("Nueva Jerarquia");
+		item.setToolTipText("Agregar Jerarquia");
 		item.setImage(this.getImagen("jerarquia.png"));
 		proyectoItems.add(item);
-
-		item = new ToolItem(this.toolBar, SWT.PUSH);
-		item.setToolTipText("Nuevo Diagrama");
-		item.setImage(this.getImagen("diagrama.png"));
-		item.addSelectionListener(nuevoDiagrama);
-		proyectoItems.add(item);
-		
+	
 		item = new ToolItem(this.toolBar, SWT.SEPARATOR);
 
 		item = new ToolItem(this.toolBar, SWT.PUSH);
@@ -100,7 +97,7 @@ public class ToolBarBuilder implements Observer {
 		item = new ToolItem(this.toolBar, SWT.PUSH);
 		item.setToolTipText("Explorador del Proyecto");
 		item.setImage(this.getImagen("tree_mode.png"));
-		item.addSelectionListener(mostrarArbol);
+		item.addSelectionListener(AccionesProvider.mostrarArbol);
 		proyectoItems.add(item);
 		
 		item = new ToolItem(this.toolBar, SWT.SEPARATOR);
@@ -108,7 +105,7 @@ public class ToolBarBuilder implements Observer {
 		item = new ToolItem(this.toolBar, SWT.PUSH);
 		item.setToolTipText("Salir");
 		item.setImage(this.getImagen("salir.png"));
-		item.addSelectionListener(salir);
+		item.addSelectionListener(AccionesProvider.salir);
 
 		this.habilitarItems(false);
 	}
@@ -121,70 +118,6 @@ public class ToolBarBuilder implements Observer {
 	private Image getImagen(String nombre) {
 		return new Image(this.toolBar.getDisplay(), PATH_IMAGENES + nombre);
 	}
-
-	private SelectionListener nuevo = new SelectionAdapter() {
-		@Override
-		public void widgetSelected(SelectionEvent e) {
-			try {
-				principal.nuevoProyecto();
-			} catch (Exception ex) {
-				ex.printStackTrace();
-			}
-		}
-	};
-
-	private SelectionListener abrir = new SelectionAdapter() {
-		@Override
-		public void widgetSelected(SelectionEvent e) {
-			principal.abrirProyecto();
-		}
-	};
-
-	private SelectionListener guardar = new SelectionAdapter() {
-		@Override
-		public void widgetSelected(SelectionEvent e) {
-			try {
-				principal.guardar();
-			} catch (Exception e1) {
-				e1.printStackTrace();
-			}
-		}
-	};
-
-	private SelectionListener mostrarArbol = new SelectionAdapter() {
-		@Override
-		public void widgetSelected(SelectionEvent e) {
-			try {
-				TreeManager.mostrar();
-			} catch (Exception ex) {
-				ex.printStackTrace();
-			}
-		}
-	};
-	private SelectionListener agregarEntidad = new SelectionAdapter() {
-		@Override
-		public void widgetSelected(SelectionEvent e) {
-			new AgregarEntidadDialog().abrir();
-		}
-	};
-
-	private SelectionListener nuevoDiagrama = new SelectionAdapter() {
-		@Override
-		public void widgetSelected(SelectionEvent e) {
-			try {
-				principal.nuevoDiagrama();
-			} catch (Exception ex) {
-				ex.printStackTrace();
-			}
-		}
-	};
-
-	private final SelectionListener salir = new SelectionAdapter() {
-		@Override
-		public void widgetSelected(SelectionEvent e) {
-			principal.salir();
-		}
-	};
 
 	@Override
 	public void update(Observable principal, Object arg) {
