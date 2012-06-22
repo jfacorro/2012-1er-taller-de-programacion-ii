@@ -48,6 +48,21 @@ public class MenuBuilder implements Observer {
 		menuItem = new MenuItem(menu, SWT.PUSH);
 		menuItem.setText("&Guardar");
 		menuItem.addSelectionListener(AccionesProvider.guardar);
+		proyectoItems.add(menuItem);
+		
+		menuItem = new MenuItem(menu, SWT.SEPARATOR);
+		
+		menuItem = new MenuItem(menu, SWT.PUSH);
+		menuItem.setText("&Exportar");
+		menuItem.addSelectionListener(AccionesProvider.exportar);
+		proyectoItems.add(menuItem);
+		
+		menuItem = new MenuItem(menu, SWT.PUSH);
+		menuItem.setText("&Imprimir");
+		menuItem.addSelectionListener(AccionesProvider.imprimir);
+		proyectoItems.add(menuItem);
+		
+		menuItem = new MenuItem(menu, SWT.SEPARATOR);
 
 		menuItem = new MenuItem(menu, SWT.PUSH);
 		menuItem.setText("&Salir");
@@ -59,7 +74,6 @@ public class MenuBuilder implements Observer {
 		
 		menuItem = new MenuItem(this.menuBar, SWT.CASCADE);
 		menuItem.setText("&Ver");
-		proyectoItems.add(menuItem);
 		
 		menu = new Menu(principal.getShell(), SWT.DROP_DOWN);
 		menuItem.setMenu(menu);
@@ -67,23 +81,25 @@ public class MenuBuilder implements Observer {
 		menuItem = new MenuItem(menu, SWT.PUSH);
 		menuItem.setText("Zoom &+");
 		menuItem.addSelectionListener(AccionesProvider.zoomIn);
+		proyectoItems.add(menuItem);
 		
 		menuItem = new MenuItem(menu, SWT.PUSH);
 		menuItem.setText("Zoom &-");
 		menuItem.addSelectionListener(AccionesProvider.zoomOut);
+		proyectoItems.add(menuItem);
 		
 		menuItem = new MenuItem(menu, SWT.SEPARATOR);
 		
 		menuItem = new MenuItem(menu, SWT.PUSH);
-		menuItem.setText("&Arbol de Jerarquias");
+		menuItem.setText("&Explorador del Proyecto");
 		menuItem.addSelectionListener(AccionesProvider.mostrarArbol);
+		proyectoItems.add(menuItem);
 		
 		/*
 		 * Proyecto
 		 */
 		menuItem = new MenuItem(this.menuBar, SWT.CASCADE);
 		menuItem.setText("&Proyecto");
-		proyectoItems.add(menuItem);
 		
 		menu = new Menu(principal.getShell(), SWT.DROP_DOWN);
 		menuItem.setMenu(menu);
@@ -91,18 +107,29 @@ public class MenuBuilder implements Observer {
 		menuItem = new MenuItem(menu, SWT.PUSH);
 		menuItem.setText("&Nuevo Diagrama");
 		menuItem.addSelectionListener(AccionesProvider.nuevoDiagrama);
+		proyectoItems.add(menuItem);
 		
 		menuItem = new MenuItem(menu, SWT.PUSH);
 		menuItem.setText("Agregar &Entidad");
 		menuItem.addSelectionListener(AccionesProvider.agregarEntidad);
+		proyectoItems.add(menuItem);
 		
 		menuItem = new MenuItem(menu, SWT.PUSH);
 		menuItem.setText("Agregar &Relacion");
 		menuItem.addSelectionListener(AccionesProvider.agregarRelacion);
+		proyectoItems.add(menuItem);
 
 		menuItem = new MenuItem(menu, SWT.PUSH);
 		menuItem.setText("Agregar &Jerarquia");
 		menuItem.addSelectionListener(AccionesProvider.agregarJerarquia);
+		proyectoItems.add(menuItem);
+		
+		menuItem = new MenuItem(menu, SWT.SEPARATOR);
+		
+		menuItem = new MenuItem(menu, SWT.PUSH);
+		menuItem.setText("&Validar");
+		menuItem.addSelectionListener(AccionesProvider.validar);
+		proyectoItems.add(menuItem);
 
 		/*
 		 * Ayuda

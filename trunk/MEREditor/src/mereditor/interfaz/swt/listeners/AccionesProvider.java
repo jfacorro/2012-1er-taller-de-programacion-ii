@@ -50,6 +50,12 @@ public class AccionesProvider {
 		}
 	};
 
+	public static final SelectionListener imprimir = new SelectionAdapter() {
+		public void widgetSelected(SelectionEvent e) {
+			principal().imprimir();
+		};
+	};
+
 	public static final SelectionListener exportar = new SelectionAdapter() {
 		public void widgetSelected(SelectionEvent e) {
 			principal().exportar();
@@ -61,7 +67,7 @@ public class AccionesProvider {
 			principal().zoomIn();
 		};
 	};
-	
+
 	public static final SelectionListener zoomOut = new SelectionAdapter() {
 		public void widgetSelected(SelectionEvent e) {
 			principal().zoomOut();
@@ -83,6 +89,12 @@ public class AccionesProvider {
 	public static final SelectionListener agregarJerarquia = new SelectionAdapter() {
 		public void widgetSelected(SelectionEvent e) {
 			principal().agregarJerarquia();
+		};
+	};
+	
+	public static final SelectionListener validar = new SelectionAdapter() {
+		public void widgetSelected(SelectionEvent e) {
+			principal().validar();
 		};
 	};
 
