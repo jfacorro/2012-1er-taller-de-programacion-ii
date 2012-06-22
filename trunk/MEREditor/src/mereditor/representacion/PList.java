@@ -22,12 +22,14 @@ public class PList {
 		return null;
 	}
 
-	public void set(String name, Object value) {
+	public PList set(String name, Object value) {
 		// Si es entero convertir automáticamente
 		if (value != null && value.toString().matches("-?\\d*"))
 			value = Integer.parseInt(value.toString());
 
 		this.properties.put(name, value);
+		
+		return this;
 	}
 
 	public boolean has(String name) {

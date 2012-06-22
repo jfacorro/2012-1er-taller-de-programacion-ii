@@ -15,6 +15,7 @@ public class EntidadFigure extends Figura<Entidad> {
 
 	public EntidadFigure(Entidad entidad) {
 		super(entidad);
+		this.setRepresentacion(EstilosFiguras.get(Entidad.class, this.componente.getTipo()));
 	}
 
 	@Override
