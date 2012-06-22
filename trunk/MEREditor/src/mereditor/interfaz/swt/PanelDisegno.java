@@ -23,10 +23,10 @@ public class PanelDisegno {
 	}
 
 	public void zoomOut() {
-		this.panel.setZoom((float)(this.panel.getZoom() - 0.1));		
+		this.panel.zoomIn();		
 	}
 	
 	public void zoomIn() {
-		this.panel.setZoom((float)(this.panel.getZoom() + 0.1));		
+		this.panel.zoomOut();		
 	}
 }
