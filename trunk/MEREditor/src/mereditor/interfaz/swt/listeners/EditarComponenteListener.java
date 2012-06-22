@@ -1,8 +1,8 @@
 package mereditor.interfaz.swt.listeners;
 
-import mereditor.editores.EditorFactory;
 import mereditor.interfaz.swt.Principal;
 import mereditor.interfaz.swt.TreeManager;
+import mereditor.interfaz.swt.editores.EditorFactory;
 import mereditor.modelo.Diagrama;
 import mereditor.modelo.base.Componente;
 
