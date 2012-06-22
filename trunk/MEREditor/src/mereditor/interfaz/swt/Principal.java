@@ -278,4 +278,12 @@ public class Principal extends Observable {
 	public void agregarJerarquia() {
 		new AgregarEntidadDialog().abrir();
 	}
+
+	public void zoomIn() {
+		this.panelDisegno.zoomIn();		
+	}
+
+	public void zoomOut() {
+		this.panelDisegno.zoomOut();		
+	}
 }

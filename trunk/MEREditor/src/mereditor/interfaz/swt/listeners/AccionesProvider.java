@@ -50,6 +50,18 @@ public class AccionesProvider {
 		}
 	};
 
+	public static final SelectionListener zoomIn = new SelectionAdapter() {
+		public void widgetSelected(SelectionEvent e) {
+			principal().zoomIn();
+		};
+	};
+	
+	public static final SelectionListener zoomOut = new SelectionAdapter() {
+		public void widgetSelected(SelectionEvent e) {
+			principal().zoomOut();
+		};
+	};
+
 	/**
 	 * Agregar una Relacion al diagrama actual.
 	 */
