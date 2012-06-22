@@ -8,7 +8,19 @@ Juan:
 		- Crear anchors que puedan:
 			- En Entidades: Moverse sobre el borde de las figuras.
 			- En Relaciones: Utilizar sólo las puntas del rombo
+		- Dialogos
+			- Agregar Entidad
+			- Agregar Relacion
+			- Agregar Jerarquia
+		- Editores:
+			- Relación
+			- Jerarquía
+		- Crear y eliminar diagramas.
 	Hecho:
 	------
 		- Agregar el tipo de identificadores faltantes y la representacion de ellos.
 		- Mostrar las cardinalidades de los atributos.
+		- Exportar
+		- [Zoom]
+		- Crear menu Proyecto con las mismas opciones de la barra de iconos.
+		- Eliminar entidades.

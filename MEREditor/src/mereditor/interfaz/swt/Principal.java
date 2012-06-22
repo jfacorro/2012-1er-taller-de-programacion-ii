@@ -263,6 +263,13 @@ public class Principal extends Observable {
 		messageBox.setMessage(mensaje);
 		messageBox.open();
 	}
+	
+	public void advertencia(String mensaje) {
+		MessageBox messageBox = new MessageBox(shell, SWT.ICON_WARNING | SWT.OK);
+		messageBox.setText("Advertencia");
+		messageBox.setMessage(mensaje);
+		messageBox.open();
+	}
 
 	/**
 	 * Abre el diálogo para agregar una Entidad al diagrama que se encuentra
@@ -328,14 +335,13 @@ public class Principal extends Observable {
 	 * Muestra la pantalla de impresión para el digrama actual.
 	 */
 	public void imprimir() {
-		
+		this.advertencia("La funcion Imprimir no esta implementada.");
 	}
 
 	/**
 	 * Validar diagrama actual
 	 */
 	public void validar() {
-		// TODO Auto-generated method stub
-		
+		this.advertencia("La funcion Validar no esta implementada.");
 	}
 }

@@ -53,6 +53,7 @@ public class ToolBarBuilder implements Observer {
 		item = new ToolItem(this.toolBar, SWT.PUSH);
 		item.setToolTipText("Imprimir");
 		item.setImage(this.getImagen("imprimir.png"));
+		item.addSelectionListener(AccionesProvider.imprimir);
 		proyectoItems.add(item);
 
 		item = new ToolItem(this.toolBar, SWT.PUSH);
