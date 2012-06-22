@@ -24,6 +24,7 @@ import org.eclipse.swt.layout.FormData;
 import org.eclipse.swt.layout.FormLayout;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.FileDialog;
+import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.ToolBar;
 import org.eclipse.swt.widgets.Tree;
@@ -247,5 +248,12 @@ public class Principal {
 	
 	public Proyecto getProyecto() {
 		return this.proyecto;
+	}
+
+	public void error(String mensaje) {
+		MessageBox messageBox = new MessageBox(shell, SWT.ICON_ERROR | SWT.OK);
+        messageBox.setText("Error");
+        messageBox.setMessage(mensaje);
+        messageBox.open();
 	}
 }

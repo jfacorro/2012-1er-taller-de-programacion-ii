@@ -61,7 +61,7 @@ public abstract class Figura<T extends Componente> extends Figure {
 		new DragDropControlador(this);
 		// Agregar controlador para el movivimento de las figuras loqueadas
 		new MovimientoControlador(this);
-		
+
 		this.init();
 	}
 
@@ -95,9 +95,9 @@ public abstract class Figura<T extends Componente> extends Figure {
 
 	public Connection getConexion(String id) {
 		if (!this.conexiones.containsKey(id)) {
-			String error = "La figura de id %s no tiene ninguna conexion con la figura del componente con id: %s";
-			throw new RuntimeException(String.format(error,
-					this.componente.getId(), id));
+			String error = "La figura de id %s (%s) no tiene ninguna conexion con la figura del componente con id: %s";
+			throw new RuntimeException(String.format(error, this.componente
+					.getId(), this.componente.getClass().getName(), id));
 		}
 
 		return this.conexiones.get(id);
