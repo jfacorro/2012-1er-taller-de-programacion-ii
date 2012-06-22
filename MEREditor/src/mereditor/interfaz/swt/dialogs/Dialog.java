@@ -13,7 +13,7 @@ import org.eclipse.swt.widgets.Control;
 
 public abstract class Dialog extends ApplicationWindow {
 	protected Principal principal = Principal.getInstance();
-	protected String titulo;
+	protected String titulo = "";
 
 	public Dialog() {
 		super(Principal.getInstance().getShell());
