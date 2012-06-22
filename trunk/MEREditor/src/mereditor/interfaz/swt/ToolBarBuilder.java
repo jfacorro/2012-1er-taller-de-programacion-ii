@@ -84,6 +84,7 @@ public class ToolBarBuilder implements Observer {
 		item = new ToolItem(this.toolBar, SWT.PUSH);
 		item.setToolTipText("Zoom");
 		item.setImage(this.getImagen("zoom.png"));
+		item.addSelectionListener(AccionesProvider.zoomIn);
 		proyectoItems.add(item);
 		
 		item = new ToolItem(this.toolBar, SWT.PUSH);
@@ -94,6 +95,7 @@ public class ToolBarBuilder implements Observer {
 		item = new ToolItem(this.toolBar, SWT.PUSH);
 		item.setToolTipText("Exportar");
 		item.setImage(this.getImagen("exportar.png"));
+		item.addSelectionListener(AccionesProvider.exportar);
 		proyectoItems.add(item);
 		
 		item = new ToolItem(this.toolBar, SWT.PUSH);

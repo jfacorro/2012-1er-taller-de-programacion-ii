@@ -20,6 +20,9 @@ import org.eclipse.draw2d.FigureCanvas;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.SashForm;
 import org.eclipse.swt.graphics.Color;
+import org.eclipse.swt.graphics.Image;
+import org.eclipse.swt.graphics.ImageData;
+import org.eclipse.swt.graphics.ImageLoader;
 import org.eclipse.swt.layout.FormAttachment;
 import org.eclipse.swt.layout.FormData;
 import org.eclipse.swt.layout.FormLayout;
@@ -39,6 +42,8 @@ public class Principal extends Observable {
 	public static final Color defaultBackgroundColor = new Color(null, 255,
 			255, 255);
 	public static final String APP_NOMBRE = "MER Editor";
+	public static final String[] extensionProyecto = new String[] { "*.xml" };
+	public static final String[] extensionesImagen = new String[] { "*.jpg" };
 
 	private Shell shell;
 
@@ -125,7 +130,7 @@ public class Principal extends Observable {
 	 */
 	public void abrirProyecto() {
 		FileDialog fileDialog = new FileDialog(this.shell);
-
+		fileDialog.setFilterExtensions(extensionProyecto);
 		String path = fileDialog.open();
 
 		if (path != null) {
@@ -162,6 +167,7 @@ public class Principal extends Observable {
 	 */
 	public void guardar() throws Exception {
 		FileDialog fileDialog = new FileDialog(this.shell);
+		fileDialog.setFilterExtensions(extensionProyecto);
 		String path = fileDialog.open();
 
 		if (path != null) {
@@ -213,7 +219,7 @@ public class Principal extends Observable {
 	}
 
 	/**
-	 * Abrir la aplicacion.
+	 * Abrir la ventana principal.
 	 */
 	public void mostrar() {
 		this.shell.open();
@@ -259,31 +265,60 @@ public class Principal extends Observable {
 	}
 
 	/**
-	 * Abre el diálogo para agregar una Entidad al diagrama que se encuentra abierto.
+	 * Abre el diálogo para agregar una Entidad al diagrama que se encuentra
+	 * abierto.
 	 */
 	public void agregarEntidad() {
-		new AgregarEntidadDialog().abrir();		
+		new AgregarEntidadDialog().abrir();
 	}
 
 	/**
-	 * Abre el diálogo para agregar una Relacion al diagrama que se encuentra abierto.
+	 * Abre el diálogo para agregar una Relacion al diagrama que se encuentra
+	 * abierto.
 	 */
 	public void agregarRelacion() {
-		new AgregarEntidadDialog().abrir();	
+		new AgregarEntidadDialog().abrir();
 	}
 
 	/**
-	 * Abre el diálogo para agregar una Jerarquia al diagrama que se encuentra abierto.
+	 * Abre el diálogo para agregar una Jerarquia al diagrama que se encuentra
+	 * abierto.
 	 */
 	public void agregarJerarquia() {
 		new AgregarEntidadDialog().abrir();
 	}
 
+	/**
+	 * Aumento del zoom.
+	 */
 	public void zoomIn() {
-		this.panelDisegno.zoomIn();		
+		this.panelDisegno.zoomIn();
 	}
 
+	/**
+	 * Disminucion del zoom.
+	 */
 	public void zoomOut() {
-		this.panelDisegno.zoomOut();		
+		this.panelDisegno.zoomOut();
+	}
+
+	/**
+	 * Exportar el diagrama a un archivo de imagen.
+	 */
+	public void exportar() {
+		FileDialog fileDialog = new FileDialog(this.shell);
+		fileDialog.setFilterExtensions(extensionesImagen);
+		String path = fileDialog.open();
+
+		if (path != null) {
+			Image image = this.panelDisegno.getImagen();
+			
+			ImageData[] data = new ImageData[1];
+			data[0] = image.getImageData();
+			
+			ImageLoader imgLoader = new ImageLoader();
+			imgLoader.data = data;
+			imgLoader.save(path, SWT.IMAGE_JPEG);
+		}
 	}
 }

@@ -39,7 +39,7 @@ public class AccionesProvider {
 	/**
 	 * Guardar proyecto.
 	 */
-	public static SelectionListener guardar = new SelectionAdapter() {
+	public static final SelectionListener guardar = new SelectionAdapter() {
 		@Override
 		public void widgetSelected(SelectionEvent e) {
 			try {
@@ -48,6 +48,12 @@ public class AccionesProvider {
 				e1.printStackTrace();
 			}
 		}
+	};
+
+	public static final SelectionListener exportar = new SelectionAdapter() {
+		public void widgetSelected(SelectionEvent e) {
+			principal().exportar();
+		};
 	};
 
 	public static final SelectionListener zoomIn = new SelectionAdapter() {
