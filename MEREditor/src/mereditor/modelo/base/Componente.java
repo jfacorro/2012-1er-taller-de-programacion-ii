@@ -1,7 +1,10 @@
 package mereditor.modelo.base;
 
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 import java.util.UUID;
 
 public abstract class Componente {
@@ -79,5 +82,21 @@ public abstract class Componente {
 	 */
 	public boolean contiene(Componente componente) {
 		return false;
+	}
+	
+	/**
+	 * Devuelve la lista de objectos filtrados por el tipo que se le pasa.
+	 * 
+	 * @param clazz
+	 * @return
+	 */
+	public static <T> Set<T> filtrarComponentes(Class<T> clazz, Collection<Componente> coleccion) {
+		Set<T> lista = new HashSet<>();
+
+		for (Componente componente : coleccion)
+			if (clazz.isInstance(componente))
+				lista.add(clazz.cast(componente));
+
+		return lista;
 	}
 }

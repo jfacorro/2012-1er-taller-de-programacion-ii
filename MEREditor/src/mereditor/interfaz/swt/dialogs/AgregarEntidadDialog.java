@@ -43,23 +43,27 @@ public class AgregarEntidadDialog extends Dialog {
 		return super.createContents(composite);
 	}
 
+	/**
+	 * Carga las entidades que pertenecen al diagrama actual y a sus padres en
+	 * el combo.
+	 */
 	private void loadEntidades() {
-		this.entidades = this.principal.getProyecto().getLista(Entidad.class);
-		
-		for(Entidad entidad : this.entidades)
+		this.entidades = this.principal.getProyecto().getDiagramaActual().getEntidades();
+
+		for (Entidad entidad : this.entidades)
 			this.cboEntidades.add(entidad.getNombre());
-		
-        String[] items = this.cboEntidades.getItems();
-        Arrays.sort(items);
-        this.cboEntidades.setItems(items);
+
+		String[] items = this.cboEntidades.getItems();
+		Arrays.sort(items);
+		this.cboEntidades.setItems(items);
 	}
 
 	protected void aceptar() {
 		if (cboEntidades.getSelectionIndex() == -1) {
 			throw new RuntimeException("No seleccionó ninguna entidad");
 		}
-		
-		Entidad entidad = null;		
+
+		Entidad entidad = null;
 
 		agregar(entidad);
 	}
