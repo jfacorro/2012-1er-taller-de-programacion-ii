@@ -31,57 +31,90 @@ public class MenuBuilder implements Observer {
 		/*
 		 * Archivo
 		 */
-		MenuItem fileMenuHeader = new MenuItem(this.menuBar, SWT.CASCADE);
-		fileMenuHeader.setText("&Archivo");
+		MenuItem menuItem = new MenuItem(this.menuBar, SWT.CASCADE);
+		menuItem.setText("&Archivo");
 
-		Menu fileMenu = new Menu(principal.getShell(), SWT.DROP_DOWN);
-		fileMenuHeader.setMenu(fileMenu);
+		Menu menu = new Menu(principal.getShell(), SWT.DROP_DOWN);
+		menuItem.setMenu(menu);
 		
-		MenuItem fileNewItem = new MenuItem(fileMenu, SWT.PUSH);
-		fileNewItem.setText("&Nuevo");
-		fileNewItem.addSelectionListener(AccionesProvider.nuevo);
+		menuItem = new MenuItem(menu, SWT.PUSH);
+		menuItem.setText("&Nuevo");
+		menuItem.addSelectionListener(AccionesProvider.nuevo);
 
-		MenuItem fileOpenItem = new MenuItem(fileMenu, SWT.PUSH);
-		fileOpenItem.setText("&Abrir");
-		fileOpenItem.addSelectionListener(AccionesProvider.abrir);
+		menuItem = new MenuItem(menu, SWT.PUSH);
+		menuItem.setText("&Abrir");
+		menuItem.addSelectionListener(AccionesProvider.abrir);
 
-		MenuItem fileSaveItem = new MenuItem(fileMenu, SWT.PUSH);
-		fileSaveItem.setText("&Guardar");
-		fileSaveItem.addSelectionListener(AccionesProvider.guardar);
+		menuItem = new MenuItem(menu, SWT.PUSH);
+		menuItem.setText("&Guardar");
+		menuItem.addSelectionListener(AccionesProvider.guardar);
 
-		MenuItem fileExitItem = new MenuItem(fileMenu, SWT.PUSH);
-		fileExitItem.setText("&Salir");
-		fileExitItem.addSelectionListener(AccionesProvider.salir);
+		menuItem = new MenuItem(menu, SWT.PUSH);
+		menuItem.setText("&Salir");
+		menuItem.addSelectionListener(AccionesProvider.salir);
+		
+		/*
+		 * Ver
+		 */
+		
+		menuItem = new MenuItem(this.menuBar, SWT.CASCADE);
+		menuItem.setText("&Ver");
+		proyectoItems.add(menuItem);
+		
+		menu = new Menu(principal.getShell(), SWT.DROP_DOWN);
+		menuItem.setMenu(menu);
+		
+		menuItem = new MenuItem(menu, SWT.PUSH);
+		menuItem.setText("Zoom &+");
+		menuItem.addSelectionListener(AccionesProvider.zoomIn);
+		
+		menuItem = new MenuItem(menu, SWT.PUSH);
+		menuItem.setText("Zoom &-");
+		menuItem.addSelectionListener(AccionesProvider.zoomOut);
+		
+		menuItem = new MenuItem(menu, SWT.SEPARATOR);
+		
+		menuItem = new MenuItem(menu, SWT.PUSH);
+		menuItem.setText("&Arbol de Jerarquias");
+		menuItem.addSelectionListener(AccionesProvider.mostrarArbol);
 		
 		/*
 		 * Proyecto
 		 */
-		MenuItem proyectoMenuHeader = new MenuItem(this.menuBar, SWT.CASCADE);
-		proyectoMenuHeader.setText("&Proyecto");
-		proyectoItems.add(proyectoMenuHeader);
+		menuItem = new MenuItem(this.menuBar, SWT.CASCADE);
+		menuItem.setText("&Proyecto");
+		proyectoItems.add(menuItem);
 		
-		Menu proyectoMenu = new Menu(principal.getShell(), SWT.DROP_DOWN);
-		proyectoMenuHeader.setMenu(proyectoMenu);
+		menu = new Menu(principal.getShell(), SWT.DROP_DOWN);
+		menuItem.setMenu(menu);
 
-		MenuItem nuevoDiagramaItem = new MenuItem(proyectoMenu, SWT.PUSH);
-		nuevoDiagramaItem.setText("&Nuevo Diagrama");
-		nuevoDiagramaItem.addSelectionListener(AccionesProvider.nuevoDiagrama);
+		menuItem = new MenuItem(menu, SWT.PUSH);
+		menuItem.setText("&Nuevo Diagrama");
+		menuItem.addSelectionListener(AccionesProvider.nuevoDiagrama);
 		
-		MenuItem agregarEntidadItem = new MenuItem(proyectoMenu, SWT.PUSH);
-		agregarEntidadItem.setText("&Nuevo Diagrama");
-		agregarEntidadItem.addSelectionListener(AccionesProvider.agregarEntidad);
+		menuItem = new MenuItem(menu, SWT.PUSH);
+		menuItem.setText("Agregar &Entidad");
+		menuItem.addSelectionListener(AccionesProvider.agregarEntidad);
+		
+		menuItem = new MenuItem(menu, SWT.PUSH);
+		menuItem.setText("Agregar &Relacion");
+		menuItem.addSelectionListener(AccionesProvider.agregarRelacion);
+
+		menuItem = new MenuItem(menu, SWT.PUSH);
+		menuItem.setText("Agregar &Jerarquia");
+		menuItem.addSelectionListener(AccionesProvider.agregarJerarquia);
 
 		/*
 		 * Ayuda
 		 */
-		MenuItem helpMenuHeader = new MenuItem(menuBar, SWT.CASCADE);
-		helpMenuHeader.setText("Ay&uda");
+		menuItem = new MenuItem(menuBar, SWT.CASCADE);
+		menuItem.setText("Ay&uda");
 
-		Menu helpMenu = new Menu(principal.getShell(), SWT.DROP_DOWN);
-		helpMenuHeader.setMenu(helpMenu);
+		menu = new Menu(principal.getShell(), SWT.DROP_DOWN);
+		menuItem.setMenu(menu);
 
-		MenuItem helpGetHelpItem = new MenuItem(helpMenu, SWT.PUSH);
-		helpGetHelpItem.setText("&Sobre " + Principal.APP_NOMBRE + "...");
+		menuItem = new MenuItem(menu, SWT.PUSH);
+		menuItem.setText("&Sobre " + Principal.APP_NOMBRE + "...");
 
 		principal.getShell().setMenuBar(menuBar);
 		
