@@ -1,6 +1,7 @@
 package mereditor.interfaz.swt;
 
 import java.io.File;
+import java.util.Observable;
 
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerFactory;
@@ -34,7 +35,7 @@ import org.w3c.dom.Document;
  * Formulario principal de la aplicaci�n.
  * 
  */
-public class Principal {
+public class Principal extends Observable {
 	public static final Color defaultBackgroundColor = new Color(null, 255,
 			255, 255);
 	public static final String APP_NOMBRE = "MER Editor";
@@ -54,7 +55,7 @@ public class Principal {
 	public static void main(String args[]) {
 		Display display = Display.getDefault();
 		Shell shell = new Shell(display, SWT.SHELL_TRIM);
-		
+
 		Principal.instancia = new Principal(shell);
 		instancia.mostrar();
 
@@ -119,11 +120,7 @@ public class Principal {
 
 		if (resultado.result == Resultado.OK) {
 			this.proyecto = new Proyecto(resultado.value);
-			this.proyecto.setDiagramaActual(this.proyecto.getRaiz().getId());
-			this.panelDisegno = new PanelDisegno(this.figureCanvas,
-					this.proyecto);
-			this.panelDisegno.actualizar();
-			TreeManager.cargar(this.proyecto, this.tree);
+			this.cargarProyecto();
 		}
 	}
 
@@ -140,18 +137,26 @@ public class Principal {
 				ParserXml modelo = new ParserXml(path);
 
 				this.proyecto = modelo.parsear();
-				this.proyecto
-						.setDiagramaActual(this.proyecto.getRaiz().getId());
-				this.panelDisegno = new PanelDisegno(this.figureCanvas,
-						this.proyecto);
-				this.panelDisegno.actualizar();
-
-				TreeManager.cargar(this.proyecto, this.tree);
+				this.cargarProyecto();
 
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
+	}
+
+	/**
+	 * Carga el proyecto actual.
+	 */
+	private void cargarProyecto() {
+		this.proyecto.setDiagramaActual(this.proyecto.getRaiz().getId());
+		this.panelDisegno = new PanelDisegno(this.figureCanvas, this.proyecto);
+		this.panelDisegno.actualizar();
+		// Carga inicial del arbol.
+		TreeManager.cargar(this.proyecto, this.tree);
+		// Notificar a la toolbar que hay un proyecto abierto.
+		this.setChanged();
+		this.notifyObservers();
 	}
 
 	/**
@@ -241,19 +246,19 @@ public class Principal {
 		this.proyecto.setDiagramaActual(diagrama.getId());
 		this.actualizar();
 	}
-	
+
 	public Shell getShell() {
 		return this.shell;
 	}
-	
+
 	public Proyecto getProyecto() {
 		return this.proyecto;
 	}
 
 	public void error(String mensaje) {
 		MessageBox messageBox = new MessageBox(shell, SWT.ICON_ERROR | SWT.OK);
-        messageBox.setText("Error");
-        messageBox.setMessage(mensaje);
-        messageBox.open();
+		messageBox.setText("Error");
+		messageBox.setMessage(mensaje);
+		messageBox.open();
 	}
 }
