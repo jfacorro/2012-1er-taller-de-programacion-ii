@@ -49,6 +49,19 @@ public class ToolBarBuilder implements Observer {
 		proyectoItems.add(item);
 		
 		item = new ToolItem(this.toolBar, SWT.SEPARATOR);
+		
+		item = new ToolItem(this.toolBar, SWT.PUSH);
+		item.setToolTipText("Imprimir");
+		item.setImage(this.getImagen("imprimir.png"));
+		proyectoItems.add(item);
+
+		item = new ToolItem(this.toolBar, SWT.PUSH);
+		item.setToolTipText("Exportar");
+		item.setImage(this.getImagen("exportar.png"));
+		item.addSelectionListener(AccionesProvider.exportar);
+		proyectoItems.add(item);
+		
+		item = new ToolItem(this.toolBar, SWT.SEPARATOR);
 
 		item = new ToolItem(this.toolBar, SWT.PUSH);
 		item.setToolTipText("Nuevo Diagrama");
@@ -73,29 +86,19 @@ public class ToolBarBuilder implements Observer {
 		item.setImage(this.getImagen("jerarquia.png"));
 		item.addSelectionListener(AccionesProvider.agregarJerarquia);
 		proyectoItems.add(item);
-	
-		item = new ToolItem(this.toolBar, SWT.SEPARATOR);
-
+		
 		item = new ToolItem(this.toolBar, SWT.PUSH);
 		item.setToolTipText("Validar");
 		item.setImage(this.getImagen("validar.png"));
+		item.addSelectionListener(AccionesProvider.validar);
 		proyectoItems.add(item);
+	
+		item = new ToolItem(this.toolBar, SWT.SEPARATOR);
 
 		item = new ToolItem(this.toolBar, SWT.PUSH);
 		item.setToolTipText("Zoom");
 		item.setImage(this.getImagen("zoom.png"));
 		item.addSelectionListener(AccionesProvider.zoomIn);
-		proyectoItems.add(item);
-		
-		item = new ToolItem(this.toolBar, SWT.PUSH);
-		item.setToolTipText("Imprimir");
-		item.setImage(this.getImagen("imprimir.png"));
-		proyectoItems.add(item);
-
-		item = new ToolItem(this.toolBar, SWT.PUSH);
-		item.setToolTipText("Exportar");
-		item.setImage(this.getImagen("exportar.png"));
-		item.addSelectionListener(AccionesProvider.exportar);
 		proyectoItems.add(item);
 		
 		item = new ToolItem(this.toolBar, SWT.PUSH);

@@ -323,4 +323,19 @@ public class Principal extends Observable {
 			imgLoader.save(path, SWT.IMAGE_JPEG);
 		}
 	}
+
+	/**
+	 * Muestra la pantalla de impresión para el digrama actual.
+	 */
+	public void imprimir() {
+		
+	}
+
+	/**
+	 * Validar diagrama actual
+	 */
+	public void validar() {
+		// TODO Auto-generated method stub
+		
+	}
 }
