@@ -5,10 +5,9 @@ import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
+import mereditor.interfaz.swt.listeners.AccionesProvider;
+
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.SelectionAdapter;
-import org.eclipse.swt.events.SelectionEvent;
-import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.MenuItem;
 
@@ -40,19 +39,19 @@ public class MenuBuilder implements Observer {
 		
 		MenuItem fileNewItem = new MenuItem(fileMenu, SWT.PUSH);
 		fileNewItem.setText("&Nuevo");
-		fileNewItem.addSelectionListener(this.nuevo);
+		fileNewItem.addSelectionListener(AccionesProvider.nuevo);
 
 		MenuItem fileOpenItem = new MenuItem(fileMenu, SWT.PUSH);
 		fileOpenItem.setText("&Abrir");
-		fileOpenItem.addSelectionListener(this.abrir);
+		fileOpenItem.addSelectionListener(AccionesProvider.abrir);
 
 		MenuItem fileSaveItem = new MenuItem(fileMenu, SWT.PUSH);
 		fileSaveItem.setText("&Guardar");
-		fileSaveItem.addSelectionListener(this.guardar);
+		fileSaveItem.addSelectionListener(AccionesProvider.guardar);
 
 		MenuItem fileExitItem = new MenuItem(fileMenu, SWT.PUSH);
 		fileExitItem.setText("&Salir");
-		fileExitItem.addSelectionListener(this.salir);
+		fileExitItem.addSelectionListener(AccionesProvider.salir);
 		
 		/*
 		 * Proyecto
@@ -66,7 +65,11 @@ public class MenuBuilder implements Observer {
 
 		MenuItem nuevoDiagramaItem = new MenuItem(proyectoMenu, SWT.PUSH);
 		nuevoDiagramaItem.setText("&Nuevo Diagrama");
-		nuevoDiagramaItem.addSelectionListener(this.nuevoDiagrama);
+		nuevoDiagramaItem.addSelectionListener(AccionesProvider.nuevoDiagrama);
+		
+		MenuItem agregarEntidadItem = new MenuItem(proyectoMenu, SWT.PUSH);
+		agregarEntidadItem.setText("&Nuevo Diagrama");
+		agregarEntidadItem.addSelectionListener(AccionesProvider.agregarEntidad);
 
 		/*
 		 * Ayuda
@@ -89,53 +92,6 @@ public class MenuBuilder implements Observer {
 		for (MenuItem item : this.proyectoItems)
 			item.setEnabled(habilitar);
 	}
-
-	private SelectionListener nuevo = new SelectionAdapter() {
-		@Override
-		public void widgetSelected(SelectionEvent arg0) {
-			try {
-				Principal.getInstance().nuevoProyecto();
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
-	};
-
-	private SelectionListener abrir = new SelectionAdapter() {
-		@Override
-		public void widgetSelected(SelectionEvent arg0) {
-			Principal.getInstance().abrirProyecto();
-		}
-	};
-	
-	private SelectionListener guardar = new SelectionAdapter() {
-		@Override
-		public void widgetSelected(SelectionEvent arg0) {
-			try {
-				Principal.getInstance().guardar();
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
-	};
-
-	private SelectionListener salir = new SelectionAdapter() {
-		@Override
-		public void widgetSelected(SelectionEvent arg0) {
-			Principal.getInstance().salir();
-		}
-	};
-	
-	private SelectionListener nuevoDiagrama = new SelectionAdapter() {
-		@Override
-		public void widgetSelected(SelectionEvent arg0) {
-			try {
-				Principal.getInstance().nuevoDiagrama();
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
-	};
 
 	@Override
 	public void update(Observable o, Object arg) {

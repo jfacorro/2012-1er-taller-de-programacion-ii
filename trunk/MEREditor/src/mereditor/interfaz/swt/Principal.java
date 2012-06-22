@@ -12,6 +12,7 @@ import mereditor.control.DiagramaControl;
 import mereditor.control.Proyecto;
 import mereditor.interfaz.swt.DialogBuilder.PromptResult;
 import mereditor.interfaz.swt.DialogBuilder.Resultado;
+import mereditor.interfaz.swt.dialogs.AgregarEntidadDialog;
 import mereditor.modelo.Diagrama;
 import mereditor.xml.ParserXml;
 
@@ -260,5 +261,12 @@ public class Principal extends Observable {
 		messageBox.setText("Error");
 		messageBox.setMessage(mensaje);
 		messageBox.open();
+	}
+
+	/**
+	 * Abre el diálogo para agregar una entidad al diagrama que se encuentra abierto.
+	 */
+	public void agregarEntidad() {
+		new AgregarEntidadDialog().abrir();		
 	}
 }
