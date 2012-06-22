@@ -129,11 +129,8 @@ public class Proyecto {
 	 * @throws Exception
 	 */
 	public void agregar(Componente componente) {
-		if (this.componentes.containsKey(componente.getId()))
-			throw new RuntimeException("No se puede agregar dos veces. Id: "
-					+ componente.getId());
-
-		this.componentes.put(componente.getId(), componente);
+		if (!this.componentes.containsKey(componente.getId()))
+			this.componentes.put(componente.getId(), componente);
 
 		if (this.diagramaActual != null)
 			this.diagramaActual.agregar(componente);

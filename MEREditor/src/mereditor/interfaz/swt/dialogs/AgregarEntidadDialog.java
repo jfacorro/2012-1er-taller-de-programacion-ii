@@ -1,7 +1,8 @@
 package mereditor.interfaz.swt.dialogs;
 
 import java.util.Arrays;
-import java.util.HashSet;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Set;
 
 import mereditor.control.EntidadControl;
@@ -19,7 +20,7 @@ import org.eclipse.swt.widgets.Label;
 
 public class AgregarEntidadDialog extends Dialog {
 	private Combo cboEntidades;
-	private Set<Entidad> entidades = new HashSet<>();
+	private Map<String, Entidad> entidades = new HashMap<>();
 
 	public AgregarEntidadDialog() {
 		super();
@@ -48,10 +49,13 @@ public class AgregarEntidadDialog extends Dialog {
 	 * el combo.
 	 */
 	private void loadEntidades() {
-		this.entidades = this.principal.getProyecto().getDiagramaActual().getEntidades();
+		Set<Entidad> entidades = this.principal.getProyecto()
+				.getDiagramaActual().getEntidades(true);
 
-		for (Entidad entidad : this.entidades)
+		for (Entidad entidad : entidades) {
+			this.entidades.put(entidad.getNombre(), entidad);
 			this.cboEntidades.add(entidad.getNombre());
+		}
 
 		String[] items = this.cboEntidades.getItems();
 		Arrays.sort(items);
@@ -60,12 +64,12 @@ public class AgregarEntidadDialog extends Dialog {
 
 	protected void aceptar() {
 		if (cboEntidades.getSelectionIndex() == -1) {
-			throw new RuntimeException("No seleccionó ninguna entidad");
+			this.principal.error("No seleccionó ninguna entidad");
+		} else {
+			String nombre = cboEntidades.getText();
+			Entidad entidad = this.entidades.get(nombre);
+			agregar(entidad);
 		}
-
-		Entidad entidad = null;
-
-		agregar(entidad);
 	}
 
 	protected SelectionAdapter nueva = new SelectionAdapter() {

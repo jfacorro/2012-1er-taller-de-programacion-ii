@@ -40,18 +40,32 @@ public class Diagrama extends ComponenteNombre {
 	/**
 	 * Obtiene las entidades de este diagrama y sus ancestros.
 	 * 
+	 * @param incluirAncestros
+	 *            Indica si se deben incluir las entidades de los ancestros.
 	 * @return
 	 */
-	public Set<Entidad> getEntidades() {
+	public Set<Entidad> getEntidades(boolean incluirAncestros) {
 		Set<Entidad> entidades = Componente.filtrarComponentes(Entidad.class,
 				this.componentes);
 
-		if (this.getPadre() != null) {
+		if (this.getPadre() != null && incluirAncestros) {
 			Diagrama diagrama = (Diagrama) this.getPadre();
-			entidades.addAll(diagrama.getEntidades());
+			entidades.addAll(diagrama.getEntidades(true));
 		}
 
 		return entidades;
+	}
+
+	public Set<Entidad> getEntidades() {
+		return this.getEntidades(false);
+	}
+
+	public Set<Relacion> getRelaciones() {
+		return Componente.filtrarComponentes(Relacion.class, this.componentes);
+	}
+
+	public Set<Jerarquia> getJerarquias() {
+		return Componente.filtrarComponentes(Jerarquia.class, this.componentes);
 	}
 
 	public Validacion getValidacion() {
@@ -86,7 +100,8 @@ public class Diagrama extends ComponenteNombre {
 	}
 
 	/**
-	 * Quita el componente hijo de este diagrama. 
+	 * Quita el componente hijo de este diagrama.
+	 * 
 	 * @param componente
 	 */
 	public void eliminar(Componente componente) {
