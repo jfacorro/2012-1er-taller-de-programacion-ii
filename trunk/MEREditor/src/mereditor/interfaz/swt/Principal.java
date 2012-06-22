@@ -166,7 +166,7 @@ public class Principal extends Observable {
 	 * @throws Exception
 	 */
 	public void guardar() throws Exception {
-		FileDialog fileDialog = new FileDialog(this.shell);
+		FileDialog fileDialog = new FileDialog(this.shell, SWT.SAVE);
 		fileDialog.setFilterExtensions(extensionProyecto);
 		String path = fileDialog.open();
 
@@ -306,16 +306,18 @@ public class Principal extends Observable {
 	 * Exportar el diagrama a un archivo de imagen.
 	 */
 	public void exportar() {
-		FileDialog fileDialog = new FileDialog(this.shell);
+		FileDialog fileDialog = new FileDialog(this.shell, SWT.SAVE);
 		fileDialog.setFilterExtensions(extensionesImagen);
+		fileDialog.setFileName(this.proyecto.getDiagramaActual().getNombre()
+				+ ".jpg");
 		String path = fileDialog.open();
 
 		if (path != null) {
 			Image image = this.panelDisegno.getImagen();
-			
+
 			ImageData[] data = new ImageData[1];
 			data[0] = image.getImageData();
-			
+
 			ImageLoader imgLoader = new ImageLoader();
 			imgLoader.data = data;
 			imgLoader.save(path, SWT.IMAGE_JPEG);
