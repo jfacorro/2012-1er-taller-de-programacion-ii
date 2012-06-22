@@ -50,21 +50,13 @@ public class ToolBarBuilder implements Observer {
 		item.setImage(this.getImagen("guardar.png"));
 		item.addSelectionListener(this.guardar);
 		proyectoItems.add(item);
-
-		item = new ToolItem(this.toolBar, SWT.PUSH);
-		item.setToolTipText("Imprimir");
-		item.setImage(this.getImagen("imprimir.png"));
-		proyectoItems.add(item);
-
-		item = new ToolItem(this.toolBar, SWT.PUSH);
-		item.setToolTipText("Exportar");
-		item.setImage(this.getImagen("exportar.png"));
-		proyectoItems.add(item);
+		
+		item = new ToolItem(this.toolBar, SWT.SEPARATOR);
 
 		item = new ToolItem(this.toolBar, SWT.PUSH);
 		item.setToolTipText("Nueva Entidad");
 		item.setImage(this.getImagen("entidad.png"));
-		item.addSelectionListener(this.nuevaEntidad);
+		item.addSelectionListener(this.agregarEntidad);
 		proyectoItems.add(item);
 
 		item = new ToolItem(this.toolBar, SWT.PUSH);
@@ -82,6 +74,8 @@ public class ToolBarBuilder implements Observer {
 		item.setImage(this.getImagen("diagrama.png"));
 		item.addSelectionListener(nuevoDiagrama);
 		proyectoItems.add(item);
+		
+		item = new ToolItem(this.toolBar, SWT.SEPARATOR);
 
 		item = new ToolItem(this.toolBar, SWT.PUSH);
 		item.setToolTipText("Validar");
@@ -92,12 +86,24 @@ public class ToolBarBuilder implements Observer {
 		item.setToolTipText("Zoom");
 		item.setImage(this.getImagen("zoom.png"));
 		proyectoItems.add(item);
+		
+		item = new ToolItem(this.toolBar, SWT.PUSH);
+		item.setToolTipText("Imprimir");
+		item.setImage(this.getImagen("imprimir.png"));
+		proyectoItems.add(item);
 
+		item = new ToolItem(this.toolBar, SWT.PUSH);
+		item.setToolTipText("Exportar");
+		item.setImage(this.getImagen("exportar.png"));
+		proyectoItems.add(item);
+		
 		item = new ToolItem(this.toolBar, SWT.PUSH);
 		item.setToolTipText("Explorador del Proyecto");
 		item.setImage(this.getImagen("tree_mode.png"));
 		item.addSelectionListener(mostrarArbol);
 		proyectoItems.add(item);
+		
+		item = new ToolItem(this.toolBar, SWT.SEPARATOR);
 
 		item = new ToolItem(this.toolBar, SWT.PUSH);
 		item.setToolTipText("Salir");
@@ -155,7 +161,7 @@ public class ToolBarBuilder implements Observer {
 			}
 		}
 	};
-	private SelectionListener nuevaEntidad = new SelectionAdapter() {
+	private SelectionListener agregarEntidad = new SelectionAdapter() {
 		@Override
 		public void widgetSelected(SelectionEvent e) {
 			new AgregarEntidadDialog().abrir();

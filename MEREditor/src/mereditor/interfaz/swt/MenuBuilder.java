@@ -72,7 +72,7 @@ public class MenuBuilder implements Observer {
 		 * Ayuda
 		 */
 		MenuItem helpMenuHeader = new MenuItem(menuBar, SWT.CASCADE);
-		helpMenuHeader.setText("&Ayuda");
+		helpMenuHeader.setText("Ay&uda");
 
 		Menu helpMenu = new Menu(principal.getShell(), SWT.DROP_DOWN);
 		helpMenuHeader.setMenu(helpMenu);
