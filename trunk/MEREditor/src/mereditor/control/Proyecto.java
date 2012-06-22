@@ -4,11 +4,13 @@ import java.io.File;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
 import mereditor.modelo.Diagrama;
+import mereditor.modelo.Entidad;
+import mereditor.modelo.Jerarquia;
+import mereditor.modelo.Relacion;
 import mereditor.modelo.Validacion;
 import mereditor.modelo.base.Componente;
 
@@ -59,10 +61,20 @@ public class Proyecto {
 		this.raiz.setNombre(nombre);
 	}
 
+	/**
+	 * Obtener diagrama raiz del proyecto.
+	 * 
+	 * @return
+	 */
 	public Diagrama getRaiz() {
 		return raiz;
 	}
 
+	/**
+	 * Establece el diagrama raíz del proyecto.
+	 * 
+	 * @return
+	 */
 	public void setRaiz(Diagrama raiz) throws Exception {
 		this.raiz = (DiagramaControl) raiz;
 		if (!this.componentes.containsKey(raiz.getId()))
@@ -100,6 +112,11 @@ public class Proyecto {
 		}
 	}
 
+	/**
+	 * Devuelve el diagrama actual.
+	 * 
+	 * @return
+	 */
 	public DiagramaControl getDiagramaActual() {
 		return this.diagramaActual;
 	}
@@ -122,47 +139,105 @@ public class Proyecto {
 			this.diagramaActual.agregar(componente);
 	}
 
+	/**
+	 * Devuelve el componente que tiene el id.
+	 * 
+	 * @param id
+	 * @return
+	 */
 	public Componente getComponente(String id) {
 		return this.componentes.get(id);
 	}
 
+	/**
+	 * Devuelve la coleccion de componentes.
+	 * 
+	 * @return
+	 */
 	public Collection<Componente> getComponentes() {
 		return Collections.unmodifiableCollection(this.componentes.values());
 	}
 
+	/**
+	 * Indica si el proyecto tiene el componente con el id indicado.
+	 * 
+	 * @param id
+	 * @return
+	 */
 	public boolean contiene(String id) {
 		return this.componentes.containsKey(id);
 	}
 
+	/**
+	 * Dibujar el diagrama del id especificado.
+	 * 
+	 * @param contenedor
+	 * @param idDiagrama
+	 */
 	public void dibujar(Figure contenedor, String idDiagrama) {
 		DiagramaControl diagrama = (DiagramaControl) this.componentes
 				.get(idDiagrama);
 		diagrama.dibujar(contenedor, idDiagrama);
 	}
 
+	/**
+	 * Establecer el path donde se debe guardar el proyecto.
+	 * 
+	 * @param path
+	 */
 	public void setPath(String path) {
 		this.path = path;
 	}
 
+	/**
+	 * Obtener el path del archivo de componentes.
+	 * 
+	 * @return
+	 */
 	public String getComponentesPath() {
 		File file = new File(path);
 		String nombre = file.getName().replaceFirst("[.][^.]+$", "");
 		return nombre + "-comp.xml";
 	}
 
+	/**
+	 * Obtener el path del archivo de representacion.
+	 * 
+	 * @return
+	 */
 	public String getRepresentacionPath() {
 		File file = new File(path);
 		String nombre = file.getName().replaceFirst("[.][^.]+$", "");
 		return nombre + "-rep.xml";
 	}
 
-	public <T extends Componente> Set<T> getLista(Class<T> clazz) {
-		Set<T> lista = new HashSet<>();
+	/**
+	 * Obtener el conjunto de entidades.
+	 * 
+	 * @return
+	 */
+	public Set<Entidad> getEntidades() {
+		return Componente.filtrarComponentes(Entidad.class,
+				this.componentes.values());
+	}
 
-		for(Componente componente : this.componentes.values())
-			if(clazz.isInstance(componente))
-				lista.add(clazz.cast(componente));
+	/**
+	 * Obtener el conjunto de relaciones.
+	 * 
+	 * @return
+	 */
+	public Set<Relacion> getRelaciones() {
+		return Componente.filtrarComponentes(Relacion.class,
+				this.componentes.values());
+	}
 
-		return lista;
+	/**
+	 * Obtener el conjunto de jerarquias.
+	 * 
+	 * @return
+	 */
+	public Set<Jerarquia> getJerarquias() {
+		return Componente.filtrarComponentes(Jerarquia.class,
+				this.componentes.values());
 	}
 }

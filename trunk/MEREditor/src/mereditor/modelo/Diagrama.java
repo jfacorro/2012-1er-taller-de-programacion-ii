@@ -37,10 +37,33 @@ public class Diagrama extends ComponenteNombre {
 		return Collections.unmodifiableSet(componentes);
 	}
 
+	/**
+	 * Obtiene las entidades de este diagrama y sus ancestros.
+	 * 
+	 * @return
+	 */
+	public Set<Entidad> getEntidades() {
+		Set<Entidad> entidades = Componente.filtrarComponentes(Entidad.class,
+				this.componentes);
+
+		if (this.getPadre() != null) {
+			Diagrama diagrama = (Diagrama) this.getPadre();
+			entidades.addAll(diagrama.getEntidades());
+		}
+
+		return entidades;
+	}
+
 	public Validacion getValidacion() {
 		return this.validacion;
 	}
 
+	/**
+	 * Agrega el componente a este diagrama. Si es un Diagrama lo agrega a
+	 * conjunto de diagramas de lo contrario al conjunto de componentes.
+	 * 
+	 * @param componente
+	 */
 	public void agregar(Componente componente) {
 		if (Diagrama.class.isInstance(componente))
 			this.diagramas.add((Diagrama) componente);
@@ -62,7 +85,14 @@ public class Diagrama extends ComponenteNombre {
 		return false;
 	}
 
+	/**
+	 * Quita el componente hijo de este diagrama. 
+	 * @param componente
+	 */
 	public void eliminar(Componente componente) {
-		this.componentes.remove(componente);
+		if (Diagrama.class.isInstance(componente))
+			this.diagramas.remove((Diagrama) componente);
+		else
+			this.componentes.remove(componente);
 	}
 }
