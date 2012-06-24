@@ -2,44 +2,41 @@ package mereditor.interfaz.swt.dialogs;
 
 import mereditor.interfaz.swt.Principal;
 
-import org.eclipse.jface.window.ApplicationWindow;
+import org.eclipse.jface.window.Window;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
-import org.eclipse.swt.layout.FillLayout;
+import org.eclipse.swt.graphics.Point;
+import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.Shell;
 
-public abstract class Dialog extends ApplicationWindow {
+public abstract class Dialog extends Window {
 	protected Principal principal = Principal.getInstance();
 	protected String titulo = "";
+	
+	protected Dialog(Shell shell) {
+		super(shell);		
+	}
 
 	public Dialog() {
 		super(Principal.getInstance().getShell());
 	}
 
-	/**
-	 * Abre el dialogo indicando si se quiere una modal o no.
-	 */
-	public void abrir(boolean modal) {
-		this.setBlockOnOpen(modal);
-		this.open();
-	}
-
-	/**
-	 * Abre el dialogo como ventana modal.
-	 */
-	public void abrir() {
-		this.abrir(true);
-	}
-	
 	@Override
 	protected Control createContents(Composite parent) {
 		this.getShell().setText(this.titulo);
-
+		
 		Composite compositeButtons = new Composite(parent, SWT.NONE);
-		compositeButtons.setLayout(new FillLayout());
+		GridLayout gridLayout = new GridLayout(2, false);
+		gridLayout.verticalSpacing = 2;
+		gridLayout.marginWidth = 2;
+		gridLayout.marginHeight = 2;
+		gridLayout.marginBottom = 2;
+		gridLayout.horizontalSpacing = 2;
+		compositeButtons.setLayout(gridLayout);
 
 		Button btnOK = new Button(compositeButtons, SWT.PUSH);
 		btnOK.setText("Aceptar");
@@ -48,8 +45,10 @@ public abstract class Dialog extends ApplicationWindow {
 		Button btnCancel = new Button(compositeButtons, SWT.PUSH);
 		btnCancel.setText("Cancelar");
 		btnCancel.addSelectionListener(this.cancelar);
+		
+		this.getShell().pack();
 
-		return super.createContents(parent);
+		return parent;
 	}
 	
 	/**
@@ -75,4 +74,7 @@ public abstract class Dialog extends ApplicationWindow {
 			cancelar();
 		};
 	};
+	protected Point getInitialSize() {
+		return new Point(118, 56);
+	}
 }

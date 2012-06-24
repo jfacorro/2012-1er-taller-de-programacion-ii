@@ -51,7 +51,7 @@ public class AtributoControl extends Atributo implements Control<Atributo>, Mous
 
 	@Override
 	public void mouseDoubleClicked(MouseEvent arg0) {
-		EditorFactory.getEditor(this).abrir();		
+		EditorFactory.getEditor(this).open();		
 	}
 
 	@Override

@@ -30,7 +30,7 @@ public class EditarComponenteListener implements Listener {
 			return;
 		}
 
-		EditorFactory.getEditor(componenteAEditar).abrir();
+		EditorFactory.getEditor(componenteAEditar).open();
 
 	}
 

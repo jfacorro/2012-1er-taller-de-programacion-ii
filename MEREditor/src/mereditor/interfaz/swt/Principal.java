@@ -311,7 +311,7 @@ public class Principal extends Observable implements FigureListener {
 	 * abierto.
 	 */
 	public void agregarEntidad() {
-		new AgregarEntidadDialog().abrir();
+		new AgregarEntidadDialog().open();
 		this.modificado(true);
 	}
 
