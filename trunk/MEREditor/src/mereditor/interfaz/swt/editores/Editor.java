@@ -17,9 +17,4 @@ public class Editor<T extends Componente> extends Dialog {
 		super(Principal.getInstance().getShell());
 		this.componente = componente;
 	}
-	
-	@Override
-	protected void aceptar() {
-		throw new RuntimeException("No implementada.");		
-	}
 }

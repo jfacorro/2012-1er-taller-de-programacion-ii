@@ -12,10 +12,9 @@ import org.eclipse.jface.viewers.ComboBoxCellEditor;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.TextCellEditor;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.ModifyEvent;
-import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
@@ -56,12 +55,12 @@ public class EntidadEditor extends Editor<Entidad> {
 		super(entidad);
 		this.componente = entidad;
 		this.atributos = new ArrayList<>();
+		this.titulo = "Editor - " + componente.getNombre();
 	}
 
-	protected void configureShell(Shell shell) {
-		super.configureShell(shell);
-		shell.setText("Editor - " + componente.getNombre());
-
+	@Override
+	protected Point getInitialSize() {
+		return new Point(400, 400);
 	}
 
 	protected Control createDialogArea(final Composite parent) {
@@ -79,10 +78,9 @@ public class EntidadEditor extends Editor<Entidad> {
 		this.txtNombre = new Text(dialogArea, SWT.BORDER);
 		txtNombre.setText(this.componente.getNombre());
 		this.txtNombre.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
-		this.txtNombre.addModifyListener(this.modificacionNombre);
 
 		Group grupoAtributos = new Group(dialogArea, SWT.NONE);
-		grupoAtributos.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
+		grupoAtributos.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
 		grupoAtributos.setText("Atributos");
 		grupoAtributos.setLayout(new GridLayout(1, true));
 
@@ -143,17 +141,11 @@ public class EntidadEditor extends Editor<Entidad> {
 
 		return dialogArea;
 	}
-
+	
 	@Override
-	protected void aceptar() {
+	protected void okPressed() {
+		componente.setNombre(txtNombre.getText());
 		principal.actualizarVista();
-		this.close();
+		super.okPressed();
 	}
-
-	private ModifyListener modificacionNombre = new ModifyListener() {
-		@Override
-		public void modifyText(ModifyEvent e) {
-			componente.setNombre(txtNombre.getText());
-		}
-	};
 }

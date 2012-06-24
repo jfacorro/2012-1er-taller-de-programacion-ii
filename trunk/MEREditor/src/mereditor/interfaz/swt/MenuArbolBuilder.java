@@ -32,50 +32,43 @@ public class MenuArbolBuilder {
 	}
 
 	private void init() {
-
-		MenuItem i = new MenuItem(menuArbol, SWT.DROP_DOWN);
-		i.setText("Editar");
-		i.addListener(SWT.Selection, new EditarComponenteListener(controlador));
-		i = new MenuItem(menuArbol, SWT.DROP_DOWN);
-		i.setText("Cortar");
-		i.addListener(SWT.Selection, this.cortar);
-		i = new MenuItem(menuArbol, SWT.DROP_DOWN);
-		i.setText("Eliminar");
-		i.addListener(SWT.Selection, this.eliminar);
-		itemPegar = new MenuItem(menuArbol, SWT.DROP_DOWN);
-		itemPegar.setText("Pegar");
-		itemPegar.setEnabled(false);
-		itemPegar.addListener(SWT.Selection, this.pegar);
-
+		MenuItem item = new MenuItem(menuArbol, SWT.DROP_DOWN);
+		item.setText("Editar");
+		item.addListener(SWT.Selection, new EditarComponenteListener(controlador));
+		
+		item = new MenuItem(menuArbol, SWT.DROP_DOWN);
+		item.setText("Cortar");
+		item.addListener(SWT.Selection, this.cortar);
+		
+		item = new MenuItem(menuArbol, SWT.DROP_DOWN);
+		item.setText("Eliminar");
+		item.addListener(SWT.Selection, this.eliminar);
+		
+		this.itemPegar = new MenuItem(menuArbol, SWT.DROP_DOWN);
+		this.itemPegar.setText("Pegar");
+		this.itemPegar.setEnabled(false);
+		this.itemPegar.addListener(SWT.Selection, this.pegar);
 	}
 
 	private Listener eliminar = new Listener() {
-
 		public void handleEvent(Event arg0) {
 			controlador.eliminarItemActivo();
 		}
-
 	};
 
-	
-
 	private Listener cortar = new Listener() {
-
 		public void handleEvent(Event arg0) {
 			controlador.cortarItemActivo();
 			cortarActivo = true;
 		}
-
 	};
 
 	private Listener pegar = new Listener() {
-
 		public void handleEvent(Event arg0) {
 			controlador.pegarItemCortado();
 			itemPegar.setEnabled(false);
 			cortarActivo = false;
 		}
-
 	};
 
 	public void mostrarOpciones(Componente componente) {
