@@ -23,7 +23,6 @@ import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Group;
-import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
@@ -36,12 +35,14 @@ public class EntidadEditor extends Editor<Entidad> {
 	public static final String[] PROPS = { NOMBRE, TIPO };
 
 	private ArrayList<Atributo> atributos = new ArrayList<>();
-	
+
 	protected Text txtNombre;
 	protected Combo cboTipo;
+	protected TableViewer tblViewAtributos;
 
 	/**
 	 * Constructor para el editor visual
+	 * 
 	 * @wbp.parser.constructor
 	 */
 	protected EntidadEditor(Shell shell) {
@@ -61,7 +62,7 @@ public class EntidadEditor extends Editor<Entidad> {
 
 	protected Control createDialogArea(final Composite parent) {
 		Composite dialogArea = (Composite) super.createDialogArea(parent);
-		
+
 		/**
 		 * Campos generales.
 		 */
@@ -69,19 +70,11 @@ public class EntidadEditor extends Editor<Entidad> {
 		header.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
 		header.setLayout(new GridLayout(2, false));
 
-		Label lblNombre = new Label(header, SWT.LEFT);
-		lblNombre.setText(NOMBRE);
-		
-		this.txtNombre = new Text(header, SWT.BORDER);
+		this.txtNombre = createLabelText(header, NOMBRE);
 		this.txtNombre.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
-		this.txtNombre.setText(this.componente.getNombre());
-		
-		Label lblTipo = new Label(header, SWT.LEFT);
-		lblTipo.setText(TIPO);
 
-		this.cboTipo = new Combo(header, SWT.READ_ONLY);
+		this.cboTipo = createLabelCombo(header, TIPO);
 		this.cboTipo.setItems(Editor.TiposEntidades);
-		this.cboTipo.setText(this.componente.getTipo().name());
 
 		/**
 		 * Atributos.
@@ -95,65 +88,70 @@ public class EntidadEditor extends Editor<Entidad> {
 		btnNuevoAtributo.setText("Nuevo");
 
 		// TableViewer
-		final TableViewer tablev = new TableViewer(grupoAtributos,
-				SWT.FULL_SELECTION);
-		tablev.setContentProvider(new AtributoProvider());
-		tablev.setLabelProvider(new AtributoLabelProvider());
-		tablev.setInput(this.atributos);
+		this.tblViewAtributos = new TableViewer(grupoAtributos, SWT.FULL_SELECTION);
+		tblViewAtributos.setContentProvider(new AtributoProvider());
+		tblViewAtributos.setLabelProvider(new AtributoLabelProvider());
+		tblViewAtributos.setInput(this.atributos);
+		// Creado para poder utilizarlo en el listener.
+		final TableViewer tblViewAtributosProxy = tblViewAtributos;
 
 		// Configurar tabla
-		Table table = tablev.getTable();
-		table.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
+		Table tblAtributos = tblViewAtributos.getTable();
+		tblAtributos.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
+		new TableColumn(tblAtributos, SWT.CENTER).setText(NOMBRE);
+		new TableColumn(tblAtributos, SWT.CENTER).setText(TIPO);
 
-		new TableColumn(table, SWT.CENTER).setText(NOMBRE);
-		new TableColumn(table, SWT.CENTER).setText(TIPO);
-
-		for (TableColumn column : table.getColumns())
-			column.pack();
-
-		table.setHeaderVisible(true);
-		table.setLinesVisible(true);
-
-		// agrega atributos existentes
-		for (Atributo attr : this.componente.getAtributos())
-			atributos.add(attr);
-
-		tablev.refresh();
+		tblAtributos.setHeaderVisible(true);
+		tblAtributos.setLinesVisible(true);
 
 		// Agregar un nuevo atributo cuando se hace click sobre el boton
 		btnNuevoAtributo.addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent event) {
-				AtributoControl atr = new AtributoControl();
-				atr.setNombre("Nombre");
-				atr.setTipo(TipoAtributo.CARACTERIZACION);
+				AtributoControl atributo = new AtributoControl();
+				atributo.setNombre("Nombre");
+				atributo.setTipo(TipoAtributo.CARACTERIZACION);
 
-				atributos.add(atr);
+				atributos.add(atributo);
 
-				// Actualizacion del modelo
-				componente.addAtributo(atr);
-
-				tablev.refresh();
+				tblViewAtributosProxy.refresh();
 			}
 		});
 
 		// Crear editores de celda
 		CellEditor[] editors = new CellEditor[2];
-		editors[0] = new TextCellEditor(table);
-		editors[1] = new ComboBoxCellEditor(table, Editor.TiposAtributo, SWT.READ_ONLY);
+		editors[0] = new TextCellEditor(tblAtributos);
+		editors[1] = new ComboBoxCellEditor(tblAtributos, Editor.TiposAtributo, SWT.READ_ONLY);
 
-		//
-		tablev.setColumnProperties(PROPS);
-		tablev.setCellModifier(new AtributoCellModifier(tablev));
-		tablev.setCellEditors(editors);
+		// Establecer el titulo de las columnas, los modificadores y los
+		// editores.
+		tblViewAtributos.setColumnProperties(PROPS);
+		tblViewAtributos.setCellModifier(new AtributoCellModifier(tblViewAtributos));
+		tblViewAtributos.setCellEditors(editors);
 
 		return dialogArea;
 	}
-	
+
 	@Override
-	protected void okPressed() {
+	protected void cargarDatos() {
+		this.txtNombre.setText(this.componente.getNombre());
+		this.cboTipo.setText(this.componente.getTipo().name());
+
+		// agrega atributos existentes
+		for (Atributo attr : this.componente.getAtributos())
+			atributos.add(attr);
+
+		tblViewAtributos.refresh();
+
+		for (TableColumn column : tblViewAtributos.getTable().getColumns())
+			column.pack();
+	}
+
+	@Override
+	protected void aplicarCambios() {
 		componente.setTipo(TipoEntidad.valueOf(this.cboTipo.getText()));
 		componente.setNombre(txtNombre.getText());
-		principal.actualizarVista();
-		super.okPressed();
+
+		for (Atributo atributo : atributos)
+			componente.addAtributo(atributo);
 	}
 }
