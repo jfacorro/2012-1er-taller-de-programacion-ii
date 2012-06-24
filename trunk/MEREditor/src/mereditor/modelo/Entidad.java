@@ -25,7 +25,7 @@ public class Entidad extends ComponenteNombre {
 	public Entidad() {
 		super();
 	}
-	
+
 	public Entidad(String nombre) {
 		super(nombre);
 	}
@@ -51,7 +51,7 @@ public class Entidad extends ComponenteNombre {
 	public Set<Atributo> getAtributos() {
 		return Collections.unmodifiableSet(this.atributos);
 	}
-	
+
 	public Set<Identificador> getIdentificadores() {
 		return Collections.unmodifiableSet(this.identificadores);
 	}
@@ -59,47 +59,56 @@ public class Entidad extends ComponenteNombre {
 	public TipoEntidad getTipo() {
 		return this.tipo;
 	}
-	
+
+	public void setTipo(TipoEntidad tipo) {
+		this.tipo = tipo;
+	}
+
 	@Override
 	public boolean contiene(Componente componente) {
 		boolean contiene = this.atributos.contains(componente);
-		if(contiene) return contiene;
-		for(Componente hijo : this.atributos) {
+		if (contiene)
+			return contiene;
+		for (Componente hijo : this.atributos) {
 			contiene = hijo.contiene(componente);
-			if(contiene) return contiene;
+			if (contiene)
+				return contiene;
 		}
 		return false;
 	}
-	
+
 	public class Identificador {
 		private Entidad entidad;
 		private List<Atributo> atributos = new ArrayList<>();
 		private List<Entidad> entidades = new ArrayList<>();
-		
+
 		public Identificador(Entidad entidad) {
 			if (entidad == null)
 				throw new RuntimeException("Entidad no puede ser null.");
 
 			this.entidad = entidad;
 		}
-		
-		public void addAtributo(Atributo atributo) {
-			if(this.atributos.contains(atributo))
-				throw new RuntimeException("Un atributo no puede estar dos veces en el mismo identificador.");
 
-			if(!this.entidad.contiene(atributo))
-				throw new RuntimeException("Un atributo debe pertenecer a la entidad para ser identificador.");
-				
+		public void addAtributo(Atributo atributo) {
+			if (this.atributos.contains(atributo))
+				throw new RuntimeException(
+						"Un atributo no puede estar dos veces en el mismo identificador.");
+
+			if (!this.entidad.contiene(atributo))
+				throw new RuntimeException(
+						"Un atributo debe pertenecer a la entidad para ser identificador.");
+
 			this.atributos.add(atributo);
 		}
-		
+
 		public void addEntidad(Entidad entidad) {
-			if(this.entidad.equals(entidad))
-				throw new RuntimeException("Una Entidad no puede ser su propio identificador.");
-			
+			if (this.entidad.equals(entidad))
+				throw new RuntimeException(
+						"Una Entidad no puede ser su propio identificador.");
+
 			this.entidades.add(entidad);
 		}
-		
+
 		public List<Atributo> getAtributos() {
 			return Collections.unmodifiableList(atributos);
 		}
@@ -107,9 +116,10 @@ public class Entidad extends ComponenteNombre {
 		public List<Entidad> getEntidades() {
 			return Collections.unmodifiableList(entidades);
 		}
-		
+
 		public boolean contiene(Componente componente) {
-			return this.atributos.contains(componente) || this.entidades.contains(componente);
+			return this.atributos.contains(componente)
+					|| this.entidades.contains(componente);
 		}
 	}
 }
