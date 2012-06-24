@@ -22,37 +22,36 @@ import org.eclipse.swt.widgets.Shell;
 public class AgregarEntidadDialog extends Dialog {
 	private Combo cboEntidades;
 	private Map<String, Entidad> entidades = new HashMap<>();
-	
+
 	/**
 	 * @wbp.parser.constructor
 	 */
 	protected AgregarEntidadDialog(Shell shell) {
 		super(shell);
 	}
-	
+
 	public AgregarEntidadDialog() {
 		super();
 		this.titulo = "Agregar Entidad";
 	}
 
 	@Override
-	protected Control createContents(Composite parent) {
-		Label lblEntidades = new Label(parent, SWT.LEFT);
+	protected Control createDialogArea(Composite parent) {
+		Composite container = (Composite) super.createDialogArea(parent);
+
+		Label lblEntidades = new Label(container, SWT.LEFT);
 		lblEntidades.setText("Entidades");
-		GridData gridData = new GridData();
-		gridData.horizontalAlignment = GridData.FILL;
-		this.cboEntidades = new Combo(parent, SWT.READ_ONLY);
-		this.cboEntidades.setLayoutData(gridData);
+
+		this.cboEntidades = new Combo(container, SWT.READ_ONLY);
+		this.cboEntidades .setLayoutData(new GridData(SWT.FILL, SWT.CENTER, false, false, 1, 1));
 		this.loadEntidades();
-		
-		Button btnNueva = new Button(parent, SWT.PUSH);
+
+		Button btnNueva = new Button(container, SWT.PUSH);
 		btnNueva.setText("Nueva Entidad");
 		btnNueva.addSelectionListener(this.nueva);
-		gridData = new GridData();
-		gridData.horizontalAlignment = GridData.FILL;
-		btnNueva.setLayoutData(gridData);
+		btnNueva.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, false, false, 1, 1));
 
-		return super.createContents(parent);
+		return container;
 	}
 
 	/**
@@ -80,11 +79,13 @@ public class AgregarEntidadDialog extends Dialog {
 			String nombre = cboEntidades.getText();
 			Entidad entidad = this.entidades.get(nombre);
 			agregar(entidad);
+			close();
 		}
 	}
 
 	protected SelectionAdapter nueva = new SelectionAdapter() {
 		public void widgetSelected(org.eclipse.swt.events.SelectionEvent e) {
+			close();
 			Entidad entidad = new EntidadControl();
 			EditorFactory.getEditor(entidad).open();
 			agregar(entidad);
@@ -99,6 +100,5 @@ public class AgregarEntidadDialog extends Dialog {
 	private void agregar(Entidad entidad) {
 		principal.getProyecto().agregar(entidad);
 		principal.actualizarVista();
-		close();
 	}
 }

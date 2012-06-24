@@ -12,6 +12,8 @@ import org.eclipse.jface.viewers.ComboBoxCellEditor;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.TextCellEditor;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.ModifyEvent;
+import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.layout.GridData;
@@ -76,6 +78,7 @@ public class EntidadEditor extends Editor<Entidad> {
 		GridData gridData = new GridData();
 		gridData.horizontalAlignment = GridData.FILL;
 		this.txtNombre.setLayoutData(gridData);
+		this.txtNombre.addModifyListener(this.modificacionNombre);
 
 		Button btnNuevoAtributo = new Button(composite, SWT.PUSH);
 		btnNuevoAtributo.setText("Crear un nuevo atributo");
@@ -141,8 +144,14 @@ public class EntidadEditor extends Editor<Entidad> {
 
 	@Override
 	protected void aceptar() {
-		this.componente.setNombre(this.txtNombre.getText());
 		principal.actualizarVista();
 		this.close();
 	}
+	
+	private ModifyListener modificacionNombre = new ModifyListener() {
+		@Override
+		public void modifyText(ModifyEvent e) {
+			componente.setNombre(txtNombre.getText());			
+		}
+	};
 }
