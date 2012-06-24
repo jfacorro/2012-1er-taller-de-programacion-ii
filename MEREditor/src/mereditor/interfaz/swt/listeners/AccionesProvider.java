@@ -1,7 +1,6 @@
 package mereditor.interfaz.swt.listeners;
 
 import mereditor.interfaz.swt.Principal;
-import mereditor.interfaz.swt.TreeManager;
 
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
@@ -104,11 +103,7 @@ public class AccionesProvider {
 	public static final SelectionListener mostrarArbol = new SelectionAdapter() {
 		@Override
 		public void widgetSelected(SelectionEvent e) {
-			try {
-				TreeManager.mostrar();
-			} catch (Exception ex) {
-				ex.printStackTrace();
-			}
+			Principal.getInstance().mostrarArbol(true);
 		}
 	};
 
@@ -137,7 +132,7 @@ public class AccionesProvider {
 	};
 
 	/**
-	 * Salir de la aplicación.
+	 * Salir de la aplicaciï¿½n.
 	 */
 	public static final SelectionListener salir = new SelectionAdapter() {
 		@Override
