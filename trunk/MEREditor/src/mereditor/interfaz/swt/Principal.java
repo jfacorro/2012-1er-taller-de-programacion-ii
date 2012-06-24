@@ -86,11 +86,6 @@ public class Principal extends Observable implements FigureListener {
 	private PanelDisegno panelDisegno;
 	private Proyecto proyecto;
 
-	/**
-	 * Indica si el diagrama actual fue modificado.
-	 */
-	private boolean modificado;
-
 	private Principal(Shell shell) {
 		this.shell = shell;
 		this.shell.setMaximized(true);
@@ -194,7 +189,7 @@ public class Principal extends Observable implements FigureListener {
 
 		if (this.proyecto != null) {
 			titulo += " - " + this.proyecto.getNombre();
-			titulo += this.modificado ? " *" : "";
+			titulo += this.shell.getModified() ? " *" : "";
 			titulo += " [" + this.proyecto.getPath() + "]";
 		}
 
@@ -299,7 +294,7 @@ public class Principal extends Observable implements FigureListener {
 	 * @param diagrama
 	 **/
 	public void abrirDiagrama(String id) {
-		if (this.modificado) {
+		if (this.shell.getModified()) {
 			boolean guardar = MessageDialog.openConfirm(this.shell,
 					TITULO_GUARDAR_DIAGRAMA_ACTUAL,
 					MENSAJE_GUARDAR_DIAGRAMA_ACTUAL);
@@ -414,15 +409,6 @@ public class Principal extends Observable implements FigureListener {
 	}
 
 	/**
-	 * Indica si el proyecto fue modificado.
-	 * 
-	 * @return
-	 */
-	public Proyecto getModificado() {
-		return this.proyecto;
-	}
-
-	/**
 	 * Muestra una ventana de error con el mensaje especificado.
 	 * 
 	 * @param mensaje
@@ -453,8 +439,8 @@ public class Principal extends Observable implements FigureListener {
 	 * @param modificado
 	 */
 	private void modificado(boolean modificado) {
-		if (modificado != this.modificado) {
-			this.modificado = modificado;
+		if (modificado != this.shell.getModified()) {
+			this.shell.setModified(modificado);
 			this.actualizarTitulo();
 		}
 	}

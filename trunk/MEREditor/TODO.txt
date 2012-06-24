@@ -2,11 +2,8 @@ Juan:
 -----
 	Pendiente:
 	----------
-		- Dialogos
-			- Agregar Entidad
-			- Agregar Relacion
-			- Agregar Jerarquia
 		- Editores:
+			- Diagrama (cambiar el nombre).
 			- Relación
 			- Jerarquía
 		- Crear y eliminar diagramas.
@@ -26,3 +23,7 @@ Juan:
 		- Crear menu Proyecto con las mismas opciones de la barra de iconos.
 		- Eliminar entidades.
 		- Considerar las diferentes representaciones para los diferentes tipos de cada componente (por ejemplo Entidad: Maestra/Transaccional)
+		- Dialogos
+			- Agregar Entidad
+			- Agregar Relacion - No aplica: se debe mostrar directamente el editor
+			- Agregar Jerarquia - No aplica: se debe mostrar directamente el editor

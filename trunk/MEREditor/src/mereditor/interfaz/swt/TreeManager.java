@@ -7,6 +7,9 @@ import mereditor.modelo.base.Componente;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CTabFolder;
+import org.eclipse.swt.custom.CTabFolder2Adapter;
+import org.eclipse.swt.custom.CTabFolder2Listener;
+import org.eclipse.swt.custom.CTabFolderEvent;
 import org.eclipse.swt.custom.CTabItem;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.widgets.Composite;
@@ -24,9 +27,19 @@ public class TreeManager {
 		return TreeManager.tree;
 	}
 
+	private CTabFolder2Listener minimizar = new CTabFolder2Adapter() {
+		public void minimize(CTabFolderEvent event) {
+			folder.setVisible(false);
+		};
+	};
+
 	private TreeManager(Composite composite) {
 		folder = new CTabFolder(composite, SWT.CENTER);
+		folder.setSimple(false);
+		folder.setMinimizeVisible(true);
+		folder.addCTabFolder2Listener(this.minimizar);
 		tab = new CTabItem(folder, SWT.CLOSE | SWT.BOTTOM);
+		tab.setShowClose(false);
 		tree = new Tree(folder, SWT.NO_SCROLL);
 		this.init();
 	}
@@ -45,7 +58,7 @@ public class TreeManager {
 	 * @param diagrama
 	 * @param raiz
 	 */
-	public static void agregar(Diagrama diagrama, Tree raiz) {
+	private static void agregar(Diagrama diagrama, Tree raiz) {
 		raiz.removeAll();
 		raiz.setData(diagrama);
 		TreeItem item = new TreeItem(raiz, SWT.NULL);
@@ -65,6 +78,8 @@ public class TreeManager {
 
 		for (Componente componente : diagrama.getJerarquias())
 			agregar(componente, item);
+
+		item.setExpanded(true);
 	}
 
 	/**
@@ -114,12 +129,7 @@ public class TreeManager {
 	}
 
 	public static void mostrar() {
-		if (tab.isDisposed()) {
-			tab = new CTabItem(folder, SWT.CLOSE | SWT.BOTTOM);
-			tab.setText(((Diagrama) tree.getTopItem().getData()).getNombre());
-			tab.setControl(tree);
-			folder.setSelection(tab);
-		}
+		folder.setVisible(true);
 	}
 
 	public static void agregarADiagramaActual(Diagrama nuevoDiagrama) {
