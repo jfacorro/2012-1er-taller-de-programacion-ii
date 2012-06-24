@@ -44,9 +44,7 @@ public class Proyecto {
 	 * 
 	 * @throws Exception
 	 */
-	public Proyecto() throws Exception {
-		this.raiz = new DiagramaControl();
-		this.agregar(this.raiz);
+	public Proyecto() {
 		this.validacion = new Validacion();
 	}
 
@@ -57,8 +55,9 @@ public class Proyecto {
 	 * @throws Exception
 	 */
 	public Proyecto(String nombre) throws Exception {
-		this();
+		this.raiz = new DiagramaControl();
 		this.raiz.setNombre(nombre);
+		this.agregar(this.raiz);
 	}
 
 	/**
@@ -75,7 +74,10 @@ public class Proyecto {
 	 * 
 	 * @return
 	 */
-	public void setRaiz(Diagrama raiz) throws Exception {
+	public void setRaiz(Diagrama raiz) {
+		if (this.raiz != null)
+			throw new RuntimeException("El diagrama raiz ya esta establecido.");
+
 		this.raiz = (DiagramaControl) raiz;
 		if (!this.componentes.containsKey(raiz.getId()))
 			this.agregar(raiz);
@@ -187,6 +189,13 @@ public class Proyecto {
 	}
 
 	/**
+	 * Devuelve el path donde se guardó el archivo
+	 */
+	public String getPath() {
+		return this.path;
+	}
+
+	/**
 	 * Obtener el path del archivo de componentes.
 	 * 
 	 * @return
@@ -236,5 +245,9 @@ public class Proyecto {
 	public Set<Jerarquia> getJerarquias() {
 		return Componente.filtrarComponentes(Jerarquia.class,
 				this.componentes.values());
+	}
+
+	public String getNombre() {
+		return this.raiz.getNombre();
 	}
 }

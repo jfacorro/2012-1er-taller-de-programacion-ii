@@ -2,12 +2,6 @@ Juan:
 -----
 	Pendiente:
 	----------
-		- Implementar la figura de Jerarquía mejor.
-		- Considerar las diferentes representaciones para los diferentes tipos de cada componente (por ejemplo Entidad: Maestra/Transaccional)
-		- Mejorar las conexiones para que salgan del centro.
-		- Crear anchors que puedan:
-			- En Entidades: Moverse sobre el borde de las figuras.
-			- En Relaciones: Utilizar sólo las puntas del rombo
 		- Dialogos
 			- Agregar Entidad
 			- Agregar Relacion
@@ -16,6 +10,13 @@ Juan:
 			- Relación
 			- Jerarquía
 		- Crear y eliminar diagramas.
+		- [Selección de componentes en la vista]
+		- Implementar la figura de Jerarquía mejor.
+		- Mejorar las conexiones para que salgan del centro.
+		- Modificar los anchors para los atributos así usan EllipseAnchor y queda mejor.
+		- Crear anchors que puedan:
+			- En Entidades: Moverse sobre el borde de las figuras.
+			- En Relaciones: Utilizar sólo las puntas del rombo
 	Hecho:
 	------
 		- Agregar el tipo de identificadores faltantes y la representacion de ellos.
@@ -24,3 +25,4 @@ Juan:
 		- [Zoom]
 		- Crear menu Proyecto con las mismas opciones de la barra de iconos.
 		- Eliminar entidades.
+		- Considerar las diferentes representaciones para los diferentes tipos de cada componente (por ejemplo Entidad: Maestra/Transaccional)

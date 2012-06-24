@@ -10,7 +10,6 @@ import mereditor.interfaz.swt.listeners.MovimientoControlador;
 import mereditor.modelo.base.Componente;
 import mereditor.representacion.PList;
 
-import org.eclipse.draw2d.Border;
 import org.eclipse.draw2d.BorderLayout;
 import org.eclipse.draw2d.ChopboxAnchor;
 import org.eclipse.draw2d.Connection;
@@ -75,7 +74,8 @@ public abstract class Figura<T extends Componente> extends Figure {
 	 * nombre del componente
 	 */
 	protected void init() {
-		this.setBorder(this.getEstiloBorde());
+		this.setBorder(new LineBorder(this.lineColor, this.lineWidth,
+				this.lineStyle));
 		this.setBackgroundColor(this.backColor);
 
 		this.setOpaque(true);
@@ -191,12 +191,7 @@ public abstract class Figura<T extends Componente> extends Figure {
 	 */
 	protected void onSetParent() {
 	}
-	
-	protected Border getEstiloBorde() {
-		return new LineBorder(this.lineColor, this.lineWidth,
-				this.lineStyle);
-	}
-	
+
 	protected void aplicarEstiloBorde(Shape shape) {
 		shape.setLineStyle(this.lineStyle);
 		shape.setLineWidth(this.lineWidth);

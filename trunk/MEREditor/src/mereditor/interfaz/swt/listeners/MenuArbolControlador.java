@@ -54,7 +54,7 @@ public class MenuArbolControlador implements Listener {
 			Diagrama diagrama = (Diagrama) treeItemActivo.getParent().getData();
 			diagrama.eliminar(componente);
 
-			Principal.getInstance().actualizar();
+			Principal.getInstance().actualizarVista();
 
 			treeItemActivo.dispose();
 		}

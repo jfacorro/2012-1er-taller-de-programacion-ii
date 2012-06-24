@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import mereditor.interfaz.swt.Principal;
 import mereditor.interfaz.swt.editores.EditorFactory;
 import mereditor.interfaz.swt.figuras.EntidadFigure;
 import mereditor.interfaz.swt.figuras.Figura;
@@ -31,6 +32,7 @@ public class RelacionControl extends Relacion implements Control<Relacion>,
 			this.figures.put(idDiagrama, figura);
 			// Agregar este controlador como listener para mouse clicks
 			figura.addMouseListener(this);
+			figura.addFigureListener(Principal.getInstance());
 		}
 
 		this.figures.get(idDiagrama).actualizar();

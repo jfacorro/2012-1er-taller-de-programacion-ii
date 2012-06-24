@@ -3,6 +3,7 @@ package mereditor.control;
 import java.util.HashMap;
 import java.util.Map;
 
+import mereditor.interfaz.swt.Principal;
 import mereditor.interfaz.swt.editores.EditorFactory;
 import mereditor.interfaz.swt.figuras.AtributoFigure;
 import mereditor.interfaz.swt.figuras.Figura;
@@ -22,6 +23,7 @@ public class AtributoControl extends Atributo implements Control<Atributo>, Mous
 			this.figures.put(idDiagrama, figura);
 			// Agregar este controlador como listener para mouse clicks
 			figura.addMouseListener(this);
+			figura.addFigureListener(Principal.getInstance());
 		}
 
 		this.figures.get(idDiagrama).actualizar();
