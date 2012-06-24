@@ -50,6 +50,11 @@ public class MenuBuilder implements Observer {
 		menuItem.addSelectionListener(AccionesProvider.guardar);
 		proyectoItems.add(menuItem);
 		
+		menuItem = new MenuItem(menu, SWT.PUSH);
+		menuItem.setText("Guardar &como...");
+		menuItem.addSelectionListener(AccionesProvider.guardarComo);
+		proyectoItems.add(menuItem);
+		
 		menuItem = new MenuItem(menu, SWT.SEPARATOR);
 		
 		menuItem = new MenuItem(menu, SWT.PUSH);
@@ -79,13 +84,13 @@ public class MenuBuilder implements Observer {
 		menuItem.setMenu(menu);
 		
 		menuItem = new MenuItem(menu, SWT.PUSH);
-		menuItem.setText("Zoom &+");
-		menuItem.addSelectionListener(AccionesProvider.zoomIn);
+		menuItem.setText("Zoom ( &- )");
+		menuItem.addSelectionListener(AccionesProvider.zoomOut);
 		proyectoItems.add(menuItem);
 		
 		menuItem = new MenuItem(menu, SWT.PUSH);
-		menuItem.setText("Zoom &-");
-		menuItem.addSelectionListener(AccionesProvider.zoomOut);
+		menuItem.setText("Zoom ( &+ )");
+		menuItem.addSelectionListener(AccionesProvider.zoomIn);
 		proyectoItems.add(menuItem);
 		
 		menuItem = new MenuItem(menu, SWT.SEPARATOR);
