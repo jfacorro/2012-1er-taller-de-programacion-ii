@@ -1,13 +1,10 @@
 package mereditor.interfaz.swt.editores;
 
-import java.util.ArrayList;
-
 import mereditor.modelo.Atributo;
 import mereditor.modelo.Entidad;
 import mereditor.modelo.Entidad.TipoEntidad;
 
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
@@ -16,17 +13,9 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Shell;
-import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.Text;
 
 public class EntidadEditor extends Editor<Entidad> {
-	// TODO: completar
-	public static final String NOMBRE = "Nombre";
-	public static final String TIPO = "Tipo";
-	public static final String[] PROPS = { NOMBRE, TIPO };
-
-	private ArrayList<Atributo> atributos = new ArrayList<>();
-
 	protected Text txtNombre;
 	protected Combo cboTipo;
 	protected AtributosTabla tblAtributos;
@@ -47,10 +36,6 @@ public class EntidadEditor extends Editor<Entidad> {
 	}
 
 	@Override
-	protected Point getInitialSize() {
-		return new Point(400, 400);
-	}
-
 	protected Control createDialogArea(final Composite parent) {
 		Composite dialogArea = (Composite) super.createDialogArea(parent);
 
@@ -79,7 +64,7 @@ public class EntidadEditor extends Editor<Entidad> {
 		btnNuevoAtributo.setText("Nuevo");
 
 		// TableViewer
-		this.tblAtributos = new AtributosTabla(grupoAtributos, this.componente.getAtributos());
+		this.tblAtributos = new AtributosTabla(grupoAtributos);
 
 		// Agregar un nuevo atributo cuando se hace click sobre el boton
 		btnNuevoAtributo.addSelectionListener(this.tblAtributos.nuevo);
@@ -92,14 +77,7 @@ public class EntidadEditor extends Editor<Entidad> {
 		this.txtNombre.setText(this.componente.getNombre());
 		this.cboTipo.setText(this.componente.getTipo().name());
 
-		// agrega atributos existentes
-		for (Atributo attr : this.componente.getAtributos())
-			atributos.add(attr);
-
-		tblAtributos.refresh();
-
-		for (TableColumn column : tblAtributos.getTable().getColumns())
-			column.pack();
+		tblAtributos.setAtributos(this.componente.getAtributos());
 	}
 
 	@Override
@@ -107,7 +85,7 @@ public class EntidadEditor extends Editor<Entidad> {
 		componente.setTipo(TipoEntidad.valueOf(this.cboTipo.getText()));
 		componente.setNombre(txtNombre.getText());
 
-		for (Atributo atributo : atributos)
+		for (Atributo atributo : this.tblAtributos.getAtributos())
 			componente.addAtributo(atributo);
 	}
 }
