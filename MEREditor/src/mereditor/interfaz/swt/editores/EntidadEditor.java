@@ -6,6 +6,7 @@ import mereditor.control.AtributoControl;
 import mereditor.modelo.Atributo;
 import mereditor.modelo.Atributo.TipoAtributo;
 import mereditor.modelo.Entidad;
+import mereditor.modelo.Entidad.TipoEntidad;
 
 import org.eclipse.jface.viewers.CellEditor;
 import org.eclipse.jface.viewers.ComboBoxCellEditor;
@@ -18,6 +19,7 @@ import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
+import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Group;
@@ -28,22 +30,18 @@ import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.Text;
 
 public class EntidadEditor extends Editor<Entidad> {
-
-	private ArrayList<Atributo> atributos;
-
 	// TODO: completar
 	public static final String NOMBRE = "Nombre";
 	public static final String TIPO = "Tipo";
 	public static final String[] PROPS = { NOMBRE, TIPO };
 
-	public static final String[] TIPOS_STR = {
-			TipoAtributo.CARACTERIZACION.name(),
-			TipoAtributo.DERIVADO_COPIA.name(),
-			TipoAtributo.DERIVADO_CALCULO.name() };
-
-	private Text txtNombre;
+	private ArrayList<Atributo> atributos = new ArrayList<>();
+	
+	protected Text txtNombre;
+	protected Combo cboTipo;
 
 	/**
+	 * Constructor para el editor visual
 	 * @wbp.parser.constructor
 	 */
 	protected EntidadEditor(Shell shell) {
@@ -53,8 +51,6 @@ public class EntidadEditor extends Editor<Entidad> {
 
 	public EntidadEditor(Entidad entidad) {
 		super(entidad);
-		this.componente = entidad;
-		this.atributos = new ArrayList<>();
 		this.titulo = "Editor - " + componente.getNombre();
 	}
 
@@ -65,20 +61,31 @@ public class EntidadEditor extends Editor<Entidad> {
 
 	protected Control createDialogArea(final Composite parent) {
 		Composite dialogArea = (Composite) super.createDialogArea(parent);
-		GridLayout layout = new GridLayout();
-		dialogArea.setLayout(layout);
-		dialogArea.setLayoutData(new GridData(GridData.FILL_BOTH));
-		// dialogArea.setLayoutData(new GridData(GridData.FILL, GridData.FILL,
-		// true, true));
+		
+		/**
+		 * Campos generales.
+		 */
+		Composite header = new Composite(dialogArea, SWT.NONE);
+		header.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
+		header.setLayout(new GridLayout(2, false));
 
-		Label lblNombre = new Label(dialogArea, SWT.LEFT);
-		lblNombre.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
-		lblNombre.setText("Nombre");
-
-		this.txtNombre = new Text(dialogArea, SWT.BORDER);
-		txtNombre.setText(this.componente.getNombre());
+		Label lblNombre = new Label(header, SWT.LEFT);
+		lblNombre.setText(NOMBRE);
+		
+		this.txtNombre = new Text(header, SWT.BORDER);
 		this.txtNombre.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
+		this.txtNombre.setText(this.componente.getNombre());
+		
+		Label lblTipo = new Label(header, SWT.LEFT);
+		lblTipo.setText(TIPO);
 
+		this.cboTipo = new Combo(header, SWT.READ_ONLY);
+		this.cboTipo.setItems(Editor.TiposEntidades);
+		this.cboTipo.setText(this.componente.getTipo().name());
+
+		/**
+		 * Atributos.
+		 */
 		Group grupoAtributos = new Group(dialogArea, SWT.NONE);
 		grupoAtributos.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
 		grupoAtributos.setText("Atributos");
@@ -132,7 +139,7 @@ public class EntidadEditor extends Editor<Entidad> {
 		// Crear editores de celda
 		CellEditor[] editors = new CellEditor[2];
 		editors[0] = new TextCellEditor(table);
-		editors[1] = new ComboBoxCellEditor(table, TIPOS_STR, SWT.READ_ONLY);
+		editors[1] = new ComboBoxCellEditor(table, Editor.TiposAtributo, SWT.READ_ONLY);
 
 		//
 		tablev.setColumnProperties(PROPS);
@@ -144,6 +151,7 @@ public class EntidadEditor extends Editor<Entidad> {
 	
 	@Override
 	protected void okPressed() {
+		componente.setTipo(TipoEntidad.valueOf(this.cboTipo.getText()));
 		componente.setNombre(txtNombre.getText());
 		principal.actualizarVista();
 		super.okPressed();
