@@ -67,7 +67,7 @@ public class EntidadControl extends Entidad implements Control<Entidad>, MouseLi
 
 	@Override
 	public void mouseDoubleClicked(MouseEvent event) {
-		EditorFactory.getEditor(this).abrir();
+		EditorFactory.getEditor(this).open();
 	}
 
 	@Override

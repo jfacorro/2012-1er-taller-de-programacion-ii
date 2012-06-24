@@ -62,7 +62,7 @@ public class JerarquiaControl extends Jerarquia implements Control<Jerarquia>,
 
 	@Override
 	public void mouseDoubleClicked(MouseEvent arg0) {
-		EditorFactory.getEditor(this).abrir();
+		EditorFactory.getEditor(this).open();
 	}
 
 	@Override

@@ -35,6 +35,16 @@ public class EntidadEditor extends Editor<Entidad> {
 
 	public static final String[] TIPOS_STR = { TipoAtributo.CARACTERIZACION.name(), TipoAtributo.DERIVADO_COPIA.name(), TipoAtributo.DERIVADO_CALCULO.name() };
 	
+	/**
+	 * @wbp.parser.constructor
+	 */
+	protected EntidadEditor(Shell shell) {
+		super(shell);
+		setBlockOnOpen(true);
+		setShellStyle(SWT.DIALOG_TRIM | SWT.PRIMARY_MODAL);
+		this.entidad = new Entidad();
+	}
+	
 	public EntidadEditor(Entidad entidad) {
 		super(entidad);
 		this.entidad = entidad;
@@ -67,7 +77,10 @@ public class EntidadEditor extends Editor<Entidad> {
 
 		// Configurar tabla
 		Table table = tablev.getTable();
-		table.setLayoutData(new GridData(GridData.FILL_BOTH));
+		GridData gd_table = new GridData(GridData.FILL_BOTH);
+		gd_table.heightHint = 97;
+		gd_table.widthHint = 201;
+		table.setLayoutData(gd_table);
 
 		new TableColumn(table, SWT.CENTER).setText(NOMBRE);
 		new TableColumn(table, SWT.CENTER).setText(TIPO);
@@ -118,7 +131,7 @@ public class EntidadEditor extends Editor<Entidad> {
 		tablev.setCellModifier(new AtributoCellModifier(tablev));
 		tablev.setCellEditors(editors);
 
-		return composite;
+		return super.createContents(parent);
 	}
 
 }

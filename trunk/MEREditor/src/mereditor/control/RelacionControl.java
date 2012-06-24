@@ -127,7 +127,7 @@ public class RelacionControl extends Relacion implements Control<Relacion>,
 
 	@Override
 	public void mouseDoubleClicked(MouseEvent arg0) {
-		EditorFactory.getEditor(this).abrir();
+		EditorFactory.getEditor(this).open();
 	}
 
 	@Override
