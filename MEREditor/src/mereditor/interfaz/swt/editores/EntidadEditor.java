@@ -2,19 +2,11 @@ package mereditor.interfaz.swt.editores;
 
 import java.util.ArrayList;
 
-import mereditor.control.AtributoControl;
 import mereditor.modelo.Atributo;
-import mereditor.modelo.Atributo.TipoAtributo;
 import mereditor.modelo.Entidad;
 import mereditor.modelo.Entidad.TipoEntidad;
 
-import org.eclipse.jface.viewers.CellEditor;
-import org.eclipse.jface.viewers.ComboBoxCellEditor;
-import org.eclipse.jface.viewers.TableViewer;
-import org.eclipse.jface.viewers.TextCellEditor;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.SelectionAdapter;
-import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
@@ -24,7 +16,6 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Shell;
-import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.Text;
 
@@ -38,7 +29,7 @@ public class EntidadEditor extends Editor<Entidad> {
 
 	protected Text txtNombre;
 	protected Combo cboTipo;
-	protected TableViewer tblViewAtributos;
+	protected AtributosTabla tblAtributos;
 
 	/**
 	 * Constructor para el editor visual
@@ -88,45 +79,10 @@ public class EntidadEditor extends Editor<Entidad> {
 		btnNuevoAtributo.setText("Nuevo");
 
 		// TableViewer
-		this.tblViewAtributos = new TableViewer(grupoAtributos, SWT.FULL_SELECTION);
-		tblViewAtributos.setContentProvider(new AtributoProvider());
-		tblViewAtributos.setLabelProvider(new AtributoLabelProvider());
-		tblViewAtributos.setInput(this.atributos);
-		// Creado para poder utilizarlo en el listener.
-		final TableViewer tblViewAtributosProxy = tblViewAtributos;
-
-		// Configurar tabla
-		Table tblAtributos = tblViewAtributos.getTable();
-		tblAtributos.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
-		new TableColumn(tblAtributos, SWT.CENTER).setText(NOMBRE);
-		new TableColumn(tblAtributos, SWT.CENTER).setText(TIPO);
-
-		tblAtributos.setHeaderVisible(true);
-		tblAtributos.setLinesVisible(true);
+		this.tblAtributos = new AtributosTabla(grupoAtributos, this.componente.getAtributos());
 
 		// Agregar un nuevo atributo cuando se hace click sobre el boton
-		btnNuevoAtributo.addSelectionListener(new SelectionAdapter() {
-			public void widgetSelected(SelectionEvent event) {
-				AtributoControl atributo = new AtributoControl();
-				atributo.setNombre("Nombre");
-				atributo.setTipo(TipoAtributo.CARACTERIZACION);
-
-				atributos.add(atributo);
-
-				tblViewAtributosProxy.refresh();
-			}
-		});
-
-		// Crear editores de celda
-		CellEditor[] editors = new CellEditor[2];
-		editors[0] = new TextCellEditor(tblAtributos);
-		editors[1] = new ComboBoxCellEditor(tblAtributos, Editor.TiposAtributo, SWT.READ_ONLY);
-
-		// Establecer el titulo de las columnas, los modificadores y los
-		// editores.
-		tblViewAtributos.setColumnProperties(PROPS);
-		tblViewAtributos.setCellModifier(new AtributoCellModifier(tblViewAtributos));
-		tblViewAtributos.setCellEditors(editors);
+		btnNuevoAtributo.addSelectionListener(this.tblAtributos.nuevo);
 
 		return dialogArea;
 	}
@@ -140,9 +96,9 @@ public class EntidadEditor extends Editor<Entidad> {
 		for (Atributo attr : this.componente.getAtributos())
 			atributos.add(attr);
 
-		tblViewAtributos.refresh();
+		tblAtributos.refresh();
 
-		for (TableColumn column : tblViewAtributos.getTable().getColumns())
+		for (TableColumn column : tblAtributos.getTable().getColumns())
 			column.pack();
 	}
 
