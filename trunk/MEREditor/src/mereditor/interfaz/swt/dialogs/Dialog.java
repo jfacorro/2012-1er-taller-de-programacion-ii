@@ -6,7 +6,6 @@ import org.eclipse.jface.window.Window;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
-import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
@@ -17,8 +16,12 @@ public abstract class Dialog extends Window {
 	protected Principal principal = Principal.getInstance();
 	protected String titulo = "";
 	
+	/**
+	 * @wbp.parser.constructor
+	 */
 	protected Dialog(Shell shell) {
-		super(shell);		
+		super(shell);
+		setShellStyle(SWT.CLOSE);
 	}
 
 	public Dialog() {
@@ -30,6 +33,7 @@ public abstract class Dialog extends Window {
 		this.getShell().setText(this.titulo);
 		
 		Composite compositeButtons = new Composite(parent, SWT.NONE);
+		
 		GridLayout gridLayout = new GridLayout(2, false);
 		gridLayout.verticalSpacing = 2;
 		gridLayout.marginWidth = 2;
@@ -48,7 +52,7 @@ public abstract class Dialog extends Window {
 		
 		this.getShell().pack();
 
-		return parent;
+		return super.createContents(parent);
 	}
 	
 	/**
@@ -74,7 +78,4 @@ public abstract class Dialog extends Window {
 			cancelar();
 		};
 	};
-	protected Point getInitialSize() {
-		return new Point(118, 56);
-	}
 }

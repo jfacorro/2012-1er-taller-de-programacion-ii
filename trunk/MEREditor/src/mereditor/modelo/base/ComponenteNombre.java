@@ -4,7 +4,7 @@ import java.util.UUID;
 
 public abstract class ComponenteNombre extends Componente {
 	
-	protected String nombre;
+	protected String nombre = "";
 	
 	public ComponenteNombre() {
 		super();

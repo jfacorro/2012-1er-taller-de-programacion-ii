@@ -18,7 +18,8 @@ public class AtributoFigure extends Figura<Atributo> {
 
 	public AtributoFigure(Atributo componente) {
 		super(componente);
-		this.setRepresentacion(EstilosFiguras.get(Atributo.class, this.componente.getTipo()));
+		this.setRepresentacion(EstilosFiguras.get(Atributo.class,
+				this.componente.getTipo()));
 	}
 
 	@Override
@@ -74,12 +75,12 @@ public class AtributoFigure extends Figura<Atributo> {
 	 */
 	private String getTextoLabel() {
 		String texto = this.componente.getNombre();
-
-		if (!this.componente.getCardinalidadMinima().equals("1")
-				|| !this.componente.getCardinalidadMaxima().equals("1"))
-			texto += " (" + this.componente.getCardinalidadMinima().toString()
-					+ ", " + this.componente.getCardinalidadMaxima().toString()
-					+ ")";
+		String cardMin = this.componente.getCardinalidadMinima();
+		String cardMax = this.componente.getCardinalidadMaxima();
+		
+		if(cardMin != "" && cardMax != "")
+			if (!cardMin.equals("1") || !cardMax.equals("1"))
+				texto += " (" + cardMin + ", " + cardMax + ")";
 
 		return texto;
 	}

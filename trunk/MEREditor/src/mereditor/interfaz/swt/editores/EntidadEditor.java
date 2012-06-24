@@ -19,13 +19,14 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
+import org.eclipse.swt.widgets.Text;
 
 public class EntidadEditor extends Editor<Entidad> {
 
-	private Entidad entidad;
 	private ArrayList<Atributo> atributos;
 
 	// TODO: completar
@@ -33,8 +34,13 @@ public class EntidadEditor extends Editor<Entidad> {
 	public static final String TIPO = "Tipo";
 	public static final String[] PROPS = { NOMBRE, TIPO };
 
-	public static final String[] TIPOS_STR = { TipoAtributo.CARACTERIZACION.name(), TipoAtributo.DERIVADO_COPIA.name(), TipoAtributo.DERIVADO_CALCULO.name() };
-	
+	public static final String[] TIPOS_STR = {
+			TipoAtributo.CARACTERIZACION.name(),
+			TipoAtributo.DERIVADO_COPIA.name(),
+			TipoAtributo.DERIVADO_CALCULO.name() };
+
+	private Text txtNombre;
+
 	/**
 	 * @wbp.parser.constructor
 	 */
@@ -42,18 +48,18 @@ public class EntidadEditor extends Editor<Entidad> {
 		super(shell);
 		setBlockOnOpen(true);
 		setShellStyle(SWT.DIALOG_TRIM | SWT.PRIMARY_MODAL);
-		this.entidad = new Entidad();
+		this.componente = new Entidad();
 	}
-	
+
 	public EntidadEditor(Entidad entidad) {
 		super(entidad);
-		this.entidad = entidad;
+		this.componente = entidad;
 		this.atributos = new ArrayList<>();
 	}
 
 	protected void configureShell(Shell shell) {
 		super.configureShell(shell);
-		shell.setText(entidad.getNombre() + " Editor");
+		shell.setText("Editor - " + componente.getNombre());
 		shell.setSize(400, 400);
 	}
 
@@ -62,15 +68,21 @@ public class EntidadEditor extends Editor<Entidad> {
 		Composite composite = new Composite(parent, SWT.NONE);
 		composite.setLayout(new GridLayout(1, false));
 
+		Label lblNombre = new Label(composite, SWT.LEFT);
+		lblNombre.setText("Nombre");
+
+		this.txtNombre = new Text(composite, SWT.BORDER);
+		txtNombre.setText(this.componente.getNombre());
+		GridData gridData = new GridData();
+		gridData.horizontalAlignment = GridData.FILL;
+		this.txtNombre.setLayoutData(gridData);
+
 		Button btnNuevoAtributo = new Button(composite, SWT.PUSH);
 		btnNuevoAtributo.setText("Crear un nuevo atributo");
-		
-		Button btnCerrar = new Button(composite, SWT.PUSH);
-		btnCerrar.setText("Cerrar");
-
 
 		// TableViewer
-		final TableViewer tablev = new TableViewer(composite, SWT.FULL_SELECTION);
+		final TableViewer tablev = new TableViewer(composite,
+				SWT.FULL_SELECTION);
 		tablev.setContentProvider(new AtributoProvider());
 		tablev.setLabelProvider(new AtributoLabelProvider());
 		tablev.setInput(this.atributos);
@@ -93,7 +105,7 @@ public class EntidadEditor extends Editor<Entidad> {
 		table.setLinesVisible(true);
 
 		// agrega atributos existentes
-		for (Atributo attr : this.entidad.getAtributos()) {
+		for (Atributo attr : this.componente.getAtributos()) {
 			atributos.add(attr);
 		}
 		tablev.refresh();
@@ -107,24 +119,17 @@ public class EntidadEditor extends Editor<Entidad> {
 
 				atributos.add(atr);
 
-				//Actualización del modelo
-				entidad.addAtributo(atr);
+				// Actualización del modelo
+				componente.addAtributo(atr);
 
 				tablev.refresh();
 			}
 		});
-		
-		btnCerrar.addSelectionListener(new SelectionAdapter() {
-			public void widgetSelected(SelectionEvent event) {
-				principal.actualizarVista();
-				parent.dispose();
-			}
-		});
-		  
+
 		// Crear editores de celda
 		CellEditor[] editors = new CellEditor[2];
 		editors[0] = new TextCellEditor(table);
-	    editors[1] = new ComboBoxCellEditor(table, TIPOS_STR, SWT.READ_ONLY);
+		editors[1] = new ComboBoxCellEditor(table, TIPOS_STR, SWT.READ_ONLY);
 
 		//
 		tablev.setColumnProperties(PROPS);
@@ -134,4 +139,10 @@ public class EntidadEditor extends Editor<Entidad> {
 		return super.createContents(parent);
 	}
 
+	@Override
+	protected void aceptar() {
+		this.componente.setNombre(this.txtNombre.getText());
+		principal.actualizarVista();
+		this.close();
+	}
 }

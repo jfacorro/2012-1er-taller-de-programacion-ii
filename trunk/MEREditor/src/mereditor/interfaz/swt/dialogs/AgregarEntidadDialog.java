@@ -6,43 +6,51 @@ import java.util.Map;
 import java.util.Set;
 
 import mereditor.control.EntidadControl;
-import mereditor.interfaz.swt.Principal;
 import mereditor.interfaz.swt.editores.EditorFactory;
 import mereditor.modelo.Entidad;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.layout.GridData;
-import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.Shell;
 
 public class AgregarEntidadDialog extends Dialog {
 	private Combo cboEntidades;
 	private Map<String, Entidad> entidades = new HashMap<>();
 	
+	/**
+	 * @wbp.parser.constructor
+	 */
+	protected AgregarEntidadDialog(Shell shell) {
+		super(shell);
+	}
+	
 	public AgregarEntidadDialog() {
-		super(Principal.getInstance().getShell());
+		super();
 		this.titulo = "Agregar Entidad";
 	}
 
 	@Override
 	protected Control createContents(Composite parent) {
-		Composite composite = new Composite(parent, SWT.NONE);
-		composite.setLayout(new GridLayout(1, true));		
-
-		Label lblEntidades = new Label(composite, SWT.LEFT);
+		Label lblEntidades = new Label(parent, SWT.LEFT);
 		lblEntidades.setText("Entidades");
-		this.cboEntidades = new Combo(composite, SWT.READ_ONLY);
-		cboEntidades.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, false, false, 1, 1));
+		GridData gridData = new GridData();
+		gridData.horizontalAlignment = GridData.FILL;
+		this.cboEntidades = new Combo(parent, SWT.READ_ONLY);
+		this.cboEntidades.setLayoutData(gridData);
 		this.loadEntidades();
 		
-		Button btnNueva = new Button(composite, SWT.PUSH);
+		Button btnNueva = new Button(parent, SWT.PUSH);
 		btnNueva.setText("Nueva Entidad");
 		btnNueva.addSelectionListener(this.nueva);
+		gridData = new GridData();
+		gridData.horizontalAlignment = GridData.FILL;
+		btnNueva.setLayoutData(gridData);
 
 		return super.createContents(parent);
 	}

@@ -14,8 +14,8 @@ public class Atributo extends ComponenteNombre {
 	}
 
 	protected TipoAtributo tipo;
-	protected String cardinalidadMinima;
-	protected String cardinalidadMaxima;
+	protected String cardinalidadMinima = "";
+	protected String cardinalidadMaxima = "";
 	protected Set<Atributo> atributos = new HashSet<Atributo>();
 
 	// Derivado copia
