@@ -48,6 +48,17 @@ public class AccionesProvider {
 			}
 		}
 	};
+	
+	public static final SelectionListener guardarComo = new SelectionAdapter() {
+		@Override
+		public void widgetSelected(SelectionEvent e) {
+			try {
+				principal().guardarProyecto(true);
+			} catch (Exception e1) {
+				e1.printStackTrace();
+			}
+		}
+	}; 
 
 	public static final SelectionListener imprimir = new SelectionAdapter() {
 		public void widgetSelected(SelectionEvent e) {

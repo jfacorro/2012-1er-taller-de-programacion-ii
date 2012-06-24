@@ -31,7 +31,7 @@ public class PanelDisegno {
 	}
 
 	/**
-	 * Aplica una disminución al zoom.
+	 * Aplica una disminuciÃ³n al zoom.
 	 */
 	public void zoomOut() {
 		this.panel.zoomIn();		
@@ -52,7 +52,7 @@ public class PanelDisegno {
 		Rectangle rootFigureBounds = this.panel.getBounds();
 		GC figureCanvasGC = new GC(this.canvas);
 		
-		Image image = new Image(null, rootFigureBounds.width, rootFigureBounds.height);
+		Image image = new Image(this.canvas.getDisplay(), rootFigureBounds.width, rootFigureBounds.height);
 		GC imageGC = new GC(image);
 		
 		imageGC.setBackground(figureCanvasGC.getBackground());

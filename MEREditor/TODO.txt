@@ -27,3 +27,4 @@ Juan:
 			- Agregar Entidad
 			- Agregar Relacion - No aplica: se debe mostrar directamente el editor
 			- Agregar Jerarquia - No aplica: se debe mostrar directamente el editor
+		- Modificar el arbol para que se pueda esconder y mostrar bien.

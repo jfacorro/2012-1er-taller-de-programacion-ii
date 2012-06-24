@@ -117,7 +117,7 @@ public class Principal extends Observable implements FigureListener {
 		formData.left = new FormAttachment(0, 0);
 		formData.right = new FormAttachment(100, 0);
 		this.sashForm.setLayoutData(formData);
-		this.mostrarArbol(true);
+		this.mostrarArbol(false);
 	}
 
 	/**
@@ -173,6 +173,7 @@ public class Principal extends Observable implements FigureListener {
 		this.panelDisegno.actualizar();
 		// Carga inicial del arbol.
 		TreeManager.cargar(this.proyecto);
+		this.mostrarArbol(true);
 		// Notificar a la toolbar que hay un proyecto abierto.
 		this.setChanged();
 		this.notifyObservers();
