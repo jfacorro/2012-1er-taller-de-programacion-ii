@@ -43,7 +43,7 @@ public class AgregarEntidadDialog extends Dialog {
 		lblEntidades.setText("Entidades");
 
 		this.cboEntidades = new Combo(container, SWT.READ_ONLY);
-		this.cboEntidades .setLayoutData(new GridData(SWT.FILL, SWT.CENTER, false, false, 1, 1));
+		this.cboEntidades .setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
 		this.loadEntidades();
 
 		Button btnNueva = new Button(container, SWT.PUSH);
@@ -74,7 +74,7 @@ public class AgregarEntidadDialog extends Dialog {
 
 	protected void aceptar() {
 		if (cboEntidades.getSelectionIndex() == -1) {
-			this.principal.error("No seleccionó ninguna entidad");
+			this.principal.error("No seleccionï¿½ ninguna entidad");
 		} else {
 			String nombre = cboEntidades.getText();
 			Entidad entidad = this.entidades.get(nombre);
