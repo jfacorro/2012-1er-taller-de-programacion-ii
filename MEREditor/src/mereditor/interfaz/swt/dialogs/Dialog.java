@@ -36,7 +36,8 @@ public abstract class Dialog extends org.eclipse.jface.dialogs.Dialog {
 		btnOK.setText("Aceptar");
 		btnOK.addSelectionListener(this.aceptar);
 		btnCancel.setText("Cancelar");
-		btnCancel.addSelectionListener(this.cancelar);
+		
+		//this.getShell().pack();
 		
 		return control;
 	}
@@ -52,22 +53,9 @@ public abstract class Dialog extends org.eclipse.jface.dialogs.Dialog {
 	 */
 	protected abstract void aceptar();
 
-	/**
-	 * Acciones a realizar al presionar el boton cancelar
-	 */
-	protected void cancelar() {
-		this.close();
-	}
-
 	private SelectionAdapter aceptar = new SelectionAdapter() {
 		public void widgetSelected(SelectionEvent e) {
 			aceptar();
-		};
-	};
-
-	private SelectionAdapter cancelar = new SelectionAdapter() {
-		public void widgetSelected(SelectionEvent e) {
-			cancelar();
 		};
 	};
 }

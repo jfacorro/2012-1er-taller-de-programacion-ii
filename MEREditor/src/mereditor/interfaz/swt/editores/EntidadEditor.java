@@ -21,6 +21,7 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Table;
@@ -48,8 +49,6 @@ public class EntidadEditor extends Editor<Entidad> {
 	 */
 	protected EntidadEditor(Shell shell) {
 		super(shell);
-		setBlockOnOpen(true);
-		setShellStyle(SWT.DIALOG_TRIM | SWT.PRIMARY_MODAL);
 		this.componente = new Entidad();
 	}
 
@@ -62,29 +61,36 @@ public class EntidadEditor extends Editor<Entidad> {
 	protected void configureShell(Shell shell) {
 		super.configureShell(shell);
 		shell.setText("Editor - " + componente.getNombre());
-		shell.setSize(400, 400);
+
 	}
 
-	protected Control createContents(final Composite parent) {
+	protected Control createDialogArea(final Composite parent) {
+		Composite dialogArea = (Composite) super.createDialogArea(parent);
+		GridLayout layout = new GridLayout();
+		dialogArea.setLayout(layout);
+		dialogArea.setLayoutData(new GridData(GridData.FILL_BOTH));
+		// dialogArea.setLayoutData(new GridData(GridData.FILL, GridData.FILL,
+		// true, true));
 
-		Composite composite = new Composite(parent, SWT.NONE);
-		composite.setLayout(new GridLayout(1, false));
-
-		Label lblNombre = new Label(composite, SWT.LEFT);
+		Label lblNombre = new Label(dialogArea, SWT.LEFT);
+		lblNombre.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
 		lblNombre.setText("Nombre");
 
-		this.txtNombre = new Text(composite, SWT.BORDER);
+		this.txtNombre = new Text(dialogArea, SWT.BORDER);
 		txtNombre.setText(this.componente.getNombre());
-		GridData gridData = new GridData();
-		gridData.horizontalAlignment = GridData.FILL;
-		this.txtNombre.setLayoutData(gridData);
+		this.txtNombre.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
 		this.txtNombre.addModifyListener(this.modificacionNombre);
 
-		Button btnNuevoAtributo = new Button(composite, SWT.PUSH);
-		btnNuevoAtributo.setText("Crear un nuevo atributo");
+		Group grupoAtributos = new Group(dialogArea, SWT.NONE);
+		grupoAtributos.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
+		grupoAtributos.setText("Atributos");
+		grupoAtributos.setLayout(new GridLayout(1, true));
+
+		Button btnNuevoAtributo = new Button(grupoAtributos, SWT.PUSH);
+		btnNuevoAtributo.setText("Nuevo");
 
 		// TableViewer
-		final TableViewer tablev = new TableViewer(composite,
+		final TableViewer tablev = new TableViewer(grupoAtributos,
 				SWT.FULL_SELECTION);
 		tablev.setContentProvider(new AtributoProvider());
 		tablev.setLabelProvider(new AtributoLabelProvider());
@@ -92,25 +98,21 @@ public class EntidadEditor extends Editor<Entidad> {
 
 		// Configurar tabla
 		Table table = tablev.getTable();
-		GridData gd_table = new GridData(GridData.FILL_BOTH);
-		gd_table.heightHint = 97;
-		gd_table.widthHint = 201;
-		table.setLayoutData(gd_table);
+		table.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
 
 		new TableColumn(table, SWT.CENTER).setText(NOMBRE);
 		new TableColumn(table, SWT.CENTER).setText(TIPO);
 
-		for (int i = 0, n = table.getColumnCount(); i < n; i++) {
-			table.getColumn(i).pack();
-		}
+		for (TableColumn column : table.getColumns())
+			column.pack();
 
 		table.setHeaderVisible(true);
 		table.setLinesVisible(true);
 
 		// agrega atributos existentes
-		for (Atributo attr : this.componente.getAtributos()) {
+		for (Atributo attr : this.componente.getAtributos())
 			atributos.add(attr);
-		}
+
 		tablev.refresh();
 
 		// Agregar un nuevo atributo cuando se hace click sobre el boton
@@ -122,7 +124,7 @@ public class EntidadEditor extends Editor<Entidad> {
 
 				atributos.add(atr);
 
-				// Actualización del modelo
+				// Actualizacion del modelo
 				componente.addAtributo(atr);
 
 				tablev.refresh();
@@ -139,7 +141,7 @@ public class EntidadEditor extends Editor<Entidad> {
 		tablev.setCellModifier(new AtributoCellModifier(tablev));
 		tablev.setCellEditors(editors);
 
-		return super.createContents(parent);
+		return dialogArea;
 	}
 
 	@Override
@@ -147,11 +149,11 @@ public class EntidadEditor extends Editor<Entidad> {
 		principal.actualizarVista();
 		this.close();
 	}
-	
+
 	private ModifyListener modificacionNombre = new ModifyListener() {
 		@Override
 		public void modifyText(ModifyEvent e) {
-			componente.setNombre(txtNombre.getText());			
+			componente.setNombre(txtNombre.getText());
 		}
 	};
 }
