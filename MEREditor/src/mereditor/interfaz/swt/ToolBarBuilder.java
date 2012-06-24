@@ -8,13 +8,10 @@ import java.util.Observer;
 import mereditor.interfaz.swt.listeners.AccionesProvider;
 
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.ToolBar;
 import org.eclipse.swt.widgets.ToolItem;
 
 public class ToolBarBuilder implements Observer {
-	private static final String PATH_IMAGENES = "src/recursos/imagenes/";
-
 	private Principal principal;
 	private ToolBar toolBar;
 	private List<ToolItem> proyectoItems = new ArrayList<>();
@@ -34,17 +31,17 @@ public class ToolBarBuilder implements Observer {
 	private void init() {
 		ToolItem item = new ToolItem(this.toolBar, SWT.PUSH);
 		item.setToolTipText("Nuevo Proyecto");
-		item.setImage(this.getImagen("nuevo.png"));
+		item.setImage(Principal.getImagen("nuevo.png"));
 		item.addSelectionListener(AccionesProvider.nuevo);
 
 		item = new ToolItem(this.toolBar, SWT.PUSH);
 		item.setToolTipText("Abrir Proyecto");
-		item.setImage(this.getImagen("abrir.png"));
+		item.setImage(Principal.getImagen("abrir.png"));
 		item.addSelectionListener(AccionesProvider.abrir);
 
 		item = new ToolItem(this.toolBar, SWT.PUSH);
 		item.setToolTipText("Guardar Proyecto");
-		item.setImage(this.getImagen("guardar.png"));
+		item.setImage(Principal.getImagen("guardar.png"));
 		item.addSelectionListener(AccionesProvider.guardar);
 		proyectoItems.add(item);
 		
@@ -52,13 +49,13 @@ public class ToolBarBuilder implements Observer {
 		
 		item = new ToolItem(this.toolBar, SWT.PUSH);
 		item.setToolTipText("Imprimir");
-		item.setImage(this.getImagen("imprimir.png"));
+		item.setImage(Principal.getImagen("imprimir.png"));
 		item.addSelectionListener(AccionesProvider.imprimir);
 		proyectoItems.add(item);
 
 		item = new ToolItem(this.toolBar, SWT.PUSH);
 		item.setToolTipText("Exportar");
-		item.setImage(this.getImagen("exportar.png"));
+		item.setImage(Principal.getImagen("exportar.png"));
 		item.addSelectionListener(AccionesProvider.exportar);
 		proyectoItems.add(item);
 		
@@ -66,31 +63,31 @@ public class ToolBarBuilder implements Observer {
 
 		item = new ToolItem(this.toolBar, SWT.PUSH);
 		item.setToolTipText("Nuevo Diagrama");
-		item.setImage(this.getImagen("diagrama.png"));
+		item.setImage(Principal.getImagen("diagrama.png"));
 		item.addSelectionListener(AccionesProvider.nuevoDiagrama);
 		proyectoItems.add(item);
 
 		item = new ToolItem(this.toolBar, SWT.PUSH);
 		item.setToolTipText("Agregar Entidad");
-		item.setImage(this.getImagen("entidad.png"));
+		item.setImage(Principal.getImagen("entidad.png"));
 		item.addSelectionListener(AccionesProvider.agregarEntidad);
 		proyectoItems.add(item);
 
 		item = new ToolItem(this.toolBar, SWT.PUSH);
 		item.setToolTipText("Agregar Relacion");
-		item.setImage(this.getImagen("relacion.png"));
+		item.setImage(Principal.getImagen("relacion.png"));
 		item.addSelectionListener(AccionesProvider.agregarRelacion);
 		proyectoItems.add(item);
 
 		item = new ToolItem(this.toolBar, SWT.PUSH);
 		item.setToolTipText("Agregar Jerarquia");
-		item.setImage(this.getImagen("jerarquia.png"));
+		item.setImage(Principal.getImagen("jerarquia.png"));
 		item.addSelectionListener(AccionesProvider.agregarJerarquia);
 		proyectoItems.add(item);
 		
 		item = new ToolItem(this.toolBar, SWT.PUSH);
 		item.setToolTipText("Validar");
-		item.setImage(this.getImagen("validar.png"));
+		item.setImage(Principal.getImagen("validar.png"));
 		item.addSelectionListener(AccionesProvider.validar);
 		proyectoItems.add(item);
 	
@@ -98,13 +95,13 @@ public class ToolBarBuilder implements Observer {
 
 		item = new ToolItem(this.toolBar, SWT.PUSH);
 		item.setToolTipText("Zoom");
-		item.setImage(this.getImagen("zoom.png"));
+		item.setImage(Principal.getImagen("zoom.png"));
 		item.addSelectionListener(AccionesProvider.zoomIn);
 		proyectoItems.add(item);
 		
 		item = new ToolItem(this.toolBar, SWT.PUSH);
 		item.setToolTipText("Explorador del Proyecto");
-		item.setImage(this.getImagen("tree_mode.png"));
+		item.setImage(Principal.getImagen("tree_mode.png"));
 		item.addSelectionListener(AccionesProvider.mostrarArbol);
 		proyectoItems.add(item);
 		
@@ -112,7 +109,7 @@ public class ToolBarBuilder implements Observer {
 
 		item = new ToolItem(this.toolBar, SWT.PUSH);
 		item.setToolTipText("Salir");
-		item.setImage(this.getImagen("salir.png"));
+		item.setImage(Principal.getImagen("salir.png"));
 		item.addSelectionListener(AccionesProvider.salir);
 
 		this.habilitarItems(false);
@@ -121,10 +118,6 @@ public class ToolBarBuilder implements Observer {
 	private void habilitarItems(boolean habilitar) {
 		for (ToolItem item : this.proyectoItems)
 			item.setEnabled(habilitar);
-	}
-
-	private Image getImagen(String nombre) {
-		return new Image(this.toolBar.getDisplay(), PATH_IMAGENES + nombre);
 	}
 
 	@Override

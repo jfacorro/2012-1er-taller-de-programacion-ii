@@ -24,4 +24,10 @@ public interface Control<T extends Componente> {
 	 * @param idDiagrama
 	 */
 	public void dibujar(Figure contenedor, String idDiagrama);
+	
+	/**
+	 * Devuelve el icono que corresponde a este control.
+	 * @return
+	 */
+	public String getIcono();
 }

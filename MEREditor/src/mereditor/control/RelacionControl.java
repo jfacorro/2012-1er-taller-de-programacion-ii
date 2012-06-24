@@ -81,7 +81,7 @@ public class RelacionControl extends Relacion implements Control<Relacion>,
 
 			for (Identificador identificador : entidadControl
 					.getIdentificadores()) {
-				// Solo los que pertencen a la relación y son externos
+				// Solo los que pertencen a la relaciï¿½n y son externos
 				if (this.pertenece(identificador)
 						&& !identificador.getEntidades().isEmpty()) {
 					List<Connection> conexiones = new ArrayList<>();
@@ -99,9 +99,14 @@ public class RelacionControl extends Relacion implements Control<Relacion>,
 			}
 		}
 	}
+	
+	@Override
+	public String getIcono() {
+		return "relacion.png";
+	}
 
 	/**
-	 * Indica si todas la entidades del identificador pertencen a la relación
+	 * Indica si todas la entidades del identificador pertencen a la relaciï¿½n
 	 * 
 	 * @param identificador
 	 * @return

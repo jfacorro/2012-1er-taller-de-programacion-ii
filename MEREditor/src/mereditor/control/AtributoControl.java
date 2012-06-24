@@ -48,6 +48,11 @@ public class AtributoControl extends Atributo implements Control<Atributo>, Mous
 	public Map<String, AtributoFigure> getFiguras() {
 		return this.figures;
 	}
+	
+	@Override
+	public String getIcono() {
+		return "atributo.png";
+	}
 
 	@Override
 	public void mouseDoubleClicked(MouseEvent arg0) {

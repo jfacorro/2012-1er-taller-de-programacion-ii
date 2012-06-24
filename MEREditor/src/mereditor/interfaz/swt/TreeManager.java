@@ -1,5 +1,6 @@
 package mereditor.interfaz.swt;
 
+import mereditor.control.Control;
 import mereditor.control.Proyecto;
 import mereditor.modelo.Diagrama;
 import mereditor.modelo.base.Componente;
@@ -50,12 +51,19 @@ public class TreeManager {
 		TreeItem item = new TreeItem(raiz, SWT.NULL);
 		item.setText(diagrama.getNombre());
 		item.setData(diagrama);
-		diagramaActivo= item;
+		item.setImage(Principal.getIcono("diagrama.png"));
+		diagramaActivo = item;
 
 		for (Diagrama diagramaHijo : diagrama.getDiagramas())
 			agregar(diagramaHijo, item);
 
-		for (Componente componente : diagrama.getComponentes())
+		for (Componente componente : diagrama.getEntidades())
+			agregar(componente, item);
+
+		for (Componente componente : diagrama.getRelaciones())
+			agregar(componente, item);
+
+		for (Componente componente : diagrama.getJerarquias())
 			agregar(componente, item);
 	}
 
@@ -63,18 +71,25 @@ public class TreeManager {
 	 * Agregado de diagrama no principal y sus hijos.
 	 * 
 	 * @param diagrama
-	 * @param item
+	 * @param padre
 	 */
-	private static void agregar(Diagrama diagrama, TreeItem item) {
-		TreeItem hijo = new TreeItem(item, SWT.NULL);
-		hijo.setText(diagrama.getNombre());
-		hijo.setData(diagrama);
+	private static void agregar(Diagrama diagrama, TreeItem padre) {
+		TreeItem item = new TreeItem(padre, SWT.NULL);
+		item.setText(diagrama.getNombre());
+		item.setData(diagrama);
+		item.setImage(Principal.getIcono("diagrama.png"));
 
 		for (Diagrama diagramaHijo : diagrama.getDiagramas())
-			agregar(diagramaHijo, hijo);
+			agregar(diagramaHijo, item);
 
-		for (Componente componente : diagrama.getComponentes())
-			agregar(componente, hijo);
+		for (Componente componente : diagrama.getEntidades())
+			agregar(componente, item);
+
+		for (Componente componente : diagrama.getRelaciones())
+			agregar(componente, item);
+
+		for (Componente componente : diagrama.getJerarquias())
+			agregar(componente, item);
 	}
 
 	/**
@@ -87,6 +102,9 @@ public class TreeManager {
 		TreeItem hijo = new TreeItem(padre, SWT.NULL);
 		hijo.setText(componente.toString());
 		hijo.setData(componente);
+
+		String icono = ((Control<?>) componente).getIcono();
+		hijo.setImage(Principal.getIcono(icono));
 	}
 
 	public static void cargar(Proyecto proyecto, Tree tree) {
@@ -97,7 +115,7 @@ public class TreeManager {
 
 	public static void mostrar() {
 		if (tab.isDisposed()) {
-			tab = new CTabItem(folder, SWT.CLOSE | SWT.BOTTOM );
+			tab = new CTabItem(folder, SWT.CLOSE | SWT.BOTTOM);
 			tab.setText(((Diagrama) tree.getTopItem().getData()).getNombre());
 			tab.setControl(tree);
 			folder.setSelection(tab);
@@ -107,7 +125,7 @@ public class TreeManager {
 	public static void agregarADiagramaActual(Diagrama nuevoDiagrama) {
 		agregar(nuevoDiagrama, tree.getTopItem());
 	}
-	
+
 	public static TreeItem getDiagramaActivo() {
 		return diagramaActivo;
 	}
@@ -115,5 +133,5 @@ public class TreeManager {
 	public static void setDiagramaActivo(TreeItem diagramaActivo) {
 		TreeManager.diagramaActivo = diagramaActivo;
 	}
-	
+
 }
