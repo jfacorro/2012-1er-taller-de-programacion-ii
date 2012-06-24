@@ -31,16 +31,12 @@ import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 
 public class AtributosTabla extends TableViewer {
-	public static final String NOMBRE = "Nombre";
-	public static final String TIPO = "Tipo";
-	public static final String[] PROPS = { NOMBRE, TIPO };
+	public static final String[] PROPS = { Editor.NOMBRE, Editor.TIPO };
 
-	private List<Atributo> atributos;
+	private List<Atributo> atributos = new ArrayList<>();
 
-	public AtributosTabla(Composite parent, Set<Atributo> atributos) {
+	public AtributosTabla(Composite parent) {
 		super(parent, SWT.FULL_SELECTION);
-		this.atributos = new ArrayList<>(atributos);
-
 		this.init();
 	}
 
@@ -53,8 +49,8 @@ public class AtributosTabla extends TableViewer {
 		Table tblAtributos = this.getTable();
 		tblAtributos
 				.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
-		new TableColumn(tblAtributos, SWT.CENTER).setText(NOMBRE);
-		new TableColumn(tblAtributos, SWT.CENTER).setText(TIPO);
+		new TableColumn(tblAtributos, SWT.CENTER).setText(Editor.NOMBRE);
+		new TableColumn(tblAtributos, SWT.CENTER).setText(Editor.TIPO);
 
 		tblAtributos.setHeaderVisible(true);
 		tblAtributos.setLinesVisible(true);
@@ -168,4 +164,16 @@ public class AtributosTabla extends TableViewer {
 			refresh();
 		}
 	};
+
+	public void setAtributos(Set<Atributo> atributos) {
+		this.atributos.addAll(atributos);
+		this.refresh();
+		
+		for (TableColumn column : this.getTable().getColumns())
+			column.pack();
+	}
+	
+	public List<Atributo> getAtributos() {
+		return this.atributos;
+	}
 }

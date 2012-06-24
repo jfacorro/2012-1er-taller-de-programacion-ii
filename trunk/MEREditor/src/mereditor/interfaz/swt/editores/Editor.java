@@ -11,6 +11,7 @@ import mereditor.modelo.Relacion.TipoRelacion;
 import mereditor.modelo.base.Componente;
 
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
@@ -19,6 +20,9 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 
 public abstract class Editor<T extends Componente> extends Dialog {
+	public static final String NOMBRE = "Nombre";
+	public static final String TIPO = "Tipo";
+
 	public final static String[] TiposAtributo = getTipos(TipoAtributo.class);
 	public final static String[] TiposEntidades = getTipos(TipoEntidad.class);
 	public final static String[] TiposRelaciones = getTipos(TipoRelacion.class);
@@ -36,6 +40,11 @@ public abstract class Editor<T extends Componente> extends Dialog {
 	public Editor(T componente) {
 		super(Principal.getInstance().getShell());
 		this.componente = componente;
+	}
+	
+	@Override
+	protected Point getInitialSize() {
+		return new Point(400, 400);
 	}
 	
 	@Override
