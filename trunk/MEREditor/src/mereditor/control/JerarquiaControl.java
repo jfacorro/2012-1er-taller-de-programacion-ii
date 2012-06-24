@@ -38,7 +38,7 @@ public class JerarquiaControl extends Jerarquia implements Control<Jerarquia>,
 	public void dibujar(Figure contenedor, String idDiagrama) {
 		// Obtener el diagrama padre correspondiente
 		Diagrama padre = (Diagrama) this.getPadre(idDiagrama);
-		// Dibujar solo si la generica está en el diagrama
+		// Dibujar solo si la generica estï¿½ en el diagrama
 		if (padre.contiene(this.generica)) {
 			JerarquiaFigura figuraJerarquia = (JerarquiaFigura) this
 					.getFigura(idDiagrama);
@@ -49,7 +49,7 @@ public class JerarquiaControl extends Jerarquia implements Control<Jerarquia>,
 			figuraJerarquia.conectarGenerica(figuraJerarquia, figuraGenerica);
 
 			for (Entidad derivada : this.derivadas) {
-				// Dibujar la conexión sólo si la derivada pertenece al diagrama
+				// Dibujar la conexiï¿½n sï¿½lo si la derivada pertenece al diagrama
 				if (padre.contiene(derivada)) {
 					Figure figuraDerivada = ((Control<?>) derivada)
 							.getFigura(idDiagrama);
@@ -58,6 +58,11 @@ public class JerarquiaControl extends Jerarquia implements Control<Jerarquia>,
 				}
 			}
 		}
+	}
+	
+	@Override
+	public String getIcono() {
+		return "jerarquia.png";
 	}
 
 	@Override

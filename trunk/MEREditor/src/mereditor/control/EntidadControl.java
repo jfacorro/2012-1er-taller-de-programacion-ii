@@ -64,6 +64,11 @@ public class EntidadControl extends Entidad implements Control<Entidad>, MouseLi
 	public Map<String, EntidadFigure> getFiguras() {
 		return this.figures;
 	}
+	
+	@Override
+	public String getIcono() {
+		return "entidad.png";
+	}
 
 	@Override
 	public void mouseDoubleClicked(MouseEvent event) {

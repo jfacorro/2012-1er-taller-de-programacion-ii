@@ -48,6 +48,8 @@ public class Principal extends Observable implements FigureListener {
 	private static final String MENSAJE_GUARDAR_DIAGRAMA_ACTUAL = "¿Desea guardar los cambios del diagrama actual?";
 	public static final String[] extensionProyecto = new String[] { "*.xml" };
 	public static final String[] extensionesImagen = new String[] { "*.jpg" };
+	private static final String PATH_IMAGENES = "src/recursos/imagenes/";
+	private static final String PATH_ICONOS = "src/recursos/iconos/";
 
 	private static Principal instancia;
 
@@ -64,6 +66,14 @@ public class Principal extends Observable implements FigureListener {
 
 	public static Principal getInstance() {
 		return Principal.instancia;
+	}
+
+	public static Image getImagen(String nombre) {
+		return new Image(Display.getDefault(), PATH_IMAGENES + nombre);
+	}
+
+	public static Image getIcono(String nombre) {
+		return new Image(Display.getDefault(), PATH_ICONOS + nombre);
 	}
 
 	private Shell shell;
@@ -289,8 +299,7 @@ public class Principal extends Observable implements FigureListener {
 	 * @param diagrama
 	 **/
 	public void abrirDiagrama(String id) {
-		if(this.modificado)
-		{
+		if (this.modificado) {
 			boolean guardar = MessageDialog.openConfirm(this.shell,
 					TITULO_GUARDAR_DIAGRAMA_ACTUAL,
 					MENSAJE_GUARDAR_DIAGRAMA_ACTUAL);

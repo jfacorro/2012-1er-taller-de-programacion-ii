@@ -31,4 +31,9 @@ public class DiagramaControl extends Diagrama implements Control<Diagrama> {
 	public void dibujar(Figure contenedor) {
 		this.dibujar(contenedor, this.id);
 	}
+	
+	@Override
+	public String getIcono() {
+		return "diagrama.png";
+	}
 }
