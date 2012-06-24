@@ -4,8 +4,6 @@ import mereditor.interfaz.swt.Principal;
 
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.SelectionAdapter;
-import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
@@ -34,10 +32,7 @@ public abstract class Dialog extends org.eclipse.jface.dialogs.Dialog {
 		Button btnOK = this.getButton(IDialogConstants.OK_ID);
 		Button btnCancel = this.getButton(IDialogConstants.CANCEL_ID);
 		btnOK.setText("Aceptar");
-		btnOK.addSelectionListener(this.aceptar);
 		btnCancel.setText("Cancelar");
-		
-		//this.getShell().pack();
 		
 		return control;
 	}
@@ -47,15 +42,4 @@ public abstract class Dialog extends org.eclipse.jface.dialogs.Dialog {
 		super.configureShell(newShell);
 		newShell.setText(this.titulo);
 	}
-
-	/**
-	 * Acciones a realizar al presionar el boton aceptar
-	 */
-	protected abstract void aceptar();
-
-	private SelectionAdapter aceptar = new SelectionAdapter() {
-		public void widgetSelected(SelectionEvent e) {
-			aceptar();
-		};
-	};
 }

@@ -45,7 +45,7 @@ public class Principal extends Observable implements FigureListener {
 			255, 255);
 	public static final String APP_NOMBRE = "MER Editor";
 	private static final String TITULO_GUARDAR_DIAGRAMA_ACTUAL = "Guardar diagrama actual";
-	private static final String MENSAJE_GUARDAR_DIAGRAMA_ACTUAL = "¿Desea guardar los cambios del diagrama actual?";
+	private static final String MENSAJE_GUARDAR_DIAGRAMA_ACTUAL = "Â¿Desea guardar los cambios del diagrama actual?";
 	public static final String[] extensionProyecto = new String[] { "*.xml" };
 	public static final String[] extensionesImagen = new String[] { "*.jpg" };
 
@@ -177,7 +177,7 @@ public class Principal extends Observable implements FigureListener {
 	}
 
 	/**
-	 * Actualiza el titulo según el estado del proyecto.
+	 * Actualiza el titulo segï¿½n el estado del proyecto.
 	 */
 	private void actualizarTitulo() {
 		String titulo = APP_NOMBRE;
@@ -307,7 +307,7 @@ public class Principal extends Observable implements FigureListener {
 	}
 
 	/**
-	 * Abre el diálogo para agregar una Entidad al diagrama que se encuentra
+	 * Abre el diï¿½logo para agregar una Entidad al diagrama que se encuentra
 	 * abierto.
 	 */
 	public void agregarEntidad() {
@@ -316,7 +316,7 @@ public class Principal extends Observable implements FigureListener {
 	}
 
 	/**
-	 * Abre el diálogo para agregar una Relacion al diagrama que se encuentra
+	 * Abre el diï¿½logo para agregar una Relacion al diagrama que se encuentra
 	 * abierto.
 	 */
 	public void agregarRelacion() {
@@ -324,7 +324,7 @@ public class Principal extends Observable implements FigureListener {
 	}
 
 	/**
-	 * Abre el diálogo para agregar una Jerarquia al diagrama que se encuentra
+	 * Abre el diï¿½logo para agregar una Jerarquia al diagrama que se encuentra
 	 * abierto.
 	 */
 	public void agregarJerarquia() {
@@ -368,7 +368,7 @@ public class Principal extends Observable implements FigureListener {
 	}
 
 	/**
-	 * Muestra la pantalla de impresión para el digrama actual.
+	 * Muestra la pantalla de impresiï¿½n para el digrama actual.
 	 */
 	public void imprimir() {
 		this.advertencia("La funcion Imprimir no esta implementada.");

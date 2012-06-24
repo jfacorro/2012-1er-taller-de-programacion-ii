@@ -8,6 +8,10 @@ import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
 
+/**
+ * Se encarga de mover las figuras loqueadas de una figura junto con ella al
+ * moverse esta.
+ */
 public class MovimientoControlador implements FigureListener {
 	protected Figura<?> figura;
 	private Point current;
@@ -23,9 +27,10 @@ public class MovimientoControlador implements FigureListener {
 		Dimension delta = this.figura.getLocation().getDifference(this.current);
 
 		for (Figure figure : this.figura.getFigurasLoqueadas()) {
-			figure.setBounds(figure.getBounds().getTranslated(delta.width, delta.height));
+			figure.setBounds(figure.getBounds().getTranslated(delta.width,
+					delta.height));
 		}
-		
+
 		this.current = this.figura.getLocation();
 	}
 }

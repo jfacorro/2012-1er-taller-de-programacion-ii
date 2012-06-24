@@ -7,6 +7,7 @@ import java.util.Set;
 
 import mereditor.control.EntidadControl;
 import mereditor.interfaz.swt.editores.EditorFactory;
+import mereditor.modelo.Diagrama;
 import mereditor.modelo.Entidad;
 
 import org.eclipse.swt.SWT;
@@ -59,8 +60,12 @@ public class AgregarEntidadDialog extends Dialog {
 	 * el combo.
 	 */
 	private void loadEntidades() {
-		Set<Entidad> entidades = this.principal.getProyecto()
-				.getDiagramaActual().getEntidades(true);
+		Diagrama diagrama = this.principal.getProyecto().getDiagramaActual();
+		
+		// Obtener las entidades de los ancestros 
+		Set<Entidad> entidades = diagrama.getEntidades(true);
+		// Quitar las que ya tiene
+		entidades.removeAll(diagrama.getEntidades());
 
 		for (Entidad entidad : entidades) {
 			this.entidades.put(entidad.getNombre(), entidad);
@@ -71,15 +76,16 @@ public class AgregarEntidadDialog extends Dialog {
 		Arrays.sort(items);
 		this.cboEntidades.setItems(items);
 	}
-
-	protected void aceptar() {
+	
+	@Override
+	protected void okPressed() {
 		if (cboEntidades.getSelectionIndex() == -1) {
-			this.principal.error("No seleccion� ninguna entidad");
+			this.principal.error("No seleccionó ninguna entidad");
 		} else {
 			String nombre = cboEntidades.getText();
 			Entidad entidad = this.entidades.get(nombre);
 			agregar(entidad);
-			close();
+			super.okPressed();
 		}
 	}
 

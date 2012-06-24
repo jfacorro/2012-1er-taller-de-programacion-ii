@@ -16,7 +16,7 @@ import org.eclipse.swt.widgets.TreeItem;
 /**
  * Activa Menu desplegable en el item donde recibio el evento
  */
-public class MenuArbolControlador implements Listener {
+public class MenuArbolControlador {
 
 	private Tree tree;
 	private TreeItem treeItemCortado;
@@ -26,26 +26,7 @@ public class MenuArbolControlador implements Listener {
 	public MenuArbolControlador(Tree tree, MenuArbolBuilder menu) {
 		this.tree = tree;
 		this.menu = menu;
-		tree.addListener(SWT.MouseDown, this);
-		treeItemCortado = null;
-		treeItemActivo = null;
-	}
-
-	public void handleEvent(Event event) {
-		// Mostrar el menu si no es el boton derecho
-		if (event.button > 1) {
-			Point point = new Point(event.x, event.y);
-			TreeItem treeItem = tree.getItem(point);
-			if (treeItem != null) {
-				treeItemActivo = treeItem;
-				Rectangle area = treeItem.getBounds();
-				Point p = new Point(area.x, area.y + area.height);
-				p = tree.toDisplay(p);
-				menu.getMenu().setLocation(p.x, p.y);
-				menu.getMenu().setVisible(true);
-				menu.mostrarOpciones ((Componente) treeItem.getData());
-			}
-		}
+		tree.addListener(SWT.MouseDown, this.mostrarMenu);
 	}
 
 	public void eliminarItemActivo() {
@@ -101,5 +82,25 @@ public class MenuArbolControlador implements Listener {
 	public TreeItem getTreeItemActivo() {
 		return treeItemActivo;
 	}
+	
+	private Listener mostrarMenu = new Listener() {
+		@Override
+		public void handleEvent(Event event) {
+			// Mostrar el menu si no es el boton derecho
+			if (event.button > 1) {
+				Point point = new Point(event.x, event.y);
+				TreeItem treeItem = tree.getItem(point);
+				if (treeItem != null) {
+					treeItemActivo = treeItem;
+					Rectangle area = treeItem.getBounds();
+					Point p = new Point(area.x, area.y + area.height);
+					p = tree.toDisplay(p);
+					menu.getMenu().setLocation(p.x, p.y);
+					menu.getMenu().setVisible(true);
+					menu.mostrarOpciones ((Componente) treeItem.getData());
+				}
+			}
+		}
+	};
 	
 }

@@ -7,6 +7,9 @@ import org.eclipse.draw2d.MouseMotionListener;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
 
+/**
+ * Se encarga del arrastre de las figuras.
+ */
 public class DragDropControlador extends MouseMotionListener.Stub implements MouseListener  {
 	private Point startPoint;
 
