@@ -91,7 +91,7 @@ public class TreeManager {
 
 	public static void cargar(Proyecto proyecto, Tree tree) {
 		TreeManager.agregar(proyecto.getRaiz(), tree);
-		tab.setText(proyecto.getRaiz().getNombre());
+		tab.setText(proyecto.getNombre());
 		folder.setEnabled(true);
 	}
 

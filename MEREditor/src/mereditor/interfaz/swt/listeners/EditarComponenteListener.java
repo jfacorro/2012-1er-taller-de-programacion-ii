@@ -12,10 +12,6 @@ import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.TreeItem;
 
 public class EditarComponenteListener implements Listener {
-
-	private static final String TITULO_DIALOG_GUARDAR_DIAGRAMA_ACTUAL = "Guardar diagrama actual";
-	private static final String MENSAJE_GUARDAR_DIAGRAMA_ACTUAL = "¿Desea guardar los cambios del diagrama actual?";
-
 	private MenuArbolControlador menuArbolC;
 
 	public EditarComponenteListener(MenuArbolControlador menuArbolC) {
@@ -33,7 +29,7 @@ public class EditarComponenteListener implements Listener {
 			abrirDiagramaParaEdicion(componenteAEditar);
 			return;
 		}
-		
+
 		EditorFactory.getEditor(componenteAEditar).abrir();
 
 	}
@@ -48,19 +44,9 @@ public class EditarComponenteListener implements Listener {
 		return true;
 	}
 
-	private void abrirDiagramaParaEdicion(Componente componenteAEditar) {
+	private void abrirDiagramaParaEdicion(Componente componente) {
 		TreeManager.setDiagramaActivo(menuArbolC.getTreeItemActivo());
-		boolean guardar = MessageDialog.openConfirm(Principal.getInstance()
-				.getShell(), TITULO_DIALOG_GUARDAR_DIAGRAMA_ACTUAL,
-				MENSAJE_GUARDAR_DIAGRAMA_ACTUAL);
-		if (guardar) {
-			try {
-				Principal.getInstance().guardar();
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
-		Principal.getInstance().abrir((Diagrama) componenteAEditar);
+		Principal.getInstance().abrirDiagrama(componente.getId());
 	}
 
 }

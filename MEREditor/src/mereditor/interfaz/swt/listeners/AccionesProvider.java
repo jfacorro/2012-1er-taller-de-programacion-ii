@@ -43,7 +43,7 @@ public class AccionesProvider {
 		@Override
 		public void widgetSelected(SelectionEvent e) {
 			try {
-				principal().guardar();
+				principal().guardarProyecto();
 			} catch (Exception e1) {
 				e1.printStackTrace();
 			}

@@ -87,7 +87,7 @@ public class AgregarEntidadDialog extends Dialog {
 	 */
 	private void agregar(Entidad entidad) {
 		principal.getProyecto().agregar(entidad);
-		principal.actualizar();
+		principal.actualizarVista();
 		close();
 	}
 }

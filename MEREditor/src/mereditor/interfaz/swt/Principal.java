@@ -13,10 +13,12 @@ import mereditor.control.Proyecto;
 import mereditor.interfaz.swt.DialogBuilder.PromptResult;
 import mereditor.interfaz.swt.DialogBuilder.Resultado;
 import mereditor.interfaz.swt.dialogs.AgregarEntidadDialog;
-import mereditor.modelo.Diagrama;
 import mereditor.xml.ParserXml;
 
 import org.eclipse.draw2d.FigureCanvas;
+import org.eclipse.draw2d.FigureListener;
+import org.eclipse.draw2d.IFigure;
+import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.SashForm;
 import org.eclipse.swt.graphics.Color;
@@ -35,15 +37,34 @@ import org.eclipse.swt.widgets.Tree;
 import org.w3c.dom.Document;
 
 /**
- * Formulario principal de la aplicaciï¿½n.
+ * Formulario principal de la aplicacion.
  * 
  */
-public class Principal extends Observable {
+public class Principal extends Observable implements FigureListener {
 	public static final Color defaultBackgroundColor = new Color(null, 255,
 			255, 255);
 	public static final String APP_NOMBRE = "MER Editor";
+	private static final String TITULO_GUARDAR_DIAGRAMA_ACTUAL = "Guardar diagrama actual";
+	private static final String MENSAJE_GUARDAR_DIAGRAMA_ACTUAL = "¿Desea guardar los cambios del diagrama actual?";
 	public static final String[] extensionProyecto = new String[] { "*.xml" };
 	public static final String[] extensionesImagen = new String[] { "*.jpg" };
+
+	private static Principal instancia;
+
+	public static void main(String args[]) {
+		Display display = Display.getDefault();
+		Shell shell = new Shell(display, SWT.SHELL_TRIM);
+
+		Principal.instancia = new Principal(shell);
+
+		while (!shell.isDisposed())
+			while (!display.readAndDispatch())
+				display.sleep();
+	}
+
+	public static Principal getInstance() {
+		return Principal.instancia;
+	}
 
 	private Shell shell;
 
@@ -55,23 +76,10 @@ public class Principal extends Observable {
 	private PanelDisegno panelDisegno;
 	private Proyecto proyecto;
 
-	private static Principal instancia;
-
-	public static void main(String args[]) {
-		Display display = Display.getDefault();
-		Shell shell = new Shell(display, SWT.SHELL_TRIM);
-
-		Principal.instancia = new Principal(shell);
-		instancia.mostrar();
-
-		while (!shell.isDisposed())
-			while (!display.readAndDispatch())
-				display.sleep();
-	}
-
-	public static Principal getInstance() {
-		return Principal.instancia;
-	}
+	/**
+	 * Indica si el diagrama actual fue modificado.
+	 */
+	private boolean modificado;
 
 	private Principal(Shell shell) {
 		this.shell = shell;
@@ -87,8 +95,13 @@ public class Principal extends Observable {
 		this.initFigureCanvas();
 
 		this.arregloLayout();
+
+		this.shell.open();
 	}
 
+	/**
+	 * Establece el layout de los diferentes widgets en la ventana principal.
+	 */
 	private void arregloLayout() {
 		FormData formData = null;
 
@@ -103,6 +116,9 @@ public class Principal extends Observable {
 		sashForm.setWeights(new int[] { 3, 16 });
 	}
 
+	/**
+	 * Inicializa el canvas donde se dibuja el diagrama.
+	 */
 	private void initFigureCanvas() {
 		this.figureCanvas = new FigureCanvas(this.sashForm);
 		this.figureCanvas.setBackground(Principal.defaultBackgroundColor);
@@ -136,10 +152,8 @@ public class Principal extends Observable {
 		if (path != null) {
 			try {
 				ParserXml modelo = new ParserXml(path);
-
 				this.proyecto = modelo.parsear();
 				this.cargarProyecto();
-
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -158,17 +172,50 @@ public class Principal extends Observable {
 		// Notificar a la toolbar que hay un proyecto abierto.
 		this.setChanged();
 		this.notifyObservers();
+
+		this.modificado(false);
 	}
 
 	/**
-	 * Guarda un proyecto en el archivo especificado.
+	 * Actualiza el titulo según el estado del proyecto.
+	 */
+	private void actualizarTitulo() {
+		String titulo = APP_NOMBRE;
+
+		if (this.proyecto != null) {
+			titulo += " - " + this.proyecto.getNombre();
+			titulo += this.modificado ? " *" : "";
+			titulo += " [" + this.proyecto.getPath() + "]";
+		}
+
+		this.shell.setText(titulo);
+	}
+
+	/**
+	 * Guarda un proyecto en el path que ya tiene asignado o muestra el dialogo
+	 * para elegir el archivo.
 	 * 
 	 * @throws Exception
 	 */
-	public void guardar() throws Exception {
-		FileDialog fileDialog = new FileDialog(this.shell, SWT.SAVE);
-		fileDialog.setFilterExtensions(extensionProyecto);
-		String path = fileDialog.open();
+	public void guardarProyecto() throws Exception {
+		this.guardarProyecto(false);
+	}
+
+	/**
+	 * Guarda un proyecto en el path indicado.
+	 * 
+	 * @param showDialog
+	 *            indica si se debe mostrar el dialogo de seleccion de archivo.
+	 * @throws Exception
+	 */
+	public void guardarProyecto(boolean showDialog) throws Exception {
+		String path = this.proyecto.getPath();
+
+		if (path == null || showDialog) {
+			FileDialog fileDialog = new FileDialog(this.shell, SWT.SAVE);
+			fileDialog.setFilterExtensions(extensionProyecto);
+			path = fileDialog.open();
+		}
 
 		if (path != null) {
 			File file = new File(path);
@@ -180,6 +227,8 @@ public class Principal extends Observable {
 					dir + this.proyecto.getComponentesPath());
 			this.guardarXml(modelo.generarXmlRepresentacion(), dir
 					+ this.proyecto.getRepresentacionPath());
+
+			this.modificado(false);
 		}
 	}
 
@@ -215,20 +264,15 @@ public class Principal extends Observable {
 			this.panelDisegno.actualizar();
 
 			TreeManager.agregarADiagramaActual(nuevoDiagrama);
-		}
-	}
 
-	/**
-	 * Abrir la ventana principal.
-	 */
-	public void mostrar() {
-		this.shell.open();
+			this.modificado(true);
+		}
 	}
 
 	/**
 	 * Actualiza la vista.
 	 */
-	public void actualizar() {
+	public void actualizarVista() {
 		this.panelDisegno.actualizar();
 	}
 
@@ -244,31 +288,22 @@ public class Principal extends Observable {
 	 * 
 	 * @param diagrama
 	 **/
-	public void abrir(Diagrama diagrama) {
-		this.proyecto.setDiagramaActual(diagrama.getId());
-		this.actualizar();
-	}
-
-	public Shell getShell() {
-		return this.shell;
-	}
-
-	public Proyecto getProyecto() {
-		return this.proyecto;
-	}
-
-	public void error(String mensaje) {
-		MessageBox messageBox = new MessageBox(shell, SWT.ICON_ERROR | SWT.OK);
-		messageBox.setText("Error");
-		messageBox.setMessage(mensaje);
-		messageBox.open();
-	}
-	
-	public void advertencia(String mensaje) {
-		MessageBox messageBox = new MessageBox(shell, SWT.ICON_WARNING | SWT.OK);
-		messageBox.setText("Advertencia");
-		messageBox.setMessage(mensaje);
-		messageBox.open();
+	public void abrirDiagrama(String id) {
+		if(this.modificado)
+		{
+			boolean guardar = MessageDialog.openConfirm(this.shell,
+					TITULO_GUARDAR_DIAGRAMA_ACTUAL,
+					MENSAJE_GUARDAR_DIAGRAMA_ACTUAL);
+			if (guardar) {
+				try {
+					Principal.getInstance().guardarProyecto();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		this.proyecto.setDiagramaActual(id);
+		this.actualizarVista();
 	}
 
 	/**
@@ -277,6 +312,7 @@ public class Principal extends Observable {
 	 */
 	public void agregarEntidad() {
 		new AgregarEntidadDialog().abrir();
+		this.modificado(true);
 	}
 
 	/**
@@ -284,7 +320,7 @@ public class Principal extends Observable {
 	 * abierto.
 	 */
 	public void agregarRelacion() {
-		new AgregarEntidadDialog().abrir();
+		this.advertencia("No implementado.");
 	}
 
 	/**
@@ -292,7 +328,7 @@ public class Principal extends Observable {
 	 * abierto.
 	 */
 	public void agregarJerarquia() {
-		new AgregarEntidadDialog().abrir();
+		this.advertencia("No implementado.");
 	}
 
 	/**
@@ -343,5 +379,74 @@ public class Principal extends Observable {
 	 */
 	public void validar() {
 		this.advertencia("La funcion Validar no esta implementada.");
+	}
+
+	@Override
+	public void figureMoved(IFigure source) {
+		this.modificado(true);
+	}
+
+	/**
+	 * Devuelve el shel de la ventana principal.
+	 * 
+	 * @return
+	 */
+	public Shell getShell() {
+		return this.shell;
+	}
+
+	/**
+	 * Devuelve el proyecto que se encuentra abierto
+	 * 
+	 * @return
+	 */
+	public Proyecto getProyecto() {
+		return this.proyecto;
+	}
+
+	/**
+	 * Indica si el proyecto fue modificado.
+	 * 
+	 * @return
+	 */
+	public Proyecto getModificado() {
+		return this.proyecto;
+	}
+
+	/**
+	 * Muestra una ventana de error con el mensaje especificado.
+	 * 
+	 * @param mensaje
+	 */
+	public void error(String mensaje) {
+		MessageBox messageBox = new MessageBox(shell, SWT.ICON_ERROR | SWT.OK);
+		messageBox.setText("Error");
+		messageBox.setMessage(mensaje);
+		messageBox.open();
+	}
+
+	/**
+	 * Muestra una ventana de advertencia con el mensaje especificado.
+	 * 
+	 * @param mensaje
+	 */
+	public void advertencia(String mensaje) {
+		MessageBox messageBox = new MessageBox(shell, SWT.ICON_WARNING | SWT.OK);
+		messageBox.setText("Advertencia");
+		messageBox.setMessage(mensaje);
+		messageBox.open();
+	}
+
+	/**
+	 * Define si el proyecto fue modificado y actualiza el titulo de la ventana
+	 * principal.
+	 * 
+	 * @param modificado
+	 */
+	private void modificado(boolean modificado) {
+		if (modificado != this.modificado) {
+			this.modificado = modificado;
+			this.actualizarTitulo();
+		}
 	}
 }
