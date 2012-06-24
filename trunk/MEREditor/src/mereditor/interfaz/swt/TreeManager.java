@@ -29,7 +29,7 @@ public class TreeManager {
 
 	private CTabFolder2Listener minimizar = new CTabFolder2Adapter() {
 		public void minimize(CTabFolderEvent event) {
-			folder.setVisible(false);
+			Principal.getInstance().mostrarArbol(false);
 		};
 	};
 
@@ -38,9 +38,12 @@ public class TreeManager {
 		folder.setSimple(false);
 		folder.setMinimizeVisible(true);
 		folder.addCTabFolder2Listener(this.minimizar);
-		tab = new CTabItem(folder, SWT.CLOSE | SWT.BOTTOM);
+
+		tab = new CTabItem(folder, SWT.BOTTOM);
 		tab.setShowClose(false);
+
 		tree = new Tree(folder, SWT.NO_SCROLL);
+		
 		this.init();
 	}
 
@@ -122,14 +125,10 @@ public class TreeManager {
 		hijo.setImage(Principal.getIcono(icono));
 	}
 
-	public static void cargar(Proyecto proyecto, Tree tree) {
-		TreeManager.agregar(proyecto.getRaiz(), tree);
+	public static void cargar(Proyecto proyecto) {
+		TreeManager.agregar(proyecto.getRaiz(), TreeManager.tree);
 		tab.setText(proyecto.getNombre());
 		folder.setEnabled(true);
-	}
-
-	public static void mostrar() {
-		folder.setVisible(true);
 	}
 
 	public static void agregarADiagramaActual(Diagrama nuevoDiagrama) {
