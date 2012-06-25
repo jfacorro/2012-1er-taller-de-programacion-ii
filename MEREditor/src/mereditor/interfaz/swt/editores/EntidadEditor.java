@@ -1,5 +1,7 @@
 package mereditor.interfaz.swt.editores;
 
+import java.util.List;
+
 import mereditor.control.EntidadControl;
 import mereditor.modelo.Atributo;
 import mereditor.modelo.Entidad;
@@ -87,10 +89,18 @@ public class EntidadEditor extends Editor<Entidad> {
 
 	@Override
 	protected void aplicarCambios() {
-		componente.setTipo(TipoEntidad.valueOf(this.cboTipo.getText()));
 		componente.setNombre(txtNombre.getText());
+		componente.setTipo(TipoEntidad.valueOf(this.cboTipo.getText()));
 
 		for (Atributo atributo : this.tblAtributos.getAtributos())
 			componente.addAtributo(atributo);
+	}
+	
+	@Override
+	protected boolean validar(List<String> errors) {
+		if(this.txtNombre.getText().length() == 0)
+			errors.add("Debe completar el nombre.");
+
+		return errors.size() == 0;
 	}
 }
