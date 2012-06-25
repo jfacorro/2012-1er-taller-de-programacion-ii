@@ -66,7 +66,7 @@ public class EntidadControl extends Entidad implements Control<Entidad>, MouseLi
 	}
 	
 	@Override
-	public String getIcono() {
+	public String getNombreIcono() {
 		return "entidad.png";
 	}
 

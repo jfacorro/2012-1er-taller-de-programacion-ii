@@ -50,7 +50,7 @@ public class AtributoControl extends Atributo implements Control<Atributo>, Mous
 	}
 	
 	@Override
-	public String getIcono() {
+	public String getNombreIcono() {
 		return "atributo.png";
 	}
 

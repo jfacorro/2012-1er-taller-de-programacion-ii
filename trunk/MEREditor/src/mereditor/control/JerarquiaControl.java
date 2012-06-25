@@ -61,7 +61,7 @@ public class JerarquiaControl extends Jerarquia implements Control<Jerarquia>,
 	}
 	
 	@Override
-	public String getIcono() {
+	public String getNombreIcono() {
 		return "jerarquia.png";
 	}
 

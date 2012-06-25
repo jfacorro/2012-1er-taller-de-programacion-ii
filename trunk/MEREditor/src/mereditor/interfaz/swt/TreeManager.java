@@ -27,47 +27,44 @@ public class TreeManager {
 		return TreeManager.tree;
 	}
 
-	private CTabFolder2Listener minimizar = new CTabFolder2Adapter() {
-		public void minimize(CTabFolderEvent event) {
-			Principal.getInstance().mostrarArbol(false);
-		};
-	};
-
 	private TreeManager(Composite composite) {
 		folder = new CTabFolder(composite, SWT.CENTER);
-		folder.setSimple(false);
-		folder.setMinimizeVisible(true);
-		folder.addCTabFolder2Listener(this.minimizar);
-
 		tab = new CTabItem(folder, SWT.BOTTOM);
-		tab.setShowClose(false);
-
 		tree = new Tree(folder, SWT.NO_SCROLL);
-		
+		new MenuArbolBuilder(tree);
+
 		this.init();
 	}
 
 	private void init() {
 		tree.setBackground(new Color(null, 240, 240, 240));
-		folder.setEnabled(false);
+
 		folder.setSimple(false);
 		folder.setSelection(tab);
+		folder.setMinimizeVisible(true);
+		folder.addCTabFolder2Listener(this.minimizar);
+
 		tab.setControl(tree);
+		tab.setShowClose(false);
 	}
 
 	/**
 	 * Agregado del diagrama principal y sus hijos.
 	 * 
 	 * @param diagrama
-	 * @param raiz
+	 * @param tree
 	 */
-	private static void agregar(Diagrama diagrama, Tree raiz) {
-		raiz.removeAll();
-		raiz.setData(diagrama);
-		TreeItem item = new TreeItem(raiz, SWT.NULL);
+	private static void agregar(Diagrama diagrama, Tree tree) {
+		tree.removeAll();
+		tree.setData(diagrama);
+		// Crear el item raiz.
+		TreeItem item = new TreeItem(tree, SWT.NULL);
 		item.setText(diagrama.getNombre());
 		item.setData(diagrama);
-		item.setImage(Principal.getIcono("diagrama.png"));
+		// Cargar el icono del item.
+		String nombreIcono = ((Control<?>) diagrama).getNombreIcono();
+		item.setImage(Principal.getIcono(nombreIcono));
+
 		diagramaActivo = item;
 
 		for (Diagrama diagramaHijo : diagrama.getDiagramas())
@@ -95,7 +92,8 @@ public class TreeManager {
 		TreeItem item = new TreeItem(padre, SWT.NULL);
 		item.setText(diagrama.getNombre());
 		item.setData(diagrama);
-		item.setImage(Principal.getIcono("diagrama.png"));
+		String nombreIcono = ((Control<?>) diagrama).getNombreIcono();
+		item.setImage(Principal.getIcono(nombreIcono));
 
 		for (Diagrama diagramaHijo : diagrama.getDiagramas())
 			agregar(diagramaHijo, item);
@@ -117,14 +115,18 @@ public class TreeManager {
 	 * @param item
 	 */
 	private static void agregar(Componente componente, TreeItem padre) {
-		TreeItem hijo = new TreeItem(padre, SWT.NULL);
-		hijo.setText(componente.toString());
-		hijo.setData(componente);
+		TreeItem item = new TreeItem(padre, SWT.NULL);
+		item.setText(componente.toString());
+		item.setData(componente);
 
-		String icono = ((Control<?>) componente).getIcono();
-		hijo.setImage(Principal.getIcono(icono));
+		String icono = ((Control<?>) componente).getNombreIcono();
+		item.setImage(Principal.getIcono(icono));
 	}
 
+	/**
+	 * Carga todo el arbol de componentes entero.
+	 * @param proyecto
+	 */
 	public static void cargar(Proyecto proyecto) {
 		TreeManager.agregar(proyecto.getRaiz(), TreeManager.tree);
 		tab.setText(proyecto.getNombre());
@@ -132,15 +134,20 @@ public class TreeManager {
 	}
 
 	public static void agregarADiagramaActual(Diagrama nuevoDiagrama) {
-		agregar(nuevoDiagrama, tree.getTopItem());
+		agregar(nuevoDiagrama, diagramaActivo);
 	}
 
-	public static TreeItem getDiagramaActivo() {
-		return diagramaActivo;
+	public static Diagrama getDiagramaActual() {
+		return (Diagrama) diagramaActivo.getData();
 	}
 
 	public static void setDiagramaActivo(TreeItem diagramaActivo) {
 		TreeManager.diagramaActivo = diagramaActivo;
 	}
-
+	
+	private CTabFolder2Listener minimizar = new CTabFolder2Adapter() {
+		public void minimize(CTabFolderEvent event) {
+			Principal.getInstance().mostrarArbol(false);
+		};
+	};
 }
