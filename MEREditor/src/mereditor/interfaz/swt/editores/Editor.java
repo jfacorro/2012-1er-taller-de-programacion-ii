@@ -1,6 +1,7 @@
 package mereditor.interfaz.swt.editores;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import mereditor.interfaz.swt.Principal;
 import mereditor.interfaz.swt.dialogs.Dialog;
@@ -56,7 +57,7 @@ public abstract class Editor<T extends Componente> extends Dialog {
 	}
 
 	private static <T> String[] getTipos(Class<T> enumClass) {
-		java.util.List<String> tipos = new ArrayList<>();
+		List<String> tipos = new ArrayList<>();
 
 		for (T tipo : enumClass.getEnumConstants())
 			tipos.add(tipo.toString());

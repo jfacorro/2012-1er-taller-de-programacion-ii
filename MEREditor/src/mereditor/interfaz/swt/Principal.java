@@ -13,6 +13,7 @@ import mereditor.control.Proyecto;
 import mereditor.interfaz.swt.DialogBuilder.PromptResult;
 import mereditor.interfaz.swt.DialogBuilder.Resultado;
 import mereditor.interfaz.swt.dialogs.AgregarEntidadDialog;
+import mereditor.interfaz.swt.editores.RelacionEditor;
 import mereditor.xml.ParserXml;
 
 import org.eclipse.draw2d.FigureCanvas;
@@ -324,7 +325,7 @@ public class Principal extends Observable implements FigureListener {
 	 * abierto.
 	 */
 	public void agregarRelacion() {
-		this.advertencia("No implementado.");
+		new RelacionEditor().open();
 	}
 
 	/**

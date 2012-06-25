@@ -1,5 +1,6 @@
 package mereditor.interfaz.swt.editores;
 
+import mereditor.control.RelacionControl;
 import mereditor.modelo.Relacion;
 
 import org.eclipse.swt.SWT;
@@ -17,10 +18,17 @@ public class RelacionEditor extends Editor<Relacion> {
 	protected Combo cboTipo;
 	protected AtributosTabla tblAtributos;
 
+	/**
+	 * Utilizado para la creación de una nueva relacion.
+	 */
+	public RelacionEditor() {
+		this(new RelacionControl());
+	}
+
 	public RelacionEditor(Relacion relacion) {
 		super(relacion);
 	}
-	
+
 	@Override
 	protected Control createDialogArea(final Composite parent) {
 		Composite dialogArea = (Composite) super.createDialogArea(parent);
@@ -33,7 +41,8 @@ public class RelacionEditor extends Editor<Relacion> {
 		header.setLayout(new GridLayout(2, false));
 
 		this.txtNombre = createLabelText(header, Editor.NOMBRE);
-		this.txtNombre.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
+		this.txtNombre.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true,
+				false));
 
 		this.cboTipo = createLabelCombo(header, Editor.TIPO);
 		this.cboTipo.setItems(Editor.TiposRelaciones);
@@ -42,7 +51,8 @@ public class RelacionEditor extends Editor<Relacion> {
 		 * Atributos.
 		 */
 		Group grupoAtributos = new Group(dialogArea, SWT.NONE);
-		grupoAtributos.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
+		grupoAtributos.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true,
+				true));
 		grupoAtributos.setText("Atributos");
 		grupoAtributos.setLayout(new GridLayout(1, true));
 
@@ -69,6 +79,6 @@ public class RelacionEditor extends Editor<Relacion> {
 	@Override
 	protected void aplicarCambios() {
 		// TODO Auto-generated method stub
-		
+
 	}
 }
