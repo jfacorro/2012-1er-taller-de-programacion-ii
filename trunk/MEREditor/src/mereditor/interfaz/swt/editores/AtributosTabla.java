@@ -69,7 +69,7 @@ public class AtributosTabla extends TableViewer {
 
 	}
 
-	// Agregar un nuevo atributo cuando se hace click sobre el boton
+	// Agregar un nuevo atributo cuando se hace click sobre el boton "Nuevo"
 	public final SelectionListener nuevo = new SelectionAdapter() {
 		public void widgetSelected(SelectionEvent event) {
 			AtributoControl atributo = new AtributoControl();
@@ -78,6 +78,14 @@ public class AtributosTabla extends TableViewer {
 
 			atributos.add(atributo);
 
+			refresh();
+		}
+	};
+	
+	// Eliminar atributo
+	public final SelectionListener eliminar = new SelectionAdapter() {
+		public void widgetSelected(SelectionEvent event) {
+			//TODO
 			refresh();
 		}
 	};

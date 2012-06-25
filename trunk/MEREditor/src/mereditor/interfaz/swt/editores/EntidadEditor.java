@@ -70,11 +70,17 @@ public class EntidadEditor extends Editor<Entidad> {
 		Button btnNuevoAtributo = new Button(grupoAtributos, SWT.PUSH);
 		btnNuevoAtributo.setText("Nuevo");
 
+		Button btnEliminarAtributo = new Button(grupoAtributos, SWT.PUSH);
+		btnEliminarAtributo.setText("Eliminar");
+		
 		// TableViewer
 		this.tblAtributos = new AtributosTabla(grupoAtributos);
 
 		// Agregar un nuevo atributo cuando se hace click sobre el boton
 		btnNuevoAtributo.addSelectionListener(this.tblAtributos.nuevo);
+		
+		// Eliminar atributo
+		btnEliminarAtributo.addSelectionListener(this.tblAtributos.eliminar);
 
 		return dialogArea;
 	}
