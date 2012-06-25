@@ -8,6 +8,7 @@ public class AtributoEditor extends Editor<Atributo> {
 
 	public AtributoEditor(Atributo atributo) {
 		super(atributo);
+		this.titulo = "Editor - " + componente.getNombre();
 	}
 
 	@Override

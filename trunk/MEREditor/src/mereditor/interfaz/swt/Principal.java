@@ -266,7 +266,7 @@ public class Principal extends Observable implements FigureListener {
 			nuevoDiagrama.setNombre(resultado.value);
 
 			this.proyecto.agregar(nuevoDiagrama);
-			this.panelDisegno.actualizar();
+			this.actualizarVista();
 
 			TreeManager.agregarADiagramaActual(nuevoDiagrama);
 
@@ -295,7 +295,7 @@ public class Principal extends Observable implements FigureListener {
 	 **/
 	public void abrirDiagrama(String id) {
 		if (this.shell.getModified()) {
-			boolean guardar = MessageDialog.openConfirm(this.shell,
+			boolean guardar = MessageDialog.openQuestion(this.shell,
 					TITULO_GUARDAR_DIAGRAMA_ACTUAL,
 					MENSAJE_GUARDAR_DIAGRAMA_ACTUAL);
 			if (guardar) {

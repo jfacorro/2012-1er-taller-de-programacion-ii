@@ -13,6 +13,7 @@ public class JerarquiaEditor extends Editor<Jerarquia> {
 
 	public JerarquiaEditor(Jerarquia jerarquia) {
 		super(jerarquia);
+		this.titulo = "Editor - Jerarquia";
 	}
 
 	@Override

@@ -112,8 +112,10 @@ public class MenuArbolBuilder {
 		@Override
 		public void handleEvent(Event event) {
 			Componente componente = getComponente();
-			if (Diagrama.class.isInstance(componente))
+			if (Diagrama.class.isInstance(componente)){
 				Principal.getInstance().abrirDiagrama(componente.getId());
+				getItem().setExpanded(true);
+			}
 			else
 				EditorFactory.getEditor(componente).open();
 		}
