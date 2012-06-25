@@ -33,7 +33,7 @@ public class DiagramaControl extends Diagrama implements Control<Diagrama> {
 	}
 	
 	@Override
-	public String getIcono() {
+	public String getNombreIcono() {
 		return "diagrama.png";
 	}
 }

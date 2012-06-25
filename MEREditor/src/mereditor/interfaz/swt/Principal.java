@@ -36,7 +36,6 @@ import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.ToolBar;
-import org.eclipse.swt.widgets.Tree;
 import org.w3c.dom.Document;
 
 /**
@@ -83,7 +82,6 @@ public class Principal extends Observable implements FigureListener {
 
 	private SashForm sashForm;
 	private ToolBar toolBar;
-	private Tree tree;
 	private FigureCanvas figureCanvas;
 
 	private PanelDisegno panelDisegno;
@@ -98,8 +96,7 @@ public class Principal extends Observable implements FigureListener {
 		MenuBuilder.build(this);
 		this.toolBar = ToolBarBuilder.build(this);
 		this.sashForm = new SashForm(this.shell, SWT.HORIZONTAL);
-		this.tree = TreeManager.build(this.sashForm);
-		MenuArbolBuilder.build(this.shell, this.tree);
+		TreeManager.build(this.sashForm);
 		this.initFigureCanvas();
 
 		this.arregloLayout();

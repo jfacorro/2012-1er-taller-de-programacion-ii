@@ -101,7 +101,7 @@ public class RelacionControl extends Relacion implements Control<Relacion>,
 	}
 	
 	@Override
-	public String getIcono() {
+	public String getNombreIcono() {
 		return "relacion.png";
 	}
 

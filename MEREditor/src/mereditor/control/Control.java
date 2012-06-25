@@ -29,5 +29,5 @@ public interface Control<T extends Componente> {
 	 * Devuelve el icono que corresponde a este control.
 	 * @return
 	 */
-	public String getIcono();
+	public String getNombreIcono();
 }
