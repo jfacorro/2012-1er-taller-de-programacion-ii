@@ -42,12 +42,12 @@ public abstract class Editor<T extends Componente> extends Dialog {
 		super(Principal.getInstance().getShell());
 		this.componente = componente;
 	}
-	
+
 	@Override
 	protected Point getInitialSize() {
 		return new Point(400, 400);
 	}
-	
+
 	@Override
 	protected Control createContents(Composite parent) {
 		Control control = super.createContents(parent);
@@ -67,29 +67,42 @@ public abstract class Editor<T extends Componente> extends Dialog {
 
 	@Override
 	protected void okPressed() {
-		this.aplicarCambios();
-		principal.actualizarVista();
-		super.okPressed();
+		List<String> errors = new ArrayList<>();
+
+		if (this.validar(errors)) {
+			this.aplicarCambios();
+			principal.actualizarVista();
+			super.okPressed();
+		} else {
+			String mensaje = "";
+			for (String error : errors)
+				mensaje += error + "\n";
+			Principal.getInstance().error(mensaje);
+		}
 	}
-	
+
 	protected static Text createLabelText(Composite parent, String name) {
 		Label lblNombre = new Label(parent, SWT.LEFT);
 		lblNombre.setText(name);
 
 		Text txtField = new Text(parent, SWT.BORDER);
-		
+
 		return txtField;
 	}
-	
+
 	protected static Combo createLabelCombo(Composite parent, String name) {
 		Label lblNombre = new Label(parent, SWT.LEFT);
 		lblNombre.setText(name);
 
 		Combo cboField = new Combo(parent, SWT.BORDER);
-		
+
 		return cboField;
 	}
-	
+
+	public T getComponente() {
+		return this.componente;
+	}
+
 	/**
 	 * Carga los datos del componente en los controles.
 	 */
@@ -99,4 +112,6 @@ public abstract class Editor<T extends Componente> extends Dialog {
 	 * Aplica los cambios hechos al componente.
 	 */
 	protected abstract void aplicarCambios();
+
+	protected abstract boolean validar(List<String> errors);
 }

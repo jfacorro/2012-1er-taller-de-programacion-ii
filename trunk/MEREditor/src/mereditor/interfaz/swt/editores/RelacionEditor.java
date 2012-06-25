@@ -1,7 +1,11 @@
 package mereditor.interfaz.swt.editores;
 
+import java.util.List;
+
 import mereditor.control.RelacionControl;
+import mereditor.modelo.Atributo;
 import mereditor.modelo.Relacion;
+import mereditor.modelo.Relacion.TipoRelacion;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
@@ -78,7 +82,15 @@ public class RelacionEditor extends Editor<Relacion> {
 
 	@Override
 	protected void aplicarCambios() {
-		// TODO Auto-generated method stub
+		componente.setNombre(txtNombre.getText());
+		componente.setTipo(TipoRelacion.valueOf(this.cboTipo.getText()));
 
+		for (Atributo atributo : this.tblAtributos.getAtributos())
+			componente.addAtributo(atributo);
+	}
+	
+	@Override
+	protected boolean validar(List<String> errors) {
+		return errors.size() == 0;
 	}
 }

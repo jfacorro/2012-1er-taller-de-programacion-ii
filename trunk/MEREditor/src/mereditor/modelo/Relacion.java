@@ -14,7 +14,7 @@ public class Relacion extends ComponenteNombre {
 		ASOCIACION, COMPOSICION
 	}
 
-	protected TipoRelacion tipo;
+	protected TipoRelacion tipo = TipoRelacion.ASOCIACION;
 	protected Set<Atributo> atributos = new HashSet<>();
 	protected Set<EntidadRelacion> participantes = new HashSet<>();
 
@@ -31,11 +31,11 @@ public class Relacion extends ComponenteNombre {
 		this.tipo = tipo;
 	}
 
-	public void agregarAtributo(Componente atributo) {
+	public void addAtributo(Componente atributo) {
 		atributos.add((Atributo) atributo);
 	}
 
-	public void agregarParticipante(EntidadRelacion participante) {
+	public void addParticipante(EntidadRelacion participante) {
 		participantes.add(participante);
 	}
 

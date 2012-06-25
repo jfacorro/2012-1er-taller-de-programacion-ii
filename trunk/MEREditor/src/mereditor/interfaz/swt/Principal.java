@@ -13,6 +13,7 @@ import mereditor.control.Proyecto;
 import mereditor.interfaz.swt.DialogBuilder.PromptResult;
 import mereditor.interfaz.swt.DialogBuilder.Resultado;
 import mereditor.interfaz.swt.dialogs.AgregarEntidadDialog;
+import mereditor.interfaz.swt.editores.JerarquiaEditor;
 import mereditor.interfaz.swt.editores.RelacionEditor;
 import mereditor.xml.ParserXml;
 
@@ -20,6 +21,7 @@ import org.eclipse.draw2d.FigureCanvas;
 import org.eclipse.draw2d.FigureListener;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.jface.dialogs.MessageDialog;
+import org.eclipse.jface.window.Window;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.SashForm;
 import org.eclipse.swt.graphics.Color;
@@ -325,7 +327,12 @@ public class Principal extends Observable implements FigureListener {
 	 * abierto.
 	 */
 	public void agregarRelacion() {
-		new RelacionEditor().open();
+		RelacionEditor editor = new RelacionEditor();
+		if (editor.open() == Window.OK) {
+			this.proyecto.agregar(editor.getComponente());
+			this.actualizarVista();
+			this.modificado(true);
+		}
 	}
 
 	/**
@@ -333,7 +340,12 @@ public class Principal extends Observable implements FigureListener {
 	 * abierto.
 	 */
 	public void agregarJerarquia() {
-		this.advertencia("No implementado.");
+		JerarquiaEditor editor = new JerarquiaEditor();
+		if (editor.open() == Window.OK) {
+			this.proyecto.agregar(editor.getComponente());
+			this.actualizarVista();
+			this.modificado(true);
+		}
 	}
 
 	/**
@@ -449,7 +461,7 @@ public class Principal extends Observable implements FigureListener {
 	public void mostrarArbol(boolean mostrar) {
 		int peso = mostrar ? 3 : 0;
 
-		this.sashForm.setWeights(new int[] {peso, 16});
+		this.sashForm.setWeights(new int[] { peso, 16 });
 
 	}
 }
