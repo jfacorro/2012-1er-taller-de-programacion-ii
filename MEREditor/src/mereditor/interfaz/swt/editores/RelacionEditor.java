@@ -31,6 +31,7 @@ public class RelacionEditor extends Editor<Relacion> {
 
 	public RelacionEditor(Relacion relacion) {
 		super(relacion);
+		this.titulo = "Editor - " + componente.getNombre();
 	}
 
 	@Override
