@@ -20,7 +20,7 @@ public class Entidad extends ComponenteNombre {
 	 * Pueden ser tanto Atributos como Entidades
 	 */
 	protected Set<Identificador> identificadores = new HashSet<Identificador>();
-	protected TipoEntidad tipo;
+	protected TipoEntidad tipo = TipoEntidad.MAESTRA_COSA;
 
 	public Entidad() {
 		super();

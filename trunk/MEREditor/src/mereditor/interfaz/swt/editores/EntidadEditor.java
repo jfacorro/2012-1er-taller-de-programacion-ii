@@ -1,5 +1,6 @@
 package mereditor.interfaz.swt.editores;
 
+import mereditor.control.EntidadControl;
 import mereditor.modelo.Atributo;
 import mereditor.modelo.Entidad;
 import mereditor.modelo.Entidad.TipoEntidad;
@@ -28,6 +29,10 @@ public class EntidadEditor extends Editor<Entidad> {
 	protected EntidadEditor(Shell shell) {
 		super(shell);
 		this.componente = new Entidad();
+	}
+	
+	public EntidadEditor() {
+		this(new EntidadControl());
 	}
 
 	public EntidadEditor(Entidad entidad) {
