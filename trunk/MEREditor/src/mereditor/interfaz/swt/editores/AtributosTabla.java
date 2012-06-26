@@ -1,6 +1,7 @@
 package mereditor.interfaz.swt.editores;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -14,8 +15,11 @@ import org.eclipse.jface.viewers.IBaseLabelProvider;
 import org.eclipse.jface.viewers.ICellModifier;
 import org.eclipse.jface.viewers.IContentProvider;
 import org.eclipse.jface.viewers.ILabelProviderListener;
+import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.IStructuredContentProvider;
+import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.ITableLabelProvider;
+import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.TextCellEditor;
 import org.eclipse.jface.viewers.Viewer;
@@ -34,7 +38,10 @@ public class AtributosTabla extends TableViewer {
 	public static final String[] PROPS = { Editor.NOMBRE, Editor.TIPO };
 
 	private List<Atributo> atributos = new ArrayList<>();
-
+	private List<Atributo> atributosAEliminar = new ArrayList<>();
+	
+	private IStructuredSelection selection = null;
+	
 	public AtributosTabla(Composite parent) {
 		super(parent, SWT.FULL_SELECTION);
 		this.init();
@@ -67,6 +74,7 @@ public class AtributosTabla extends TableViewer {
 		this.setCellModifier(this.cellModifier);
 		this.setCellEditors(editors);
 
+		this.addSelectionChangedListener(seleccion);
 	}
 
 	// Agregar un nuevo atributo cuando se hace click sobre el boton "Nuevo"
@@ -85,8 +93,20 @@ public class AtributosTabla extends TableViewer {
 	// Eliminar atributo
 	public final SelectionListener eliminar = new SelectionAdapter() {
 		public void widgetSelected(SelectionEvent event) {
-			//TODO
-			refresh();
+			if (selection!=null) {
+				AtributoControl atributo = (AtributoControl)selection.getFirstElement();
+				
+				atributos.remove(atributo);
+				atributosAEliminar.add(atributo);
+				
+				refresh();
+			}
+		}
+	};
+	
+	private final ISelectionChangedListener seleccion = new ISelectionChangedListener() {
+		public void selectionChanged(SelectionChangedEvent event) {
+			selection = (IStructuredSelection) getSelection();
 		}
 	};
 
@@ -184,4 +204,9 @@ public class AtributosTabla extends TableViewer {
 	public List<Atributo> getAtributos() {
 		return this.atributos;
 	}
+	
+	public List<Atributo> getAtributosAEliminar() {
+		return this.atributosAEliminar;
+	}
+	
 }
