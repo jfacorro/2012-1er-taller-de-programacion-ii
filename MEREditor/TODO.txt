@@ -3,10 +3,9 @@ Juan:
 	Pendiente:
 	----------
 		- Editores:
-			- Diagrama (cambiar el nombre).
 			- Relación
 			- Jerarquía
-		- Crear y eliminar diagramas.
+		- Actualizar el modelo y la vista al cambiar el arbol y viceversa.
 		- [Selección de componentes en la vista]
 		- Implementar la figura de Jerarquía mejor.
 		- Mejorar las conexiones para que salgan del centro.
@@ -28,3 +27,5 @@ Juan:
 			- Agregar Relacion - No aplica: se debe mostrar directamente el editor
 			- Agregar Jerarquia - No aplica: se debe mostrar directamente el editor
 		- Modificar el arbol para que se pueda esconder y mostrar bien.
+		- Editores:
+			- Diagrama (cambiar el nombre).
