@@ -131,7 +131,7 @@ public class AtributosTabla extends TableViewer {
 			case 0:
 				return atr.getNombre();
 			case 1:
-				return Editor.TiposAtributo[atr.getTipo().ordinal()];
+				return atr.getTipo().name();
 			}
 			return null;
 		}

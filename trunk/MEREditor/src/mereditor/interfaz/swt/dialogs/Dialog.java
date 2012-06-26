@@ -3,7 +3,6 @@ package mereditor.interfaz.swt.dialogs;
 import mereditor.interfaz.swt.Principal;
 
 import org.eclipse.jface.dialogs.IDialogConstants;
-import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
@@ -18,7 +17,6 @@ public abstract class Dialog extends org.eclipse.jface.dialogs.Dialog {
 	 */
 	protected Dialog(Shell shell) {
 		super(shell);
-		setShellStyle(SWT.CLOSE);
 	}
 
 	public Dialog() {
