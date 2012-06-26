@@ -10,6 +10,7 @@ import mereditor.modelo.Entidad.TipoEntidad;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
+import org.eclipse.swt.layout.RowLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
@@ -66,11 +67,14 @@ public class EntidadEditor extends Editor<Entidad> {
 		grupoAtributos.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
 		grupoAtributos.setText("Atributos");
 		grupoAtributos.setLayout(new GridLayout(1, true));
-
-		Button btnNuevoAtributo = new Button(grupoAtributos, SWT.PUSH);
+		
+		Group botones = new Group(grupoAtributos, SWT.NONE);
+		botones.setLayout(new RowLayout(SWT.HORIZONTAL));
+		
+		Button btnNuevoAtributo = new Button(botones, SWT.PUSH);
 		btnNuevoAtributo.setText("Nuevo");
 
-		Button btnEliminarAtributo = new Button(grupoAtributos, SWT.PUSH);
+		Button btnEliminarAtributo = new Button(botones, SWT.PUSH);
 		btnEliminarAtributo.setText("Eliminar");
 		
 		// TableViewer
