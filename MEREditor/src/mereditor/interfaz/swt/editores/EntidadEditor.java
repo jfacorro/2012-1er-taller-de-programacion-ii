@@ -1,6 +1,8 @@
 package mereditor.interfaz.swt.editores;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import mereditor.control.EntidadControl;
 import mereditor.modelo.Atributo;
@@ -80,7 +82,7 @@ public class EntidadEditor extends Editor<Entidad> {
 		// TableViewer
 		this.tblAtributos = new AtributosTabla(grupoAtributos);
 
-		// Agregar un nuevo atributo cuando se hace click sobre el boton
+		// Agregar un nuevo atributo cuando se hace click sobre el botón
 		btnNuevoAtributo.addSelectionListener(this.tblAtributos.nuevo);
 		
 		// Eliminar atributo
@@ -104,6 +106,9 @@ public class EntidadEditor extends Editor<Entidad> {
 
 		for (Atributo atributo : this.tblAtributos.getAtributos())
 			componente.addAtributo(atributo);
+		
+		for (Atributo atributo : this.tblAtributos.getAtributosAEliminar())
+			componente.removeAtributo(atributo);
 	}
 	
 	@Override

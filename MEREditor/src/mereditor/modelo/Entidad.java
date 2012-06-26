@@ -47,6 +47,11 @@ public class Entidad extends ComponenteNombre {
 	public void addAtributo(Atributo atributo) {
 		this.atributos.add(atributo);
 	}
+	
+	public void removeAtributo(Atributo atributo) {
+		//TODO: remover identificadores asociados al mismo
+		this.atributos.remove(atributo);
+	}
 
 	public Set<Atributo> getAtributos() {
 		return Collections.unmodifiableSet(this.atributos);
