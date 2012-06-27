@@ -28,6 +28,8 @@ public class AtributosTabla extends Tabla<Atributo> {
 	protected void initEditorsCeldas(Table table) {
 		this.editoresCeldas.add(new TextCellEditor(table));
 		this.editoresCeldas.add(new ComboBoxCellEditor(table, Editor.TiposAtributo, SWT.READ_ONLY));
+		this.editoresCeldas.add(new TextCellEditor(table));
+		this.editoresCeldas.add(new TextCellEditor(table));
 	}
 	
 	@Override
@@ -63,6 +65,12 @@ public class AtributosTabla extends Tabla<Atributo> {
 			break;
 		case Editor.TIPO:
 			element.setTipo(TipoAtributo.class.getEnumConstants()[(int) value]);
+			break;
+		case Editor.CARDINALIDAD_MIN:
+			element.setCardinalidadMinima((String) value);
+			break;
+		case Editor.CARDINALIDAD_MAX:
+			element.setCardinalidadMaxima((String) value);
 			break;
 		}
 
