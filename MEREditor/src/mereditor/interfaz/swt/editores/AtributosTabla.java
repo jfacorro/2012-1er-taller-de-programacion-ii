@@ -12,7 +12,6 @@ import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Item;
 import org.eclipse.swt.widgets.Table;
 
 public class AtributosTabla extends Tabla<Atributo> {
@@ -34,45 +33,37 @@ public class AtributosTabla extends Tabla<Atributo> {
 	}
 
 	@Override
-	protected String getTextoColumna(Object element, int columnIndex) {
-		Atributo atributo = (Atributo) element;
-
+	protected String getTextoColumna(Atributo element, int columnIndex) {
 		switch (this.columnas.get(columnIndex)) {
 		case Editor.NOMBRE:
-			return atributo.getNombre();
+			return element.getNombre();
 		case Editor.TIPO:
-			return atributo.getTipo().name();
+			return element.getTipo().name();
 		default:
 			return null;
 		}
 	}
 
 	@Override
-	protected Object getValorCelda(Object element, String property) {
-		Atributo atr = (Atributo) element;
-
+	protected Object getValorCelda(Atributo element, String property) {
 		switch (property) {
 		case EntidadEditor.NOMBRE:
-			return atr.getNombre();
+			return element.getNombre();
 		case EntidadEditor.TIPO:
-			return atr.getTipo().ordinal();
+			return element.getTipo().ordinal();
 		default:
 			return null;
 		}
 	}
 
 	@Override
-	protected void setValorCelda(Object element, String property, Object value) {
-		if (element instanceof Item)
-			element = ((Item) element).getData();
-
-		Atributo atributo = (Atributo) element;
+	protected void setValorCelda(Atributo element, String property, Object value) {
 		switch (property) {
 		case EntidadEditor.NOMBRE:
-			atributo.setNombre((String) value);
+			element.setNombre((String) value);
 			break;
 		case EntidadEditor.TIPO:
-			atributo.setTipo(TipoAtributo.class.getEnumConstants()[(int) value]);
+			element.setTipo(TipoAtributo.class.getEnumConstants()[(int) value]);
 			break;
 		}
 

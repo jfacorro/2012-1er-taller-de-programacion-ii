@@ -93,8 +93,10 @@ public class Relacion extends ComponenteNombre {
 		protected String rol;
 		protected String cardinalidadMinima = "1";
 		protected String cardinalidadMaxima = "1";
+		protected Relacion relacion; 
 
-		public EntidadRelacion(Entidad entidad, String rol, String cardinalidadMinima, String cardinalidadMaxima) {
+		public EntidadRelacion(Relacion relacion, Entidad entidad, String rol, String cardinalidadMinima, String cardinalidadMaxima) {
+			this.relacion = relacion;
 			this.entidad = entidad;
 			this.rol = rol;
 			this.cardinalidadMinima = cardinalidadMinima;
@@ -143,6 +145,10 @@ public class Relacion extends ComponenteNombre {
 				label += " " + this.rol;
 
 			return label;
+		}
+
+		public Relacion getRelacion() {
+			return this.relacion;
 		}
 	}
 }
