@@ -18,6 +18,8 @@ import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Text;
 
 public class RelacionEditor extends Editor<Relacion> {
+	public static final String ENTIDAD = "Entidad";
+
 	protected Text txtNombre;
 	protected Combo cboTipo;
 	protected AtributosTabla tblAtributos;
@@ -78,7 +80,7 @@ public class RelacionEditor extends Editor<Relacion> {
 		this.txtNombre.setText(this.componente.getNombre());
 		this.cboTipo.setText(this.componente.getTipo().name());
 
-		tblAtributos.setAtributos(this.componente.getAtributos());
+		tblAtributos.setElementos(this.componente.getAtributos());
 	}
 
 	@Override
@@ -86,7 +88,7 @@ public class RelacionEditor extends Editor<Relacion> {
 		componente.setNombre(txtNombre.getText());
 		componente.setTipo(TipoRelacion.valueOf(this.cboTipo.getText()));
 
-		for (Atributo atributo : this.tblAtributos.getAtributos())
+		for (Atributo atributo : this.tblAtributos.getElementos())
 			componente.addAtributo(atributo);
 	}
 	
