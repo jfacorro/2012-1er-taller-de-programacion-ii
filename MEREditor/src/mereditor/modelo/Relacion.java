@@ -53,11 +53,11 @@ public class Relacion extends ComponenteNombre {
 	public Set<EntidadRelacion> getParticipantes() {
 		return Collections.unmodifiableSet(participantes);
 	}
-	
+
 	public List<Entidad> getEntidadesParticipantes() {
 		List<Entidad> entidades = new ArrayList<>();
 
-		for(EntidadRelacion entidadRelacion : this.participantes)
+		for (EntidadRelacion entidadRelacion : this.participantes)
 			entidades.add(entidadRelacion.getEntidad());
 
 		return entidades;
@@ -70,17 +70,17 @@ public class Relacion extends ComponenteNombre {
 	@Override
 	public boolean contiene(Componente componente) {
 		boolean contiene = this.atributos.contains(componente);
-		
+
 		if (contiene)
 			return contiene;
-		
+
 		// Verificar los hijos de los atributos
 		for (Componente hijo : this.atributos) {
 			contiene = hijo.contiene(componente);
 			if (contiene)
 				return contiene;
 		}
-		
+
 		return super.contiene(componente);
 	}
 
@@ -93,10 +93,15 @@ public class Relacion extends ComponenteNombre {
 		protected String rol;
 		protected String cardinalidadMinima = "1";
 		protected String cardinalidadMaxima = "1";
-		protected Relacion relacion; 
+		protected Relacion relacion;
 
-		public EntidadRelacion(Relacion relacion, Entidad entidad, String rol, String cardinalidadMinima, String cardinalidadMaxima) {
+		public EntidadRelacion(Relacion relacion) {
 			this.relacion = relacion;
+		}
+
+		public EntidadRelacion(Relacion relacion, Entidad entidad, String rol, String cardinalidadMinima,
+				String cardinalidadMaxima) {
+			this(relacion);
 			this.entidad = entidad;
 			this.rol = rol;
 			this.cardinalidadMinima = cardinalidadMinima;

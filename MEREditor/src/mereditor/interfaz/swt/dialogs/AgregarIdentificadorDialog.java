@@ -41,11 +41,11 @@ public class AgregarIdentificadorDialog extends Dialog {
 		super(shell);
 	}
 
-	public AgregarIdentificadorDialog(java.util.List<Atributo> atributos) {
+	public AgregarIdentificadorDialog(Entidad entidad) {
 		super();
 		this.titulo = "Agregar Identificador";
 
-		for (Atributo atributo : atributos) {
+		for (Atributo atributo : entidad.getAtributos()) {
 			this.atributos.put(atributo.getNombre(), atributo);
 		}
 	}

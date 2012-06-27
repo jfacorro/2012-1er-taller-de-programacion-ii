@@ -3,20 +3,22 @@ package mereditor.interfaz.swt.editores;
 import java.util.List;
 
 import mereditor.control.EntidadControl;
+import mereditor.interfaz.swt.dialogs.AgregarIdentificadorDialog;
 import mereditor.modelo.Atributo;
 import mereditor.modelo.Entidad;
 import mereditor.modelo.Entidad.TipoEntidad;
 
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
-import org.eclipse.swt.layout.RowData;
 import org.eclipse.swt.layout.RowLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
-import org.eclipse.swt.widgets.ExpandBar;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
@@ -25,6 +27,7 @@ public class EntidadEditor extends Editor<Entidad> {
 	protected Text txtNombre;
 	protected Combo cboTipo;
 	protected AtributosTabla tblAtributos;
+	protected IdentificadorTabla tblIdentificadores;
 
 	/**
 	 * Constructor para el editor visual
@@ -67,11 +70,11 @@ public class EntidadEditor extends Editor<Entidad> {
 		 */
 		Group grupoAtributos = new Group(dialogArea, SWT.NONE);
 		grupoAtributos.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
-		grupoAtributos.setText("Atributos");
+		grupoAtributos.setText(Editor.ATRIBUTOS);
 		grupoAtributos.setLayout(new GridLayout(1, true));
 
-		Group botones = new Group(grupoAtributos, SWT.NONE);
-		botones.setLayoutData(new GridData(SWT.CENTER, SWT.CENTER, false, false, 1, 1));
+		Composite botones = new Composite(grupoAtributos, SWT.NONE);
+		botones.setLayoutData(new GridData(SWT.LEFT, SWT.LEFT, false, false, 1, 1));
 		botones.setLayout(new RowLayout(SWT.HORIZONTAL));
 
 		Button btnNuevoAtributo = new Button(botones, SWT.PUSH);
@@ -80,23 +83,34 @@ public class EntidadEditor extends Editor<Entidad> {
 		Button btnEliminarAtributo = new Button(botones, SWT.PUSH);
 		btnEliminarAtributo.setText("Eliminar");
 
+		/*
 		ExpandBar expandBar = new ExpandBar(botones, SWT.NONE);
 		expandBar.setLayoutData(new RowData(98, SWT.DEFAULT));
 		expandBar.setSpacing(6);
-
-		Button btnNuevoID = new Button(botones, SWT.RIGHT);
-		btnNuevoID.setText("Nuevo ID");
+		*/
 
 		// TableViewer
 		this.tblAtributos = new AtributosTabla(grupoAtributos);
 
 		// Agregar un nuevo atributo cuando se hace click sobre el botón
 		btnNuevoAtributo.addSelectionListener(this.tblAtributos.nuevo);
-
 		// Eliminar atributo
 		btnEliminarAtributo.addSelectionListener(this.tblAtributos.eliminar);
+		
+		/**
+		 * Atributos.
+		 */
+		Group grupoIdentificadores = new Group(dialogArea, SWT.NONE);
+		grupoIdentificadores.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
+		grupoIdentificadores.setText(Editor.IDENTIFICADORES);
+		grupoIdentificadores.setLayout(new GridLayout(1, true));
 
-		btnNuevoID.addSelectionListener(this.tblAtributos.nuevoId);
+		// Generar nuevo identificador
+		Button btnNuevoID = new Button(grupoIdentificadores, SWT.RIGHT);
+		btnNuevoID.setText("Nuevo ID");
+		btnNuevoID.addSelectionListener(this.nuevoIdentificador);
+		
+		this.tblIdentificadores = new IdentificadorTabla(grupoIdentificadores, this.componente);
 
 		return dialogArea;
 	}
@@ -106,7 +120,8 @@ public class EntidadEditor extends Editor<Entidad> {
 		this.txtNombre.setText(this.componente.getNombre());
 		this.cboTipo.setText(this.componente.getTipo().name());
 
-		tblAtributos.setElementos(this.componente.getAtributos());
+		this.tblAtributos.setElementos(this.componente.getAtributos());
+		this.tblIdentificadores.setElementos(this.componente.getIdentificadores());
 	}
 
 	@Override
@@ -128,4 +143,10 @@ public class EntidadEditor extends Editor<Entidad> {
 
 		return errors.size() == 0;
 	}
+	
+	public final SelectionListener nuevoIdentificador = new SelectionAdapter() {
+		public void widgetSelected(SelectionEvent event) {
+			new AgregarIdentificadorDialog(componente).open();
+		}
+	};
 }
