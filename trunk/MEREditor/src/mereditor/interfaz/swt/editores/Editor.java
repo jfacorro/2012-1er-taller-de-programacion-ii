@@ -94,7 +94,7 @@ public abstract class Editor<T extends Componente> extends Dialog {
 		Label lblNombre = new Label(parent, SWT.LEFT);
 		lblNombre.setText(name);
 
-		Combo cboField = new Combo(parent, SWT.BORDER);
+		Combo cboField = new Combo(parent, SWT.READ_ONLY | SWT.BORDER);
 
 		return cboField;
 	}
