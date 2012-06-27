@@ -1,11 +1,13 @@
 package mereditor.interfaz.swt.editores;
 
-import org.apache.commons.lang.StringUtils;
-import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Table;
-
+import mereditor.interfaz.swt.dialogs.AgregarIdentificadorDialog;
 import mereditor.modelo.Entidad;
 import mereditor.modelo.Entidad.Identificador;
+
+import org.apache.commons.lang.StringUtils;
+import org.eclipse.jface.window.Window;
+import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Table;
 
 public class IdentificadorTabla extends Tabla<Identificador> {
 	private Entidad entidad;
@@ -51,7 +53,13 @@ public class IdentificadorTabla extends Tabla<Identificador> {
 
 	@Override
 	protected Identificador nuevoElemento() {
-		return entidad.new Identificador(entidad);
+		AgregarIdentificadorDialog dialog = new AgregarIdentificadorDialog(this.entidad);
+		int resultado = dialog.open();
+		
+		if(resultado == Window.OK)
+			return dialog.getIdentificador();
+		else
+			return null;
 	}
 
 }

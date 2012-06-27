@@ -54,13 +54,13 @@ public abstract class Tabla<T> extends TableViewer {
 		// Configurar tabla
 		Table table = this.getTable();
 		table.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
-		
-		for(String property : this.columnas)
+
+		for (String property : this.columnas)
 			new TableColumn(table, SWT.CENTER).setText(property);
 
 		table.setHeaderVisible(true);
 		table.setLinesVisible(true);
-		
+
 		// Crear editores de celda
 		this.initEditorsCeldas(table);
 
@@ -72,20 +72,20 @@ public abstract class Tabla<T> extends TableViewer {
 
 		this.addSelectionChangedListener(seleccion);
 	}
-	
+
 	/**
 	 * Agrega los nombres de las columnas que se mostraran en la tabla.
 	 */
 	protected abstract void initColumnas();
-	
+
 	protected abstract void initEditorsCeldas(Table table);
 
 	protected abstract String getTextoColumna(T element, int columnIndex);
 
 	protected abstract Object getValorCelda(T element, String property);
-	
+
 	protected abstract void setValorCelda(T element, String property, Object value);
-	
+
 	protected abstract T nuevoElemento();
 
 	public void setElementos(Set<T> elementos) {
@@ -109,18 +109,20 @@ public abstract class Tabla<T> extends TableViewer {
 			selection = (IStructuredSelection) getSelection();
 		}
 	};
-	
+
 	/*
 	 * Agregar un nuevo elemento.
 	 */
 	public final SelectionListener nuevo = new SelectionAdapter() {
 		public void widgetSelected(SelectionEvent event) {
 			T elemento = nuevoElemento();
-			elementos.add(elemento);
-			refresh();
+			if (elemento != null) {
+				elementos.add(elemento);
+				refresh();
+			}
 		}
 	};
-	
+
 	/**
 	 * Eliminar elemento
 	 */
