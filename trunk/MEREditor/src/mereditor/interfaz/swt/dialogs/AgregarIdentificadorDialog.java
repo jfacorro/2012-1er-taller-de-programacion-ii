@@ -34,6 +34,8 @@ public class AgregarIdentificadorDialog extends Dialog {
 	private List listAtributos;
 	int[] atributosSeleccionados, entidadesSelecionadas;
 	
+	private Identificador identificador;
+	
 	/**
 	 * @wbp.parser.constructor
 	 */
@@ -160,19 +162,23 @@ public class AgregarIdentificadorDialog extends Dialog {
 		Arrays.sort(items);
 		this.listAtributos.setItems(items);
 	}
+	
+	public Identificador getIdentificador() {
+		return this.identificador;
+	}
 
 	@Override
 	protected void okPressed() {
-//		if () {
-//			this.principal.error("No hay selección válida para crear atributo");
-//		} else {
+		//if () {
+		//	this.principal.error("No hay selección válida para crear atributo");
+		//} else {
 			//TODO
-			Entidad entidad = new Entidad(); // = FIXME
-			Identificador identificador = entidad.new Identificador(entidad);
-			identificador.addAtributo();
-			identificador.addEntidad();
+			//Entidad entidad = new Entidad(); // = FIXME
+			//Identificador identificador = entidad.new Identificador(entidad);
+			//identificador.addAtributo();
+			//identificador.addEntidad();
 			super.okPressed();
-//		}
+		//}
 	}
 
 	protected SelectionAdapter nueva = new SelectionAdapter() {

@@ -3,15 +3,11 @@ package mereditor.interfaz.swt.editores;
 import java.util.List;
 
 import mereditor.control.EntidadControl;
-import mereditor.interfaz.swt.dialogs.AgregarIdentificadorDialog;
 import mereditor.modelo.Atributo;
 import mereditor.modelo.Entidad;
 import mereditor.modelo.Entidad.TipoEntidad;
 
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.SelectionAdapter;
-import org.eclipse.swt.events.SelectionEvent;
-import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.layout.RowLayout;
@@ -78,16 +74,16 @@ public class EntidadEditor extends Editor<Entidad> {
 		botones.setLayout(new RowLayout(SWT.HORIZONTAL));
 
 		Button btnNuevoAtributo = new Button(botones, SWT.PUSH);
-		btnNuevoAtributo.setText("Nuevo");
+		btnNuevoAtributo.setText(Editor.NUEVO);
 
 		Button btnEliminarAtributo = new Button(botones, SWT.PUSH);
-		btnEliminarAtributo.setText("Eliminar");
+		btnEliminarAtributo.setText(Editor.ELIMINAR);
 
 		/*
-		ExpandBar expandBar = new ExpandBar(botones, SWT.NONE);
-		expandBar.setLayoutData(new RowData(98, SWT.DEFAULT));
-		expandBar.setSpacing(6);
-		*/
+		 * ExpandBar expandBar = new ExpandBar(botones, SWT.NONE);
+		 * expandBar.setLayoutData(new RowData(98, SWT.DEFAULT));
+		 * expandBar.setSpacing(6);
+		 */
 
 		// TableViewer
 		this.tblAtributos = new AtributosTabla(grupoAtributos);
@@ -96,9 +92,9 @@ public class EntidadEditor extends Editor<Entidad> {
 		btnNuevoAtributo.addSelectionListener(this.tblAtributos.nuevo);
 		// Eliminar atributo
 		btnEliminarAtributo.addSelectionListener(this.tblAtributos.eliminar);
-		
+
 		/**
-		 * Atributos.
+		 * Identificadores.
 		 */
 		Group grupoIdentificadores = new Group(dialogArea, SWT.NONE);
 		grupoIdentificadores.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
@@ -107,10 +103,11 @@ public class EntidadEditor extends Editor<Entidad> {
 
 		// Generar nuevo identificador
 		Button btnNuevoID = new Button(grupoIdentificadores, SWT.RIGHT);
-		btnNuevoID.setText("Nuevo ID");
-		btnNuevoID.addSelectionListener(this.nuevoIdentificador);
-		
+		btnNuevoID.setText(Editor.NUEVO);
+
 		this.tblIdentificadores = new IdentificadorTabla(grupoIdentificadores, this.componente);
+
+		btnNuevoID.addSelectionListener(this.tblIdentificadores.nuevo);
 
 		return dialogArea;
 	}
@@ -143,10 +140,4 @@ public class EntidadEditor extends Editor<Entidad> {
 
 		return errors.size() == 0;
 	}
-	
-	public final SelectionListener nuevoIdentificador = new SelectionAdapter() {
-		public void widgetSelected(SelectionEvent event) {
-			new AgregarIdentificadorDialog(componente).open();
-		}
-	};
 }

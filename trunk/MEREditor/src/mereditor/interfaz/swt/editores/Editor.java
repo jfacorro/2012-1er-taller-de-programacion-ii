@@ -21,6 +21,11 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 
 public abstract class Editor<T extends Componente> extends Dialog {
+	public final static String[] TiposAtributo = getTipos(TipoAtributo.class);
+	public final static String[] TiposEntidades = getTipos(TipoEntidad.class);
+	public final static String[] TiposRelaciones = getTipos(TipoRelacion.class);
+	public final static String[] TiposJerarquias = getTipos(TipoJerarquia.class);
+
 	public static final String ENTIDAD = "Entidad";
 	public static final String NOMBRE = "Nombre";
 	public static final String TIPO = "Tipo";
@@ -30,11 +35,8 @@ public abstract class Editor<T extends Componente> extends Dialog {
 	public static final String ATRIBUTOS = "Atributos";
 	public static final String ENTIDADES = "Entidades";
 	public static final String IDENTIFICADORES = "Identificadores";
-
-	public final static String[] TiposAtributo = getTipos(TipoAtributo.class);
-	public final static String[] TiposEntidades = getTipos(TipoEntidad.class);
-	public final static String[] TiposRelaciones = getTipos(TipoRelacion.class);
-	public final static String[] TiposJerarquias = getTipos(TipoJerarquia.class);
+	public static final String NUEVO = "Nuevo";
+	public static final String ELIMINAR = "Eliminar";
 
 	protected T componente;
 
