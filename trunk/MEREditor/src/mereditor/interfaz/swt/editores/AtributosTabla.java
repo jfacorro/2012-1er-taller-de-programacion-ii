@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Set;
 
 import mereditor.control.AtributoControl;
+import mereditor.interfaz.swt.dialogs.AgregarIdentificadorDialog;
 import mereditor.modelo.Atributo;
 import mereditor.modelo.Atributo.TipoAtributo;
 
@@ -101,6 +102,12 @@ public class AtributosTabla extends TableViewer {
 				
 				refresh();
 			}
+		}
+	};
+	
+	public final SelectionListener nuevoId = new SelectionAdapter() {
+		public void widgetSelected(SelectionEvent event) {
+			new AgregarIdentificadorDialog(atributos).open();
 		}
 	};
 	
