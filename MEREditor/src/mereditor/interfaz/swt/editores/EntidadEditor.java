@@ -20,6 +20,8 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
+import org.eclipse.swt.widgets.ExpandBar;
+import org.eclipse.swt.layout.RowData;
 
 public class EntidadEditor extends Editor<Entidad> {
 	protected Text txtNombre;
@@ -71,6 +73,7 @@ public class EntidadEditor extends Editor<Entidad> {
 		grupoAtributos.setLayout(new GridLayout(1, true));
 		
 		Group botones = new Group(grupoAtributos, SWT.NONE);
+		botones.setLayoutData(new GridData(SWT.CENTER, SWT.CENTER, false, false, 1, 1));
 		botones.setLayout(new RowLayout(SWT.HORIZONTAL));
 		
 		Button btnNuevoAtributo = new Button(botones, SWT.PUSH);
@@ -78,6 +81,13 @@ public class EntidadEditor extends Editor<Entidad> {
 
 		Button btnEliminarAtributo = new Button(botones, SWT.PUSH);
 		btnEliminarAtributo.setText("Eliminar");
+		
+		ExpandBar expandBar = new ExpandBar(botones, SWT.NONE);
+		expandBar.setLayoutData(new RowData(98, SWT.DEFAULT));
+		expandBar.setSpacing(6);
+		
+		Button btnNuevoID = new Button(botones, SWT.RIGHT);
+		btnNuevoID.setText("Nuevo ID");
 		
 		// TableViewer
 		this.tblAtributos = new AtributosTabla(grupoAtributos);
@@ -88,6 +98,8 @@ public class EntidadEditor extends Editor<Entidad> {
 		// Eliminar atributo
 		btnEliminarAtributo.addSelectionListener(this.tblAtributos.eliminar);
 
+		btnNuevoID.addSelectionListener(this.tblAtributos.nuevoId);
+		
 		return dialogArea;
 	}
 

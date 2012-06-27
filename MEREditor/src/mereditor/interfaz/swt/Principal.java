@@ -311,7 +311,7 @@ public class Principal extends Observable implements FigureListener {
 	}
 
 	/**
-	 * Abre el di�logo para agregar una Entidad al diagrama que se encuentra
+	 * Abre el diálogo para agregar una Entidad al diagrama que se encuentra
 	 * abierto.
 	 */
 	public void agregarEntidad() {
