@@ -75,6 +75,14 @@ public class Atributo extends ComponenteNombre {
 	public String getFormula() {
 		return this.formula;
 	}
+	
+	public void addAtributo(Atributo atributo) {
+		this.atributos.add(atributo);
+	}
+	
+	public void removeAtributo(Atributo atributo) {
+		this.atributos.remove(atributo);
+	}
 
 	public Set<Atributo> getAtributos() {
 		return Collections.unmodifiableSet(this.atributos);

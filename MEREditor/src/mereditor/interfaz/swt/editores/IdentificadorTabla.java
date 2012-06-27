@@ -62,4 +62,8 @@ public class IdentificadorTabla extends Tabla<Identificador> {
 			return null;
 	}
 
+	@Override
+	protected void abrirEditor(Identificador elemento) {
+		
+	}
 }

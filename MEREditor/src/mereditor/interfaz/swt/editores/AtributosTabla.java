@@ -84,4 +84,9 @@ public class AtributosTabla extends Tabla<Atributo> {
 		atributo.setTipo(TipoAtributo.CARACTERIZACION);
 		return atributo;
 	}
+
+	@Override
+	protected void abrirEditor(Atributo elemento) {
+		new AtributoEditor(elemento).open();		
+	}
 }

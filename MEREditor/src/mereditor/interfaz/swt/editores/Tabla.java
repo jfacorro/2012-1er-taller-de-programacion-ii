@@ -5,9 +5,11 @@ import java.util.List;
 import java.util.Set;
 
 import org.eclipse.jface.viewers.CellEditor;
+import org.eclipse.jface.viewers.DoubleClickEvent;
 import org.eclipse.jface.viewers.IBaseLabelProvider;
 import org.eclipse.jface.viewers.ICellModifier;
 import org.eclipse.jface.viewers.IContentProvider;
+import org.eclipse.jface.viewers.IDoubleClickListener;
 import org.eclipse.jface.viewers.ILabelProviderListener;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.IStructuredContentProvider;
@@ -70,7 +72,8 @@ public abstract class Tabla<T> extends TableViewer {
 		this.setCellModifier(this.cellModifier);
 		this.setCellEditors((CellEditor[]) editoresCeldas.toArray(new CellEditor[editoresCeldas.size()]));
 
-		this.addSelectionChangedListener(seleccion);
+		this.addSelectionChangedListener(this.seleccion);
+		this.addDoubleClickListener(this.dobleClick);
 	}
 
 	/**
@@ -87,6 +90,8 @@ public abstract class Tabla<T> extends TableViewer {
 	protected abstract void setValorCelda(T element, String property, Object value);
 
 	protected abstract T nuevoElemento();
+	
+	protected abstract void abrirEditor(T elemento);
 
 	public void setElementos(Set<T> elementos) {
 		this.elementos.addAll(elementos);
@@ -204,6 +209,19 @@ public abstract class Tabla<T> extends TableViewer {
 			setValorCelda((T) element, property, value);
 
 			refresh();
+		}
+	};
+	
+	private IDoubleClickListener dobleClick = new IDoubleClickListener() {
+		@SuppressWarnings("unchecked")
+		@Override
+		public void doubleClick(DoubleClickEvent event) {
+			if (selection != null) {
+				T elemento = (T) selection.getFirstElement();
+				abrirEditor(elemento);
+
+				refresh();
+			}
 		}
 	};
 }

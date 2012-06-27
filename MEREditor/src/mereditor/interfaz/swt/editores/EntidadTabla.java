@@ -41,4 +41,9 @@ public class EntidadTabla extends Tabla<Entidad> {
 	protected Entidad nuevoElemento() {
 		throw new RuntimeException("No se puede generar una nueva Entidad desde la tabla.");
 	}
+
+	@Override
+	protected void abrirEditor(Entidad elemento) {
+		// No hace nada porque no se debería poder editar la tabla por medio de esta tabla.
+	}
 }

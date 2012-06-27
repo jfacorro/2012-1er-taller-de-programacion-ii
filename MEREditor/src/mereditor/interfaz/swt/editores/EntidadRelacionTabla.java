@@ -84,4 +84,10 @@ public class EntidadRelacionTabla extends Tabla<EntidadRelacion> {
 	protected EntidadRelacion nuevoElemento() {
 		return relacion.new EntidadRelacion(relacion);
 	}
+
+	@Override
+	protected void abrirEditor(EntidadRelacion elemento) {
+		// TODO: implementar clase EntidadRelacionEditor
+		//new EntidadRelacionEditor(elemento).open();		
+	}
 }
