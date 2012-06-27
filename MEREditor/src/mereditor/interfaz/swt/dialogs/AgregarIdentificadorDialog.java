@@ -8,10 +8,13 @@ import java.util.Set;
 import mereditor.modelo.Atributo;
 import mereditor.modelo.Diagrama;
 import mereditor.modelo.Entidad;
+import mereditor.modelo.Entidad.Identificador;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.RowData;
 import org.eclipse.swt.layout.RowLayout;
@@ -29,7 +32,8 @@ public class AgregarIdentificadorDialog extends Dialog {
 	private Map<String, Atributo> atributos = new HashMap<>();
 	private List listEntidades;
 	private List listAtributos;
-
+	int[] atributosSeleccionados, entidadesSelecionadas;
+	
 	/**
 	 * @wbp.parser.constructor
 	 */
@@ -57,6 +61,9 @@ public class AgregarIdentificadorDialog extends Dialog {
 		btnNueva.setText("Nuevo ID");
 
 		btnNueva.addSelectionListener(this.nueva);
+		
+		CLabel lblpresionarCtrlPara = new CLabel(dialogArea, SWT.NONE);
+		lblpresionarCtrlPara.setText("Presionar Ctrl para selecionar más de un Atributo o Entidad.");
 
 		Composite header = new Composite(dialogArea, SWT.NONE);
 		header.setLayout(new RowLayout(SWT.HORIZONTAL));
@@ -75,14 +82,47 @@ public class AgregarIdentificadorDialog extends Dialog {
 
 		Group group_1 = new Group(dialogArea, SWT.NONE);
 
-		this.listAtributos = new List(group_1, SWT.BORDER);
+		this.listAtributos = new List(group_1, SWT.BORDER | SWT.MULTI);
 		listAtributos.setBounds(0, 0, 185, 98);
 
-		this.listEntidades = new List(group_1, SWT.BORDER);
+		this.listEntidades = new List(group_1, SWT.BORDER | SWT.MULTI);
 		listEntidades.setBounds(245, 0, 174, 101);
 
 		this.loadEntidades();
 		this.loadAtributos();
+		
+		SelectionListener selectedAtributoListener = new SelectionListener() {
+			public void widgetSelected(SelectionEvent event) {
+				atributosSeleccionados = listAtributos.getSelectionIndices();
+				String outString = "";
+				for (int loopIndex = 0; loopIndex < atributosSeleccionados.length; loopIndex++)
+					outString += atributosSeleccionados[loopIndex] + " ";
+				System.out.println("listAtributos Items: " + outString);
+			}
+
+			@Override
+			public void widgetDefaultSelected(SelectionEvent arg0) {
+				// TODO Auto-generated method stub
+			}
+		};
+		
+		SelectionListener selectedEntidadListener = new SelectionListener() {
+			public void widgetSelected(SelectionEvent event) {
+				entidadesSelecionadas = listEntidades.getSelectionIndices();
+				String outString = "";
+				for (int loopIndex = 0; loopIndex < entidadesSelecionadas.length; loopIndex++)
+					outString += entidadesSelecionadas[loopIndex] + " ";
+				System.out.println("listEntidades Items: " + outString);
+			}
+
+			@Override
+			public void widgetDefaultSelected(SelectionEvent arg0) {
+				// TODO Auto-generated method stub
+			}
+		};
+		
+		this.listAtributos.addSelectionListener(selectedAtributoListener);
+		this.listEntidades.addSelectionListener(selectedEntidadListener);
 
 		return header;
 	}
@@ -123,12 +163,16 @@ public class AgregarIdentificadorDialog extends Dialog {
 
 	@Override
 	protected void okPressed() {
-		// if () {
-		// this.principal.error("No hay selección válida para crear atributo");
-		// } else {
-		// TODO
-		super.okPressed();
-		// }
+//		if () {
+//			this.principal.error("No hay selección válida para crear atributo");
+//		} else {
+			//TODO
+			Entidad entidad = new Entidad(); // = FIXME
+			Identificador identificador = entidad.new Identificador(entidad);
+			identificador.addAtributo();
+			identificador.addEntidad();
+			super.okPressed();
+//		}
 	}
 
 	protected SelectionAdapter nueva = new SelectionAdapter() {
