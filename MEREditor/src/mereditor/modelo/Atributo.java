@@ -55,9 +55,17 @@ public class Atributo extends ComponenteNombre {
 	public String getCardinalidadMaxima() {
 		return this.cardinalidadMaxima;
 	}
+	
+	public void setCardinalidadMaxima(String cardinalidad) {
+		this.cardinalidadMaxima = cardinalidad;
+	}
 
 	public String getCardinalidadMinima() {
 		return this.cardinalidadMinima;
+	}
+	
+	public void setCardinalidadMinima(String cardinalidad) {
+		this.cardinalidadMinima = cardinalidad;
 	}
 
 	public Atributo getOriginal() {
