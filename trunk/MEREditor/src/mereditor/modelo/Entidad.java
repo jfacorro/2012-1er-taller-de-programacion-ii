@@ -49,8 +49,18 @@ public class Entidad extends ComponenteNombre {
 	}
 	
 	public void removeAtributo(Atributo atributo) {
-		//TODO: remover identificadores asociados al mismo
 		this.atributos.remove(atributo);
+		// Lista donde se guardan los identificadores a editar
+		// se debe hacer de esta forma dado que no se puede modificar
+		// una collection que se esta recorriendo con un iterador.
+		List<Identificador> identificadores = new ArrayList<>();
+
+		for(Identificador identificador : this.identificadores)
+			if(identificador.contiene(atributo))
+				identificadores.add(identificador);
+		
+		for(Identificador identificador : this.identificadores)
+				identificador.removeAtributo(atributo);
 	}
 
 	public Set<Atributo> getAtributos() {
@@ -105,6 +115,11 @@ public class Entidad extends ComponenteNombre {
 
 			this.atributos.add(atributo);
 		}
+		
+		public void removeAtributo(Atributo atributo) {
+			this.atributos.remove(atributo);
+			this.verificarVacio();
+		}
 
 		public void addEntidad(Entidad entidad) {
 			if (this.entidad.equals(entidad))
@@ -112,6 +127,20 @@ public class Entidad extends ComponenteNombre {
 						"Una Entidad no puede ser su propio identificador.");
 
 			this.entidades.add(entidad);
+		}
+		
+		public void removeEntidad(Entidad entidad) {
+			this.entidades.remove(entidad);
+			this.verificarVacio();
+		}
+		
+		/**
+		 * Verifica si el identificador no tiene ningun atributo
+		 * o entidad y lo elimina en ese caso.
+		 */
+		private void verificarVacio() {
+			if(this.atributos.size() == 0 && this.entidades.size() == 0)
+				this.entidad.identificadores.remove(this);			
 		}
 
 		public List<Atributo> getAtributos() {
