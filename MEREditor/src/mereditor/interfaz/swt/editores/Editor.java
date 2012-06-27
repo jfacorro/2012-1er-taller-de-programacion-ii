@@ -21,8 +21,13 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 
 public abstract class Editor<T extends Componente> extends Dialog {
+	public static final String ENTIDAD = "Entidad";
 	public static final String NOMBRE = "Nombre";
 	public static final String TIPO = "Tipo";
+	public static final String ROL = "Rol";
+	public static final String CARDINALIDAD_MIN = "Card. Mín.";
+	public static final String CARDINALIDAD_MAX = "Card. Máx.";
+
 
 	public final static String[] TiposAtributo = getTipos(TipoAtributo.class);
 	public final static String[] TiposEntidades = getTipos(TipoEntidad.class);
