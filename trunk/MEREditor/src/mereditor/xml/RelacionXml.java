@@ -66,7 +66,7 @@ public class RelacionXml extends RelacionControl implements Xmlizable {
 			Entidad entidad = (Entidad) parser.obtenerEntidadParticipante(participanteXml);
 			String[] cardinalidad = parser.obtenerCardinalidad(participanteXml);
 			String rol = parser.obtenerRol(participanteXml);
-			EntidadRelacion entidadRelacion = new EntidadRelacion(entidad, rol, cardinalidad[0], cardinalidad[1]);
+			EntidadRelacion entidadRelacion = new EntidadRelacion(this, entidad, rol, cardinalidad[0], cardinalidad[1]);
 			this.participantes.add(entidadRelacion);
 		}
 	}

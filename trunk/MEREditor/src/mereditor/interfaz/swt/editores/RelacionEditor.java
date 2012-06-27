@@ -19,10 +19,14 @@ import org.eclipse.swt.widgets.Text;
 
 public class RelacionEditor extends Editor<Relacion> {
 	public static final String ENTIDAD = "Entidad";
+	public static final String ROL = "Rol";
+	public static final String CARDINALIDAD_MIN = "Card. Mín.";
+	public static final String CARDINALIDAD_MAX = "Card. Máx.";
 
 	protected Text txtNombre;
 	protected Combo cboTipo;
 	protected AtributosTabla tblAtributos;
+	protected EntidadRelacionTabla tblEntidades;
 
 	/**
 	 * Utilizado para la creación de una nueva relacion.
@@ -71,6 +75,19 @@ public class RelacionEditor extends Editor<Relacion> {
 
 		// Agregar un nuevo atributo cuando se hace click sobre el boton
 		btnNuevoAtributo.addSelectionListener(this.tblAtributos.nuevo);
+		
+		/**
+		 * Entidades.
+		 */
+		Group grupoEntidades = new Group(dialogArea, SWT.NONE);
+		grupoEntidades.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true,
+				true));
+		grupoEntidades.setText("Entidades");
+		grupoEntidades.setLayout(new GridLayout(1, true));
+		
+		this.tblEntidades = new EntidadRelacionTabla(grupoEntidades);
+		
+		
 
 		return dialogArea;
 	}
@@ -80,7 +97,8 @@ public class RelacionEditor extends Editor<Relacion> {
 		this.txtNombre.setText(this.componente.getNombre());
 		this.cboTipo.setText(this.componente.getTipo().name());
 
-		tblAtributos.setElementos(this.componente.getAtributos());
+		tblAtributos.setElementos(this.componente.getAtributos());		
+		tblEntidades.setElementos(this.componente.getParticipantes());
 	}
 
 	@Override

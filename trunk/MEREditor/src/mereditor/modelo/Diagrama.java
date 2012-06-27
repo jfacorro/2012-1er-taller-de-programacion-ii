@@ -110,4 +110,12 @@ public class Diagrama extends ComponenteNombre {
 		else
 			this.componentes.remove(componente);
 	}
+
+	public Entidad getEntidadByNombre(String nombre) {
+		for(Entidad entidad : this.getEntidades())
+			if(nombre.equals(entidad.getNombre()))
+				return entidad;
+
+		return null;
+	}
 }
