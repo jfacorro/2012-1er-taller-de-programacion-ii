@@ -18,11 +18,6 @@ import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Text;
 
 public class RelacionEditor extends Editor<Relacion> {
-	public static final String ENTIDAD = "Entidad";
-	public static final String ROL = "Rol";
-	public static final String CARDINALIDAD_MIN = "Card. Mín.";
-	public static final String CARDINALIDAD_MAX = "Card. Máx.";
-
 	protected Text txtNombre;
 	protected Combo cboTipo;
 	protected AtributosTabla tblAtributos;

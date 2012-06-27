@@ -24,6 +24,8 @@ public class AtributosTabla extends Tabla<Atributo> {
 	protected void initColumnas() {
 		this.columnas.add(Editor.NOMBRE);
 		this.columnas.add(Editor.TIPO);
+		this.columnas.add(Editor.CARDINALIDAD_MIN);
+		this.columnas.add(Editor.CARDINALIDAD_MAX);
 	}
 
 	@Override
@@ -31,26 +33,27 @@ public class AtributosTabla extends Tabla<Atributo> {
 		this.editoresCeldas.add(new TextCellEditor(table));
 		this.editoresCeldas.add(new ComboBoxCellEditor(table, Editor.TiposAtributo, SWT.READ_ONLY));
 	}
-
+	
 	@Override
 	protected String getTextoColumna(Atributo element, int columnIndex) {
-		switch (this.columnas.get(columnIndex)) {
-		case Editor.NOMBRE:
-			return element.getNombre();
-		case Editor.TIPO:
+		String nombreColumna = this.columnas.get(columnIndex);
+		if(nombreColumna.equals(EntidadEditor.TIPO))
 			return element.getTipo().name();
-		default:
-			return null;
-		}
+		else
+			return (String) this.getValorCelda(element, this.columnas.get(columnIndex));
 	}
 
 	@Override
 	protected Object getValorCelda(Atributo element, String property) {
 		switch (property) {
-		case EntidadEditor.NOMBRE:
+		case Editor.NOMBRE:
 			return element.getNombre();
-		case EntidadEditor.TIPO:
+		case Editor.TIPO:
 			return element.getTipo().ordinal();
+		case Editor.CARDINALIDAD_MIN:
+			return element.getCardinalidadMinima();
+		case Editor.CARDINALIDAD_MAX:
+			return element.getCardinalidadMaxima();
 		default:
 			return null;
 		}
@@ -59,10 +62,10 @@ public class AtributosTabla extends Tabla<Atributo> {
 	@Override
 	protected void setValorCelda(Atributo element, String property, Object value) {
 		switch (property) {
-		case EntidadEditor.NOMBRE:
+		case Editor.NOMBRE:
 			element.setNombre((String) value);
 			break;
-		case EntidadEditor.TIPO:
+		case Editor.TIPO:
 			element.setTipo(TipoAtributo.class.getEnumConstants()[(int) value]);
 			break;
 		}

@@ -17,10 +17,10 @@ public class EntidadRelacionTabla extends Tabla<EntidadRelacion> {
 
 	@Override
 	protected void initColumnas() {
-		this.columnas.add(RelacionEditor.ENTIDAD);
-		this.columnas.add(RelacionEditor.ROL);
-		this.columnas.add(RelacionEditor.CARDINALIDAD_MIN);
-		this.columnas.add(RelacionEditor.CARDINALIDAD_MAX);
+		this.columnas.add(Editor.ENTIDAD);
+		this.columnas.add(Editor.ROL);
+		this.columnas.add(Editor.CARDINALIDAD_MIN);
+		this.columnas.add(Editor.CARDINALIDAD_MAX);
 	}
 
 	@Override
@@ -33,30 +33,19 @@ public class EntidadRelacionTabla extends Tabla<EntidadRelacion> {
 
 	@Override
 	protected String getTextoColumna(EntidadRelacion element, int columnIndex) {
-		switch (this.columnas.get(columnIndex)) {
-		case RelacionEditor.ENTIDAD:
-			return element.getEntidad().getNombre();
-		case RelacionEditor.ROL:
-			return element.getRol();
-		case RelacionEditor.CARDINALIDAD_MIN:
-			return element.getCardinalidadMinima();
-		case RelacionEditor.CARDINALIDAD_MAX:
-			return element.getCardinalidadMaxima();
-		default:
-			return null;
-		}
+		return (String) this.getValorCelda(element, this.columnas.get(columnIndex));
 	}
 
 	@Override
 	protected Object getValorCelda(EntidadRelacion element, String property) {
 		switch (property) {
-		case RelacionEditor.ENTIDAD:
+		case Editor.ENTIDAD:
 			return element.getEntidad().getNombre();
-		case RelacionEditor.ROL:
+		case Editor.ROL:
 			return element.getRol();
-		case RelacionEditor.CARDINALIDAD_MIN:
+		case Editor.CARDINALIDAD_MIN:
 			return element.getCardinalidadMinima();
-		case RelacionEditor.CARDINALIDAD_MAX:
+		case Editor.CARDINALIDAD_MAX:
 			return element.getCardinalidadMaxima();
 		default:
 			throw new RuntimeException("Propiedad invalida '" + property + "' al obtener su valor.");
@@ -66,7 +55,7 @@ public class EntidadRelacionTabla extends Tabla<EntidadRelacion> {
 	@Override
 	protected void setValorCelda(EntidadRelacion element, String property, Object value) {
 		switch (property) {
-		case RelacionEditor.ENTIDAD:
+		case Editor.ENTIDAD:
 			Diagrama diagrama = (Diagrama) element.getRelacion().getPadre();
 			Entidad entidad = diagrama.getEntidadByNombre(value.toString());
 			if (entidad != null)
@@ -74,13 +63,13 @@ public class EntidadRelacionTabla extends Tabla<EntidadRelacion> {
 			else
 				Principal.getInstance().error("No existe la entidad '" + value.toString());
 			break;
-		case RelacionEditor.ROL:
+		case Editor.ROL:
 			element.setRol(value.toString());
 			break;
-		case RelacionEditor.CARDINALIDAD_MIN:
+		case Editor.CARDINALIDAD_MIN:
 			element.setCardinalidadMinima(value.toString());
 			break;
-		case RelacionEditor.CARDINALIDAD_MAX:
+		case Editor.CARDINALIDAD_MAX:
 			element.setCardinalidadMaxima(value.toString());
 			break;
 		default:
