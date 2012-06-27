@@ -25,7 +25,7 @@ public class JerarquiaEditor extends Editor<Jerarquia> {
 
 	protected Combo cboTipo;
 	protected Combo cboGenerica;
-	protected AtributosTabla tblDerivadas;
+	protected EntidadTabla tblDerivadas;
 
 	protected Map<String, Entidad> entidades = new HashMap<>();
 
@@ -60,11 +60,11 @@ public class JerarquiaEditor extends Editor<Jerarquia> {
 		 */
 		Group grupoDerivadas = new Group(dialogArea, SWT.NONE);
 		grupoDerivadas.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
-		grupoDerivadas.setText("Atributos");
+		grupoDerivadas.setText("Entidades Derivadas");
 		grupoDerivadas.setLayout(new GridLayout(1, true));
 
 		// TableViewer
-		this.tblDerivadas = new AtributosTabla(grupoDerivadas);
+		this.tblDerivadas = new EntidadTabla(grupoDerivadas);
 
 		return dialogArea;
 	}
@@ -93,6 +93,8 @@ public class JerarquiaEditor extends Editor<Jerarquia> {
 	protected void cargarDatos() {
 		this.cboTipo.setText(this.componente.getTipo().name());
 		this.cboGenerica.setText(this.componente.getGenerica().getNombre());
+
+		this.tblDerivadas.setElementos(this.componente.getDerivadas());
 	}
 
 	@Override

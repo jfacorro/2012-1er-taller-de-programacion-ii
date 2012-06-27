@@ -27,7 +27,9 @@ public abstract class Editor<T extends Componente> extends Dialog {
 	public static final String ROL = "Rol";
 	public static final String CARDINALIDAD_MIN = "Card. Mín.";
 	public static final String CARDINALIDAD_MAX = "Card. Máx.";
-
+	public static final String ATRIBUTOS = "Atributos";
+	public static final String ENTIDADES = "Entidades";
+	public static final String IDENTIFICADORES = "Identificadores";
 
 	public final static String[] TiposAtributo = getTipos(TipoAtributo.class);
 	public final static String[] TiposEntidades = getTipos(TipoEntidad.class);

@@ -47,8 +47,7 @@ public class RelacionEditor extends Editor<Relacion> {
 		header.setLayout(new GridLayout(2, false));
 
 		this.txtNombre = createLabelText(header, Editor.NOMBRE);
-		this.txtNombre.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true,
-				false));
+		this.txtNombre.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
 
 		this.cboTipo = createLabelCombo(header, Editor.TIPO);
 		this.cboTipo.setItems(Editor.TiposRelaciones);
@@ -57,8 +56,7 @@ public class RelacionEditor extends Editor<Relacion> {
 		 * Atributos.
 		 */
 		Group grupoAtributos = new Group(dialogArea, SWT.NONE);
-		grupoAtributos.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true,
-				true));
+		grupoAtributos.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
 		grupoAtributos.setText("Atributos");
 		grupoAtributos.setLayout(new GridLayout(1, true));
 
@@ -70,19 +68,16 @@ public class RelacionEditor extends Editor<Relacion> {
 
 		// Agregar un nuevo atributo cuando se hace click sobre el boton
 		btnNuevoAtributo.addSelectionListener(this.tblAtributos.nuevo);
-		
+
 		/**
 		 * Entidades.
 		 */
 		Group grupoEntidades = new Group(dialogArea, SWT.NONE);
-		grupoEntidades.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true,
-				true));
+		grupoEntidades.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
 		grupoEntidades.setText("Entidades");
 		grupoEntidades.setLayout(new GridLayout(1, true));
-		
-		this.tblEntidades = new EntidadRelacionTabla(grupoEntidades);
-		
-		
+
+		this.tblEntidades = new EntidadRelacionTabla(grupoEntidades, this.componente);
 
 		return dialogArea;
 	}
@@ -92,7 +87,7 @@ public class RelacionEditor extends Editor<Relacion> {
 		this.txtNombre.setText(this.componente.getNombre());
 		this.cboTipo.setText(this.componente.getTipo().name());
 
-		tblAtributos.setElementos(this.componente.getAtributos());		
+		tblAtributos.setElementos(this.componente.getAtributos());
 		tblEntidades.setElementos(this.componente.getParticipantes());
 	}
 
@@ -104,7 +99,7 @@ public class RelacionEditor extends Editor<Relacion> {
 		for (Atributo atributo : this.tblAtributos.getElementos())
 			componente.addAtributo(atributo);
 	}
-	
+
 	@Override
 	protected boolean validar(List<String> errors) {
 		return errors.size() == 0;

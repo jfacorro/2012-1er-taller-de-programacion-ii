@@ -3,6 +3,7 @@ package mereditor.interfaz.swt.editores;
 import mereditor.interfaz.swt.Principal;
 import mereditor.modelo.Diagrama;
 import mereditor.modelo.Entidad;
+import mereditor.modelo.Relacion;
 import mereditor.modelo.Relacion.EntidadRelacion;
 
 import org.eclipse.jface.viewers.TextCellEditor;
@@ -10,9 +11,11 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Table;
 
 public class EntidadRelacionTabla extends Tabla<EntidadRelacion> {
+	private Relacion relacion;
 
-	public EntidadRelacionTabla(Composite parent) {
+	public EntidadRelacionTabla(Composite parent, Relacion relacion) {
 		super(parent);
+		this.relacion = relacion;
 	}
 
 	@Override
@@ -75,5 +78,10 @@ public class EntidadRelacionTabla extends Tabla<EntidadRelacion> {
 		default:
 			throw new RuntimeException("Propiedad invalida '" + property + "' al establecer su valor.");
 		}
+	}
+
+	@Override
+	protected EntidadRelacion nuevoElemento() {
+		return relacion.new EntidadRelacion(relacion);
 	}
 }

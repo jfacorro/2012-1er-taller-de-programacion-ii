@@ -17,6 +17,9 @@ import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Composite;
@@ -82,6 +85,8 @@ public abstract class Tabla<T> extends TableViewer {
 	protected abstract Object getValorCelda(T element, String property);
 	
 	protected abstract void setValorCelda(T element, String property, Object value);
+	
+	protected abstract T nuevoElemento();
 
 	public void setElementos(Set<T> elementos) {
 		this.elementos.addAll(elementos);
@@ -102,6 +107,34 @@ public abstract class Tabla<T> extends TableViewer {
 	private final ISelectionChangedListener seleccion = new ISelectionChangedListener() {
 		public void selectionChanged(SelectionChangedEvent event) {
 			selection = (IStructuredSelection) getSelection();
+		}
+	};
+	
+	/*
+	 * Agregar un nuevo elemento.
+	 */
+	public final SelectionListener nuevo = new SelectionAdapter() {
+		public void widgetSelected(SelectionEvent event) {
+			T elemento = nuevoElemento();
+			elementos.add(elemento);
+			refresh();
+		}
+	};
+	
+	/**
+	 * Eliminar elemento
+	 */
+	public final SelectionListener eliminar = new SelectionAdapter() {
+		@SuppressWarnings("unchecked")
+		public void widgetSelected(SelectionEvent event) {
+			if (selection != null) {
+				T elemento = (T) selection.getFirstElement();
+
+				elementos.remove(elemento);
+				elementosEliminados.add(elemento);
+
+				refresh();
+			}
 		}
 	};
 
