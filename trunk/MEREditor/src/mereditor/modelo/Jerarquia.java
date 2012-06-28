@@ -14,7 +14,7 @@ public class Jerarquia extends Componente {
 	protected Entidad generica;
 	protected Set<Entidad> derivadas = new HashSet<>();
 
-	protected TipoJerarquia tipo;
+	protected TipoJerarquia tipo = TipoJerarquia.TOTAL_EXCLUSIVA;
 
 	public Jerarquia() {
 		super();

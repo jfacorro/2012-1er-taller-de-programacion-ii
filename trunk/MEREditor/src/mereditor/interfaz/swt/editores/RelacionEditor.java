@@ -102,13 +102,9 @@ public class RelacionEditor extends Editor<Relacion> {
 
 	@Override
 	protected boolean validar(List<String> errors) {
-		boolean valido = true;
-
-		if (txtNombre.getText().trim().length() == 0) {
+		if (txtNombre.getText().trim().length() == 0)
 			errors.add("Debe completar el nombre.");
-			valido = false;
-		}
 
-		return valido;
+		return errors.isEmpty();
 	}
 }

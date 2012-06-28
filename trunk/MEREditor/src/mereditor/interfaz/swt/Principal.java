@@ -360,7 +360,7 @@ public class Principal extends Observable implements FigureListener {
 	}
 
 	/**
-	 * Abre el di�logo para agregar una Jerarquia al diagrama que se encuentra
+	 * Abre el diálogo para agregar una Jerarquia al diagrama que se encuentra
 	 * abierto.
 	 */
 	public void agregarJerarquia() {

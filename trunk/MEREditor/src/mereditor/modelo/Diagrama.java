@@ -79,6 +79,7 @@ public class Diagrama extends ComponenteNombre {
 	 * @param componente
 	 */
 	public void agregar(Componente componente) {
+		componente.setPadre(this);
 		if (Diagrama.class.isInstance(componente))
 			this.diagramas.add((Diagrama) componente);
 		else

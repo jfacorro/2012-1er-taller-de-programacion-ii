@@ -91,13 +91,9 @@ public class AtributoEditor extends Editor<Atributo> {
 
 	@Override
 	protected boolean validar(List<String> errors) {
-		boolean valido = true;
-
-		if (txtNombre.getText().trim().length() == 0) {
+		if (txtNombre.getText().trim().isEmpty())
 			errors.add("Debe completar el nombre.");
-			valido = false;
-		}
 
-		return valido;
+		return errors.isEmpty();
 	}
 }
