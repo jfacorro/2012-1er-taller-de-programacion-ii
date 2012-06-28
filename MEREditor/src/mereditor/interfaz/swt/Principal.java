@@ -32,7 +32,9 @@ import org.eclipse.swt.layout.FormAttachment;
 import org.eclipse.swt.layout.FormData;
 import org.eclipse.swt.layout.FormLayout;
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.FileDialog;
+import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.ToolBar;
@@ -86,12 +88,31 @@ public class Principal extends Observable implements FigureListener {
 
 	private PanelDisegno panelDisegno;
 	private Proyecto proyecto;
+	private Listener promptClose = new Listener() {
+		@Override
+		public void handleEvent(Event event) {
+			if (shell.getModified()) {
+				int style = SWT.APPLICATION_MODAL | SWT.YES | SWT.NO
+						| SWT.CANCEL;
+				MessageBox messageBox = new MessageBox(shell, style);
+				messageBox.setText("Información");
+				messageBox
+						.setMessage("¿Desea guardar el diagrama antes de salir?");
+				int result = messageBox.open();
+				if (result == SWT.YES)
+					guardarProyecto();
+
+				event.doit = result != SWT.CANCEL;
+			}
+		}
+	};
 
 	private Principal(Shell shell) {
 		this.shell = shell;
 		this.shell.setMaximized(true);
 		this.shell.setText(APP_NOMBRE);
 		this.shell.setLayout(new FormLayout());
+		this.shell.addListener(SWT.Close, this.promptClose);
 
 		MenuBuilder.build(this);
 		this.toolBar = ToolBarBuilder.build(this);
@@ -202,7 +223,7 @@ public class Principal extends Observable implements FigureListener {
 	 * 
 	 * @throws Exception
 	 */
-	public void guardarProyecto() throws Exception {
+	public void guardarProyecto() {
 		this.guardarProyecto(false);
 	}
 
@@ -213,7 +234,7 @@ public class Principal extends Observable implements FigureListener {
 	 *            indica si se debe mostrar el dialogo de seleccion de archivo.
 	 * @throws Exception
 	 */
-	public void guardarProyecto(boolean showDialog) throws Exception {
+	public void guardarProyecto(boolean showDialog) {
 		String path = this.proyecto.getPath();
 
 		if (path == null || showDialog) {
@@ -226,12 +247,18 @@ public class Principal extends Observable implements FigureListener {
 			File file = new File(path);
 			String dir = file.getParent() + File.separator;
 			this.proyecto.setPath(path);
-			ParserXml modelo = new ParserXml(this.proyecto);
-			this.guardarXml(modelo.generarXmlProyecto(), path);
-			this.guardarXml(modelo.generarXmlComponentes(),
-					dir + this.proyecto.getComponentesPath());
-			this.guardarXml(modelo.generarXmlRepresentacion(), dir
-					+ this.proyecto.getRepresentacionPath());
+			ParserXml modelo;
+			try {
+				modelo = new ParserXml(this.proyecto);
+				this.guardarXml(modelo.generarXmlProyecto(), path);
+				this.guardarXml(modelo.generarXmlComponentes(), dir
+						+ this.proyecto.getComponentesPath());
+				this.guardarXml(modelo.generarXmlRepresentacion(), dir
+						+ this.proyecto.getRepresentacionPath());
+			} catch (Exception e) {
+				this.error("Ocurrió un error al guardar el proyecto.");
+				e.printStackTrace();
+			}
 
 			this.modificado(false);
 		}
