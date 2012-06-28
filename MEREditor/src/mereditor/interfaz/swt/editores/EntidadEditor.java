@@ -138,6 +138,6 @@ public class EntidadEditor extends Editor<Entidad> {
 		if (this.txtNombre.getText().length() == 0)
 			errors.add("Debe completar el nombre.");
 
-		return errors.size() == 0;
+		return errors.isEmpty();
 	}
 }

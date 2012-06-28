@@ -54,10 +54,9 @@ public class DiagramaEditor extends Editor<Diagrama> {
 
 	@Override
 	protected boolean validar(List<String> errors) {
-		// TODO Auto-generated method stub
 		if(this.txtNombre.getText().length() == 0)
 			errors.add("Debe completar el nombre.");
 
-		return errors.size() == 0;
+		return errors.isEmpty();
 	}
 }

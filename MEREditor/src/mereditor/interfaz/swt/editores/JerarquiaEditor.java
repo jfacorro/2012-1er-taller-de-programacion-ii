@@ -54,12 +54,13 @@ public class JerarquiaEditor extends Editor<Jerarquia> {
 
 		this.cboGenerica = createLabelCombo(header, GENERICA);
 		this.loadGenerica(this.cboGenerica);
-		
+
 		/**
 		 * Atributos.
 		 */
 		Group grupoDerivadas = new Group(dialogArea, SWT.NONE);
-		grupoDerivadas.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
+		grupoDerivadas.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true,
+				true));
 		grupoDerivadas.setText("Entidades Derivadas");
 		grupoDerivadas.setLayout(new GridLayout(1, true));
 
@@ -92,7 +93,8 @@ public class JerarquiaEditor extends Editor<Jerarquia> {
 	@Override
 	protected void cargarDatos() {
 		this.cboTipo.setText(this.componente.getTipo().name());
-		this.cboGenerica.setText(this.componente.getGenerica().getNombre());
+		if (this.componente.getGenerica() != null)
+			this.cboGenerica.setText(this.componente.getGenerica().getNombre());
 
 		this.tblDerivadas.setElementos(this.componente.getDerivadas());
 	}
@@ -107,6 +109,12 @@ public class JerarquiaEditor extends Editor<Jerarquia> {
 
 	@Override
 	protected boolean validar(List<String> errors) {
-		return errors.size() == 0;
+		if (this.componente.getGenerica() == null)
+			errors.add("Debe seleccionar una entidad genérica.");
+		
+		if (this.componente.getDerivadas().isEmpty())
+			errors.add("Debe seleccionar al menos una entidad derivada.");
+		
+		return errors.isEmpty();
 	}
 }
