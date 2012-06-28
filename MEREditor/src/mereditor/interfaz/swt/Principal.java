@@ -355,6 +355,7 @@ public class Principal extends Observable implements FigureListener {
 		if (editor.open() == Window.OK) {
 			this.proyecto.agregar(editor.getComponente());
 			this.actualizarVista();
+			TreeManager.agregarADiagramaActual(editor.getComponente());
 			this.modificado(true);
 		}
 	}
@@ -368,6 +369,7 @@ public class Principal extends Observable implements FigureListener {
 		if (editor.open() == Window.OK) {
 			this.proyecto.agregar(editor.getComponente());
 			this.actualizarVista();
+			TreeManager.agregarADiagramaActual(editor.getComponente());
 			this.modificado(true);
 		}
 	}
