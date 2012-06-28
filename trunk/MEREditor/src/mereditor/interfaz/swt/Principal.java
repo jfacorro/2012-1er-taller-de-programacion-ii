@@ -2,6 +2,7 @@ package mereditor.interfaz.swt;
 
 import java.io.File;
 import java.util.Observable;
+import java.util.Set;
 
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerFactory;
@@ -15,6 +16,8 @@ import mereditor.interfaz.swt.DialogBuilder.Resultado;
 import mereditor.interfaz.swt.dialogs.AgregarEntidadDialog;
 import mereditor.interfaz.swt.editores.JerarquiaEditor;
 import mereditor.interfaz.swt.editores.RelacionEditor;
+import mereditor.modelo.Diagrama;
+import mereditor.modelo.Entidad;
 import mereditor.xml.ParserXml;
 
 import org.eclipse.draw2d.FigureCanvas;
@@ -45,8 +48,7 @@ import org.w3c.dom.Document;
  * 
  */
 public class Principal extends Observable implements FigureListener {
-	public static final Color defaultBackgroundColor = new Color(null, 255,
-			255, 255);
+	public static final Color defaultBackgroundColor = new Color(null, 255, 255, 255);
 	public static final String APP_NOMBRE = "MER Editor";
 	private static final String TITULO_GUARDAR_DIAGRAMA_ACTUAL = "Guardar diagrama actual";
 	private static final String MENSAJE_GUARDAR_DIAGRAMA_ACTUAL = "¿Desea guardar los cambios del diagrama actual?";
@@ -88,16 +90,16 @@ public class Principal extends Observable implements FigureListener {
 
 	private PanelDisegno panelDisegno;
 	private Proyecto proyecto;
+	private ProyectoProxy proyectoProxy;
+
 	private Listener promptClose = new Listener() {
 		@Override
 		public void handleEvent(Event event) {
 			if (shell.getModified()) {
-				int style = SWT.APPLICATION_MODAL | SWT.YES | SWT.NO
-						| SWT.CANCEL;
+				int style = SWT.APPLICATION_MODAL | SWT.YES | SWT.NO | SWT.CANCEL;
 				MessageBox messageBox = new MessageBox(shell, style);
 				messageBox.setText("Información");
-				messageBox
-						.setMessage("¿Desea guardar el diagrama antes de salir?");
+				messageBox.setMessage("¿Desea guardar el diagrama antes de salir?");
 				int result = messageBox.open();
 				if (result == SWT.YES)
 					guardarProyecto();
@@ -157,8 +159,7 @@ public class Principal extends Observable implements FigureListener {
 	 * @throws Exception
 	 */
 	public void nuevoProyecto() throws Exception {
-		PromptResult resultado = DialogBuilder.prompt(this.shell,
-				"Ingresar nombre", "Nombre");
+		PromptResult resultado = DialogBuilder.prompt(this.shell, "Ingresar nombre", "Nombre");
 
 		if (resultado.result == Resultado.OK) {
 			this.proyecto = new Proyecto(resultado.value);
@@ -192,6 +193,8 @@ public class Principal extends Observable implements FigureListener {
 		this.proyecto.setDiagramaActual(this.proyecto.getRaiz().getId());
 		this.panelDisegno = new PanelDisegno(this.figureCanvas, this.proyecto);
 		this.panelDisegno.actualizar();
+		// Crear el proxy.
+		this.proyectoProxy = new ProyectoProxy(this.proyecto);
 		// Carga inicial del arbol.
 		TreeManager.cargar(this.proyecto);
 		this.mostrarArbol(true);
@@ -251,10 +254,8 @@ public class Principal extends Observable implements FigureListener {
 			try {
 				modelo = new ParserXml(this.proyecto);
 				this.guardarXml(modelo.generarXmlProyecto(), path);
-				this.guardarXml(modelo.generarXmlComponentes(), dir
-						+ this.proyecto.getComponentesPath());
-				this.guardarXml(modelo.generarXmlRepresentacion(), dir
-						+ this.proyecto.getRepresentacionPath());
+				this.guardarXml(modelo.generarXmlComponentes(), dir + this.proyecto.getComponentesPath());
+				this.guardarXml(modelo.generarXmlRepresentacion(), dir + this.proyecto.getRepresentacionPath());
 			} catch (Exception e) {
 				this.error("Ocurrió un error al guardar el proyecto.");
 				e.printStackTrace();
@@ -272,8 +273,7 @@ public class Principal extends Observable implements FigureListener {
 	 * @throws Exception
 	 */
 	private void guardarXml(Document doc, String path) throws Exception {
-		TransformerFactory transformerFactory = TransformerFactory
-				.newInstance();
+		TransformerFactory transformerFactory = TransformerFactory.newInstance();
 		Transformer transformer = transformerFactory.newTransformer();
 		DOMSource source = new DOMSource(doc);
 		StreamResult result = new StreamResult(new File(path));
@@ -286,8 +286,7 @@ public class Principal extends Observable implements FigureListener {
 	 * @throws Exception
 	 */
 	public void nuevoDiagrama() throws Exception {
-		PromptResult resultado = DialogBuilder.prompt(this.shell,
-				"Ingresar nombre", "Nombre");
+		PromptResult resultado = DialogBuilder.prompt(this.shell, "Ingresar nombre", "Nombre");
 		if (resultado.result == Resultado.OK) {
 			DiagramaControl nuevoDiagrama = new DiagramaControl();
 			nuevoDiagrama.setNombre(resultado.value);
@@ -325,14 +324,10 @@ public class Principal extends Observable implements FigureListener {
 			boolean guardar = MessageDialog.openQuestion(this.shell,
 					TITULO_GUARDAR_DIAGRAMA_ACTUAL,
 					MENSAJE_GUARDAR_DIAGRAMA_ACTUAL);
-			if (guardar) {
-				try {
-					Principal.getInstance().guardarProyecto();
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
+			if (guardar)
+				this.guardarProyecto();
 		}
+
 		this.proyecto.setDiagramaActual(id);
 		this.actualizarVista();
 	}
@@ -342,8 +337,12 @@ public class Principal extends Observable implements FigureListener {
 	 * abierto.
 	 */
 	public void agregarEntidad() {
-		new AgregarEntidadDialog().open();
-		this.modificado(true);
+		AgregarEntidadDialog dialog = new AgregarEntidadDialog();
+		if (dialog.open() == Window.OK) {
+			this.proyecto.agregar(dialog.getComponente());
+			this.actualizarVista();
+			this.modificado(true);
+		}
 	}
 
 	/**
@@ -394,8 +393,7 @@ public class Principal extends Observable implements FigureListener {
 	public void exportar() {
 		FileDialog fileDialog = new FileDialog(this.shell, SWT.SAVE);
 		fileDialog.setFilterExtensions(extensionesImagen);
-		fileDialog.setFileName(this.proyecto.getDiagramaActual().getNombre()
-				+ ".jpg");
+		fileDialog.setFileName(this.proyecto.getDiagramaActual().getNombre() + ".jpg");
 		String path = fileDialog.open();
 
 		if (path != null) {
@@ -439,12 +437,13 @@ public class Principal extends Observable implements FigureListener {
 	}
 
 	/**
-	 * Devuelve el proyecto que se encuentra abierto
+	 * Devuelve un proxy del proyecto que se encuentra abierto exponiendo solo
+	 * los métodos seleccionados.
 	 * 
 	 * @return
 	 */
-	public Proyecto getProyecto() {
-		return this.proyecto;
+	public ProyectoProxy getProyectoProxy() {
+		return this.proyectoProxy;
 	}
 
 	/**
@@ -484,10 +483,35 @@ public class Principal extends Observable implements FigureListener {
 		}
 	}
 
+	/**
+	 * Muestra o esconde el arbol de jerarquías según el valor del parámetros
+	 * 
+	 * @param mostrar
+	 *            indica si se debe mostrar el árbol.
+	 */
 	public void mostrarArbol(boolean mostrar) {
 		int peso = mostrar ? 3 : 0;
 
 		this.sashForm.setWeights(new int[] { peso, 16 });
+	}
 
+	public class ProyectoProxy {
+		private Proyecto proyecto;
+
+		public ProyectoProxy(Proyecto proyecto) {
+			this.proyecto = proyecto;
+		}
+
+		public Set<Entidad> getEntidadesDisponibles() {
+			Diagrama diagrama = this.proyecto.getDiagramaActual();
+
+			// Obtener las entidades de los ancestros
+			return diagrama.getEntidades(true);
+		}
+
+		public Set<Entidad> getEntidadesDiagrama() {
+			Diagrama diagrama = this.proyecto.getDiagramaActual();
+			return diagrama.getEntidades();
+		}
 	}
 }

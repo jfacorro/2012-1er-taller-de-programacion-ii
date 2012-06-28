@@ -5,9 +5,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
-import mereditor.control.EntidadControl;
-import mereditor.interfaz.swt.editores.EditorFactory;
-import mereditor.modelo.Diagrama;
+import mereditor.interfaz.swt.editores.Editor;
+import mereditor.interfaz.swt.editores.EntidadEditor;
 import mereditor.modelo.Entidad;
 
 import org.eclipse.swt.SWT;
@@ -23,6 +22,7 @@ import org.eclipse.swt.widgets.Shell;
 public class AgregarEntidadDialog extends Dialog {
 	private Combo cboEntidades;
 	private Map<String, Entidad> entidades = new HashMap<>();
+	private Entidad entidad = null;	
 
 	/**
 	 * @wbp.parser.constructor
@@ -60,12 +60,11 @@ public class AgregarEntidadDialog extends Dialog {
 	 * el combo.
 	 */
 	private void loadEntidades() {
-		Diagrama diagrama = this.principal.getProyecto().getDiagramaActual();
-
 		// Obtener las entidades de los ancestros
-		Set<Entidad> entidades = diagrama.getEntidades(true);
+		Set<Entidad> entidades = this.principal.getProyectoProxy().getEntidadesDisponibles();
+		Set<Entidad> entidadesDiagrama = this.principal.getProyectoProxy().getEntidadesDiagrama();
 		// Quitar las que ya tiene
-		entidades.removeAll(diagrama.getEntidades());
+		entidades.removeAll(entidadesDiagrama);
 
 		for (Entidad entidad : entidades) {
 			this.entidades.put(entidad.getNombre(), entidad);
@@ -76,6 +75,14 @@ public class AgregarEntidadDialog extends Dialog {
 		Arrays.sort(items);
 		this.cboEntidades.setItems(items);
 	}
+	
+	/**
+	 * Devuelve la entidad seleccionada o creada.
+	 * @return
+	 */
+	public Entidad getComponente() {
+		return this.entidad;
+	}
 
 	@Override
 	protected void okPressed() {
@@ -83,28 +90,18 @@ public class AgregarEntidadDialog extends Dialog {
 			this.principal.error("No seleccionó ninguna entidad");
 		} else {
 			String nombre = cboEntidades.getText();
-			Entidad entidad = this.entidades.get(nombre);
-			agregar(entidad);
+			entidad = this.entidades.get(nombre);
 			super.okPressed();
 		}
 	}
 
 	protected SelectionAdapter nueva = new SelectionAdapter() {
 		public void widgetSelected(org.eclipse.swt.events.SelectionEvent e) {
+			Editor<Entidad> editor = new EntidadEditor();
+			int result = editor.open();
+			entidad = editor.getComponente();
+			setReturnCode(result);
 			close();
-			Entidad entidad = new EntidadControl();
-			EditorFactory.getEditor(entidad).open();
-			agregar(entidad);
 		};
 	};
-
-	/**
-	 * Agrega la entidad seleccionada y cierra el dialogo.
-	 * 
-	 * @param entidad
-	 */
-	private void agregar(Entidad entidad) {
-		principal.getProyecto().agregar(entidad);
-		principal.actualizarVista();
-	}
 }

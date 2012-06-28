@@ -7,7 +7,6 @@ import java.util.Map;
 import java.util.Set;
 
 import mereditor.control.JerarquiaControl;
-import mereditor.modelo.Diagrama;
 import mereditor.modelo.Entidad;
 import mereditor.modelo.Jerarquia;
 import mereditor.modelo.Jerarquia.TipoJerarquia;
@@ -75,10 +74,8 @@ public class JerarquiaEditor extends Editor<Jerarquia> {
 	 * el combo.
 	 */
 	private void loadGenerica(Combo combo) {
-		Diagrama diagrama = this.principal.getProyecto().getDiagramaActual();
-
 		// Obtener las entidades de este diagrama
-		Set<Entidad> entidades = diagrama.getEntidades();
+		Set<Entidad> entidades = this.principal.getProyectoProxy().getEntidadesDiagrama();
 
 		for (Entidad entidad : entidades) {
 			this.entidades.put(entidad.getNombre(), entidad);
