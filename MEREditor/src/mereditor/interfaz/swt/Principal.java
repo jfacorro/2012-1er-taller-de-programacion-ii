@@ -23,7 +23,6 @@ import mereditor.xml.ParserXml;
 import org.eclipse.draw2d.FigureCanvas;
 import org.eclipse.draw2d.FigureListener;
 import org.eclipse.draw2d.IFigure;
-import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.window.Window;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.SashForm;
@@ -50,8 +49,8 @@ import org.w3c.dom.Document;
 public class Principal extends Observable implements FigureListener {
 	public static final Color defaultBackgroundColor = new Color(null, 255, 255, 255);
 	public static final String APP_NOMBRE = "MER Editor";
-	private static final String TITULO_GUARDAR_DIAGRAMA_ACTUAL = "Guardar diagrama actual";
-	private static final String MENSAJE_GUARDAR_DIAGRAMA_ACTUAL = "¿Desea guardar los cambios del diagrama actual?";
+	private static final String TITULO_GUARDAR_DIAGRAMA_ACTUAL = "Información";
+	private static final String MENSAJE_GUARDAR_DIAGRAMA_ACTUAL = "¿Desea guardar los cambios hechos al diagrama actual?";
 	public static final String[] extensionProyecto = new String[] { "*.xml" };
 	public static final String[] extensionesImagen = new String[] { "*.jpg" };
 	private static final String PATH_IMAGENES = "src/recursos/imagenes/";
@@ -95,17 +94,8 @@ public class Principal extends Observable implements FigureListener {
 	private Listener promptClose = new Listener() {
 		@Override
 		public void handleEvent(Event event) {
-			if (shell.getModified()) {
-				int style = SWT.APPLICATION_MODAL | SWT.YES | SWT.NO | SWT.CANCEL;
-				MessageBox messageBox = new MessageBox(shell, style);
-				messageBox.setText("Información");
-				messageBox.setMessage("¿Desea guardar el diagrama antes de salir?");
-				int result = messageBox.open();
-				if (result == SWT.YES)
-					guardarProyecto();
-
-				event.doit = result != SWT.CANCEL;
-			}
+			int resultado = preguntarGuardar();
+			event.doit = resultado != SWT.CANCEL;
 		}
 	};
 
@@ -320,16 +310,40 @@ public class Principal extends Observable implements FigureListener {
 	 * @param diagrama
 	 **/
 	public void abrirDiagrama(String id) {
-		if (this.shell.getModified()) {
-			boolean guardar = MessageDialog.openQuestion(this.shell,
-					TITULO_GUARDAR_DIAGRAMA_ACTUAL,
-					MENSAJE_GUARDAR_DIAGRAMA_ACTUAL);
-			if (guardar)
-				this.guardarProyecto();
+		String idActual = this.proyecto.getDiagramaActual().getId();
+		if (!id.equals(idActual)) {
+			int resultado = this.preguntarGuardar();
+
+			if (resultado != SWT.CANCEL) {
+				this.proyecto.setDiagramaActual(id);
+				this.actualizarVista();
+			}
+		}
+	}
+
+	/**
+	 * Pregunta al usuario si se quiere guardar el diagrama. Si se ingresa un
+	 * si, se realiza el guardado del diagrama y se devuelve el resultado del
+	 * dialogo.
+	 * 
+	 * @return resultado: SWT.YES | SWT.NO | SWT.CANCEL
+	 */
+	private int preguntarGuardar() {
+		int result = SWT.NO;
+
+		if (shell.getModified()) {
+			int style = SWT.APPLICATION_MODAL | SWT.YES | SWT.NO | SWT.CANCEL;
+			MessageBox messageBox = new MessageBox(shell, style);
+			messageBox.setText(TITULO_GUARDAR_DIAGRAMA_ACTUAL);
+			messageBox.setMessage(MENSAJE_GUARDAR_DIAGRAMA_ACTUAL);
+
+			result = messageBox.open();
+
+			if (result == SWT.YES)
+				guardarProyecto();
 		}
 
-		this.proyecto.setDiagramaActual(id);
-		this.actualizarVista();
+		return result;
 	}
 
 	/**
