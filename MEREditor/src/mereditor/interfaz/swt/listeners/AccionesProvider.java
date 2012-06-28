@@ -17,11 +17,7 @@ public class AccionesProvider {
 	public static final SelectionListener nuevo = new SelectionAdapter() {
 		@Override
 		public void widgetSelected(SelectionEvent e) {
-			try {
-				principal().nuevoProyecto();
-			} catch (Exception ex) {
-				ex.printStackTrace();
-			}
+			principal().nuevoProyecto();
 		}
 	};
 
@@ -41,22 +37,14 @@ public class AccionesProvider {
 	public static final SelectionListener guardar = new SelectionAdapter() {
 		@Override
 		public void widgetSelected(SelectionEvent e) {
-			try {
-				principal().guardarProyecto();
-			} catch (Exception e1) {
-				e1.printStackTrace();
-			}
+			principal().guardarProyecto();
 		}
 	};
 	
 	public static final SelectionListener guardarComo = new SelectionAdapter() {
 		@Override
 		public void widgetSelected(SelectionEvent e) {
-			try {
-				principal().guardarProyecto(true);
-			} catch (Exception e1) {
-				e1.printStackTrace();
-			}
+			principal().guardarProyecto(true);
 		}
 	}; 
 
@@ -134,11 +122,7 @@ public class AccionesProvider {
 	public static final SelectionListener nuevoDiagrama = new SelectionAdapter() {
 		@Override
 		public void widgetSelected(SelectionEvent e) {
-			try {
-				principal().nuevoDiagrama();
-			} catch (Exception ex) {
-				ex.printStackTrace();
-			}
+			principal().nuevoDiagrama();
 		}
 	};
 
