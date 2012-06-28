@@ -36,13 +36,14 @@ public class AtributoXml extends AtributoControl implements Xmlizable {
 		// Cardinalidad
 		parser.agregarCardinalidad(elemento, this.cardinalidadMinima, this.cardinalidadMaxima);
 
-		// Formula u original según tipo
+		// Formula u original segï¿½n tipo
 		switch (this.tipo) {
 		case DERIVADO_CALCULO:
 			parser.agregarFormula(elemento, this.formula);
 			break;
 		case DERIVADO_COPIA:
-			parser.agregarOriginal(elemento, this.original.getId());
+			if(this.original != null)
+				parser.agregarOriginal(elemento, this.original.getId());
 			break;
 		}
 
@@ -69,7 +70,7 @@ public class AtributoXml extends AtributoControl implements Xmlizable {
 			this.atributos.add(atributo);
 		}
 
-		// Formula u original según tipo
+		// Formula u original segï¿½n tipo
 		switch (this.tipo) {
 		case DERIVADO_CALCULO:
 			this.formula = parser.obtenerFormulaAtributo(elemento);
