@@ -6,7 +6,6 @@ import java.util.Map;
 import java.util.Set;
 
 import mereditor.modelo.Atributo;
-import mereditor.modelo.Diagrama;
 import mereditor.modelo.Entidad;
 import mereditor.modelo.Entidad.Identificador;
 
@@ -134,10 +133,8 @@ public class AgregarIdentificadorDialog extends Dialog {
 	 * el combo.
 	 */
 	private void loadEntidades() {
-		Diagrama diagrama = this.principal.getProyecto().getDiagramaActual();
-
 		// Entidades sin entidades de diagramas ancestros
-		Set<Entidad> entidades = diagrama.getEntidades(false);
+		Set<Entidad> entidades = this.principal.getProyectoProxy().getEntidadesDiagrama();
 
 		for (Entidad entidad : entidades) {
 			this.entidades.put(entidad.getNombre(), entidad);
