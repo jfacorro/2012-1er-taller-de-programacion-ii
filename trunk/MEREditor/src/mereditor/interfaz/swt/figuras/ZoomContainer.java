@@ -32,13 +32,6 @@ public class ZoomContainer extends Figure {
 		return rect;
 	}
 
-	public Dimension getPreferredSize(int wHint, int hHint) {
-		Dimension d = super.getPreferredSize(wHint, hHint);
-		int w = getInsets().getWidth();
-		int h = getInsets().getHeight();
-		return d.getExpanded(-w, -h).scale(zoom).expand(w, h);
-	}
-
 	/**
 	 * @see org.eclipse.draw2d.Figure#paintClientArea(Graphics)
 	 */

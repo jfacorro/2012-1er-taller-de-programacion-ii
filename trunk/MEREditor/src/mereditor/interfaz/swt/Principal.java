@@ -158,7 +158,7 @@ public class Principal extends Observable implements FigureListener {
 	 * 
 	 * @throws Exception
 	 */
-	public void nuevoProyecto() throws Exception {
+	public void nuevoProyecto() {
 		PromptResult resultado = DialogBuilder.prompt(this.shell, "Ingresar nombre", "Nombre");
 
 		if (resultado.result == Resultado.OK) {
@@ -285,7 +285,7 @@ public class Principal extends Observable implements FigureListener {
 	 * 
 	 * @throws Exception
 	 */
-	public void nuevoDiagrama() throws Exception {
+	public void nuevoDiagrama() {
 		PromptResult resultado = DialogBuilder.prompt(this.shell, "Ingresar nombre", "Nombre");
 		if (resultado.result == Resultado.OK) {
 			DiagramaControl nuevoDiagrama = new DiagramaControl();
@@ -341,12 +341,13 @@ public class Principal extends Observable implements FigureListener {
 		if (dialog.open() == Window.OK) {
 			this.proyecto.agregar(dialog.getComponente());
 			this.actualizarVista();
+			TreeManager.agregarADiagramaActual(dialog.getComponente());
 			this.modificado(true);
 		}
 	}
 
 	/**
-	 * Abre el di�logo para agregar una Relacion al diagrama que se encuentra
+	 * Abre el diálogo para agregar una Relacion al diagrama que se encuentra
 	 * abierto.
 	 */
 	public void agregarRelacion() {

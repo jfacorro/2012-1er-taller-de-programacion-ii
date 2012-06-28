@@ -26,7 +26,7 @@ public class Proyecto {
 	 */
 	protected DiagramaControl diagramaActual;
 	/**
-	 * Validación del proyecto entero.
+	 * ValidaciÃ³n del proyecto entero.
 	 */
 	protected Validacion validacion;
 	/**
@@ -54,7 +54,7 @@ public class Proyecto {
 	 * @param nombre
 	 * @throws Exception
 	 */
-	public Proyecto(String nombre) throws Exception {
+	public Proyecto(String nombre) {
 		this.raiz = new DiagramaControl();
 		this.raiz.setNombre(nombre);
 		this.agregar(this.raiz);
@@ -70,7 +70,7 @@ public class Proyecto {
 	}
 
 	/**
-	 * Establece el diagrama raíz del proyecto.
+	 * Establece el diagrama raÃ­z del proyecto.
 	 * 
 	 * @return
 	 */
@@ -84,7 +84,7 @@ public class Proyecto {
 	}
 
 	/**
-	 * Devuelve la validación de todo el proyecto.
+	 * Devuelve la validaciÃ³n de todo el proyecto.
 	 * 
 	 * @return
 	 */
@@ -93,7 +93,7 @@ public class Proyecto {
 	}
 
 	/**
-	 * Establece la validación de todo el proyecto.
+	 * Establece la validaciÃ³n de todo el proyecto.
 	 * 
 	 * @param validacion
 	 */
@@ -189,7 +189,7 @@ public class Proyecto {
 	}
 
 	/**
-	 * Devuelve el path donde se guardó el archivo
+	 * Devuelve el path donde se guardÃ³ el archivo
 	 */
 	public String getPath() {
 		return this.path;
