@@ -137,6 +137,10 @@ public class TreeManager {
 		agregar(nuevoDiagrama, diagramaActivo);
 	}
 
+	public static void agregarADiagramaActual(Componente nuevoComponente) {
+		agregar(nuevoComponente, diagramaActivo);
+	}
+	
 	public static Diagrama getDiagramaActual() {
 		return (Diagrama) diagramaActivo.getData();
 	}
