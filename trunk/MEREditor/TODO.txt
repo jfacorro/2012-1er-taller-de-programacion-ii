@@ -1,0 +1,30 @@
+General:
+	- Crear nuevas entidades, relaciones y jerarquías.
+	- Eliminar entidades.
+	- Crear menu Proyecto con las mismas opciones de la barra de iconos.
+	- Imprimir
+		- Dibujar límites de hoja A4 en el área de diseño.
+		- Validación de la posición de todos los componentes dentro de la hoja.
+	- Exportar
+	- [Zoom]
+	- [Selección de componentes en la vista]
+	- Validación del proyecto (Ver informe)
+Editores:
+	- Entidad:
+		- Eliminar los atributos.
+		- Crear atributos compuestos.
+		- Crear y editar identificadores.
+	- Relación
+	- Jerarquía
+Diagramas:
+	- Crear y eliminar diagramas.
+	- Abrir nuevo diagrama
+Arbol:
+	- Comportamiento del árbol.
+	- Actualizar modelo con la edición del árbol.
+
+Para Consultar a Patricia:
+	- Representación de los identificadores (ver CarteleraTeatral)
+	- Preguntar qué metricas se deben usar para la validación:
+		- Las definimos nosotros?
+		- Recibimos la definición de la cátedra?
