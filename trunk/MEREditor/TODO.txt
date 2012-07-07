@@ -5,7 +5,6 @@
 			- DERIVADO_CALCULO: formula.
 		- Entidad:
 			- Identificadores: la verdad que del libro que mando la mina no saqué ninguna conclusión, sobre todo porque los diagramas no se parecen en nada a los que tenemos como ejemplo.
-			- Agrandar el largo de la ventana de edición.
 		- Posicion Elementos: 
 			Al agregar un nuevo atributo o componente definir donde se debe agregar, que no sea en la posicion (0, 0).
 		- Jerarquía: 
