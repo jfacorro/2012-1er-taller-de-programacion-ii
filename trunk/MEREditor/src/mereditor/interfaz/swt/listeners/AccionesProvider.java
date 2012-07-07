@@ -5,8 +5,10 @@ import mereditor.interfaz.swt.Principal;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
+import org.eclipse.swt.widgets.Combo;
 
 public class AccionesProvider {
+
 	private static Principal principal() {
 		return Principal.getInstance();
 	}
@@ -40,13 +42,13 @@ public class AccionesProvider {
 			principal().guardarProyecto();
 		}
 	};
-	
+
 	public static final SelectionListener guardarComo = new SelectionAdapter() {
 		@Override
 		public void widgetSelected(SelectionEvent e) {
 			principal().guardarProyecto(true);
 		}
-	}; 
+	};
 
 	public static final SelectionListener imprimir = new SelectionAdapter() {
 		public void widgetSelected(SelectionEvent e) {
@@ -72,6 +74,13 @@ public class AccionesProvider {
 		};
 	};
 
+	public static SelectionListener zoom = new SelectionAdapter() {
+		public void widgetSelected(SelectionEvent e) {
+			Combo combo = (Combo) e.getSource();
+			principal().zoom(combo.getText());
+		};
+	};
+
 	/**
 	 * Agregar una Relacion al diagrama actual.
 	 */
@@ -89,7 +98,7 @@ public class AccionesProvider {
 			principal().agregarJerarquia();
 		};
 	};
-	
+
 	public static final SelectionListener validar = new SelectionAdapter() {
 		public void widgetSelected(SelectionEvent e) {
 			principal().validar();
