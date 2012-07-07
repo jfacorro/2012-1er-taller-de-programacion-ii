@@ -8,6 +8,7 @@ import java.util.Observer;
 import mereditor.interfaz.swt.listeners.AccionesProvider;
 
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.ToolBar;
 import org.eclipse.swt.widgets.ToolItem;
 
@@ -44,9 +45,9 @@ public class ToolBarBuilder implements Observer {
 		item.setImage(Principal.getImagen("guardar.png"));
 		item.addSelectionListener(AccionesProvider.guardar);
 		proyectoItems.add(item);
-		
+
 		item = new ToolItem(this.toolBar, SWT.SEPARATOR);
-		
+
 		item = new ToolItem(this.toolBar, SWT.PUSH);
 		item.setToolTipText("Imprimir");
 		item.setImage(Principal.getImagen("imprimir.png"));
@@ -58,7 +59,7 @@ public class ToolBarBuilder implements Observer {
 		item.setImage(Principal.getImagen("exportar.png"));
 		item.addSelectionListener(AccionesProvider.exportar);
 		proyectoItems.add(item);
-		
+
 		item = new ToolItem(this.toolBar, SWT.SEPARATOR);
 
 		item = new ToolItem(this.toolBar, SWT.PUSH);
@@ -84,27 +85,47 @@ public class ToolBarBuilder implements Observer {
 		item.setImage(Principal.getImagen("jerarquia.png"));
 		item.addSelectionListener(AccionesProvider.agregarJerarquia);
 		proyectoItems.add(item);
-		
+
 		item = new ToolItem(this.toolBar, SWT.PUSH);
 		item.setToolTipText("Validar");
 		item.setImage(Principal.getImagen("validar.png"));
 		item.addSelectionListener(AccionesProvider.validar);
 		proyectoItems.add(item);
-	
+
 		item = new ToolItem(this.toolBar, SWT.SEPARATOR);
 
 		item = new ToolItem(this.toolBar, SWT.PUSH);
-		item.setToolTipText("Zoom");
-		item.setImage(Principal.getImagen("zoom.png"));
+		item.setToolTipText("Zoom -");
+		item.setImage(Principal.getImagen("zoom-out.png"));
+		item.addSelectionListener(AccionesProvider.zoomOut);
+		proyectoItems.add(item);
+
+		item = new ToolItem(this.toolBar, SWT.SEPARATOR);
+
+		Combo cboZoom = new Combo(this.toolBar, SWT.READ_ONLY);
+		cboZoom.setItems(PanelDisegno.zoomOptions.keySet().toArray(
+				new String[PanelDisegno.zoomOptions.size()]));
+		cboZoom.pack();
+		cboZoom.setEnabled(false);
+		cboZoom.setText(PanelDisegno.zoom100);
+		cboZoom.addSelectionListener(AccionesProvider.zoom);
+
+		item.setWidth(cboZoom.getSize().x);
+		item.setControl(cboZoom);
+		proyectoItems.add(item);
+
+		item = new ToolItem(this.toolBar, SWT.PUSH);
+		item.setToolTipText("Zoom +");
+		item.setImage(Principal.getImagen("zoom-in.png"));
 		item.addSelectionListener(AccionesProvider.zoomIn);
 		proyectoItems.add(item);
-		
+
 		item = new ToolItem(this.toolBar, SWT.PUSH);
 		item.setToolTipText("Explorador del Proyecto");
 		item.setImage(Principal.getImagen("tree_mode.png"));
 		item.addSelectionListener(AccionesProvider.mostrarArbol);
 		proyectoItems.add(item);
-		
+
 		item = new ToolItem(this.toolBar, SWT.SEPARATOR);
 
 		item = new ToolItem(this.toolBar, SWT.PUSH);
@@ -116,8 +137,12 @@ public class ToolBarBuilder implements Observer {
 	}
 
 	private void habilitarItems(boolean habilitar) {
-		for (ToolItem item : this.proyectoItems)
+		for (ToolItem item : this.proyectoItems) {
 			item.setEnabled(habilitar);
+
+			if (item.getControl() != null)
+				item.getControl().setEnabled(habilitar);
+		}
 	}
 
 	@Override

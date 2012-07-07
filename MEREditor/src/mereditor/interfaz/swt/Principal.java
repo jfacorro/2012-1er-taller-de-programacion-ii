@@ -47,7 +47,8 @@ import org.w3c.dom.Document;
  * 
  */
 public class Principal extends Observable implements FigureListener {
-	public static final Color defaultBackgroundColor = new Color(null, 255, 255, 255);
+	public static final Color defaultBackgroundColor = new Color(null, 255,
+			255, 255);
 	public static final String APP_NOMBRE = "MER Editor";
 	private static final String TITULO_GUARDAR_DIAGRAMA_ACTUAL = "Información";
 	private static final String MENSAJE_GUARDAR_DIAGRAMA_ACTUAL = "¿Desea guardar los cambios hechos al diagrama actual?";
@@ -149,7 +150,8 @@ public class Principal extends Observable implements FigureListener {
 	 * @throws Exception
 	 */
 	public void nuevoProyecto() {
-		PromptResult resultado = DialogBuilder.prompt(this.shell, "Ingresar nombre", "Nombre");
+		PromptResult resultado = DialogBuilder.prompt(this.shell,
+				"Ingresar nombre", "Nombre");
 
 		if (resultado.result == Resultado.OK) {
 			this.proyecto = new Proyecto(resultado.value);
@@ -244,8 +246,10 @@ public class Principal extends Observable implements FigureListener {
 			try {
 				modelo = new ParserXml(this.proyecto);
 				this.guardarXml(modelo.generarXmlProyecto(), path);
-				this.guardarXml(modelo.generarXmlComponentes(), dir + this.proyecto.getComponentesPath());
-				this.guardarXml(modelo.generarXmlRepresentacion(), dir + this.proyecto.getRepresentacionPath());
+				this.guardarXml(modelo.generarXmlComponentes(), dir
+						+ this.proyecto.getComponentesPath());
+				this.guardarXml(modelo.generarXmlRepresentacion(), dir
+						+ this.proyecto.getRepresentacionPath());
 			} catch (Exception e) {
 				this.error("Ocurrió un error al guardar el proyecto.");
 				e.printStackTrace();
@@ -263,7 +267,8 @@ public class Principal extends Observable implements FigureListener {
 	 * @throws Exception
 	 */
 	private void guardarXml(Document doc, String path) throws Exception {
-		TransformerFactory transformerFactory = TransformerFactory.newInstance();
+		TransformerFactory transformerFactory = TransformerFactory
+				.newInstance();
 		Transformer transformer = transformerFactory.newTransformer();
 		DOMSource source = new DOMSource(doc);
 		StreamResult result = new StreamResult(new File(path));
@@ -276,7 +281,8 @@ public class Principal extends Observable implements FigureListener {
 	 * @throws Exception
 	 */
 	public void nuevoDiagrama() {
-		PromptResult resultado = DialogBuilder.prompt(this.shell, "Ingresar nombre", "Nombre");
+		PromptResult resultado = DialogBuilder.prompt(this.shell,
+				"Ingresar nombre", "Nombre");
 		if (resultado.result == Resultado.OK) {
 			DiagramaControl nuevoDiagrama = new DiagramaControl();
 			nuevoDiagrama.setNombre(resultado.value);
@@ -402,13 +408,18 @@ public class Principal extends Observable implements FigureListener {
 		this.panelDisegno.zoomOut();
 	}
 
+	public void zoom(String zoom) {
+		this.panelDisegno.zoom(zoom);
+	}
+
 	/**
 	 * Exportar el diagrama a un archivo de imagen.
 	 */
 	public void exportar() {
 		FileDialog fileDialog = new FileDialog(this.shell, SWT.SAVE);
 		fileDialog.setFilterExtensions(extensionesImagen);
-		fileDialog.setFileName(this.proyecto.getDiagramaActual().getNombre() + ".jpg");
+		fileDialog.setFileName(this.proyecto.getDiagramaActual().getNombre()
+				+ ".jpg");
 		String path = fileDialog.open();
 
 		if (path != null) {
