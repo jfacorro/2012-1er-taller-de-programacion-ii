@@ -1,12 +1,22 @@
 - Completar Funcionalidad.
 	- Editores
-		- General: Algunos tipos de componentes les faltan los campos para asignar valores valores a ciertas propiedades (por ej. cardinalidad mínima y máxima no está en ningún lado). Revisar las propiedades de cada tipo de Componente y verificar si sus editores tienen la funcionalidad que deben tener.
-		- Entidad: Identificadores, la verdad que del libro que mando la mina no saqué ninguna conclusión, sobre todo porque los diagramas no se parecen en nada a los que tenemos como ejemplo.
-		- Atributo: falta definir las propiedades a establecer cuando el tipo es diferente de CARACTERIZACIÓN.
-		- Jerarquía: deberíamos poder agregar a un Diagrama una Jerarquía existente en otro Diagrama, se puede copiar la funcionalidad del AgregarEntidadDialog (ver si se puede generalizar en vez de copiar y pegar).
-		-Relación: Idem punto anterior pero con relaciones existentes.
+		- General: 
+			Algunos tipos de componentes les faltan los campos para asignar valores valores a ciertas propiedades (por ej. cardinalidad mínima y máxima no está en ningún lado). Revisar las propiedades de cada tipo de Componente y verificar si sus editores tienen la funcionalidad que deben tener.
+		- Atributo:
+			- Cardinalidades (min y max).
+			- DERIVADO_COPIA: selección atributo original.
+			- DERIVADO_CALCULO: formula.
+		- Entidad:
+			- Identificadores: la verdad que del libro que mando la mina no saqué ninguna conclusión, sobre todo porque los diagramas no se parecen en nada a los que tenemos como ejemplo.
+			- Agrandar el largo de la ventana de edición.
+		- Posicion Elementos: 
+			Al agregar un nuevo atributo o componente definir donde se debe agregar, que no sea en la posicion (0, 0).
+		- Jerarquía: 
+			Deberíamos poder agregar a un Diagrama una Jerarquía existente en otro Diagrama, se puede copiar la funcionalidad del AgregarEntidadDialog (ver si se puede generalizar en vez de copiar y pegar).
+		-Relación: 
+			Idem punto anterior pero con relaciones existentes.
 	- Validación. 
-		Completitud: del Diseño de cada Componente (aegurarse que las propiedades tienen valores válidos y la obligatorias están completas).
+		- Completitud: del Diseño de cada Componente (aegurarse que las propiedades tienen valores válidos y la obligatorias están completas).
 		- Cohesión: según wikipedia alta cohesión "nos dice que la información que almacena una clase debe de ser coherente y debe estar (en la medida de lo posible) relacionada con la clase.". No tengo la más mínima idea de como podríamos hacer eso, por lo tanto voto por que no lo hagamos.
 		- Acoplamiento: según wikipedia de nuevo "Es la idea de tener las clases lo menos ligadas entre sí que se pueda. De tal forma que en caso de producirse una modificación en alguna de ellas, se tenga la mínima repercusión posible en el resto de clases, potenciando la reutilización, y disminuyendo la dependencia entre las clases.". Esto lo podríamos hacer verificando Relaciones y Jerarquías para ver si apuntan a alguna Entidad de otro Diagrama.
 		- Claridad:

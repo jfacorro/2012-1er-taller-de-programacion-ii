@@ -15,12 +15,9 @@ public class Entidad extends ComponenteNombre {
 		MAESTRA_COSA, MAESTRA_DOMINIO, TRANSACCIONAL_HISTORICA, TRANSACCIONAL_PROGRAMADA
 	}
 
-	protected Set<Atributo> atributos = new HashSet<Atributo>();
-	/**
-	 * Pueden ser tanto Atributos como Entidades
-	 */
-	protected Set<Identificador> identificadores = new HashSet<Identificador>();
 	protected TipoEntidad tipo = TipoEntidad.MAESTRA_COSA;
+	protected Set<Atributo> atributos = new HashSet<Atributo>();
+	protected Set<Identificador> identificadores = new HashSet<Identificador>();
 
 	public Entidad() {
 		super();

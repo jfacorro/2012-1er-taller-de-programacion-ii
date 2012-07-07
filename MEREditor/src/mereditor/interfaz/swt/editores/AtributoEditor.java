@@ -14,12 +14,25 @@ import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Group;
+import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 
 public class AtributoEditor extends Editor<Atributo> {
 	protected Text txtNombre;
 	protected Combo cboTipo;
+	protected Text txtCardinalidadMin;
+	protected Text txtCardinalidadMax;
 	protected AtributosTabla tblAtributos;
+	
+	/**
+	 * Constructor para el editor visual
+	 * 
+	 * @wbp.parser.constructor
+	 */
+	protected AtributoEditor(Shell shell) {
+		super(shell);
+		this.componente = new Atributo();
+	}
 
 	public AtributoEditor(Atributo atributo) {
 		super(atributo);
@@ -42,6 +55,17 @@ public class AtributoEditor extends Editor<Atributo> {
 
 		this.cboTipo = createLabelCombo(header, Editor.TIPO);
 		this.cboTipo.setItems(Editor.TiposAtributo);
+		
+		this.txtCardinalidadMin = createLabelText(header, Editor.CARDINALIDAD_MIN);
+		GridData gridDataCardMin = new GridData(SWT.LEFT, SWT.CENTER, false, false, 1, 1);
+		gridDataCardMin.widthHint = 15;
+		this.txtCardinalidadMin.setLayoutData(gridDataCardMin);
+
+		this.txtCardinalidadMax = createLabelText(header, Editor.CARDINALIDAD_MAX);
+		this.txtCardinalidadMax.setSize(100, this.txtCardinalidadMax.getSize().y);
+		GridData gridDataCardMax = new GridData(SWT.LEFT, SWT.CENTER, false, false, 1, 1);
+		gridDataCardMax.widthHint = 15;
+		this.txtCardinalidadMax.setLayoutData(gridDataCardMax);
 
 		/**
 		 * Atributos.
@@ -73,6 +97,8 @@ public class AtributoEditor extends Editor<Atributo> {
 	protected void cargarDatos() {
 		this.txtNombre.setText(this.componente.getNombre());
 		this.cboTipo.setText(this.componente.getTipo().name());
+		this.txtCardinalidadMin.setText(this.componente.getCardinalidadMinima());
+		this.txtCardinalidadMax.setText(this.componente.getCardinalidadMaxima());
 
 		this.tblAtributos.setElementos(this.componente.getAtributos());
 	}
@@ -81,6 +107,8 @@ public class AtributoEditor extends Editor<Atributo> {
 	protected void aplicarCambios() {
 		this.componente.setNombre(txtNombre.getText());
 		this.componente.setTipo(TipoAtributo.valueOf(this.cboTipo.getText()));
+		this.componente.setCardinalidadMinima(this.txtCardinalidadMin.getText());
+		this.componente.setCardinalidadMaxima(this.txtCardinalidadMax.getText());
 
 		for (Atributo atributo : this.tblAtributos.getElementos())
 			this.componente.addAtributo(atributo);
