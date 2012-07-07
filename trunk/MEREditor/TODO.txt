@@ -1,30 +1,20 @@
-General:
-	- Crear nuevas entidades, relaciones y jerarquías.
-	- Eliminar entidades.
-	- Crear menu Proyecto con las mismas opciones de la barra de iconos.
-	- Imprimir
-		- Dibujar límites de hoja A4 en el área de diseño.
-		- Validación de la posición de todos los componentes dentro de la hoja.
-	- Exportar
-	- [Zoom]
-	- [Selección de componentes en la vista]
-	- Validación del proyecto (Ver informe)
-Editores:
-	- Entidad:
-		- Eliminar los atributos.
-		- Crear atributos compuestos.
-		- Crear y editar identificadores.
-	- Relación
-	- Jerarquía
-Diagramas:
-	- Crear y eliminar diagramas.
-	- Abrir nuevo diagrama
-Arbol:
-	- Comportamiento del árbol.
-	- Actualizar modelo con la edición del árbol.
-
-Para Consultar a Patricia:
-	- Representación de los identificadores (ver CarteleraTeatral)
-	- Preguntar qué metricas se deben usar para la validación:
-		- Las definimos nosotros?
-		- Recibimos la definición de la cátedra?
+- Completar Funcionalidad.
+	- Editores
+		- General: Algunos tipos de componentes les faltan los campos para asignar valores valores a ciertas propiedades (por ej. cardinalidad mínima y máxima no está en ningún lado). Revisar las propiedades de cada tipo de Componente y verificar si sus editores tienen la funcionalidad que deben tener.
+		- Entidad: Identificadores, la verdad que del libro que mando la mina no saqué ninguna conclusión, sobre todo porque los diagramas no se parecen en nada a los que tenemos como ejemplo.
+		- Atributo: falta definir las propiedades a establecer cuando el tipo es diferente de CARACTERIZACIÓN.
+		- Jerarquía: deberíamos poder agregar a un Diagrama una Jerarquía existente en otro Diagrama, se puede copiar la funcionalidad del AgregarEntidadDialog (ver si se puede generalizar en vez de copiar y pegar).
+		-Relación: Idem punto anterior pero con relaciones existentes.
+	- Validación. 
+		Completitud: del Diseño de cada Componente (aegurarse que las propiedades tienen valores válidos y la obligatorias están completas).
+		- Cohesión: según wikipedia alta cohesión "nos dice que la información que almacena una clase debe de ser coherente y debe estar (en la medida de lo posible) relacionada con la clase.". No tengo la más mínima idea de como podríamos hacer eso, por lo tanto voto por que no lo hagamos.
+		- Acoplamiento: según wikipedia de nuevo "Es la idea de tener las clases lo menos ligadas entre sí que se pueda. De tal forma que en caso de producirse una modificación en alguna de ellas, se tenga la mínima repercusión posible en el resto de clases, potenciando la reutilización, y disminuyendo la dependencia entre las clases.". Esto lo podríamos hacer verificando Relaciones y Jerarquías para ver si apuntan a alguna Entidad de otro Diagrama.
+		- Claridad:
+			- Intersección de Componentes entre Diagramas (podría ser un warning si está por debajo de un valor o un error si está por encima).
+			- Cantidad de Atributos por Entidad  (podríamos definirlo como una desviación del promedio si está por encima de un valor determinado).
+			- Cantidad de Entidades por Diagrama (Idem punto anterior).
+		- Imprimir: falta implementarla (Asegurarse de que entre en la página).
+		- Zoom: Agregar en el menú gráfico botones (-) y (+) y combo con valores predefinidos de zoom.
+		- Árbol de Componentes: actualizar el árbol al agregar un elemento a un diagrama.
+- Manual de usuario: hacer una vez completada la funcionalidad.
+- Documento técnico.
