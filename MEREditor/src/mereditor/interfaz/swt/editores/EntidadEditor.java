@@ -8,6 +8,7 @@ import mereditor.modelo.Entidad;
 import mereditor.modelo.Entidad.TipoEntidad;
 
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.layout.RowLayout;
@@ -42,6 +43,11 @@ public class EntidadEditor extends Editor<Entidad> {
 	public EntidadEditor(Entidad entidad) {
 		super(entidad);
 		this.titulo = "Editor - " + componente.getNombre();
+	}
+	
+	@Override
+	protected Point getInitialSize() {
+		return new Point(400, 500);
 	}
 
 	@Override
