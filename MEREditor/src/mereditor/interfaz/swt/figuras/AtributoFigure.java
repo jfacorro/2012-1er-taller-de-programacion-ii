@@ -121,5 +121,6 @@ public class AtributoFigure extends Figura<Atributo> {
 	@Override
 	public void actualizar() {
 		this.lblName.setText(this.getTextoLabel());
+		this.lblName.setBounds(this.lblName.getTextBounds());
 	}
 }
