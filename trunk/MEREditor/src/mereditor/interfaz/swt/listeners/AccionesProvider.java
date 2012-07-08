@@ -6,6 +6,7 @@ import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.widgets.Combo;
+import org.eclipse.swt.widgets.ToolItem;
 
 public class AccionesProvider {
 
@@ -64,13 +65,15 @@ public class AccionesProvider {
 
 	public static final SelectionListener zoomIn = new SelectionAdapter() {
 		public void widgetSelected(SelectionEvent e) {
-			principal().zoomIn();
+			ToolItem item = (ToolItem) e.getSource();
+			principal().zoomIn((Combo) item.getData());
 		};
 	};
 
 	public static final SelectionListener zoomOut = new SelectionAdapter() {
 		public void widgetSelected(SelectionEvent e) {
-			principal().zoomOut();
+			ToolItem item = (ToolItem) e.getSource();
+			principal().zoomOut((Combo) item.getData());
 		};
 	};
 

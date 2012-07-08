@@ -15,20 +15,26 @@ import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.graphics.Image;
 
 public class PanelDisegno {
+	public final static Map<String, Float> zoomOptions = new LinkedHashMap<>();
+	public final static String zoom100 = "100%";
 
 	private ZoomContainer panel;
 	private FigureCanvas canvas;
 	private Proyecto proyecto;
-	public final static Map<String, Float> zoomOptions = new LinkedHashMap<>();
-	public final static String zoom100 = "100%";
 
 	static {
-		zoomOptions.put("25%", 0.25f);
-		zoomOptions.put("50%", 0.5f);
-		zoomOptions.put("75%", 0.75f);
-		zoomOptions.put(zoom100, 1.0f);
-		zoomOptions.put("150%", 1.5f);
-		zoomOptions.put("200%", 2.0f);
+		initZoomOptions();
+	}
+
+	private static void initZoomOptions() {
+		float zoom = 0;
+		while (zoom < ZoomContainer.MAX_ZOOM) {
+			zoom += ZoomContainer.DELTA_ZOOM;
+			if (zoom >= ZoomContainer.MIN_ZOOM) {
+				String key = Integer.toString((int) (zoom * 100));
+				zoomOptions.put(key + "%", zoom);
+			}
+		}
 	}
 
 	public PanelDisegno(FigureCanvas canvas, Proyecto proyecto) {
@@ -97,9 +103,15 @@ public class PanelDisegno {
 
 	/**
 	 * Devuelve la figura sobre la cual se dibuja la figura.
+	 * 
 	 * @return
 	 */
 	public IFigure getPanel() {
 		return this.panel;
+	}
+
+	public String getZoom() {
+		String zoom = Integer.toString((int) (this.panel.getZoom() * 100));
+		return zoom + "%";
 	}
 }
