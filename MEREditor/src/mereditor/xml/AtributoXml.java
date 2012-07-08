@@ -1,5 +1,7 @@
 package mereditor.xml;
 
+import java.util.HashSet;
+
 import mereditor.control.AtributoControl;
 import mereditor.modelo.Atributo;
 
@@ -15,7 +17,7 @@ public class AtributoXml extends AtributoControl implements Xmlizable {
 		this.nombre = componente.getNombre();
 		this.tipo = componente.getTipo();
 
-		this.atributos = componente.getAtributos();
+		this.atributos = new HashSet<Atributo>(componente.getAtributos());
 
 		this.cardinalidadMinima = componente.getCardinalidadMinima();
 		this.cardinalidadMaxima = componente.getCardinalidadMaxima();

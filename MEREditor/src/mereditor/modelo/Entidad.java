@@ -1,6 +1,7 @@
 package mereditor.modelo;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
@@ -8,8 +9,9 @@ import java.util.Set;
 
 import mereditor.modelo.base.Componente;
 import mereditor.modelo.base.ComponenteNombre;
+import mereditor.modelo.base.ComponenteAtributos;
 
-public class Entidad extends ComponenteNombre {
+public class Entidad extends ComponenteNombre implements ComponenteAtributos {
 
 	public enum TipoEntidad {
 		MAESTRA_COSA, MAESTRA_DOMINIO, TRANSACCIONAL_HISTORICA, TRANSACCIONAL_PROGRAMADA
@@ -60,8 +62,8 @@ public class Entidad extends ComponenteNombre {
 				identificador.removeAtributo(atributo);
 	}
 
-	public Set<Atributo> getAtributos() {
-		return Collections.unmodifiableSet(this.atributos);
+	public Collection<Atributo> getAtributos() {
+		return Collections.unmodifiableCollection(this.atributos);
 	}
 
 	public Set<Identificador> getIdentificadores() {

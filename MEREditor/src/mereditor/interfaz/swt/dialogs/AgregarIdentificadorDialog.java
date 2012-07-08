@@ -134,7 +134,7 @@ public class AgregarIdentificadorDialog extends Dialog {
 	 */
 	private void loadEntidades() {
 		// Entidades sin entidades de diagramas ancestros
-		Set<Entidad> entidades = this.principal.getProyectoProxy().getEntidadesDiagrama();
+		Set<Entidad> entidades = this.principal.getProyecto().getEntidadesDiagrama();
 
 		for (Entidad entidad : entidades) {
 			this.entidades.put(entidad.getNombre(), entidad);

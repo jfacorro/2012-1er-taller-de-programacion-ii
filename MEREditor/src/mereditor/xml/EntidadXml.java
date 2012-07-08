@@ -1,5 +1,7 @@
 package mereditor.xml;
 
+import java.util.HashSet;
+
 import mereditor.control.EntidadControl;
 import mereditor.modelo.Atributo;
 import mereditor.modelo.Entidad;
@@ -15,7 +17,7 @@ public class EntidadXml extends EntidadControl implements Xmlizable {
 		this.nombre = componente.getNombre();
 		this.tipo = componente.getTipo();
 
-		this.atributos = componente.getAtributos();
+		this.atributos = new HashSet<Atributo>(componente.getAtributos());
 		this.identificadores = componente.getIdentificadores();
 		
 		this.figures = componente.getFiguras();

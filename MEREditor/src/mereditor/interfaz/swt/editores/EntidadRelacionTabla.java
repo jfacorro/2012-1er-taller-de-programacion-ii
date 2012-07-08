@@ -36,7 +36,7 @@ public class EntidadRelacionTabla extends Tabla<EntidadRelacion> {
 
 	@Override
 	protected void initEditorsCeldas(Table table) {
-		Set<Entidad> entidades = Principal.getInstance().getProyectoProxy()
+		Set<Entidad> entidades = Principal.getInstance().getProyecto()
 				.getEntidadesDiagrama();
 
 		this.options = new ArrayList<String>();

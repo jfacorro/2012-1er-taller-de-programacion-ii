@@ -7,9 +7,10 @@ import java.util.List;
 import java.util.Set;
 
 import mereditor.modelo.base.Componente;
+import mereditor.modelo.base.ComponenteAtributos;
 import mereditor.modelo.base.ComponenteNombre;
 
-public class Relacion extends ComponenteNombre {
+public class Relacion extends ComponenteNombre implements ComponenteAtributos {
 	public enum TipoRelacion {
 		ASOCIACION, COMPOSICION
 	}

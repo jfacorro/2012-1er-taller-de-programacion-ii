@@ -160,6 +160,6 @@ public class MenuBuilder implements Observer {
 
 	@Override
 	public void update(Observable o, Object arg) {
-		this.habilitarItems(this.principal.getProyectoProxy() != null);		
+		this.habilitarItems(this.principal.getProyecto() != null);		
 	}
 }

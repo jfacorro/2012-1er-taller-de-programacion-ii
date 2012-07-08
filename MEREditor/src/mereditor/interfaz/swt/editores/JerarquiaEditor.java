@@ -75,7 +75,7 @@ public class JerarquiaEditor extends Editor<Jerarquia> {
 	 */
 	private void loadGenerica(Combo combo) {
 		// Obtener las entidades de este diagrama
-		Set<Entidad> entidades = this.principal.getProyectoProxy().getEntidadesDiagrama();
+		Set<Entidad> entidades = this.principal.getProyecto().getEntidadesDiagrama();
 
 		for (Entidad entidad : entidades) {
 			this.entidades.put(entidad.getNombre(), entidad);

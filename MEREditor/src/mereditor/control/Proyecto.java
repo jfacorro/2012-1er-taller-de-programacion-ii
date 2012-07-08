@@ -7,6 +7,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
+import mereditor.interfaz.swt.Principal.ProyectoProxy;
+import mereditor.modelo.Atributo;
 import mereditor.modelo.Diagrama;
 import mereditor.modelo.Entidad;
 import mereditor.modelo.Jerarquia;
@@ -16,7 +18,7 @@ import mereditor.modelo.base.Componente;
 
 import org.eclipse.draw2d.Figure;
 
-public class Proyecto {
+public class Proyecto implements ProyectoProxy {
 	/**
 	 * Diagrama raiz del proyecto.
 	 */
@@ -249,5 +251,21 @@ public class Proyecto {
 
 	public String getNombre() {
 		return this.raiz.getNombre();
+	}
+
+	@Override
+	public Set<Entidad> getEntidadesDisponibles() {
+		// Obtener las entidades de los ancestros
+		return this.diagramaActual.getEntidades(true);
+	}
+
+	@Override
+	public Set<Entidad> getEntidadesDiagrama() {
+		return this.diagramaActual.getEntidades();
+	}
+
+	@Override
+	public Collection<Atributo> getAtributosDiagrama() {
+		return this.diagramaActual.getAtributos(false);
 	}
 }

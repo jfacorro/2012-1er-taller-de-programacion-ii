@@ -1,14 +1,16 @@
 package mereditor.modelo;
 
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
 import mereditor.modelo.Entidad.Identificador;
 import mereditor.modelo.base.Componente;
+import mereditor.modelo.base.ComponenteAtributos;
 import mereditor.modelo.base.ComponenteNombre;
 
-public class Atributo extends ComponenteNombre {
+public class Atributo extends ComponenteNombre implements ComponenteAtributos {
 	public enum TipoAtributo {
 		CARACTERIZACION, DERIVADO_COPIA, DERIVADO_CALCULO
 	}
@@ -55,7 +57,7 @@ public class Atributo extends ComponenteNombre {
 	public String getCardinalidadMaxima() {
 		return this.cardinalidadMaxima;
 	}
-	
+
 	public void setCardinalidadMaxima(String cardinalidad) {
 		this.cardinalidadMaxima = cardinalidad;
 	}
@@ -63,7 +65,7 @@ public class Atributo extends ComponenteNombre {
 	public String getCardinalidadMinima() {
 		return this.cardinalidadMinima;
 	}
-	
+
 	public void setCardinalidadMinima(String cardinalidad) {
 		this.cardinalidadMinima = cardinalidad;
 	}
@@ -72,20 +74,28 @@ public class Atributo extends ComponenteNombre {
 		return this.original;
 	}
 
+	public void setOriginal(Atributo original) {
+		this.original = original;
+	}
+
 	public String getFormula() {
 		return this.formula;
 	}
-	
+
+	public void setFormula(String formula) {
+		this.formula = formula;
+	}
+
 	public void addAtributo(Atributo atributo) {
 		this.atributos.add(atributo);
 	}
-	
+
 	public void removeAtributo(Atributo atributo) {
 		this.atributos.remove(atributo);
 	}
 
-	public Set<Atributo> getAtributos() {
-		return Collections.unmodifiableSet(this.atributos);
+	public Collection<Atributo> getAtributos() {
+		return Collections.unmodifiableCollection(this.atributos);
 	}
 
 	/**
@@ -101,11 +111,13 @@ public class Atributo extends ComponenteNombre {
 	public boolean contiene(Componente componente) {
 		boolean contiene = this.atributos.contains(componente);
 
-		if (contiene) return contiene;
+		if (contiene)
+			return contiene;
 
 		for (Componente hijo : this.atributos) {
 			contiene = hijo.contiene(componente);
-			if (contiene) return contiene;
+			if (contiene)
+				return contiene;
 		}
 
 		return false;
