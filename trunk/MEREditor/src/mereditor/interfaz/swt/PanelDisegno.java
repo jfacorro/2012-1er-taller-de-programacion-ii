@@ -8,6 +8,7 @@ import mereditor.interfaz.swt.figuras.ZoomContainer;
 
 import org.eclipse.draw2d.FigureCanvas;
 import org.eclipse.draw2d.Graphics;
+import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.SWTGraphics;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.graphics.GC;
@@ -92,5 +93,13 @@ public class PanelDisegno {
 		this.panel.paint(imgGraphics);
 
 		return image;
+	}
+
+	/**
+	 * Devuelve la figura sobre la cual se dibuja la figura.
+	 * @return
+	 */
+	public IFigure getPanel() {
+		return this.panel;
 	}
 }

@@ -24,6 +24,9 @@ import mereditor.xml.ParserXml;
 import org.eclipse.draw2d.FigureCanvas;
 import org.eclipse.draw2d.FigureListener;
 import org.eclipse.draw2d.IFigure;
+import org.eclipse.draw2d.PrintFigureOperation;
+import org.eclipse.draw2d.PrintOperation;
+import org.eclipse.draw2d.geometry.Insets;
 import org.eclipse.jface.window.Window;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.SashForm;
@@ -34,6 +37,9 @@ import org.eclipse.swt.graphics.ImageLoader;
 import org.eclipse.swt.layout.FormAttachment;
 import org.eclipse.swt.layout.FormData;
 import org.eclipse.swt.layout.FormLayout;
+import org.eclipse.swt.printing.PrintDialog;
+import org.eclipse.swt.printing.Printer;
+import org.eclipse.swt.printing.PrinterData;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.FileDialog;
@@ -436,7 +442,19 @@ public class Principal extends Observable implements FigureListener {
 	 * Muestra la pantalla de impresi�n para el digrama actual.
 	 */
 	public void imprimir() {
-		this.advertencia("La funcion Imprimir no esta implementada.");
+		PrintDialog printDialog = new PrintDialog(this.shell);
+		PrinterData printerData = printDialog.open();
+
+		if (printerData != null) {
+			Printer printer = new Printer(printerData);
+
+			PrintOperation printerOperation = new PrintFigureOperation(printer,
+					this.panelDisegno.getPanel());
+			printerOperation.setPrintMargin(new Insets(0, 0, 0, 0));
+			printerOperation.run(this.proyecto.getDiagramaActual().getNombre());
+
+			printer.dispose();
+		}
 	}
 
 	/**
@@ -522,18 +540,21 @@ public class Principal extends Observable implements FigureListener {
 	public interface ProyectoProxy {
 		/**
 		 * Devuelve todas la entidades del diagrama actual y de sus ancestros.
+		 * 
 		 * @return
 		 */
 		public Set<Entidad> getEntidadesDisponibles();
 
 		/**
 		 * Devuelve las entidades del diagrama actual.
+		 * 
 		 * @return
 		 */
 		public Set<Entidad> getEntidadesDiagrama();
 
 		/**
 		 * Devolver los atributos de los componentes del diagrama actual.
+		 * 
 		 * @return
 		 */
 		public Collection<Atributo> getAtributosDiagrama();
