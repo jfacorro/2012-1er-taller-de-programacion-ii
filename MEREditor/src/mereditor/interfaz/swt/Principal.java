@@ -40,6 +40,7 @@ import org.eclipse.swt.layout.FormLayout;
 import org.eclipse.swt.printing.PrintDialog;
 import org.eclipse.swt.printing.Printer;
 import org.eclipse.swt.printing.PrinterData;
+import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.FileDialog;
@@ -399,17 +400,19 @@ public class Principal extends Observable implements FigureListener {
 	}
 
 	/**
-	 * Aumento del zoom.
-	 */
-	public void zoomIn() {
-		this.panelDisegno.zoomIn();
-	}
-
-	/**
 	 * Disminucion del zoom.
 	 */
-	public void zoomOut() {
+	public void zoomOut(Combo cboZoom) {
 		this.panelDisegno.zoomOut();
+		cboZoom.setText(this.panelDisegno.getZoom());
+	}
+	
+	/**
+	 * Aumento del zoom.
+	 */
+	public void zoomIn(Combo cboZoom) {
+		this.panelDisegno.zoomIn();
+		cboZoom.setText(this.panelDisegno.getZoom());
 	}
 
 	public void zoom(String zoom) {

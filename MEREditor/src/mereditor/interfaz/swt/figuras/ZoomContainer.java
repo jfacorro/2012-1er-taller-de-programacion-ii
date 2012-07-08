@@ -17,9 +17,11 @@ import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.draw2d.geometry.Translatable;
 
 public class ZoomContainer extends Figure {
+	public static final float MIN_ZOOM = 0.25f;
+	public static final float MAX_ZOOM = 2.0f;
+	public static final float DELTA_ZOOM = 0.25f;
 
-	private float zoom = 1;
-	private float deltaZoom = 0.1f;	
+	private float zoom = 1;	
 
 	/**
 	 * @see org.eclipse.draw2d.Figure#getClientArea()
@@ -64,7 +66,7 @@ public class ZoomContainer extends Figure {
 	 * Devuelve el zoom actual
 	 * @return
 	 */
-	public double getZoom() {
+	public float getZoom() {
 		return this.zoom;
 	}
 
@@ -92,10 +94,12 @@ public class ZoomContainer extends Figure {
 	}
 
 	public void zoomIn() {
-		this.setZoom((float)this.getZoom() - this.deltaZoom);		
+		if(this.getZoom() - DELTA_ZOOM >= MIN_ZOOM)
+			this.setZoom(this.getZoom() - DELTA_ZOOM);		
 	}
 
 	public void zoomOut() {
-		this.setZoom((float)this.getZoom() + this.deltaZoom);		
+		if(this.getZoom() + DELTA_ZOOM <= MAX_ZOOM)
+			this.setZoom(this.getZoom() + DELTA_ZOOM);
 	}
 }

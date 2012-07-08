@@ -94,11 +94,11 @@ public class ToolBarBuilder implements Observer {
 
 		item = new ToolItem(this.toolBar, SWT.SEPARATOR);
 
-		item = new ToolItem(this.toolBar, SWT.PUSH);
-		item.setToolTipText("Zoom -");
-		item.setImage(Principal.getImagen("zoom-out.png"));
-		item.addSelectionListener(AccionesProvider.zoomOut);
-		proyectoItems.add(item);
+		ToolItem zoomOutItem = new ToolItem(this.toolBar, SWT.PUSH);
+		zoomOutItem.setToolTipText("Zoom -");
+		zoomOutItem.setImage(Principal.getImagen("zoom-out.png"));
+		zoomOutItem.addSelectionListener(AccionesProvider.zoomOut);
+		proyectoItems.add(zoomOutItem);
 
 		item = new ToolItem(this.toolBar, SWT.SEPARATOR);
 
@@ -114,11 +114,18 @@ public class ToolBarBuilder implements Observer {
 		item.setControl(cboZoom);
 		proyectoItems.add(item);
 
-		item = new ToolItem(this.toolBar, SWT.PUSH);
-		item.setToolTipText("Zoom +");
-		item.setImage(Principal.getImagen("zoom-in.png"));
-		item.addSelectionListener(AccionesProvider.zoomIn);
-		proyectoItems.add(item);
+		ToolItem zoomInItem = new ToolItem(this.toolBar, SWT.PUSH);
+		zoomInItem.setToolTipText("Zoom +");
+		zoomInItem.setImage(Principal.getImagen("zoom-in.png"));
+		zoomInItem.addSelectionListener(AccionesProvider.zoomIn);
+		proyectoItems.add(zoomInItem);
+		
+		/*
+		 * Agregar el combo como la data de estos items para poder
+		 * actualizar el valor del combo al presionarlos.
+		 */
+		zoomOutItem.setData(cboZoom);
+		zoomInItem.setData(cboZoom);
 
 		item = new ToolItem(this.toolBar, SWT.PUSH);
 		item.setToolTipText("Explorador del Proyecto");
