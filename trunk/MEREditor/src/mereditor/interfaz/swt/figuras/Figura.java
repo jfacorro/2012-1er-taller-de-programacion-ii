@@ -1,5 +1,7 @@
 package mereditor.interfaz.swt.figuras;
 
+import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedHashSet;
 import java.util.Map;
@@ -176,8 +178,8 @@ public abstract class Figura<T extends Componente> extends Figure {
 	 * 
 	 * @return
 	 */
-	public Set<Figure> getFigurasLoqueadas() {
-		return this.figurasLoqueadas;
+	public Collection<Figure> getFigurasLoqueadas() {
+		return Collections.unmodifiableCollection(this.figurasLoqueadas);
 	}
 
 	@Override
@@ -185,7 +187,7 @@ public abstract class Figura<T extends Componente> extends Figure {
 		super.setParent(p);
 		this.onSetParent();
 	}
-
+	
 	/**
 	 * Ejecutado cuando se setea la figura padre
 	 */

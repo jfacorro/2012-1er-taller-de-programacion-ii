@@ -28,7 +28,7 @@ public class AtributoFigure extends Figura<Atributo> {
 		this.lblName.setFont(this.getFont());
 		this.lblName.setText(this.getTextoLabel());
 		this.lblName.setBounds(this.lblName.getTextBounds().translate(
-				this.getLocation()));
+				this.getLocation().getTranslated(0, -10)));
 
 		this.ellipse = new Ellipse();
 		this.ellipse.setLocation(this.getLocation());
@@ -46,6 +46,7 @@ public class AtributoFigure extends Figura<Atributo> {
 			ellipse.setSize(new Dimension(10, 10));
 			// Permitir que el label se mueva
 			new DragDropControlador(this.lblName);
+			this.agregarFiguraLoqueada(this.lblName);
 		}
 
 		// Si es un identificador usar fondo negro
@@ -61,11 +62,8 @@ public class AtributoFigure extends Figura<Atributo> {
 	@Override
 	protected void onSetParent() {
 		super.onSetParent();
-		if (this.getParent() != null
-				&& this.componente.getAtributos().isEmpty()) {
+		if (this.getParent() != null && !this.componente.esCompuesto())
 			this.getParent().add(this.lblName, 0);
-			this.agregarFiguraLoqueada(this.lblName);
-		}
 	}
 
 	/**
@@ -77,8 +75,8 @@ public class AtributoFigure extends Figura<Atributo> {
 		String texto = this.componente.getNombre();
 		String cardMin = this.componente.getCardinalidadMinima();
 		String cardMax = this.componente.getCardinalidadMaxima();
-		
-		if(cardMin != "" && cardMax != "")
+
+		if (cardMin != "" && cardMax != "")
 			if (!cardMin.equals("1") || !cardMax.equals("1"))
 				texto += " (" + cardMin + ", " + cardMax + ")";
 
