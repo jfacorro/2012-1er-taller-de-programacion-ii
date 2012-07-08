@@ -1,8 +1,5 @@
 - Completar Funcionalidad.
 	- Editores
-		- Atributo:
-			- DERIVADO_COPIA: selección atributo original.
-			- DERIVADO_CALCULO: formula.
 		- Entidad:
 			- Identificadores: la verdad que del libro que mando la mina no saqué ninguna conclusión, sobre todo porque los diagramas no se parecen en nada a los que tenemos como ejemplo.
 		- Posicion Elementos: 
