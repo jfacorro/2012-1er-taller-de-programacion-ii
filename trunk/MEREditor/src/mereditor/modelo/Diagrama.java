@@ -1,10 +1,12 @@
 package mereditor.modelo;
 
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
 import mereditor.modelo.base.Componente;
+import mereditor.modelo.base.ComponenteAtributos;
 import mereditor.modelo.base.ComponenteNombre;
 
 public class Diagrama extends ComponenteNombre {
@@ -48,16 +50,38 @@ public class Diagrama extends ComponenteNombre {
 		Set<Entidad> entidades = Componente.filtrarComponentes(Entidad.class,
 				this.componentes);
 
-		if (this.getPadre() != null && incluirAncestros) {
+		if (incluirAncestros && this.getPadre() != null) {
 			Diagrama diagrama = (Diagrama) this.getPadre();
-			entidades.addAll(diagrama.getEntidades(true));
+			entidades.addAll(diagrama.getEntidades(incluirAncestros));
 		}
 
 		return entidades;
 	}
 
+	/**
+	 * Obtiene las entidades de este diagrama.
+	 * 
+	 * @return
+	 */
 	public Set<Entidad> getEntidades() {
 		return this.getEntidades(false);
+	}
+	
+	public Collection<Atributo> getAtributos(boolean incluirAncestros) {
+		Set<ComponenteAtributos> componentes = Componente.filtrarComponentes(ComponenteAtributos.class,
+				this.componentes);
+		
+		Set<Atributo> atributos = new HashSet<>();
+
+		for(ComponenteAtributos componente : componentes)
+			atributos.addAll(componente.getAtributos());
+
+		if (incluirAncestros && this.getPadre() != null) {
+			Diagrama diagrama = (Diagrama) this.getPadre();
+			atributos.addAll(diagrama.getAtributos(incluirAncestros));
+		}
+
+		return atributos;
 	}
 
 	public Set<Relacion> getRelaciones() {

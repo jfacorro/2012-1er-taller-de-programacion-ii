@@ -61,8 +61,8 @@ public class AgregarEntidadDialog extends Dialog {
 	 */
 	private void loadEntidades() {
 		// Obtener las entidades de los ancestros
-		Set<Entidad> entidades = this.principal.getProyectoProxy().getEntidadesDisponibles();
-		Set<Entidad> entidadesDiagrama = this.principal.getProyectoProxy().getEntidadesDiagrama();
+		Set<Entidad> entidades = this.principal.getProyecto().getEntidadesDisponibles();
+		Set<Entidad> entidadesDiagrama = this.principal.getProyecto().getEntidadesDiagrama();
 		// Quitar las que ya tiene
 		entidades.removeAll(entidadesDiagrama);
 

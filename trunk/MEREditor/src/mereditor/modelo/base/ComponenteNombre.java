@@ -2,7 +2,7 @@ package mereditor.modelo.base;
 
 import java.util.UUID;
 
-public abstract class ComponenteNombre extends Componente {
+public abstract class ComponenteNombre extends Componente implements Comparable<ComponenteNombre> {
 	
 	protected String nombre = "";
 	
@@ -35,5 +35,10 @@ public abstract class ComponenteNombre extends Componente {
 	@Override
 	public String toString() {
 		return this.nombre;
+	}
+	
+	@Override
+	public int compareTo(ComponenteNombre componente) {
+		return this.nombre.compareTo(componente.getNombre());
 	}
 }

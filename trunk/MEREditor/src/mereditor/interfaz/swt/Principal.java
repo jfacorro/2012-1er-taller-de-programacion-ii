@@ -1,6 +1,7 @@
 package mereditor.interfaz.swt;
 
 import java.io.File;
+import java.util.Collection;
 import java.util.Observable;
 import java.util.Set;
 
@@ -16,7 +17,7 @@ import mereditor.interfaz.swt.DialogBuilder.Resultado;
 import mereditor.interfaz.swt.dialogs.AgregarEntidadDialog;
 import mereditor.interfaz.swt.editores.JerarquiaEditor;
 import mereditor.interfaz.swt.editores.RelacionEditor;
-import mereditor.modelo.Diagrama;
+import mereditor.modelo.Atributo;
 import mereditor.modelo.Entidad;
 import mereditor.xml.ParserXml;
 
@@ -90,7 +91,6 @@ public class Principal extends Observable implements FigureListener {
 
 	private PanelDisegno panelDisegno;
 	private Proyecto proyecto;
-	private ProyectoProxy proyectoProxy;
 
 	private Listener promptClose = new Listener() {
 		@Override
@@ -185,8 +185,6 @@ public class Principal extends Observable implements FigureListener {
 		this.proyecto.setDiagramaActual(this.proyecto.getRaiz().getId());
 		this.panelDisegno = new PanelDisegno(this.figureCanvas, this.proyecto);
 		this.panelDisegno.actualizar();
-		// Crear el proxy.
-		this.proyectoProxy = new ProyectoProxy(this.proyecto);
 		// Carga inicial del arbol.
 		TreeManager.cargar(this.proyecto);
 		this.mostrarArbol(true);
@@ -468,8 +466,8 @@ public class Principal extends Observable implements FigureListener {
 	 * 
 	 * @return
 	 */
-	public ProyectoProxy getProyectoProxy() {
-		return this.proyectoProxy;
+	public ProyectoProxy getProyecto() {
+		return this.proyecto;
 	}
 
 	/**
@@ -521,23 +519,23 @@ public class Principal extends Observable implements FigureListener {
 		this.sashForm.setWeights(new int[] { peso, 16 });
 	}
 
-	public class ProyectoProxy {
-		private Proyecto proyecto;
+	public interface ProyectoProxy {
+		/**
+		 * Devuelve todas la entidades del diagrama actual y de sus ancestros.
+		 * @return
+		 */
+		public Set<Entidad> getEntidadesDisponibles();
 
-		public ProyectoProxy(Proyecto proyecto) {
-			this.proyecto = proyecto;
-		}
+		/**
+		 * Devuelve las entidades del diagrama actual.
+		 * @return
+		 */
+		public Set<Entidad> getEntidadesDiagrama();
 
-		public Set<Entidad> getEntidadesDisponibles() {
-			Diagrama diagrama = this.proyecto.getDiagramaActual();
-
-			// Obtener las entidades de los ancestros
-			return diagrama.getEntidades(true);
-		}
-
-		public Set<Entidad> getEntidadesDiagrama() {
-			Diagrama diagrama = this.proyecto.getDiagramaActual();
-			return diagrama.getEntidades();
-		}
+		/**
+		 * Devolver los atributos de los componentes del diagrama actual.
+		 * @return
+		 */
+		public Collection<Atributo> getAtributosDiagrama();
 	}
 }

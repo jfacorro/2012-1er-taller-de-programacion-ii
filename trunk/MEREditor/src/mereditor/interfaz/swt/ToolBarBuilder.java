@@ -147,6 +147,6 @@ public class ToolBarBuilder implements Observer {
 
 	@Override
 	public void update(Observable principal, Object arg) {
-		this.habilitarItems(this.principal.getProyectoProxy() != null);
+		this.habilitarItems(this.principal.getProyecto() != null);
 	}
 }

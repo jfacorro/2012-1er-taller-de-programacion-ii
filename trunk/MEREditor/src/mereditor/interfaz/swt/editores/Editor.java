@@ -37,6 +37,8 @@ public abstract class Editor<T extends Componente> extends Dialog {
 	public static final String IDENTIFICADORES = "Identificadores";
 	public static final String NUEVO = "Nuevo";
 	public static final String ELIMINAR = "Eliminar";
+	public static final String FORMULA = "Fórmula";
+	public static final String ORIGINAL = "Original";
 
 	protected T componente;
 
@@ -122,5 +124,10 @@ public abstract class Editor<T extends Componente> extends Dialog {
 	 */
 	protected abstract void aplicarCambios();
 
+	/**
+	 * Realiza validaciones antes de aceptar los cambios.
+	 * @param errors lista de errores de validacion.
+	 * @return <code>true</code> si no hay errores, <code>false</code> si los hay. 
+	 */
 	protected abstract boolean validar(List<String> errors);
 }

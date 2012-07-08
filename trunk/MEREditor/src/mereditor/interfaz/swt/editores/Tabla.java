@@ -1,8 +1,8 @@
 package mereditor.interfaz.swt.editores;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
-import java.util.Set;
 
 import org.eclipse.jface.viewers.CellEditor;
 import org.eclipse.jface.viewers.DoubleClickEvent;
@@ -93,7 +93,7 @@ public abstract class Tabla<T> extends TableViewer {
 	
 	protected abstract void abrirEditor(T elemento);
 
-	public void setElementos(Set<T> elementos) {
+	public void setElementos(Collection<T> elementos) {
 		this.elementos.addAll(elementos);
 		this.refresh();
 
