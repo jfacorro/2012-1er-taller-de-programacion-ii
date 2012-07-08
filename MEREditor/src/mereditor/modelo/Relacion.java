@@ -32,8 +32,9 @@ public class Relacion extends ComponenteNombre implements ComponenteAtributos {
 		this.tipo = tipo;
 	}
 
-	public void addAtributo(Componente atributo) {
-		atributos.add((Atributo) atributo);
+	public void addAtributo(Atributo atributo) {
+		this.atributos.add(atributo);
+		atributo.setPadre(this);
 	}
 
 	public void addParticipante(EntidadRelacion participante) {

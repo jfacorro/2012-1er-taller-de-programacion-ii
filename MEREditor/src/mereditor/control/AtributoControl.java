@@ -13,17 +13,26 @@ import org.eclipse.draw2d.Figure;
 import org.eclipse.draw2d.MouseEvent;
 import org.eclipse.draw2d.MouseListener;
 
-public class AtributoControl extends Atributo implements Control<Atributo>, MouseListener {
+public class AtributoControl extends Atributo implements Control<Atributo>,
+		MouseListener {
 	protected Map<String, AtributoFigure> figures = new HashMap<>();
 
 	@Override
 	public Figura<Atributo> getFigura(String idDiagrama) {
 		if (!this.figures.containsKey(idDiagrama)) {
 			AtributoFigure figura = new AtributoFigure(this);
-			this.figures.put(idDiagrama, figura);
+
 			// Agregar este controlador como listener para mouse clicks
 			figura.addMouseListener(this);
 			figura.addFigureListener(Principal.getInstance());
+
+			this.figures.put(idDiagrama, figura);
+
+			// Posicionar el atributo relativo a la posición del padre.
+			Control<?> padre = (Control<?>) this.getPadre();
+			Figure figPadre = padre.getFigura(idDiagrama);
+			int width = figPadre.getSize().width;
+			figura.setLocation(figPadre.getLocation().getTranslated(width, -50));
 		}
 
 		this.figures.get(idDiagrama).actualizar();
@@ -44,11 +53,11 @@ public class AtributoControl extends Atributo implements Control<Atributo>, Mous
 			figura.agregarFiguraLoqueada(atributoControl.getFigura(idDiagrama));
 		}
 	}
-	
+
 	public Map<String, AtributoFigure> getFiguras() {
 		return this.figures;
 	}
-	
+
 	@Override
 	public String getNombreIcono() {
 		return "atributo.png";
@@ -56,18 +65,18 @@ public class AtributoControl extends Atributo implements Control<Atributo>, Mous
 
 	@Override
 	public void mouseDoubleClicked(MouseEvent arg0) {
-		EditorFactory.getEditor(this).open();		
+		EditorFactory.getEditor(this).open();
 	}
 
 	@Override
 	public void mousePressed(MouseEvent arg0) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent arg0) {
 		// TODO Auto-generated method stub
-		
+
 	}
 }

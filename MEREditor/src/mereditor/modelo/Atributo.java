@@ -88,6 +88,7 @@ public class Atributo extends ComponenteNombre implements ComponenteAtributos {
 
 	public void addAtributo(Atributo atributo) {
 		this.atributos.add(atributo);
+		atributo.setPadre(this);
 	}
 
 	public void removeAtributo(Atributo atributo) {
