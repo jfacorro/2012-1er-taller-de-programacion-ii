@@ -18,7 +18,6 @@ import org.eclipse.draw2d.Connection;
 import org.eclipse.draw2d.ConnectionAnchor;
 import org.eclipse.draw2d.Figure;
 import org.eclipse.draw2d.Graphics;
-import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.Label;
 import org.eclipse.draw2d.LineBorder;
 import org.eclipse.draw2d.PolylineConnection;
@@ -88,10 +87,13 @@ public abstract class Figura<T extends Componente> extends Figure {
 		this.add(lblName, BorderLayout.CENTER);
 	}
 
-	public T getComponente() {
-		return this.componente;
-	}
-
+	/**
+	 * Devuelve la conexión entre esta figura y la figura del componente del id
+	 * especificado.
+	 * 
+	 * @param id
+	 * @return
+	 */
 	public Connection getConexion(String id) {
 		if (!this.conexiones.containsKey(id)) {
 			String error = "La figura de id %s (%s) no tiene ninguna conexion con la figura del componente con id: %s";
@@ -151,6 +153,11 @@ public abstract class Figura<T extends Componente> extends Figure {
 		this.init();
 	}
 
+	/**
+	 * Obtener el objeto con los valores de representacion de esta figura.
+	 * 
+	 * @return
+	 */
 	public PList getRepresentacion() {
 		PList repr = new PList();
 		Rectangle rect = this.getBounds();
@@ -180,18 +187,6 @@ public abstract class Figura<T extends Componente> extends Figure {
 	 */
 	public Collection<Figure> getFigurasLoqueadas() {
 		return Collections.unmodifiableCollection(this.figurasLoqueadas);
-	}
-
-	@Override
-	public void setParent(IFigure p) {
-		super.setParent(p);
-		this.onSetParent();
-	}
-	
-	/**
-	 * Ejecutado cuando se setea la figura padre
-	 */
-	protected void onSetParent() {
 	}
 
 	protected void aplicarEstiloBorde(Shape shape) {

@@ -2,10 +2,6 @@ Juan:
 -----
 	Pendiente:
 	----------
-		- Editores:
-			- Relación
-			- Jerarquía
-		- Actualizar el modelo y la vista al cambiar el arbol y viceversa.
 		- [Selección de componentes en la vista]
 		- Implementar la figura de Jerarquía mejor.
 		- Mejorar las conexiones para que salgan del centro.
@@ -29,3 +25,7 @@ Juan:
 		- Modificar el arbol para que se pueda esconder y mostrar bien.
 		- Editores:
 			- Diagrama (cambiar el nombre).
+		- Editores:
+			- Relación
+			- Jerarquía
+		- Actualizar el modelo y la vista al cambiar el arbol y viceversa.

@@ -16,6 +16,5 @@
 			- Cantidad de Entidades por Diagrama (Idem punto anterior).
 	- Imprimir: 
 		- Asegurarse de que entre en la página.
-	- Árbol de Componentes: actualizar el árbol al agregar un elemento a un diagrama.
 - Manual de usuario: hacer una vez completada la funcionalidad.
 - Documento técnico.
