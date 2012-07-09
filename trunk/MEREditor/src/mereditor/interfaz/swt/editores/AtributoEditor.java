@@ -162,7 +162,7 @@ public class AtributoEditor extends Editor<Atributo> {
 		for (Atributo atributo : this.tblAtributos.getElementos())
 			this.componente.addAtributo(atributo);
 
-		for (Atributo atributo : this.tblAtributos.getElementoEliminados())
+		for (Atributo atributo : this.tblAtributos.getElementosEliminados())
 			this.componente.removeAtributo(atributo);
 	}
 

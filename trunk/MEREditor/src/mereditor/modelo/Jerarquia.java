@@ -27,6 +27,14 @@ public class Jerarquia extends Componente {
 	public Set<Entidad> getDerivadas() {
 		return Collections.unmodifiableSet(derivadas);
 	}
+	
+	public void addDerivada(Entidad entidad) {
+		this.derivadas.add(entidad);
+	}
+
+	public void removeDerivada(Entidad entidad) {
+		this.derivadas.remove(entidad);
+	}
 
 	public void setGenerica(Entidad generica) {
 		this.generica = generica;

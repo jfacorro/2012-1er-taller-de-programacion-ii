@@ -36,6 +36,16 @@ public class EntidadRelacionTabla extends Tabla<EntidadRelacion> {
 
 	@Override
 	protected void initEditorsCeldas(Table table) {
+		this.loadEntidades();
+
+		this.editoresCeldas.add(new ComboBoxCellEditor(table, options
+				.toArray(new String[options.size()]), SWT.READ_ONLY));
+		this.editoresCeldas.add(new TextCellEditor(table));
+		this.editoresCeldas.add(new TextCellEditor(table));
+		this.editoresCeldas.add(new TextCellEditor(table));
+	}
+	
+	private void loadEntidades() {
 		Set<Entidad> entidades = Principal.getInstance().getProyecto()
 				.getEntidadesDiagrama();
 		
@@ -45,13 +55,7 @@ public class EntidadRelacionTabla extends Tabla<EntidadRelacion> {
 
 		for (Entidad entidad : this.optionsEntidades) {
 			options.add(entidad.getNombre());
-		}
-
-		this.editoresCeldas.add(new ComboBoxCellEditor(table, options
-				.toArray(new String[options.size()]), SWT.READ_ONLY));
-		this.editoresCeldas.add(new TextCellEditor(table));
-		this.editoresCeldas.add(new TextCellEditor(table));
-		this.editoresCeldas.add(new TextCellEditor(table));
+		}		
 	}
 
 	@Override
@@ -114,7 +118,11 @@ public class EntidadRelacionTabla extends Tabla<EntidadRelacion> {
 
 	@Override
 	protected void abrirEditor(EntidadRelacion elemento) {
-		// TODO: implementar clase EntidadRelacionEditor
-		// new EntidadRelacionEditor(elemento).open();
+		// No es necesario.
+	}
+
+	@Override
+	protected EntidadRelacion agregarElemento() {
+		return null;
 	}
 }

@@ -1,6 +1,5 @@
 package mereditor.interfaz.swt.editores;
 
-import mereditor.interfaz.swt.dialogs.AgregarIdentificadorDialog;
 import mereditor.modelo.Entidad;
 import mereditor.modelo.Entidad.Identificador;
 
@@ -53,17 +52,21 @@ public class IdentificadorTabla extends Tabla<Identificador> {
 
 	@Override
 	protected Identificador nuevoElemento() {
-		AgregarIdentificadorDialog dialog = new AgregarIdentificadorDialog(this.entidad);
-		int resultado = dialog.open();
-		
-		if(resultado == Window.OK)
-			return dialog.getIdentificador();
+		IdentificadorEditor editor = new IdentificadorEditor(this.entidad);
+	
+		if(editor.open() == Window.OK)
+			return editor.getComponente();
 		else
 			return null;
 	}
 
 	@Override
 	protected void abrirEditor(Identificador elemento) {
-		
+		new IdentificadorEditor(elemento).open();
+	}
+
+	@Override
+	protected Identificador agregarElemento() {
+		return null;
 	}
 }

@@ -99,7 +99,7 @@ public class RelacionEditor extends Editor<Relacion> {
 		botonesEntidades.setLayout(new RowLayout(SWT.HORIZONTAL));
 		
 		Button btnNuevaEntidadRelacion = new Button(botonesEntidades, SWT.PUSH);
-		btnNuevaEntidadRelacion.setText("Nuevo");
+		btnNuevaEntidadRelacion.setText(Editor.NUEVO);
 		
 		Button btnEliminarEntidadRelacion = new Button(botonesEntidades, SWT.PUSH);
 		btnEliminarEntidadRelacion.setText(Editor.ELIMINAR);
@@ -131,13 +131,13 @@ public class RelacionEditor extends Editor<Relacion> {
 		for (Atributo atributo : this.tblAtributos.getElementos())
 			componente.addAtributo(atributo);
 		
-		for (Atributo atributo : this.tblAtributos.getElementoEliminados())
+		for (Atributo atributo : this.tblAtributos.getElementosEliminados())
 			componente.removeAtributo(atributo);
 		
 		for (EntidadRelacion entidadRelacion : this.tblEntidades.getElementos())
 			componente.addParticipante(entidadRelacion);
 		
-		for (EntidadRelacion entidadRelacion : this.tblEntidades.getElementoEliminados())
+		for (EntidadRelacion entidadRelacion : this.tblEntidades.getElementosEliminados())
 			componente.removeParticipante(entidadRelacion);
 	}
 

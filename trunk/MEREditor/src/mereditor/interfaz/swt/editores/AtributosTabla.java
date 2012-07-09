@@ -1,19 +1,28 @@
 package mereditor.interfaz.swt.editores;
 
 import mereditor.control.AtributoControl;
+import mereditor.interfaz.swt.dialogs.SeleccionarComponenteDialog;
 import mereditor.modelo.Atributo;
 import mereditor.modelo.Atributo.TipoAtributo;
+import mereditor.modelo.Entidad;
 
 import org.eclipse.jface.viewers.ComboBoxCellEditor;
 import org.eclipse.jface.viewers.TextCellEditor;
+import org.eclipse.jface.window.Window;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Table;
 
 public class AtributosTabla extends Tabla<Atributo> {
+	private Entidad entidad;
 
 	public AtributosTabla(Composite parent) {
 		super(parent);
+	}
+	
+	public AtributosTabla(Composite parent, Entidad entidad) {
+		super(parent);
+		this.entidad = entidad;
 	}
 
 	@Override
@@ -88,5 +97,16 @@ public class AtributosTabla extends Tabla<Atributo> {
 	@Override
 	protected void abrirEditor(Atributo elemento) {
 		new AtributoEditor(elemento).open();		
+	}
+
+	@Override
+	protected Atributo agregarElemento() {
+		SeleccionarComponenteDialog<Atributo> dialog = new SeleccionarComponenteDialog<Atributo>(
+				this.entidad.getAtributos());
+
+		if (dialog.open() == Window.OK)
+			return dialog.getComponente();
+		else
+			return null;
 	}
 }

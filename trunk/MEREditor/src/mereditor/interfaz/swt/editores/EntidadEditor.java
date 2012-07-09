@@ -94,9 +94,7 @@ public class EntidadEditor extends Editor<Entidad> {
 		// TableViewer
 		this.tblAtributos = new AtributosTabla(grupoAtributos);
 
-		// Agregar un nuevo atributo cuando se hace click sobre el botón
 		btnNuevoAtributo.addSelectionListener(this.tblAtributos.nuevo);
-		// Eliminar atributo
 		btnEliminarAtributo.addSelectionListener(this.tblAtributos.eliminar);
 
 		/**
@@ -106,14 +104,21 @@ public class EntidadEditor extends Editor<Entidad> {
 		grupoIdentificadores.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
 		grupoIdentificadores.setText(Editor.IDENTIFICADORES);
 		grupoIdentificadores.setLayout(new GridLayout(1, true));
+		
+		Composite botonesIdentificadores = new Composite(grupoIdentificadores, SWT.NONE);
+		botonesIdentificadores.setLayoutData(new GridData(SWT.LEFT, SWT.LEFT, false, false, 1, 1));
+		botonesIdentificadores.setLayout(new RowLayout(SWT.HORIZONTAL));
 
-		// Generar nuevo identificador
-		Button btnNuevoID = new Button(grupoIdentificadores, SWT.RIGHT);
-		btnNuevoID.setText(Editor.NUEVO);
+		Button btnNuevoIdentificador = new Button(botonesIdentificadores, SWT.RIGHT);
+		btnNuevoIdentificador.setText(Editor.NUEVO);
+		
+		Button btnEliminarIdentificador = new Button(botonesIdentificadores, SWT.RIGHT);
+		btnEliminarIdentificador.setText(Editor.ELIMINAR);
 
 		this.tblIdentificadores = new IdentificadorTabla(grupoIdentificadores, this.componente);
 
-		btnNuevoID.addSelectionListener(this.tblIdentificadores.nuevo);
+		btnNuevoIdentificador.addSelectionListener(this.tblIdentificadores.nuevo);
+		btnEliminarIdentificador.addSelectionListener(this.tblIdentificadores.eliminar);
 
 		return dialogArea;
 	}
@@ -135,8 +140,14 @@ public class EntidadEditor extends Editor<Entidad> {
 		for (Atributo atributo : this.tblAtributos.getElementos())
 			componente.addAtributo(atributo);
 
-		for (Atributo atributo : this.tblAtributos.getElementoEliminados())
+		for (Atributo atributo : this.tblAtributos.getElementosEliminados())
 			componente.removeAtributo(atributo);
+		
+		for (Entidad.Identificador identificador : this.tblIdentificadores.getElementos())
+			componente.addIdentificador(identificador);
+
+		for (Entidad.Identificador identificador : this.tblIdentificadores.getElementosEliminados())
+			componente.removeIdentificador(identificador);
 	}
 
 	@Override

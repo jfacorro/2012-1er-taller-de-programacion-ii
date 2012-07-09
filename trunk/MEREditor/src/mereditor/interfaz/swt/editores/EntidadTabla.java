@@ -1,13 +1,14 @@
 package mereditor.interfaz.swt.editores;
 
-import org.eclipse.jface.viewers.TextCellEditor;
+import mereditor.interfaz.swt.Principal;
+import mereditor.interfaz.swt.dialogs.SeleccionarComponenteDialog;
+import mereditor.modelo.Entidad;
+
+import org.eclipse.jface.window.Window;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Table;
 
-import mereditor.modelo.Entidad;
-
 public class EntidadTabla extends Tabla<Entidad> {
-
 	public EntidadTabla(Composite parent) {
 		super(parent);
 	}
@@ -19,7 +20,6 @@ public class EntidadTabla extends Tabla<Entidad> {
 
 	@Override
 	protected void initEditorsCeldas(Table table) {
-		this.editoresCeldas.add(new TextCellEditor(table));
 	}
 
 	@Override
@@ -34,16 +34,28 @@ public class EntidadTabla extends Tabla<Entidad> {
 
 	@Override
 	protected void setValorCelda(Entidad element, String property, Object value) {
-		element.setNombre(value.toString());
 	}
 
 	@Override
 	protected Entidad nuevoElemento() {
-		throw new RuntimeException("No se puede generar una nueva Entidad desde la tabla.");
+		// No se debe poder agregar nuevas entidades desde esta tabla. 
+		return null;
 	}
 
 	@Override
 	protected void abrirEditor(Entidad elemento) {
-		// No hace nada porque no se debería poder editar la tabla por medio de esta tabla.
+		// No hace nada porque no se debería poder editar la tabla por medio de
+		// esta tabla.
+	}
+
+	@Override
+	protected Entidad agregarElemento() {
+		SeleccionarComponenteDialog<Entidad> dialog = new SeleccionarComponenteDialog<Entidad>(
+				Principal.getInstance().getProyecto().getEntidadesDiagrama());
+
+		if (dialog.open() == Window.OK)
+			return dialog.getComponente();
+		else
+			return null;
 	}
 }

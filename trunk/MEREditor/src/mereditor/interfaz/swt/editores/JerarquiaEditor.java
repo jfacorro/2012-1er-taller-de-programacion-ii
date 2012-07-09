@@ -1,10 +1,8 @@
 package mereditor.interfaz.swt.editores;
 
-import java.util.Arrays;
-import java.util.HashMap;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
 import mereditor.control.JerarquiaControl;
 import mereditor.modelo.Entidad;
@@ -14,6 +12,8 @@ import mereditor.modelo.Jerarquia.TipoJerarquia;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
+import org.eclipse.swt.layout.RowLayout;
+import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
@@ -24,9 +24,10 @@ public class JerarquiaEditor extends Editor<Jerarquia> {
 
 	protected Combo cboTipo;
 	protected Combo cboGenerica;
-	protected EntidadTabla tblDerivadas;
+	protected EntidadTabla tblEntidadesDerivadas;
 
-	protected Map<String, Entidad> entidades = new HashMap<>();
+	protected List<String> entidadesNombres = new ArrayList<>();
+	protected List<Entidad> entidades = new ArrayList<>();
 
 	public JerarquiaEditor() {
 		this(new JerarquiaControl());
@@ -55,7 +56,7 @@ public class JerarquiaEditor extends Editor<Jerarquia> {
 		this.loadGenerica(this.cboGenerica);
 
 		/**
-		 * Atributos.
+		 * Entidades
 		 */
 		Group grupoDerivadas = new Group(dialogArea, SWT.NONE);
 		grupoDerivadas.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true,
@@ -63,8 +64,23 @@ public class JerarquiaEditor extends Editor<Jerarquia> {
 		grupoDerivadas.setText("Entidades Derivadas");
 		grupoDerivadas.setLayout(new GridLayout(1, true));
 
+		Composite botonesEntidades = new Composite(grupoDerivadas, SWT.NONE);
+		botonesEntidades.setLayoutData(new GridData(SWT.LEFT, SWT.LEFT, false,
+				false, 1, 1));
+		botonesEntidades.setLayout(new RowLayout(SWT.HORIZONTAL));
+
+		Button btnNuevaEntidad = new Button(botonesEntidades, SWT.PUSH);
+		btnNuevaEntidad.setText(Editor.AGREGAR);
+
+		Button btnEliminarEntidad = new Button(botonesEntidades,
+				SWT.PUSH);
+		btnEliminarEntidad.setText(Editor.ELIMINAR);
+
 		// TableViewer
-		this.tblDerivadas = new EntidadTabla(grupoDerivadas);
+		this.tblEntidadesDerivadas = new EntidadTabla(grupoDerivadas);
+		
+		btnNuevaEntidad.addSelectionListener(this.tblEntidadesDerivadas.nuevo);
+		btnEliminarEntidad.addSelectionListener(this.tblEntidadesDerivadas.eliminar);
 
 		return dialogArea;
 	}
@@ -75,16 +91,14 @@ public class JerarquiaEditor extends Editor<Jerarquia> {
 	 */
 	private void loadGenerica(Combo combo) {
 		// Obtener las entidades de este diagrama
-		Set<Entidad> entidades = this.principal.getProyecto().getEntidadesDiagrama();
+		this.entidades = new ArrayList<>(this.principal.getProyecto()
+				.getEntidadesDiagrama());
+		Collections.sort(this.entidades);
 
-		for (Entidad entidad : entidades) {
-			this.entidades.put(entidad.getNombre(), entidad);
+		for (Entidad entidad : this.entidades) {
 			combo.add(entidad.getNombre());
+			this.entidadesNombres.add(entidad.getNombre());
 		}
-
-		String[] items = combo.getItems();
-		Arrays.sort(items);
-		combo.setItems(items);
 	}
 
 	@Override
@@ -93,25 +107,29 @@ public class JerarquiaEditor extends Editor<Jerarquia> {
 		if (this.componente.getGenerica() != null)
 			this.cboGenerica.setText(this.componente.getGenerica().getNombre());
 
-		this.tblDerivadas.setElementos(this.componente.getDerivadas());
+		this.tblEntidadesDerivadas.setElementos(this.componente.getDerivadas());
 	}
 
 	@Override
 	protected void aplicarCambios() {
 		this.componente.setTipo(TipoJerarquia.valueOf(this.cboTipo.getText()));
-		String nombre = this.cboGenerica.getText();
-		Entidad entidad = this.entidades.get(nombre);
-		this.componente.setGenerica(entidad);
+		this.componente.setGenerica(this.entidades.get(this.cboGenerica.getSelectionIndex()));
+		
+		for(Entidad entidad : this.tblEntidadesDerivadas.getElementos())
+			this.componente.addDerivada(entidad);
+		
+		for(Entidad entidad : this.tblEntidadesDerivadas.getElementosEliminados())
+			this.componente.removeDerivada(entidad);
 	}
 
 	@Override
 	protected boolean validar(List<String> errors) {
-		if (this.componente.getGenerica() == null)
+		if (this.cboGenerica.getSelectionIndex() < 0)
 			errors.add("Debe seleccionar una entidad genérica.");
-		
-		if (this.componente.getDerivadas().isEmpty())
+
+		if (this.tblEntidadesDerivadas.getElementos().isEmpty())
 			errors.add("Debe seleccionar al menos una entidad derivada.");
-		
+
 		return errors.isEmpty();
 	}
 }
