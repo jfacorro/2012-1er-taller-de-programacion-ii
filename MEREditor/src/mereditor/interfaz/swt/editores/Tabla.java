@@ -30,6 +30,10 @@ import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 
 public abstract class Tabla<T> extends TableViewer {
+	/**
+	 * Indica si se pueden editar los valores directamente en la tabla.
+	 */
+	protected boolean readOnly = false;
 	protected List<T> elementos = new ArrayList<>();
 	protected List<T> elementosEliminados = new ArrayList<>();
 
@@ -68,9 +72,11 @@ public abstract class Tabla<T> extends TableViewer {
 
 		// Establecer el titulo de las columnas, los modificadores y los
 		// editores.
-		this.setColumnProperties((String[]) columnas.toArray(new String[columnas.size()]));
+		this.setColumnProperties((String[]) columnas
+				.toArray(new String[columnas.size()]));
 		this.setCellModifier(this.cellModifier);
-		this.setCellEditors((CellEditor[]) editoresCeldas.toArray(new CellEditor[editoresCeldas.size()]));
+		this.setCellEditors((CellEditor[]) editoresCeldas
+				.toArray(new CellEditor[editoresCeldas.size()]));
 
 		this.addSelectionChangedListener(this.seleccion);
 		this.addDoubleClickListener(this.dobleClick);
@@ -87,10 +93,28 @@ public abstract class Tabla<T> extends TableViewer {
 
 	protected abstract Object getValorCelda(T element, String property);
 
-	protected abstract void setValorCelda(T element, String property, Object value);
+	protected abstract void setValorCelda(T element, String property,
+			Object value);
 
+	/**
+	 * Debe ser implementada para agregar nuevos elementos.
+	 * 
+	 * @return
+	 */
 	protected abstract T nuevoElemento();
-	
+
+	/**
+	 * Debe ser implementada para agregar elementos existentes.
+	 * 
+	 * @return
+	 */
+	protected abstract T agregarElemento();
+
+	/**
+	 * Debe ser implementada para abrir el editor del tipo de elemento.
+	 * 
+	 * @param elemento
+	 */
 	protected abstract void abrirEditor(T elemento);
 
 	public void setElementos(Collection<T> elementos) {
@@ -105,8 +129,21 @@ public abstract class Tabla<T> extends TableViewer {
 		return this.elementos;
 	}
 
-	public List<T> getElementoEliminados() {
+	public List<T> getElementosEliminados() {
 		return this.elementosEliminados;
+	}
+
+	/**
+	 * Indica si se pueden editar los valores directamente en la tabla.
+	 * 
+	 * @return <code>true</code> si la tabla es de sólo lectura.
+	 */
+	public boolean isReadOnly() {
+		return readOnly;
+	}
+
+	public void setReadOnly(boolean readOnly) {
+		this.readOnly = readOnly;
 	}
 
 	private final ISelectionChangedListener seleccion = new ISelectionChangedListener() {
@@ -115,7 +152,20 @@ public abstract class Tabla<T> extends TableViewer {
 		}
 	};
 
-	/*
+	/**
+	 * Agregar elemento existente.
+	 */
+	public final SelectionListener agregar = new SelectionAdapter() {
+		public void widgetSelected(SelectionEvent event) {
+			T elemento = agregarElemento();
+			if (elemento != null) {
+				elementos.add(elemento);
+				refresh();
+			}
+		}
+	};
+
+	/**
 	 * Agregar un nuevo elemento.
 	 */
 	public final SelectionListener nuevo = new SelectionAdapter() {
@@ -193,8 +243,7 @@ public abstract class Tabla<T> extends TableViewer {
 
 	private ICellModifier cellModifier = new ICellModifier() {
 		public boolean canModify(Object element, String property) {
-			// queda forzado q se puedan editar todas las propiedades
-			return true;
+			return !readOnly;
 		}
 
 		@SuppressWarnings("unchecked")
@@ -211,12 +260,12 @@ public abstract class Tabla<T> extends TableViewer {
 			refresh();
 		}
 	};
-	
+
 	private IDoubleClickListener dobleClick = new IDoubleClickListener() {
 		@SuppressWarnings("unchecked")
 		@Override
 		public void doubleClick(DoubleClickEvent event) {
-			if (selection != null) {
+			if (!readOnly && selection != null) {
 				T elemento = (T) selection.getFirstElement();
 				abrirEditor(elemento);
 

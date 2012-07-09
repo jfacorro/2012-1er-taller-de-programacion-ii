@@ -39,8 +39,12 @@ public class Entidad extends ComponenteNombre implements ComponenteAtributos {
 		this.tipo = tipo;
 	}
 
-	public void agregarIdentificador(Identificador identificador) {
+	public void addIdentificador(Identificador identificador) {
 		identificadores.add(identificador);
+	}
+	
+	public void removeIdentificador(Identificador identificador) {
+		identificadores.remove(identificador);
 	}
 
 	public void addAtributo(Atributo atributo) {
@@ -153,6 +157,13 @@ public class Entidad extends ComponenteNombre implements ComponenteAtributos {
 
 		public Set<Entidad> getEntidades() {
 			return Collections.unmodifiableSet(entidades);
+		}
+		
+		/*
+		 * Devuelve la entidad de la cual es identificador.
+		 */
+		public Entidad getEntidad() {
+			return this.entidad;
 		}
 
 		/**
