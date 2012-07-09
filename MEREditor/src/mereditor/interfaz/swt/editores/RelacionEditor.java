@@ -5,9 +5,11 @@ import java.util.List;
 import mereditor.control.RelacionControl;
 import mereditor.modelo.Atributo;
 import mereditor.modelo.Relacion;
+import mereditor.modelo.Relacion.EntidadRelacion;
 import mereditor.modelo.Relacion.TipoRelacion;
 
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.layout.RowLayout;
@@ -35,6 +37,11 @@ public class RelacionEditor extends Editor<Relacion> {
 		super(relacion);
 		this.titulo = "Editor - " + componente.getNombre();
 	}
+	
+	@Override
+	protected Point getInitialSize() {
+		return new Point(400, 500);
+	}
 
 	@Override
 	protected Control createDialogArea(final Composite parent) {
@@ -61,14 +68,14 @@ public class RelacionEditor extends Editor<Relacion> {
 		grupoAtributos.setText("Atributos");
 		grupoAtributos.setLayout(new GridLayout(1, true));
 		
-		Composite botones = new Composite(grupoAtributos, SWT.NONE);
-		botones.setLayoutData(new GridData(SWT.LEFT, SWT.LEFT, false, false, 1, 1));
-		botones.setLayout(new RowLayout(SWT.HORIZONTAL));
+		Composite botonesAttrs = new Composite(grupoAtributos, SWT.NONE);
+		botonesAttrs.setLayoutData(new GridData(SWT.LEFT, SWT.LEFT, false, false, 1, 1));
+		botonesAttrs.setLayout(new RowLayout(SWT.HORIZONTAL));
 
-		Button btnNuevoAtributo = new Button(botones, SWT.PUSH);
+		Button btnNuevoAtributo = new Button(botonesAttrs, SWT.PUSH);
 		btnNuevoAtributo.setText("Nuevo");
 		
-		Button btnEliminarAtributo = new Button(botones, SWT.PUSH);
+		Button btnEliminarAtributo = new Button(botonesAttrs, SWT.PUSH);
 		btnEliminarAtributo.setText(Editor.ELIMINAR);
 
 		// TableViewer
@@ -86,8 +93,23 @@ public class RelacionEditor extends Editor<Relacion> {
 		grupoEntidades.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
 		grupoEntidades.setText("Entidades");
 		grupoEntidades.setLayout(new GridLayout(1, true));
+		
+		Composite botonesEntidades = new Composite(grupoEntidades, SWT.NONE);
+		botonesEntidades.setLayoutData(new GridData(SWT.LEFT, SWT.LEFT, false, false, 1, 1));
+		botonesEntidades.setLayout(new RowLayout(SWT.HORIZONTAL));
+		
+		Button btnNuevaEntidadRelacion = new Button(botonesEntidades, SWT.PUSH);
+		btnNuevaEntidadRelacion.setText("Nuevo");
+		
+		Button btnEliminarEntidadRelacion = new Button(botonesEntidades, SWT.PUSH);
+		btnEliminarEntidadRelacion.setText(Editor.ELIMINAR);
 
 		this.tblEntidades = new EntidadRelacionTabla(grupoEntidades, this.componente);
+		
+		// Agregar un nuevo atributo cuando se hace click sobre el boton
+		btnNuevaEntidadRelacion.addSelectionListener(this.tblEntidades.nuevo);
+		// Eliminar atributo
+		btnEliminarEntidadRelacion.addSelectionListener(this.tblEntidades.eliminar);
 
 		return dialogArea;
 	}
@@ -111,6 +133,12 @@ public class RelacionEditor extends Editor<Relacion> {
 		
 		for (Atributo atributo : this.tblAtributos.getElementoEliminados())
 			componente.removeAtributo(atributo);
+		
+		for (EntidadRelacion entidadRelacion : this.tblEntidades.getElementos())
+			componente.addParticipante(entidadRelacion);
+		
+		for (EntidadRelacion entidadRelacion : this.tblEntidades.getElementoEliminados())
+			componente.removeParticipante(entidadRelacion);
 	}
 
 	@Override

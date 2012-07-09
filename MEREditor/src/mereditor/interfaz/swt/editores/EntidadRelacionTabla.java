@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Set;
 
 import mereditor.interfaz.swt.Principal;
-import mereditor.modelo.Diagrama;
 import mereditor.modelo.Entidad;
 import mereditor.modelo.Relacion;
 import mereditor.modelo.Relacion.EntidadRelacion;
@@ -20,6 +19,7 @@ import org.eclipse.swt.widgets.Table;
 public class EntidadRelacionTabla extends Tabla<EntidadRelacion> {
 	private Relacion relacion;
 	private List<String> options;
+	private List<Entidad> optionsEntidades;
 
 	public EntidadRelacionTabla(Composite parent, Relacion relacion) {
 		super(parent);
@@ -38,12 +38,14 @@ public class EntidadRelacionTabla extends Tabla<EntidadRelacion> {
 	protected void initEditorsCeldas(Table table) {
 		Set<Entidad> entidades = Principal.getInstance().getProyecto()
 				.getEntidadesDiagrama();
+		
+		this.optionsEntidades = new ArrayList<>(entidades);
+		Collections.sort(this.optionsEntidades);		
+		this.options = new ArrayList<>();		
 
-		this.options = new ArrayList<String>();
-		for (Entidad entidad : entidades)
+		for (Entidad entidad : this.optionsEntidades) {
 			options.add(entidad.getNombre());
-
-		Collections.sort(options);
+		}
 
 		this.editoresCeldas.add(new ComboBoxCellEditor(table, options
 				.toArray(new String[options.size()]), SWT.READ_ONLY));
@@ -57,7 +59,8 @@ public class EntidadRelacionTabla extends Tabla<EntidadRelacion> {
 		String property = this.columnas.get(columnIndex);
 		switch (property) {
 		case Editor.ENTIDAD:
-			return element.getEntidad().getNombre();
+			return element.getEntidad() != null ? element.getEntidad()
+					.getNombre() : "";
 		default:
 			return (String) this.getValorCelda(element, property);
 		}
@@ -67,7 +70,9 @@ public class EntidadRelacionTabla extends Tabla<EntidadRelacion> {
 	protected Object getValorCelda(EntidadRelacion element, String property) {
 		switch (property) {
 		case Editor.ENTIDAD:
-			return options.indexOf(element.getEntidad().getNombre());
+			String nombre = element.getEntidad() != null ? element.getEntidad()
+					.getNombre() : null;
+			return nombre != null ? options.indexOf(nombre) : 0;
 		case Editor.ROL:
 			return element.getRol();
 		case Editor.CARDINALIDAD_MIN:
@@ -85,14 +90,7 @@ public class EntidadRelacionTabla extends Tabla<EntidadRelacion> {
 			Object value) {
 		switch (property) {
 		case Editor.ENTIDAD:
-			Diagrama diagrama = (Diagrama) element.getRelacion().getPadre();
-			String nombre = this.options.get((int) value);
-			Entidad entidad = diagrama.getEntidadByNombre(nombre);
-			if (entidad != null)
-				element.setEntidad(entidad);
-			else
-				Principal.getInstance().error(
-						"No existe la entidad '" + value.toString());
+			element.setEntidad(this.optionsEntidades.get((int) value));
 			break;
 		case Editor.ROL:
 			element.setRol(value.toString());

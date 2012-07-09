@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import mereditor.interfaz.swt.Principal;
 import mereditor.interfaz.swt.editores.EditorFactory;
@@ -59,29 +60,38 @@ public class RelacionControl extends Relacion implements Control<Relacion>,
 		// Obtener el diagrama padre correspondiente
 		Diagrama padre = (Diagrama) this.getPadre(idDiagrama);
 
+		/*
+		 * Conectar las entidades participantes.
+		 */
 		for (EntidadRelacion entidadRelacion : this.participantes) {
-			EntidadControl entidadControl = (EntidadControl) entidadRelacion
+			EntidadControl entidadCtrl = (EntidadControl) entidadRelacion
 					.getEntidad();
 			// Verificar que la entidad pertenece al diagrama
-			if (padre.contiene(entidadControl)) {
-				Figura<Entidad> figuraEntidad = entidadControl
-						.getFigura(idDiagrama);
+			if (padre.contiene(entidadCtrl)) {
+				Figura<Entidad> figEntidad = entidadCtrl.getFigura(idDiagrama);
 
-				figuraRelacion.conectarEntidad(figuraEntidad,
+				figuraRelacion.conectarEntidad(figEntidad,
 						entidadRelacion.toString());
 			}
 		}
 
-		// Procesar identificadores externos de cada entidad
+		this.dibujarIdentificadoresExternosMixtos(idDiagrama, figuraRelacion);
+	}
+
+	private void dibujarIdentificadoresExternosMixtos(String idDiagrama,
+			Figura<Relacion> figuraRelacion) {
+		/*
+		 * Procesar identificadores externos y mixtos de cada entidad.
+		 */
 		for (EntidadRelacion entidadRelacion : this.participantes) {
-			EntidadControl entidadControl = (EntidadControl) entidadRelacion
+			EntidadControl entidadCtrl = (EntidadControl) entidadRelacion
 					.getEntidad();
-			EntidadFigure figuraEntidad = (EntidadFigure) entidadControl
+			EntidadFigure figEntidad = (EntidadFigure) entidadCtrl
 					.getFigura(idDiagrama);
 
-			for (Identificador identificador : entidadControl
-					.getIdentificadores()) {
-				// Solo los que pertencen a la relaci�n y son externos
+			for (Identificador identificador : entidadCtrl.getIdentificadores()) {
+				// Solo los identificadores que pertencen a la relación y son
+				// externos
 				if (this.pertenece(identificador)
 						&& !identificador.getEntidades().isEmpty()) {
 					List<Connection> conexiones = new ArrayList<>();
@@ -91,34 +101,35 @@ public class RelacionControl extends Relacion implements Control<Relacion>,
 								.getId()));
 
 					for (Atributo atributo : identificador.getAtributos())
-						conexiones.add(figuraEntidad.getConexion(atributo
-								.getId()));
+						conexiones
+								.add(figEntidad.getConexion(atributo.getId()));
 
-					figuraEntidad.conectarIdentificador(conexiones);
+					/*
+					if (identificador.getAtributos().isEmpty())
+						conexiones.add(figEntidad);
+					 */
+
+					figEntidad.conectarIdentificador(conexiones);
 				}
 			}
 		}
+
 	}
-	
+
 	@Override
 	public String getNombreIcono() {
 		return "relacion.png";
 	}
 
 	/**
-	 * Indica si todas la entidades del identificador pertencen a la relaci�n
+	 * Indica si todas la entidades del identificador pertencen a la relación
 	 * 
 	 * @param identificador
 	 * @return
 	 */
 	private boolean pertenece(Identificador identificador) {
-		List<Entidad> entidadesParticipantes = this.getEntidadesParticipantes();
-
-		for (Entidad entidad : identificador.getEntidades())
-			if (!entidadesParticipantes.contains(entidad))
-				return false;
-
-		return true;
+		Set<Entidad> entidadesParticipantes = this.getEntidadesParticipantes();
+		return entidadesParticipantes.containsAll(identificador.getEntidades());
 	}
 
 	/**
