@@ -34,13 +34,17 @@ public class Relacion extends ComponenteNombre implements ComponenteAtributos {
 		this.atributos.add(atributo);
 		atributo.setPadre(this);
 	}
-	
+
 	public void removeAtributo(Atributo atributo) {
 		this.atributos.remove(atributo);
 	}
 
 	public void addParticipante(EntidadRelacion participante) {
-		participantes.add(participante);
+		this.participantes.add(participante);
+	}
+
+	public void removeParticipante(EntidadRelacion participante) {
+		this.participantes.remove(participante);
 	}
 
 	/*
@@ -94,7 +98,7 @@ public class Relacion extends ComponenteNombre implements ComponenteAtributos {
 	 */
 	public class EntidadRelacion {
 		protected Entidad entidad;
-		protected String rol;
+		protected String rol = "";
 		protected String cardinalidadMinima = "1";
 		protected String cardinalidadMaxima = "1";
 		protected Relacion relacion;
@@ -103,8 +107,8 @@ public class Relacion extends ComponenteNombre implements ComponenteAtributos {
 			this.relacion = relacion;
 		}
 
-		public EntidadRelacion(Relacion relacion, Entidad entidad, String rol, String cardinalidadMinima,
-				String cardinalidadMaxima) {
+		public EntidadRelacion(Relacion relacion, Entidad entidad, String rol,
+				String cardinalidadMinima, String cardinalidadMaxima) {
 			this(relacion);
 			this.entidad = entidad;
 			this.rol = rol;
@@ -147,8 +151,10 @@ public class Relacion extends ComponenteNombre implements ComponenteAtributos {
 		@Override
 		public String toString() {
 			String label = "";
-			if (!this.cardinalidadMinima.equals("1") || !this.cardinalidadMaxima.equals("1"))
-				label = "(" + this.cardinalidadMinima + ", " + this.cardinalidadMaxima + ")";
+			if (!this.cardinalidadMinima.equals("1")
+					|| !this.cardinalidadMaxima.equals("1"))
+				label = "(" + this.cardinalidadMinima + ", "
+						+ this.cardinalidadMaxima + ")";
 
 			if (this.rol != null)
 				label += " " + this.rol;
