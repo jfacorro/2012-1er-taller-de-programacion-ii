@@ -6,6 +6,7 @@ import mereditor.representacion.PList;
 
 import org.eclipse.draw2d.BorderLayout;
 import org.eclipse.draw2d.Ellipse;
+import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.Label;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
@@ -58,10 +59,11 @@ public class AtributoFigure extends Figura<Atributo> {
 		this.setBounds(ellipse.getBounds());
 		this.add(ellipse);
 	}
-
+	
 	@Override
-	protected void onSetParent() {
-		super.onSetParent();
+	public void setParent(IFigure parent) {
+		super.setParent(parent);
+
 		if (this.getParent() != null && !this.componente.esCompuesto())
 			this.getParent().add(this.lblName, 0);
 	}

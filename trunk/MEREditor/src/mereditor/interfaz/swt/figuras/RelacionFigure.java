@@ -19,7 +19,8 @@ public class RelacionFigure extends Figura<Relacion> {
 
 	public RelacionFigure(Relacion relacion) {
 		super(relacion);
-		this.setRepresentacion(EstilosFiguras.get(Relacion.class, this.componente.getTipo()));
+		this.setRepresentacion(EstilosFiguras.get(Relacion.class,
+				this.componente.getTipo()));
 	}
 
 	@Override
@@ -67,6 +68,13 @@ public class RelacionFigure extends Figura<Relacion> {
 		this.generarPuntos();
 	}
 
+	/**
+	 * Conecta una figura de una entidad con esta figura agregandole el texto
+	 * especificado.
+	 * 
+	 * @param figura
+	 * @param label
+	 */
 	public void conectarEntidad(Figura<Entidad> figura, String label) {
 		Connection conexion = Figura.conectar(this, figura);
 
@@ -75,19 +83,24 @@ public class RelacionFigure extends Figura<Relacion> {
 		conexion.add(lblCardinalidad, new MidpointLocator(conexion, 0));
 
 		this.getParent().add(conexion);
-		
-		this.conexiones.put(figura.getComponente().getId(), conexion);
+
+		this.conexiones.put(figura.componente.getId(), conexion);
 	}
 
+	/**
+	 * Conecta esta figura a la figura de su atributo.
+	 * 
+	 * @param figura
+	 */
 	public void conectarAtributo(Figura<Atributo> figura) {
 		Connection conexion = Figura.conectar(this, figura);
 		this.getParent().add(conexion);
-		
-		this.conexiones.put(figura.getComponente().getId(), conexion);
+
+		this.conexiones.put(figura.componente.getId(), conexion);
 	}
-	
+
 	@Override
 	public void actualizar() {
-		this.lblName.setText(this.componente.getNombre());		
+		this.lblName.setText(this.componente.getNombre());
 	}
 }

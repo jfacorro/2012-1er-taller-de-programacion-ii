@@ -33,7 +33,7 @@ public class EntidadFigure extends Figura<Entidad> {
 		Connection conexion = Figura.conectar(this, figura);
 		this.getParent().add(conexion);
 
-		this.conexiones.put(figura.getComponente().getId(), conexion);
+		this.conexiones.put(figura.componente.getId(), conexion);
 	}
 
 	@Override
