@@ -47,7 +47,7 @@ public class Entidad extends ComponenteNombre implements ComponenteAtributos {
 		this.atributos.add(atributo);
 		atributo.setPadre(this);
 	}
-	
+
 	public void removeAtributo(Atributo atributo) {
 		this.atributos.remove(atributo);
 		// Lista donde se guardan los identificadores a editar
@@ -55,12 +55,12 @@ public class Entidad extends ComponenteNombre implements ComponenteAtributos {
 		// una collection que se esta recorriendo con un iterador.
 		List<Identificador> identificadores = new ArrayList<>();
 
-		for(Identificador identificador : this.identificadores)
-			if(identificador.contiene(atributo))
+		for (Identificador identificador : this.identificadores)
+			if (identificador.contiene(atributo))
 				identificadores.add(identificador);
-		
-		for(Identificador identificador : this.identificadores)
-				identificador.removeAtributo(atributo);
+
+		for (Identificador identificador : this.identificadores)
+			identificador.removeAtributo(atributo);
 	}
 
 	public Collection<Atributo> getAtributos() {
@@ -92,30 +92,34 @@ public class Entidad extends ComponenteNombre implements ComponenteAtributos {
 		return false;
 	}
 
+	/**
+	 * Representa un identificador de una identidad. Contiene referencias a los
+	 * Atributos y Entidades que componen el Identificador.
+	 */
 	public class Identificador {
 		private Entidad entidad;
-		private List<Atributo> atributos = new ArrayList<>();
-		private List<Entidad> entidades = new ArrayList<>();
+		private Set<Atributo> atributos = new HashSet<>();
+		private Set<Entidad> entidades = new HashSet<>();
 
 		public Identificador(Entidad entidad) {
 			if (entidad == null)
-				throw new RuntimeException("Entidad no puede ser null.");
+				throw new IllegalArgumentException("Entidad no puede ser null.");
 
 			this.entidad = entidad;
 		}
 
 		public void addAtributo(Atributo atributo) {
 			if (this.atributos.contains(atributo))
-				throw new RuntimeException(
+				throw new IllegalArgumentException(
 						"Un atributo no puede estar dos veces en el mismo identificador.");
 
 			if (!this.entidad.contiene(atributo))
-				throw new RuntimeException(
+				throw new IllegalArgumentException(
 						"Un atributo debe pertenecer a la entidad para ser identificador.");
 
 			this.atributos.add(atributo);
 		}
-		
+
 		public void removeAtributo(Atributo atributo) {
 			this.atributos.remove(atributo);
 			this.verificarVacio();
@@ -128,29 +132,35 @@ public class Entidad extends ComponenteNombre implements ComponenteAtributos {
 
 			this.entidades.add(entidad);
 		}
-		
+
 		public void removeEntidad(Entidad entidad) {
 			this.entidades.remove(entidad);
 			this.verificarVacio();
 		}
-		
+
 		/**
-		 * Verifica si el identificador no tiene ningun atributo
-		 * o entidad y lo elimina en ese caso.
+		 * Verifica si el identificador no tiene ningun atributo o entidad y lo
+		 * elimina en ese caso.
 		 */
 		private void verificarVacio() {
-			if(this.atributos.size() == 0 && this.entidades.size() == 0)
-				this.entidad.identificadores.remove(this);			
+			if (this.atributos.isEmpty() && this.entidades.isEmpty())
+				this.entidad.identificadores.remove(this);
 		}
 
-		public List<Atributo> getAtributos() {
-			return Collections.unmodifiableList(atributos);
+		public Set<Atributo> getAtributos() {
+			return Collections.unmodifiableSet(atributos);
 		}
 
-		public List<Entidad> getEntidades() {
-			return Collections.unmodifiableList(entidades);
+		public Set<Entidad> getEntidades() {
+			return Collections.unmodifiableSet(entidades);
 		}
 
+		/**
+		 * Indica si el identificador contiene al componente especificado.
+		 * 
+		 * @param componente
+		 * @return
+		 */
 		public boolean contiene(Componente componente) {
 			return this.atributos.contains(componente)
 					|| this.entidades.contains(componente);

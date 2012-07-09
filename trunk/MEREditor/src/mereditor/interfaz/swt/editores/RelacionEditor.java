@@ -10,6 +10,7 @@ import mereditor.modelo.Relacion.TipoRelacion;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
+import org.eclipse.swt.layout.RowLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
@@ -59,15 +60,24 @@ public class RelacionEditor extends Editor<Relacion> {
 		grupoAtributos.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
 		grupoAtributos.setText("Atributos");
 		grupoAtributos.setLayout(new GridLayout(1, true));
+		
+		Composite botones = new Composite(grupoAtributos, SWT.NONE);
+		botones.setLayoutData(new GridData(SWT.LEFT, SWT.LEFT, false, false, 1, 1));
+		botones.setLayout(new RowLayout(SWT.HORIZONTAL));
 
-		Button btnNuevoAtributo = new Button(grupoAtributos, SWT.PUSH);
+		Button btnNuevoAtributo = new Button(botones, SWT.PUSH);
 		btnNuevoAtributo.setText("Nuevo");
+		
+		Button btnEliminarAtributo = new Button(botones, SWT.PUSH);
+		btnEliminarAtributo.setText(Editor.ELIMINAR);
 
 		// TableViewer
 		this.tblAtributos = new AtributosTabla(grupoAtributos);
 
 		// Agregar un nuevo atributo cuando se hace click sobre el boton
 		btnNuevoAtributo.addSelectionListener(this.tblAtributos.nuevo);
+		// Eliminar atributo
+		btnEliminarAtributo.addSelectionListener(this.tblAtributos.eliminar);
 
 		/**
 		 * Entidades.
@@ -98,6 +108,9 @@ public class RelacionEditor extends Editor<Relacion> {
 
 		for (Atributo atributo : this.tblAtributos.getElementos())
 			componente.addAtributo(atributo);
+		
+		for (Atributo atributo : this.tblAtributos.getElementoEliminados())
+			componente.removeAtributo(atributo);
 	}
 
 	@Override

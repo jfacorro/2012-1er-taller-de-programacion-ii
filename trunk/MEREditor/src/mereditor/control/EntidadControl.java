@@ -40,6 +40,9 @@ public class EntidadControl extends Entidad implements Control<Entidad>, MouseLi
 		EntidadFigure figuraEntidad = (EntidadFigure) this.getFigura(idDiagrama);
 		contenedor.add(figuraEntidad);
 
+		/*
+		 * Dibujar y conectar Atributos
+		 */
 		for (Atributo atributo : this.atributos) {
 			AtributoControl atributoControl = (AtributoControl) atributo;
 
@@ -48,7 +51,9 @@ public class EntidadControl extends Entidad implements Control<Entidad>, MouseLi
 			figuraEntidad.agregarFiguraLoqueada(atributoControl.getFigura(idDiagrama));
 		}
 		
-		// Procesar identificadores internos de la entidad
+		/*
+		 * Procesar identificadores internos de la entidad
+		 */
 		for (Identificador identificador : this.getIdentificadores()) {
 			if (identificador.getEntidades().isEmpty()) {
 				List<Connection> conexiones = new ArrayList<>();
