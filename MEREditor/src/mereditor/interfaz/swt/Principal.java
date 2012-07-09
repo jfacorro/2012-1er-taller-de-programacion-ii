@@ -305,6 +305,7 @@ public class Principal extends Observable implements FigureListener {
 	 * Actualiza la vista.
 	 */
 	public void actualizarVista() {
+		this.modificado(true);
 		this.panelDisegno.actualizar();
 	}
 

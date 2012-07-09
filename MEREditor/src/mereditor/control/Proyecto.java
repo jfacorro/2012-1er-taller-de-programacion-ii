@@ -57,6 +57,7 @@ public class Proyecto implements ProyectoProxy {
 	 * @throws Exception
 	 */
 	public Proyecto(String nombre) {
+		this();
 		this.raiz = new DiagramaControl();
 		this.raiz.setNombre(nombre);
 		this.agregar(this.raiz);

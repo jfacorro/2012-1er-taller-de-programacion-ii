@@ -1,9 +1,7 @@
 package mereditor.modelo;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import mereditor.modelo.base.Componente;
@@ -36,6 +34,10 @@ public class Relacion extends ComponenteNombre implements ComponenteAtributos {
 		this.atributos.add(atributo);
 		atributo.setPadre(this);
 	}
+	
+	public void removeAtributo(Atributo atributo) {
+		this.atributos.remove(atributo);
+	}
 
 	public void addParticipante(EntidadRelacion participante) {
 		participantes.add(participante);
@@ -56,8 +58,8 @@ public class Relacion extends ComponenteNombre implements ComponenteAtributos {
 		return Collections.unmodifiableSet(participantes);
 	}
 
-	public List<Entidad> getEntidadesParticipantes() {
-		List<Entidad> entidades = new ArrayList<>();
+	public Set<Entidad> getEntidadesParticipantes() {
+		Set<Entidad> entidades = new HashSet<>();
 
 		for (EntidadRelacion entidadRelacion : this.participantes)
 			entidades.add(entidadRelacion.getEntidad());
