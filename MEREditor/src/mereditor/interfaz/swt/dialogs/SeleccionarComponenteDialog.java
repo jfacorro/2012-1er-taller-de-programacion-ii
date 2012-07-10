@@ -41,7 +41,7 @@ public class SeleccionarComponenteDialog<T extends ComponenteNombre> extends Dia
 		Composite container = (Composite) super.createDialogArea(parent);
 
 		Label lblEntidades = new Label(container, SWT.LEFT);
-		lblEntidades.setText("Seleccionr una opción:");
+		lblEntidades.setText("Seleccionar una opción:");
 
 		this.combo = new Combo(container, SWT.READ_ONLY);
 		this.combo.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
