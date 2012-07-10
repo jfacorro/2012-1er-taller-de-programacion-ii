@@ -22,11 +22,7 @@ public class EntidadFigure extends Figura<Entidad> {
 	protected void init() {
 		super.init();
 
-		this.update();
-	}
-
-	public void update() {
-		this.lblName.setText(this.componente.getNombre());
+		this.actualizar();
 	}
 
 	public void conectarAtributo(Figura<Atributo> figura) {

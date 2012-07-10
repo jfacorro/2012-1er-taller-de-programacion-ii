@@ -28,14 +28,14 @@ public class AtributoFigure extends Figura<Atributo> {
 		this.lblName = new Label();
 		this.lblName.setFont(this.getFont());
 		this.lblName.setText(this.getTextoLabel());
-		this.lblName.setBounds(this.lblName.getTextBounds().translate(
-				this.getLocation().getTranslated(0, -10)));
+		this.lblName.setBounds(this.lblName.getTextBounds());
+		this.lblName.setLocation(this.getLocation().getTranslated(0, -10));
 
 		this.ellipse = new Ellipse();
 		this.ellipse.setLocation(this.getLocation());
 		this.ellipse.setAntialias(SWT.ON);
 		this.ellipse.setBackgroundColor(this.backColor);
-		this.aplicarEstiloBorde(this.ellipse);
+		this.applyLineStyle();
 
 		// Si es un atributo compuesto representar con circulo
 		if (this.componente.esCompuesto()) {
@@ -50,22 +50,26 @@ public class AtributoFigure extends Figura<Atributo> {
 			this.agregarFiguraLoqueada(this.lblName);
 		}
 
-		// Si es un identificador usar fondo negro
-		if (this.componente.esIdentificador()) {
-			ellipse.setBackgroundColor(this.identificadorBackColor);
-			ellipse.setBorder(null);
-		}
-
 		this.setBounds(ellipse.getBounds());
 		this.add(ellipse);
 	}
-	
+
 	@Override
 	public void setParent(IFigure parent) {
 		super.setParent(parent);
 
 		if (this.getParent() != null && !this.componente.esCompuesto())
 			this.getParent().add(this.lblName, 0);
+	}
+	
+	@Override
+	protected void applyBackgroundColor() {
+		this.ellipse.setBackgroundColor(this.backColor);
+	}
+	
+	@Override
+	protected void applyLineStyle() {
+		this.applyLineStyle(this.ellipse);
 	}
 
 	/**
@@ -120,6 +124,16 @@ public class AtributoFigure extends Figura<Atributo> {
 
 	@Override
 	public void actualizar() {
+		// Actualizar el estilo en caso de que haya cambiado el tipo del
+		// componente.
+		this.setRepresentacion(EstilosFiguras.get(Atributo.class,
+				this.componente.getTipo()));
+
+		// Si es un identificador, usar fondo negro
+		if (this.componente.esIdentificador())
+			ellipse.setBackgroundColor(this.identificadorBackColor);
+
+		// Actualizar el texto del label y su tamaño.
 		this.lblName.setText(this.getTextoLabel());
 		this.lblName.setBounds(this.lblName.getTextBounds());
 	}

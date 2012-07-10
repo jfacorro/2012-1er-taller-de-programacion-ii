@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 public class PList {
-	public final String NOT_PRESENT = "NOT_PRESENT";
+	public final static String NOT_PRESENT = "NOT_PRESENT".intern();
 	protected PList prototype;
 
 	protected Map<String, Object> properties = new HashMap<String, Object>();
@@ -23,7 +23,7 @@ public class PList {
 	}
 
 	public PList set(String name, Object value) {
-		// Si es entero convertir autom·ticamente
+		// Si es entero convertir autom√°ticamente
 		if (value != null && value.toString().matches("-?\\d*"))
 			value = Integer.parseInt(value.toString());
 

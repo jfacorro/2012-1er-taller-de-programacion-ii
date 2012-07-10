@@ -113,10 +113,6 @@ public class Entidad extends ComponenteNombre implements ComponenteAtributos {
 		}
 
 		public void addAtributo(Atributo atributo) {
-			if (this.atributos.contains(atributo))
-				throw new IllegalArgumentException(
-						"Un atributo no puede estar dos veces en el mismo identificador.");
-
 			if (!this.entidad.contiene(atributo))
 				throw new IllegalArgumentException(
 						"Un atributo debe pertenecer a la entidad para ser identificador.");

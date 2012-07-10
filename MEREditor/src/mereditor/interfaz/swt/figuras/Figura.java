@@ -97,8 +97,10 @@ public abstract class Figura<T extends Componente> extends Figure {
 	public Connection getConexion(String id) {
 		if (!this.conexiones.containsKey(id)) {
 			String error = "La figura de id %s (%s) no tiene ninguna conexion con la figura del componente con id: %s";
-			throw new RuntimeException(String.format(error, this.componente
-					.getId(), this.componente.getClass().getName(), id));
+			throw new RuntimeException(String.format(error,
+					this.componente.getId(),
+					this.componente.getClass().getName(),
+					id));
 		}
 
 		return this.conexiones.get(id);
@@ -132,6 +134,8 @@ public abstract class Figura<T extends Componente> extends Figure {
 						.<Integer> get("r"), repr.<PList> get("ColorFondo")
 						.<Integer> get("g"), repr.<PList> get("ColorFondo")
 						.<Integer> get("b"));
+
+				this.applyBackgroundColor();
 			}
 
 			if (repr.<PList> get("ColorLinea") != null) {
@@ -148,9 +152,29 @@ public abstract class Figura<T extends Componente> extends Figure {
 			if (repr.<Integer> get("EstiloLinea") != null) {
 				this.lineStyle = repr.<Integer> get("EstiloLinea");
 			}
-		}
 
-		this.init();
+			this.applyLineStyle();
+		}
+	}
+
+	/**
+	 * Aplica el estilo del borde a las figuras correspondientes a esta
+	 * representacion. Debería ser implementada por las clases hijas que lo
+	 * requieran.
+	 * 
+	 */
+	protected void applyLineStyle() {
+		this.setBorder(new LineBorder(this.lineColor));
+	}
+
+	/**
+	 * Aplica el color de fondo actual a las figuras correspondientes a esta
+	 * representacion. Debería ser implementada por las clases hijas que lo
+	 * requieran.
+	 * 
+	 */
+	protected void applyBackgroundColor() {
+		this.setBackgroundColor(this.backColor);
 	}
 
 	/**
@@ -189,7 +213,12 @@ public abstract class Figura<T extends Componente> extends Figure {
 		return Collections.unmodifiableCollection(this.figurasLoqueadas);
 	}
 
-	protected void aplicarEstiloBorde(Shape shape) {
+	/**
+	 * Aplica el estilo de la figura a la forma que se pasa por parámetro.
+	 * 
+	 * @param shape
+	 */
+	protected void applyLineStyle(Shape shape) {
 		shape.setLineStyle(this.lineStyle);
 		shape.setLineWidth(this.lineWidth);
 		shape.setForegroundColor(this.lineColor);
