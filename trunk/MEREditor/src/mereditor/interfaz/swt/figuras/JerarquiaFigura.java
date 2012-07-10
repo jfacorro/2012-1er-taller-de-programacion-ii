@@ -26,7 +26,7 @@ public class JerarquiaFigura extends Figura<Jerarquia> {
 		PolylineConnection connection = (PolylineConnection) Figura.conectar(
 				figura, generica);
 
-		this.aplicarEstiloBorde(connection);
+		this.applyLineStyle(connection);
 
 		connection.setConnectionRouter(new ManhattanConnectionRouter());
 		connection.setTargetDecoration(new PolygonDecoration());
