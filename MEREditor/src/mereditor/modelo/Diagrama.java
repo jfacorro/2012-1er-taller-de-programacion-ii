@@ -95,6 +95,11 @@ public class Diagrama extends ComponenteNombre {
 	public Validacion getValidacion() {
 		return this.validacion;
 	}
+	
+	@Override
+	public String validar() {
+		return null;
+	}
 
 	/**
 	 * Agrega el componente a este diagrama. Si es un Diagrama lo agrega a

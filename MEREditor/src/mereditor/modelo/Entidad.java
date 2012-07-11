@@ -82,6 +82,11 @@ public class Entidad extends ComponenteNombre implements ComponenteAtributos {
 	public void setTipo(TipoEntidad tipo) {
 		this.tipo = tipo;
 	}
+	
+	@Override
+	public String validar() {
+		return null;
+	}
 
 	@Override
 	public boolean contiene(Componente componente) {

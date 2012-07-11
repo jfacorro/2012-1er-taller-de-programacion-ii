@@ -53,6 +53,11 @@ public class Jerarquia extends Componente {
 	}
 	
 	@Override
+	public String validar() {
+		return null;
+	}
+	
+	@Override
 	public String toString() {
 		return "Jerarquia: " + this.generica.getNombre();
 	}

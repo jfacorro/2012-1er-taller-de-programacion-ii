@@ -143,4 +143,9 @@ public class Atributo extends ComponenteNombre implements ComponenteAtributos {
 
 		return false;
 	}
+
+	@Override
+	public String validar() {
+		return null;
+	}
 }
