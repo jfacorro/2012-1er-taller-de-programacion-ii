@@ -82,10 +82,12 @@ public class EstilosFiguras {
 		rep = estilos.get(Atributo.class).get(TipoAtributo.CARACTERIZACION);
 		rep.set("ColorFondo", blanco);
 		rep.set("ColorLinea", negro);
+		rep.set("EstiloLinea", Graphics.LINE_SOLID);
 
 		rep = estilos.get(Atributo.class).get(TipoAtributo.DERIVADO_CALCULO);
 		rep.set("ColorFondo", blanco);
 		rep.set("ColorLinea", negro);
+		rep.set("EstiloLinea", Graphics.LINE_SOLID);
 
 		rep = estilos.get(Atributo.class).get(TipoAtributo.DERIVADO_COPIA);
 		rep.set("ColorFondo", blanco);
