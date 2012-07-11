@@ -4,7 +4,8 @@ package mereditor.modelo;
 public class Validacion {
 	public enum EstadoValidacion {
 		SIN_VALIDAR,
-		VALIDADO
+		VALIDADO,
+		VALIDADO_CON_OBSERVACIONES
 	}
 
 	protected String observaciones;

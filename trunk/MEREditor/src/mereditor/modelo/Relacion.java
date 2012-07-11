@@ -74,6 +74,11 @@ public class Relacion extends ComponenteNombre implements ComponenteAtributos {
 	public Set<Atributo> getAtributos() {
 		return Collections.unmodifiableSet(atributos);
 	}
+	
+	@Override
+	public String validar() {
+		return null;
+	}
 
 	@Override
 	public boolean contiene(Componente componente) {

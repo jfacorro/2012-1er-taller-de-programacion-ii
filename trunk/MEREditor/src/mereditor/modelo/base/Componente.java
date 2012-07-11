@@ -37,11 +37,11 @@ public abstract class Componente {
 
 	public Componente getPadre() {
 		if (this.padres.size() > 1)
-			throw new RuntimeException("Tiene más de un padre.");
+			throw new RuntimeException("Tiene mï¿½s de un padre.");
 
 		return this.padres.isEmpty() ? null : padres.values().iterator().next();
 	}
-	
+
 	public Componente getPadre(String id) {
 		return padres.get(id);
 	}
@@ -51,7 +51,16 @@ public abstract class Componente {
 	}
 
 	/**
-	 * Implementación de la evaluación de igualdad por comparación de ids de
+	 * Valida el componente y devuelve las observaciones correspondientes en el
+	 * caso que no sea vÃ¡lido.
+	 * 
+	 * @return Devuelve <code>null</code> si es vÃ¡lido o las observaciones
+	 *         correspondientes si no lo es.
+	 */
+	public abstract String validar();
+
+	/**
+	 * Implementaciï¿½n de la evaluaciï¿½n de igualdad por comparaciï¿½n de ids de
 	 * componentes.
 	 */
 	@Override
@@ -65,7 +74,7 @@ public abstract class Componente {
 
 	/**
 	 * Indica si la instancia de este componente es de la clase que se pasa por
-	 * parámetro.
+	 * parï¿½metro.
 	 * 
 	 * @param tipoComponente
 	 * @return
@@ -75,7 +84,7 @@ public abstract class Componente {
 	}
 
 	/**
-	 * Indica si este componente tiene al especificado por parámetro como hijo.
+	 * Indica si este componente tiene al especificado por parï¿½metro como hijo.
 	 * 
 	 * @param componente
 	 * @return
@@ -83,14 +92,15 @@ public abstract class Componente {
 	public boolean contiene(Componente componente) {
 		return false;
 	}
-	
+
 	/**
 	 * Devuelve la lista de objectos filtrados por el tipo que se le pasa.
 	 * 
 	 * @param clazz
 	 * @return
 	 */
-	public static <T> Set<T> filtrarComponentes(Class<T> clazz, Collection<Componente> coleccion) {
+	public static <T> Set<T> filtrarComponentes(Class<T> clazz,
+			Collection<Componente> coleccion) {
 		Set<T> lista = new HashSet<>();
 
 		for (Componente componente : coleccion)
