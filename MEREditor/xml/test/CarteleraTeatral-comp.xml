@@ -3,10 +3,6 @@
     <Entidad id="b16bf6b9-b240-41d2-9f75-28174af8e584" tipo="MAESTRA_COSA">
         <Nombre>Teatro</Nombre>
         <Atributos>
-            <Atributo id="60644af0-5a43-4b3b-bd27-8d9257a23397" tipo="CARACTERIZACION">
-                <Nombre>Localidad</Nombre>
-                <Cardinalidad max="1" min="1"/>
-            </Atributo>
             <Atributo id="7f88a747-1a0b-4bea-9690-fb70147d18f2" tipo="CARACTERIZACION">
                 <Nombre>dir</Nombre>
                 <Cardinalidad max="1" min="1"/>
@@ -21,12 +17,16 @@
                     </Atributo>
                 </Atributos>
             </Atributo>
-            <Atributo id="f62e267a-1456-437c-87d7-38157a270856" tipo="CARACTERIZACION">
-                <Nombre>nomTeatro</Nombre>
+            <Atributo id="60644af0-5a43-4b3b-bd27-8d9257a23397" tipo="CARACTERIZACION">
+                <Nombre>Localidad</Nombre>
                 <Cardinalidad max="1" min="1"/>
             </Atributo>
             <Atributo id="e717bd5a-6042-4325-82d9-1d9b44614737" tipo="CARACTERIZACION">
                 <Nombre>idTeatro</Nombre>
+                <Cardinalidad max="1" min="1"/>
+            </Atributo>
+            <Atributo id="f62e267a-1456-437c-87d7-38157a270856" tipo="CARACTERIZACION">
+                <Nombre>nomTeatro</Nombre>
                 <Cardinalidad max="1" min="1"/>
             </Atributo>
         </Atributos>
@@ -43,23 +43,23 @@
     <Diagrama id="cbc89da8-5c69-4194-b391-8872c5fdc1a1">
         <Nombre>CarteleraTeatral</Nombre>
         <Componentes>
-            <Componente idref="19f76d7b-d0b6-49b8-a65e-493e28a112a2"/>
-            <Componente idref="45257a3f-519f-450f-b28d-b929a0af826d"/>
-            <Componente idref="83d06104-4947-483d-aef1-dccab24dd8e9"/>
-            <Componente idref="0dce2eef-4b18-4ce1-be1a-6545afdbcdbe"/>
-            <Componente idref="b16bf6b9-b240-41d2-9f75-28174af8e584"/>
-            <Componente idref="9e43ed60-8ee8-440a-a071-62e6d04fe767"/>
             <Componente idref="29168e4b-4bff-4147-81dd-e2a977d05bae"/>
+            <Componente idref="83d06104-4947-483d-aef1-dccab24dd8e9"/>
+            <Componente idref="19f76d7b-d0b6-49b8-a65e-493e28a112a2"/>
+            <Componente idref="9e43ed60-8ee8-440a-a071-62e6d04fe767"/>
+            <Componente idref="b16bf6b9-b240-41d2-9f75-28174af8e584"/>
+            <Componente idref="45257a3f-519f-450f-b28d-b929a0af826d"/>
+            <Componente idref="0dce2eef-4b18-4ce1-be1a-6545afdbcdbe"/>
         </Componentes>
         <Diagramas>
             <Diagrama id="ea404967-07eb-4938-836b-a24d8676182c">
                 <Nombre>Ejemplo</Nombre>
                 <Componentes>
+                    <Componente idref="29168e4b-4bff-4147-81dd-e2a977d05bae"/>
+                    <Componente idref="9e43ed60-8ee8-440a-a071-62e6d04fe767"/>
+                    <Componente idref="b16bf6b9-b240-41d2-9f75-28174af8e584"/>
                     <Componente idref="45257a3f-519f-450f-b28d-b929a0af826d"/>
                     <Componente idref="0dce2eef-4b18-4ce1-be1a-6545afdbcdbe"/>
-                    <Componente idref="b16bf6b9-b240-41d2-9f75-28174af8e584"/>
-                    <Componente idref="9e43ed60-8ee8-440a-a071-62e6d04fe767"/>
-                    <Componente idref="29168e4b-4bff-4147-81dd-e2a977d05bae"/>
                 </Componentes>
                 <Validacion estado="SIN_VALIDAR">
                     <Observaciones/>
@@ -84,8 +84,8 @@
         </Atributos>
         <Identificadores>
             <Identificador>
-                <RefEntidad idref="0dce2eef-4b18-4ce1-be1a-6545afdbcdbe"/>
                 <RefEntidad idref="b16bf6b9-b240-41d2-9f75-28174af8e584"/>
+                <RefEntidad idref="0dce2eef-4b18-4ce1-be1a-6545afdbcdbe"/>
             </Identificador>
             <Identificador>
                 <RefAtributo idref="11c95ac8-a8d0-4e43-8483-3acaee160a47"/>
@@ -97,33 +97,33 @@
     <Entidad id="0dce2eef-4b18-4ce1-be1a-6545afdbcdbe" tipo="MAESTRA_COSA">
         <Nombre>Obra</Nombre>
         <Atributos>
-            <Atributo id="4ea5ad65-a8d3-4c0d-b1f4-4ad5ad83a349" tipo="CARACTERIZACION">
-                <Nombre>idObra</Nombre>
-                <Cardinalidad max="1" min="1"/>
-            </Atributo>
             <Atributo id="6174ed6f-03fa-4e63-a88d-59d238899c0c" tipo="CARACTERIZACION">
                 <Nombre>género</Nombre>
                 <Cardinalidad max="1" min="1"/>
             </Atributo>
-            <Atributo id="c0af7737-0581-4d9c-94a9-f8fc873cff70" tipo="CARACTERIZACION">
-                <Nombre>director</Nombre>
+            <Atributo id="4ea5ad65-a8d3-4c0d-b1f4-4ad5ad83a349" tipo="CARACTERIZACION">
+                <Nombre>idObra</Nombre>
                 <Cardinalidad max="1" min="1"/>
             </Atributo>
             <Atributo id="c1d481fe-e868-4f7b-9963-b6c9f75ef9be" tipo="CARACTERIZACION">
                 <Nombre>título</Nombre>
                 <Cardinalidad max="1" min="1"/>
             </Atributo>
+            <Atributo id="c0af7737-0581-4d9c-94a9-f8fc873cff70" tipo="CARACTERIZACION">
+                <Nombre>director</Nombre>
+                <Cardinalidad max="1" min="1"/>
+            </Atributo>
             <Atributo id="0c7fb983-58a3-41f9-bc2b-ddf58970fdf6" tipo="CARACTERIZACION">
                 <Nombre>enCartel</Nombre>
                 <Cardinalidad max="1" min="1"/>
                 <Atributos>
-                    <Atributo id="42e90ef5-e0db-42c6-840b-fc2c8f6ac27e" tipo="CARACTERIZACION">
-                        <Nombre>hasta</Nombre>
-                        <Cardinalidad max="1" min="0"/>
-                    </Atributo>
                     <Atributo id="ac8c8107-410a-48e8-be66-650aed4362fb" tipo="CARACTERIZACION">
                         <Nombre>desde</Nombre>
                         <Cardinalidad max="1" min="1"/>
+                    </Atributo>
+                    <Atributo id="42e90ef5-e0db-42c6-840b-fc2c8f6ac27e" tipo="CARACTERIZACION">
+                        <Nombre>hasta</Nombre>
+                        <Cardinalidad max="1" min="0"/>
                     </Atributo>
                 </Atributos>
             </Atributo>
@@ -134,23 +134,23 @@
         </Atributos>
         <Identificadores>
             <Identificador>
-                <RefAtributo idref="4ea5ad65-a8d3-4c0d-b1f4-4ad5ad83a349"/>
-            </Identificador>
-            <Identificador>
                 <RefAtributo idref="c1d481fe-e868-4f7b-9963-b6c9f75ef9be"/>
                 <RefAtributo idref="c0af7737-0581-4d9c-94a9-f8fc873cff70"/>
+            </Identificador>
+            <Identificador>
+                <RefAtributo idref="4ea5ad65-a8d3-4c0d-b1f4-4ad5ad83a349"/>
             </Identificador>
         </Identificadores>
     </Entidad>
     <Entidad id="83d06104-4947-483d-aef1-dccab24dd8e9" tipo="MAESTRA_COSA">
         <Nombre>Intérprete</Nombre>
         <Atributos>
-            <Atributo id="c6d954d1-8d64-4fdb-8057-668ab658046f" tipo="CARACTERIZACION">
-                <Nombre>nombre</Nombre>
-                <Cardinalidad max="1" min="1"/>
-            </Atributo>
             <Atributo id="1ca859c2-d135-442c-a9b1-0f47d214f504" tipo="CARACTERIZACION">
                 <Nombre>idIntérp</Nombre>
+                <Cardinalidad max="1" min="1"/>
+            </Atributo>
+            <Atributo id="c6d954d1-8d64-4fdb-8057-668ab658046f" tipo="CARACTERIZACION">
+                <Nombre>nombre</Nombre>
                 <Cardinalidad max="1" min="1"/>
             </Atributo>
         </Atributos>
