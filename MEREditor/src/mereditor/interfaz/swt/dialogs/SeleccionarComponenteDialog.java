@@ -5,7 +5,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
-import mereditor.modelo.base.ComponenteNombre;
+import mereditor.modelo.base.Componente;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
@@ -15,7 +15,7 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 
-public class SeleccionarComponenteDialog<T extends ComponenteNombre> extends Dialog {
+public class SeleccionarComponenteDialog<T extends Componente> extends Dialog {
 	private Combo combo;
 
 	private List<String> nombres = new ArrayList<>();
@@ -58,8 +58,8 @@ public class SeleccionarComponenteDialog<T extends ComponenteNombre> extends Dia
 		Collections.sort(this.componentes);
 
 		for (T componente : this.componentes) {
-			this.combo.add(componente.getNombre());
-			this.nombres.add(componente.getNombre());
+			this.combo.add(componente.toString());
+			this.nombres.add(componente.toString());
 		}
 	}
 	

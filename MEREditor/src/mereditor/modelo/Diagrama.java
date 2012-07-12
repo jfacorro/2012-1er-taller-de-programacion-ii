@@ -47,8 +47,7 @@ public class Diagrama extends ComponenteNombre {
 	 * @return
 	 */
 	public Set<Entidad> getEntidades(boolean incluirAncestros) {
-		Set<Entidad> entidades = Componente.filtrarComponentes(Entidad.class,
-				this.componentes);
+		Set<Entidad> entidades = Componente.filtrarComponentes(Entidad.class, this.componentes);
 
 		if (incluirAncestros && this.getPadre() != null) {
 			Diagrama diagrama = (Diagrama) this.getPadre();
@@ -59,21 +58,19 @@ public class Diagrama extends ComponenteNombre {
 	}
 
 	/**
-	 * Obtiene las entidades de este diagrama.
+	 * Obtiene una colección con todos los atributos de los componentes de este
+	 * diagrama.
 	 * 
+	 * @param incluirAncestros
 	 * @return
 	 */
-	public Set<Entidad> getEntidades() {
-		return this.getEntidades(false);
-	}
-	
 	public Collection<Atributo> getAtributos(boolean incluirAncestros) {
-		Set<ComponenteAtributos> componentes = Componente.filtrarComponentes(ComponenteAtributos.class,
-				this.componentes);
-		
+		Set<ComponenteAtributos> componentes = Componente.filtrarComponentes(
+				ComponenteAtributos.class, this.componentes);
+
 		Set<Atributo> atributos = new HashSet<>();
 
-		for(ComponenteAtributos componente : componentes)
+		for (ComponenteAtributos componente : componentes)
 			atributos.addAll(componente.getAtributos());
 
 		if (incluirAncestros && this.getPadre() != null) {
@@ -84,18 +81,32 @@ public class Diagrama extends ComponenteNombre {
 		return atributos;
 	}
 
-	public Set<Relacion> getRelaciones() {
-		return Componente.filtrarComponentes(Relacion.class, this.componentes);
+	public Set<Relacion> getRelaciones(boolean incluirAncestros) {
+		Set<Relacion> relaciones = Componente.filtrarComponentes(Relacion.class, this.componentes);
+
+		if (incluirAncestros && this.getPadre() != null) {
+			Diagrama diagrama = (Diagrama) this.getPadre();
+			relaciones.addAll(diagrama.getRelaciones(incluirAncestros));
+		}
+
+		return relaciones;
 	}
 
-	public Set<Jerarquia> getJerarquias() {
-		return Componente.filtrarComponentes(Jerarquia.class, this.componentes);
+	public Set<Jerarquia> getJerarquias(boolean incluirAncestros) {
+		Set<Jerarquia> jerarquias = Componente.filtrarComponentes(Jerarquia.class, this.componentes);
+
+		if (incluirAncestros && this.getPadre() != null) {
+			Diagrama diagrama = (Diagrama) this.getPadre();
+			jerarquias.addAll(diagrama.getJerarquias(incluirAncestros));
+		}
+
+		return jerarquias;
 	}
 
 	public Validacion getValidacion() {
 		return this.validacion;
 	}
-	
+
 	@Override
 	public String validar() {
 		return null;
@@ -139,13 +150,5 @@ public class Diagrama extends ComponenteNombre {
 			this.diagramas.remove((Diagrama) componente);
 		else
 			this.componentes.remove(componente);
-	}
-
-	public Entidad getEntidadByNombre(String nombre) {
-		for(Entidad entidad : this.getEntidades())
-			if(nombre.equals(entidad.getNombre()))
-				return entidad;
-
-		return null;
 	}
 }

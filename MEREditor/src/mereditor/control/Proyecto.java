@@ -7,7 +7,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
-import mereditor.interfaz.swt.Principal.ProyectoProxy;
 import mereditor.modelo.Atributo;
 import mereditor.modelo.Diagrama;
 import mereditor.modelo.Entidad;
@@ -262,11 +261,31 @@ public class Proyecto implements ProyectoProxy {
 
 	@Override
 	public Set<Entidad> getEntidadesDiagrama() {
-		return this.diagramaActual.getEntidades();
+		return this.diagramaActual.getEntidades(false);
 	}
 
 	@Override
 	public Collection<Atributo> getAtributosDiagrama() {
 		return this.diagramaActual.getAtributos(false);
 	}
+
+	@Override
+	public Set<Relacion> getRelacionesDisponibles() {
+		return this.diagramaActual.getRelaciones(true);
+	}
+
+	@Override
+	public Set<Relacion> getRelacionesDiagrama() {
+		return this.diagramaActual.getRelaciones(false);
+	}
+
+	@Override
+	public Set<Jerarquia> getJerarquiasDisponibles() {
+		return this.diagramaActual.getJerarquias(true);
+	}
+
+	@Override
+	public Set<Jerarquia> getJerarquiasDiagrama() {
+		return this.diagramaActual.getJerarquias(false);
+	}	
 }

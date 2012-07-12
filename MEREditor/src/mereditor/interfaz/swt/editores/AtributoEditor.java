@@ -60,45 +60,38 @@ public class AtributoEditor extends Editor<Atributo> {
 		header.setLayout(new GridLayout(2, false));
 
 		this.txtNombre = createLabelText(header, Editor.NOMBRE);
-		this.txtNombre.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true,
-				false));
+		this.txtNombre.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
 
 		this.cboTipo = createLabelCombo(header, Editor.TIPO);
 		this.cboTipo.setItems(Editor.TiposAtributo);
 		this.cboTipo.addSelectionListener(this.selectedTipo);
 
-		this.txtCardinalidadMin = createLabelText(header,
-				Editor.CARDINALIDAD_MIN);
-		GridData gridData = new GridData(SWT.LEFT, SWT.CENTER, false, false, 1,
-				1);
+		this.txtCardinalidadMin = createLabelText(header, Editor.CARDINALIDAD_MIN);
+		GridData gridData = new GridData(SWT.LEFT, SWT.CENTER, false, false, 1, 1);
 		gridData.widthHint = 15;
 		this.txtCardinalidadMin.setLayoutData(gridData);
 
-		this.txtCardinalidadMax = createLabelText(header,
-				Editor.CARDINALIDAD_MAX);
+		this.txtCardinalidadMax = createLabelText(header, Editor.CARDINALIDAD_MAX);
 		gridData = new GridData(SWT.LEFT, SWT.CENTER, false, false, 1, 1);
 		gridData.widthHint = 15;
 		this.txtCardinalidadMax.setLayoutData(gridData);
 
 		this.cboOriginal = createLabelCombo(header, Editor.ORIGINAL);
 		this.cboOriginal.setItems(this.getAtributosDisponibles());
-		
+
 		this.txtFormula = createLabelText(header, Editor.FORMULA);
-		this.txtFormula.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true,
-				false));
+		this.txtFormula.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
 
 		/**
 		 * Atributos.
 		 */
 		Group grupoAtributos = new Group(dialogArea, SWT.NONE);
-		grupoAtributos.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true,
-				true));
+		grupoAtributos.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
 		grupoAtributos.setText(Editor.ATRIBUTOS);
 		grupoAtributos.setLayout(new GridLayout(1, true));
 
 		Composite botonesAtributos = new Composite(grupoAtributos, SWT.NONE);
-		botonesAtributos.setLayoutData(new GridData(SWT.LEFT, SWT.LEFT, false,
-				false, 1, 1));
+		botonesAtributos.setLayoutData(new GridData(SWT.LEFT, SWT.LEFT, false, false, 1, 1));
 		botonesAtributos.setLayout(new RowLayout(SWT.HORIZONTAL));
 
 		Button btnNuevoAtributo = new Button(botonesAtributos, SWT.PUSH);
@@ -115,9 +108,14 @@ public class AtributoEditor extends Editor<Atributo> {
 		return dialogArea;
 	}
 
+	/**
+	 * Carga la lista de atributos disponibles para establecer como origen de un
+	 * <code>DERIVADO_COPIA</code>.
+	 * 
+	 * @return
+	 */
 	private String[] getAtributosDisponibles() {
-		this.atributosOptions = new ArrayList<>(this.principal.getProyecto()
-				.getAtributosDiagrama());
+		this.atributosOptions = new ArrayList<>(this.principal.getProyecto().getAtributosDiagrama());
 
 		Collections.sort(this.atributosOptions);
 
@@ -134,16 +132,14 @@ public class AtributoEditor extends Editor<Atributo> {
 	protected void cargarDatos() {
 		this.txtNombre.setText(this.componente.getNombre());
 		this.cboTipo.setText(this.componente.getTipo().name());
-		this.txtCardinalidadMin
-				.setText(this.componente.getCardinalidadMinima());
-		this.txtCardinalidadMax
-				.setText(this.componente.getCardinalidadMaxima());
+		this.txtCardinalidadMin.setText(this.componente.getCardinalidadMinima());
+		this.txtCardinalidadMax.setText(this.componente.getCardinalidadMaxima());
 
 		if (this.componente.getOriginal() != null)
 			this.cboOriginal.setText(this.componente.getOriginal().getNombre());
 
 		this.tblAtributos.setElementos(this.componente.getAtributos());
-		
+
 		this.habilitarControles();
 	}
 
@@ -151,13 +147,12 @@ public class AtributoEditor extends Editor<Atributo> {
 	protected void aplicarCambios() {
 		this.componente.setNombre(txtNombre.getText());
 		this.componente.setTipo(TipoAtributo.valueOf(this.cboTipo.getText()));
-		this.componente
-				.setCardinalidadMinima(this.txtCardinalidadMin.getText());
-		this.componente
-				.setCardinalidadMaxima(this.txtCardinalidadMax.getText());
+		this.componente.setCardinalidadMinima(this.txtCardinalidadMin.getText());
+		this.componente.setCardinalidadMaxima(this.txtCardinalidadMax.getText());
 
 		if (this.cboOriginal.getSelectionIndex() >= 0)
-			this.componente.setOriginal(this.atributosOptions.get(this.cboOriginal.getSelectionIndex()));
+			this.componente.setOriginal(this.atributosOptions.get(this.cboOriginal
+					.getSelectionIndex()));
 
 		for (Atributo atributo : this.tblAtributos.getElementos())
 			this.componente.addAtributo(atributo);
@@ -173,14 +168,14 @@ public class AtributoEditor extends Editor<Atributo> {
 
 		return errors.isEmpty();
 	}
-	
+
 	private void habilitarControles() {
 		TipoAtributo value = TipoAtributo.valueOf(cboTipo.getText());
-		
+
 		txtFormula.setEnabled(value == TipoAtributo.DERIVADO_CALCULO);
 		cboOriginal.setEnabled(value == TipoAtributo.DERIVADO_COPIA);
 	}
-	
+
 	private SelectionListener selectedTipo = new SelectionAdapter() {
 		@Override
 		public void widgetSelected(SelectionEvent e) {

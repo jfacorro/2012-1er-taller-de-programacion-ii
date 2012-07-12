@@ -1,9 +1,7 @@
 package mereditor.interfaz.swt;
 
 import java.io.File;
-import java.util.Collection;
 import java.util.Observable;
-import java.util.Set;
 
 import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Transformer;
@@ -13,13 +11,12 @@ import javax.xml.transform.stream.StreamResult;
 
 import mereditor.control.DiagramaControl;
 import mereditor.control.Proyecto;
+import mereditor.control.ProyectoProxy;
 import mereditor.interfaz.swt.DialogBuilder.PromptResult;
 import mereditor.interfaz.swt.DialogBuilder.Resultado;
 import mereditor.interfaz.swt.dialogs.AgregarEntidadDialog;
-import mereditor.interfaz.swt.editores.JerarquiaEditor;
-import mereditor.interfaz.swt.editores.RelacionEditor;
-import mereditor.modelo.Atributo;
-import mereditor.modelo.Entidad;
+import mereditor.interfaz.swt.dialogs.AgregarJerarquiaDialog;
+import mereditor.interfaz.swt.dialogs.AgregarRelacionDialog;
 import mereditor.xml.ParserXml;
 
 import org.eclipse.draw2d.FigureCanvas;
@@ -56,8 +53,7 @@ import org.w3c.dom.Document;
  * 
  */
 public class Principal extends Observable implements FigureListener {
-	public static final Color defaultBackgroundColor = new Color(null, 255,
-			255, 255);
+	public static final Color defaultBackgroundColor = new Color(null, 255, 255, 255);
 	public static final String APP_NOMBRE = "MER Editor";
 	private static final String TITULO_GUARDAR_DIAGRAMA_ACTUAL = "Información";
 	private static final String MENSAJE_GUARDAR_DIAGRAMA_ACTUAL = "¿Desea guardar los cambios hechos al diagrama actual?";
@@ -158,8 +154,7 @@ public class Principal extends Observable implements FigureListener {
 	 * @throws Exception
 	 */
 	public void nuevoProyecto() {
-		PromptResult resultado = DialogBuilder.prompt(this.shell,
-				"Ingresar nombre", "Nombre");
+		PromptResult resultado = DialogBuilder.prompt(this.shell, "Ingresar nombre", "Nombre");
 
 		if (resultado.result == Resultado.OK) {
 			this.proyecto = new Proyecto(resultado.value);
@@ -252,10 +247,10 @@ public class Principal extends Observable implements FigureListener {
 			try {
 				modelo = new ParserXml(this.proyecto);
 				this.guardarXml(modelo.generarXmlProyecto(), path);
-				this.guardarXml(modelo.generarXmlComponentes(), dir
-						+ this.proyecto.getComponentesPath());
-				this.guardarXml(modelo.generarXmlRepresentacion(), dir
-						+ this.proyecto.getRepresentacionPath());
+				this.guardarXml(modelo.generarXmlComponentes(),
+						dir + this.proyecto.getComponentesPath());
+				this.guardarXml(modelo.generarXmlRepresentacion(),
+						dir + this.proyecto.getRepresentacionPath());
 			} catch (Exception e) {
 				this.error("Ocurrió un error al guardar el proyecto.");
 				e.printStackTrace();
@@ -273,8 +268,7 @@ public class Principal extends Observable implements FigureListener {
 	 * @throws Exception
 	 */
 	private void guardarXml(Document doc, String path) throws Exception {
-		TransformerFactory transformerFactory = TransformerFactory
-				.newInstance();
+		TransformerFactory transformerFactory = TransformerFactory.newInstance();
 		Transformer transformer = transformerFactory.newTransformer();
 		transformer.setOutputProperty(OutputKeys.INDENT, "yes");
 		transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "4");
@@ -289,8 +283,7 @@ public class Principal extends Observable implements FigureListener {
 	 * @throws Exception
 	 */
 	public void nuevoDiagrama() {
-		PromptResult resultado = DialogBuilder.prompt(this.shell,
-				"Ingresar nombre", "Nombre");
+		PromptResult resultado = DialogBuilder.prompt(this.shell, "Ingresar nombre", "Nombre");
 		if (resultado.result == Resultado.OK) {
 			DiagramaControl nuevoDiagrama = new DiagramaControl();
 			nuevoDiagrama.setNombre(resultado.value);
@@ -380,11 +373,11 @@ public class Principal extends Observable implements FigureListener {
 	 * abierto.
 	 */
 	public void agregarRelacion() {
-		RelacionEditor editor = new RelacionEditor();
-		if (editor.open() == Window.OK) {
-			this.proyecto.agregar(editor.getComponente());
+		AgregarRelacionDialog dialog = new AgregarRelacionDialog();
+		if (dialog.open() == Window.OK) {
+			this.proyecto.agregar(dialog.getComponente());
 			this.actualizarVista();
-			TreeManager.agregarADiagramaActual(editor.getComponente());
+			TreeManager.agregarADiagramaActual(dialog.getComponente());
 			this.modificado(true);
 		}
 	}
@@ -394,11 +387,11 @@ public class Principal extends Observable implements FigureListener {
 	 * abierto.
 	 */
 	public void agregarJerarquia() {
-		JerarquiaEditor editor = new JerarquiaEditor();
-		if (editor.open() == Window.OK) {
-			this.proyecto.agregar(editor.getComponente());
+		AgregarJerarquiaDialog dialog = new AgregarJerarquiaDialog();
+		if (dialog.open() == Window.OK) {
+			this.proyecto.agregar(dialog.getComponente());
 			this.actualizarVista();
-			TreeManager.agregarADiagramaActual(editor.getComponente());
+			TreeManager.agregarADiagramaActual(dialog.getComponente());
 			this.modificado(true);
 		}
 	}
@@ -410,7 +403,7 @@ public class Principal extends Observable implements FigureListener {
 		this.panelDisegno.zoomOut();
 		cboZoom.setText(this.panelDisegno.getZoom());
 	}
-	
+
 	/**
 	 * Aumento del zoom.
 	 */
@@ -429,8 +422,7 @@ public class Principal extends Observable implements FigureListener {
 	public void exportar() {
 		FileDialog fileDialog = new FileDialog(this.shell, SWT.SAVE);
 		fileDialog.setFilterExtensions(extensionesImagen);
-		fileDialog.setFileName(this.proyecto.getDiagramaActual().getNombre()
-				+ ".jpg");
+		fileDialog.setFileName(this.proyecto.getDiagramaActual().getNombre() + ".jpg");
 		String path = fileDialog.open();
 
 		if (path != null) {
@@ -542,28 +534,5 @@ public class Principal extends Observable implements FigureListener {
 		int peso = mostrar ? 3 : 0;
 
 		this.sashForm.setWeights(new int[] { peso, 16 });
-	}
-
-	public interface ProyectoProxy {
-		/**
-		 * Devuelve todas la entidades del diagrama actual y de sus ancestros.
-		 * 
-		 * @return
-		 */
-		public Set<Entidad> getEntidadesDisponibles();
-
-		/**
-		 * Devuelve las entidades del diagrama actual.
-		 * 
-		 * @return
-		 */
-		public Set<Entidad> getEntidadesDiagrama();
-
-		/**
-		 * Devolver los atributos de los componentes del diagrama actual.
-		 * 
-		 * @return
-		 */
-		public Collection<Atributo> getAtributosDiagrama();
 	}
 }

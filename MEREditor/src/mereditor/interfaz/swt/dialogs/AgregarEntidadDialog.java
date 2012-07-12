@@ -3,19 +3,12 @@ package mereditor.interfaz.swt.dialogs;
 import java.util.Set;
 
 import mereditor.interfaz.swt.editores.Editor;
-import mereditor.interfaz.swt.editores.EntidadEditor;
+import mereditor.interfaz.swt.editores.EditorFactory;
 import mereditor.modelo.Entidad;
 
-import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.SelectionAdapter;
-import org.eclipse.swt.layout.GridData;
-import org.eclipse.swt.widgets.Button;
-import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Shell;
 
-public class AgregarEntidadDialog extends Dialog {
-	private Entidad entidad = null;
+public class AgregarEntidadDialog extends AgregarComponenteDialog<Entidad> {
 
 	/**
 	 * @wbp.parser.constructor
@@ -26,33 +19,10 @@ public class AgregarEntidadDialog extends Dialog {
 
 	public AgregarEntidadDialog() {
 		super();
-		this.titulo = "Agregar Entidad";
 	}
 
 	@Override
-	protected Control createDialogArea(Composite parent) {
-		Composite container = (Composite) super.createDialogArea(parent);
-
-		Button btnSeleccionar = new Button(container, SWT.PUSH);
-		btnSeleccionar.setText("Seleccionar Existente");
-		btnSeleccionar.addSelectionListener(this.seleccionar);
-		btnSeleccionar.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true,
-				false, 1, 1));
-
-		Button btnNueva = new Button(container, SWT.PUSH);
-		btnNueva.setText("Nueva Entidad");
-		btnNueva.addSelectionListener(this.nueva);
-		btnNueva.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false,
-				1, 1));
-
-		return container;
-	}
-
-	/**
-	 * Carga las entidades que pertenecen al diagrama actual y a sus padres en
-	 * el combo.
-	 */
-	private Set<Entidad> loadEntidades() {
+	protected Set<Entidad> loadComponentes() {
 		// Obtener las entidades de los ancestros
 		Set<Entidad> entidades = this.principal.getProyecto()
 				.getEntidadesDisponibles();
@@ -63,34 +33,16 @@ public class AgregarEntidadDialog extends Dialog {
 
 		return entidades;
 	}
-
-	/**
-	 * Devuelve la entidad seleccionada o creada.
-	 * 
-	 * @return
-	 */
-	public Entidad getComponente() {
-		return this.entidad;
+	
+	@Override
+	protected Editor<?> getEditor() {
+		return EditorFactory.getEditor(new Entidad());
 	}
 
-	protected SelectionAdapter nueva = new SelectionAdapter() {
-		public void widgetSelected(org.eclipse.swt.events.SelectionEvent e) {
-			Editor<Entidad> editor = new EntidadEditor();
-			int result = editor.open();
-			entidad = editor.getComponente();
-			setReturnCode(result);
-			close();
-		};
-	};
+	@Override
+	protected String getNombreComponente() {
+		return "Entidad";
+	}
 
-	protected SelectionAdapter seleccionar = new SelectionAdapter() {
-		public void widgetSelected(org.eclipse.swt.events.SelectionEvent e) {
-			SeleccionarComponenteDialog<Entidad> dialog = new SeleccionarComponenteDialog<Entidad>(
-					loadEntidades());
-			int result = dialog.open();
-			entidad = dialog.getComponente();
-			setReturnCode(result);
-			close();
-		};
-	};
+
 }
