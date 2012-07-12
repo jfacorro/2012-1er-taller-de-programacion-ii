@@ -1,7 +1,5 @@
 - Completar Funcionalidad.
 	- Editores
-		- Entidad:
-			- Identificadores: agregar la representación de los identificadores que son externos puros (union de entidad con conector).
 		- Jerarquía: 
 			Deberíamos poder agregar a un Diagrama una Jerarquía existente en otro Diagrama, se puede copiar la funcionalidad del AgregarEntidadDialog (ver si se puede generalizar en vez de copiar y pegar).
 		-Relación: 

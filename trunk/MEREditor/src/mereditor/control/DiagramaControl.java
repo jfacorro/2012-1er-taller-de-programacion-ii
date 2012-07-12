@@ -67,7 +67,7 @@ public class DiagramaControl extends Diagrama implements Control<Diagrama> {
 				for (Entidad entidadIdf : identificador.getEntidades()) {
 					// Encontrar la relacion que comparten
 					RelacionControl relacion = (RelacionControl) entidadCtrl.relacion(entidadIdf);
-					if (relacion != null) {
+					if (relacion != null && this.contiene(relacion)) {
 						Figura<Relacion> figRelacion = relacion.getFigura(this.getId());
 						// Obtener el conector de la relacion con la entidad del
 						// identificador
@@ -87,7 +87,7 @@ public class DiagramaControl extends Diagrama implements Control<Diagrama> {
 				// Agregar los conectores de las entidades con la relacion
 				for (Entidad entidadIdf : identificador.getEntidades()) {
 					RelacionControl relacion = (RelacionControl) entidadCtrl.relacion(entidadIdf);
-					if (relacion != null) {
+					if (relacion != null && this.contiene(relacion)) {
 						Figura<Relacion> figRelacion = relacion.getFigura(this.getId());
 						conexiones.add(figRelacion.getConexion(entidadIdf.getId()));
 					}
