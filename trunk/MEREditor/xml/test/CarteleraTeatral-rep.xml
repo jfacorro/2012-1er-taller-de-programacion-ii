@@ -6,15 +6,15 @@
             <Dimension alto="10" ancho="10"/>
             <Posicion x="508" y="181"/>
         </Representacion>
-        <Representacion id="2bff9397-44b0-40d5-a72f-d354a54dad8a">
-            <Label x="361" y="178"/>
-            <Dimension alto="10" ancho="10"/>
-            <Posicion x="396" y="194"/>
-        </Representacion>
         <Representacion id="c6d954d1-8d64-4fdb-8057-668ab658046f">
             <Label x="209" y="168"/>
             <Dimension alto="10" ancho="10"/>
             <Posicion x="231" y="186"/>
+        </Representacion>
+        <Representacion id="2bff9397-44b0-40d5-a72f-d354a54dad8a">
+            <Label x="361" y="178"/>
+            <Dimension alto="10" ancho="10"/>
+            <Posicion x="396" y="194"/>
         </Representacion>
         <Representacion id="ec0dea2d-0e6e-43f1-9996-351c41d8d9f3">
             <Label x="578" y="323"/>
@@ -87,14 +87,14 @@
             <Dimension alto="10" ancho="10"/>
             <Posicion x="594" y="236"/>
         </Representacion>
+        <Representacion id="19f76d7b-d0b6-49b8-a65e-493e28a112a2">
+            <Dimension alto="50" ancho="80"/>
+            <Posicion x="240" y="392"/>
+        </Representacion>
         <Representacion id="a64d4cf5-6c14-432b-b4b4-e8d558663f9c">
             <Label x="865" y="251"/>
             <Dimension alto="10" ancho="10"/>
             <Posicion x="851" y="257"/>
-        </Representacion>
-        <Representacion id="19f76d7b-d0b6-49b8-a65e-493e28a112a2">
-            <Dimension alto="50" ancho="80"/>
-            <Posicion x="240" y="392"/>
         </Representacion>
         <Representacion id="9075a4fa-527f-411a-8e2c-0a01b23693bd">
             <Label x="861" y="215"/>
@@ -132,104 +132,104 @@
     </Diagrama>
     <Diagrama id="ea404967-07eb-4938-836b-a24d8676182c">
         <Representacion id="6174ed6f-03fa-4e63-a88d-59d238899c0c">
-            <Label x="508" y="218"/>
+            <Label x="179" y="112"/>
             <Dimension alto="10" ancho="10"/>
-            <Posicion x="522" y="237"/>
+            <Posicion x="193" y="131"/>
         </Representacion>
         <Representacion id="2bff9397-44b0-40d5-a72f-d354a54dad8a">
-            <Label x="367" y="252"/>
+            <Label x="38" y="146"/>
             <Dimension alto="10" ancho="10"/>
-            <Posicion x="387" y="272"/>
+            <Posicion x="58" y="166"/>
         </Representacion>
         <Representacion id="ec0dea2d-0e6e-43f1-9996-351c41d8d9f3">
-            <Label x="687" y="371"/>
+            <Label x="358" y="265"/>
             <Dimension alto="10" ancho="10"/>
-            <Posicion x="693" y="389"/>
+            <Posicion x="364" y="283"/>
         </Representacion>
         <Representacion id="b16bf6b9-b240-41d2-9f75-28174af8e584">
             <Dimension alto="50" ancho="80"/>
-            <Posicion x="843" y="277"/>
+            <Posicion x="514" y="171"/>
         </Representacion>
         <Representacion id="9e43ed60-8ee8-440a-a071-62e6d04fe767">
             <Dimension alto="50" ancho="80"/>
-            <Posicion x="682" y="436"/>
+            <Posicion x="353" y="330"/>
         </Representacion>
         <Representacion id="0dce2eef-4b18-4ce1-be1a-6545afdbcdbe">
             <Dimension alto="50" ancho="80"/>
-            <Posicion x="455" y="289"/>
+            <Posicion x="126" y="183"/>
         </Representacion>
         <Representacion id="11c95ac8-a8d0-4e43-8483-3acaee160a47">
-            <Label x="734" y="368"/>
+            <Label x="405" y="262"/>
             <Dimension alto="10" ancho="10"/>
-            <Posicion x="740" y="386"/>
+            <Posicion x="411" y="280"/>
         </Representacion>
         <Representacion id="e717bd5a-6042-4325-82d9-1d9b44614737">
-            <Label x="809" y="220"/>
+            <Label x="480" y="114"/>
             <Dimension alto="10" ancho="10"/>
-            <Posicion x="826" y="243"/>
+            <Posicion x="497" y="137"/>
         </Representacion>
         <Representacion id="f62e267a-1456-437c-87d7-38157a270856">
-            <Label x="917" y="205"/>
+            <Label x="588" y="99"/>
             <Dimension alto="10" ancho="10"/>
-            <Posicion x="930" y="220"/>
+            <Posicion x="601" y="114"/>
         </Representacion>
         <Representacion id="4ea5ad65-a8d3-4c0d-b1f4-4ad5ad83a349">
-            <Label x="554" y="236"/>
+            <Label x="225" y="130"/>
             <Dimension alto="10" ancho="10"/>
-            <Posicion x="541" y="250"/>
+            <Posicion x="212" y="144"/>
         </Representacion>
         <Representacion id="c1d481fe-e868-4f7b-9963-b6c9f75ef9be">
-            <Label x="412" y="202"/>
+            <Label x="83" y="96"/>
             <Dimension alto="10" ancho="10"/>
-            <Posicion x="424" y="223"/>
+            <Posicion x="95" y="117"/>
         </Representacion>
         <Representacion id="42e90ef5-e0db-42c6-840b-fc2c8f6ac27e">
-            <Label x="628" y="241"/>
+            <Label x="299" y="135"/>
             <Dimension alto="10" ancho="10"/>
-            <Posicion x="641" y="262"/>
+            <Posicion x="312" y="156"/>
         </Representacion>
         <Representacion id="7f88a747-1a0b-4bea-9690-fb70147d18f2">
-            <Label x="955" y="294"/>
+            <Label x="626" y="188"/>
             <Dimension alto="21" ancho="34"/>
-            <Posicion x="945" y="292"/>
+            <Posicion x="616" y="186"/>
         </Representacion>
         <Representacion id="ac8c8107-410a-48e8-be66-650aed4362fb">
-            <Label x="686" y="295"/>
+            <Label x="357" y="189"/>
             <Dimension alto="10" ancho="10"/>
-            <Posicion x="668" y="297"/>
+            <Posicion x="339" y="191"/>
         </Representacion>
         <Representacion id="a64d4cf5-6c14-432b-b4b4-e8d558663f9c">
-            <Label x="1007" y="267"/>
+            <Label x="678" y="161"/>
             <Dimension alto="10" ancho="10"/>
-            <Posicion x="991" y="277"/>
+            <Posicion x="662" y="171"/>
         </Representacion>
         <Representacion id="9075a4fa-527f-411a-8e2c-0a01b23693bd">
-            <Label x="1016" y="303"/>
+            <Label x="687" y="197"/>
             <Dimension alto="10" ancho="10"/>
-            <Posicion x="1000" y="305"/>
+            <Posicion x="671" y="199"/>
         </Representacion>
         <Representacion id="45257a3f-519f-450f-b28d-b929a0af826d">
             <Dimension alto="50" ancho="80"/>
-            <Posicion x="844" y="438"/>
+            <Posicion x="515" y="332"/>
         </Representacion>
         <Representacion id="60644af0-5a43-4b3b-bd27-8d9257a23397">
-            <Label x="849" y="204"/>
+            <Label x="520" y="98"/>
             <Dimension alto="10" ancho="10"/>
-            <Posicion x="877" y="222"/>
+            <Posicion x="548" y="116"/>
         </Representacion>
         <Representacion id="c0af7737-0581-4d9c-94a9-f8fc873cff70">
-            <Label x="453" y="184"/>
+            <Label x="124" y="78"/>
             <Dimension alto="10" ancho="10"/>
-            <Posicion x="478" y="204"/>
+            <Posicion x="149" y="98"/>
         </Representacion>
         <Representacion id="29168e4b-4bff-4147-81dd-e2a977d05bae">
             <Dimension alto="50" ancho="80"/>
-            <Posicion x="455" y="433"/>
+            <Posicion x="127" y="328"/>
         </Representacion>
         <Representacion id="0c7fb983-58a3-41f9-bc2b-ddf58970fdf6">
-            <Label x="576" y="295"/>
+            <Label x="247" y="189"/>
             <Dimension alto="21" ancho="68"/>
-            <Posicion x="566" y="293"/>
+            <Posicion x="237" y="187"/>
         </Representacion>
     </Diagrama>
 </Proyecto>

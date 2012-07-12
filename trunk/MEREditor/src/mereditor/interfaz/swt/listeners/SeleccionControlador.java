@@ -71,7 +71,9 @@ public class SeleccionControlador implements MouseListener {
 	 */
 	private static void deselect(Figura<?> figura) {
 		if (figura != null && figura.getParent() != null) {
-			figura.getParent().remove(selectedBorders.get(figura));
+			IFigure parent = figura.getParent();
+			if(parent.getChildren().contains(selectedBorders.get(figura)))
+				parent.remove(selectedBorders.get(figura));
 			figura.removeFiguraLoqueada(selectedBorders.get(figura));
 		}
 

@@ -115,6 +115,7 @@ public class MenuArbolBuilder {
 			if (Diagrama.class.isInstance(componente)){
 				Principal.getInstance().abrirDiagrama(componente.getId());
 				getItem().setExpanded(true);
+				TreeManager.setDiagramaActivo(getItem());
 			}
 			else
 				EditorFactory.getEditor(componente).open();
