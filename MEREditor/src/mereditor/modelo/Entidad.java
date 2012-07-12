@@ -18,8 +18,13 @@ public class Entidad extends ComponenteNombre implements ComponenteAtributos {
 	}
 
 	protected TipoEntidad tipo = TipoEntidad.MAESTRA_COSA;
-	protected Set<Atributo> atributos = new HashSet<Atributo>();
-	protected Set<Identificador> identificadores = new HashSet<Identificador>();
+	protected Set<Atributo> atributos = new HashSet<>();
+	protected Set<Identificador> identificadores = new HashSet<>();
+
+	/**
+	 * Relaciones a las que pertence la entidad.
+	 */
+	protected Set<Relacion> relaciones = new HashSet<>();
 
 	public Entidad() {
 		super();
@@ -42,7 +47,7 @@ public class Entidad extends ComponenteNombre implements ComponenteAtributos {
 	public void addIdentificador(Identificador identificador) {
 		identificadores.add(identificador);
 	}
-	
+
 	public void removeIdentificador(Identificador identificador) {
 		identificadores.remove(identificador);
 	}
@@ -59,12 +64,21 @@ public class Entidad extends ComponenteNombre implements ComponenteAtributos {
 		// una collection que se esta recorriendo con un iterador.
 		List<Identificador> identificadores = new ArrayList<>();
 
+		// Recorrer los identificadores para buscar el atributo y sacarlo.
 		for (Identificador identificador : this.identificadores)
 			if (identificador.contiene(atributo))
 				identificadores.add(identificador);
 
 		for (Identificador identificador : this.identificadores)
 			identificador.removeAtributo(atributo);
+	}
+	
+	public void addRelacion(Relacion relacion) { 
+		this.relaciones.add(relacion);
+	}
+	
+	public void removeRelacion(Relacion relacion) { 
+		this.relaciones.remove(relacion);
 	}
 
 	public Collection<Atributo> getAtributos() {
@@ -73,6 +87,25 @@ public class Entidad extends ComponenteNombre implements ComponenteAtributos {
 
 	public Set<Identificador> getIdentificadores() {
 		return Collections.unmodifiableSet(this.identificadores);
+	}
+	
+	public Set<Relacion> getRelaciones() {
+		return Collections.unmodifiableSet(this.relaciones);
+	}
+	
+	/**
+	 * Devuelve la relacion que conecta a las dos entidades.
+	 * @param entidad
+	 * @return
+	 */
+	public Relacion relacion(Entidad entidad) {
+		Set<Relacion> interseccion = new HashSet<>(this.relaciones);
+		interseccion.retainAll(entidad.relaciones);
+		
+		if(interseccion.size() > 0)
+			return interseccion.iterator().next();
+		
+		return null;
 	}
 
 	public TipoEntidad getTipo() {
@@ -132,8 +165,7 @@ public class Entidad extends ComponenteNombre implements ComponenteAtributos {
 
 		public void addEntidad(Entidad entidad) {
 			if (this.entidad.equals(entidad))
-				throw new RuntimeException(
-						"Una Entidad no puede ser su propio identificador.");
+				throw new RuntimeException("Una Entidad no puede ser su propio identificador.");
 
 			this.entidades.add(entidad);
 		}
@@ -159,12 +191,24 @@ public class Entidad extends ComponenteNombre implements ComponenteAtributos {
 		public Set<Entidad> getEntidades() {
 			return Collections.unmodifiableSet(entidades);
 		}
-		
+
 		/*
 		 * Devuelve la entidad de la cual es identificador.
 		 */
 		public Entidad getEntidad() {
 			return this.entidad;
+		}
+		
+		public boolean isInterno() {
+			return this.entidades.isEmpty();
+		}
+		
+		public boolean isExterno() {
+			return this.atributos.isEmpty();
+		}
+		
+		public boolean isMixto() {
+			return !this.atributos.isEmpty() && !this.entidades.isEmpty();
 		}
 
 		/**
@@ -174,8 +218,7 @@ public class Entidad extends ComponenteNombre implements ComponenteAtributos {
 		 * @return
 		 */
 		public boolean contiene(Componente componente) {
-			return this.atributos.contains(componente)
-					|| this.entidades.contains(componente);
+			return this.atributos.contains(componente) || this.entidades.contains(componente);
 		}
 	}
 }

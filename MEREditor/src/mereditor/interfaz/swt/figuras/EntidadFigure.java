@@ -25,11 +25,24 @@ public class EntidadFigure extends Figura<Entidad> {
 		this.actualizar();
 	}
 
-	public void conectarAtributo(Figura<Atributo> figura) {
+	/**
+	 * Conecta un atributo a esta figura
+	 * @param figura
+	 */
+	public Connection conectarAtributo(Figura<Atributo> figura) {
 		Connection conexion = Figura.conectar(this, figura);
 		this.getParent().add(conexion);
-
 		this.conexiones.put(figura.componente.getId(), conexion);
+		
+		return conexion;
+	}
+	
+	public Connection conectarEntidad(String id, Connection conexionEntidad) {
+		Connection conexion = Figura.conectar(this, conexionEntidad);
+		this.getParent().add(conexion);
+		this.conexiones.put(id, conexion);
+		
+		return conexion;
 	}
 
 	@Override
