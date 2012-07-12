@@ -3,7 +3,6 @@ package mereditor.control;
 import java.util.HashMap;
 import java.util.Map;
 
-import mereditor.interfaz.swt.Principal;
 import mereditor.interfaz.swt.editores.EditorFactory;
 import mereditor.interfaz.swt.figuras.AtributoFigure;
 import mereditor.interfaz.swt.figuras.Figura;
@@ -21,11 +20,6 @@ public class AtributoControl extends Atributo implements Control<Atributo>,
 	public Figura<Atributo> getFigura(String idDiagrama) {
 		if (!this.figures.containsKey(idDiagrama)) {
 			AtributoFigure figura = new AtributoFigure(this);
-
-			// Agregar este controlador como listener para mouse clicks
-			figura.addMouseListener(this);
-			figura.addFigureListener(Principal.getInstance());
-
 			this.figures.put(idDiagrama, figura);
 
 			// Posicionar el atributo relativo a la posición del padre.
@@ -50,7 +44,7 @@ public class AtributoControl extends Atributo implements Control<Atributo>,
 			figura.conectarAtributo(atributoControl.getFigura(idDiagrama));
 			atributoControl.dibujar(contenedor, idDiagrama);
 
-			figura.agregarFiguraLoqueada(atributoControl.getFigura(idDiagrama));
+			figura.addFiguraLoqueada(atributoControl.getFigura(idDiagrama));
 		}
 	}
 

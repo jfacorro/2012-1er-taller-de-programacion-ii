@@ -3,7 +3,6 @@ package mereditor.control;
 import java.util.HashMap;
 import java.util.Map;
 
-import mereditor.interfaz.swt.Principal;
 import mereditor.interfaz.swt.editores.EditorFactory;
 import mereditor.interfaz.swt.figuras.EntidadFigure;
 import mereditor.interfaz.swt.figuras.Figura;
@@ -22,9 +21,6 @@ public class EntidadControl extends Entidad implements Control<Entidad>, MouseLi
 		if (!this.figures.containsKey(idDiagrama)) {
 			EntidadFigure figura = new EntidadFigure(this);
 			this.figures.put(idDiagrama, figura);
-			// Agregar este controlador como listener para mouse clicks
-			figura.addMouseListener(this);
-			figura.addFigureListener(Principal.getInstance());
 		}
 		
 		this.figures.get(idDiagrama).actualizar();
@@ -45,7 +41,7 @@ public class EntidadControl extends Entidad implements Control<Entidad>, MouseLi
 
 			figuraEntidad.conectarAtributo(atributoControl.getFigura(idDiagrama));
 			atributoControl.dibujar(contenedor, idDiagrama);
-			figuraEntidad.agregarFiguraLoqueada(atributoControl.getFigura(idDiagrama));
+			figuraEntidad.addFiguraLoqueada(atributoControl.getFigura(idDiagrama));
 		}
 	}
 
