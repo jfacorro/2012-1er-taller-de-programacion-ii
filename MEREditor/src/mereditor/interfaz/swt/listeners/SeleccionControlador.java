@@ -48,6 +48,7 @@ public class SeleccionControlador implements MouseListener {
 
 	/**
 	 * Selecciona la figura indicada
+	 * 
 	 * @param figura
 	 */
 	private static void select(Figura<?> figura) {
@@ -65,11 +66,14 @@ public class SeleccionControlador implements MouseListener {
 
 	/**
 	 * Deselecciona la figura indicada.
+	 * 
 	 * @param figura
 	 */
 	private static void deselect(Figura<?> figura) {
-		figura.getParent().remove(selectedBorders.get(figura));
-		figura.removeFiguraLoqueada(selectedBorders.get(figura));
+		if (figura != null && figura.getParent() != null) {
+			figura.getParent().remove(selectedBorders.get(figura));
+			figura.removeFiguraLoqueada(selectedBorders.get(figura));
+		}
 
 		selected.remove(figura);
 		selectedBorders.remove(figura);
@@ -77,6 +81,7 @@ public class SeleccionControlador implements MouseListener {
 
 	/**
 	 * Indica si una figura está seleccionada.
+	 * 
 	 * @param figura
 	 * @return
 	 */
@@ -95,7 +100,8 @@ public class SeleccionControlador implements MouseListener {
 	}
 
 	/**
-	 * Devuelve todas las figuras seleccionadas. 
+	 * Devuelve todas las figuras seleccionadas.
+	 * 
 	 * @return
 	 */
 	public static Set<IFigure> getSelected() {

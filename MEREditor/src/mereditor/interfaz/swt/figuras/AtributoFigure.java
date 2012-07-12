@@ -28,8 +28,7 @@ public class AtributoFigure extends Figura<Atributo> {
 		this.lblName = new Label();
 		this.lblName.setFont(this.getFont());
 		this.lblName.setText(this.getTextoLabel());
-		this.lblName.setBounds(this.lblName.getTextBounds());
-		this.lblName.setLocation(this.getLocation().getTranslated(0, -10));
+		this.lblName.setBounds(this.lblName.getTextBounds().getTranslated(0, -10));
 
 		this.ellipse = new Ellipse();
 		this.ellipse.setLocation(this.getLocation());

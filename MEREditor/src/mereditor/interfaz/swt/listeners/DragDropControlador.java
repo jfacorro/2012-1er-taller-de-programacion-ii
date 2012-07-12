@@ -14,6 +14,11 @@ import org.eclipse.draw2d.geometry.Point;
 public class DragDropControlador extends MouseMotionListener.Stub implements MouseListener {
 	private Point startPoint;
 
+	/**
+	 * Inidica si el mouse fue presionado sobre la figura.
+	 */
+	private boolean pressed = false;
+
 	public DragDropControlador(Figure figure) {
 		figure.addMouseListener(this);
 		figure.addMouseMotionListener(this);
@@ -22,22 +27,24 @@ public class DragDropControlador extends MouseMotionListener.Stub implements Mou
 	@Override
 	public void mousePressed(MouseEvent e) {
 		this.startPoint = e.getLocation();
+		this.pressed = true;
 	}
 
 	@Override
 	public void mouseDragged(MouseEvent e) {
-		Figure figure = (Figure) e.getSource();	
-		
-		if (SeleccionControlador.isSelected(figure))
-			for(IFigure figura : SeleccionControlador.getSelected())
-				this.actualizarPosicion((Figure)figura, this.startPoint, e.getLocation());
-		else {
-			this.actualizarPosicion(figure, this.startPoint, e.getLocation());
-			SeleccionControlador.deselectAll();
-		}
-			
+		if (pressed) {
+			Figure figure = (Figure) e.getSource();
 
-		this.startPoint = new Point(e.getLocation());
+			if (SeleccionControlador.isSelected(figure))
+				for (IFigure figura : SeleccionControlador.getSelected())
+					this.actualizarPosicion((Figure) figura, this.startPoint, e.getLocation());
+			else {
+				this.actualizarPosicion(figure, this.startPoint, e.getLocation());
+				SeleccionControlador.deselectAll();
+			}
+
+			this.startPoint = new Point(e.getLocation());
+		}
 	}
 
 	public void actualizarPosicion(Figure figure, Point start, Point current) {
@@ -53,5 +60,6 @@ public class DragDropControlador extends MouseMotionListener.Stub implements Mou
 
 	@Override
 	public void mouseReleased(MouseEvent arg0) {
+		this.pressed = false;
 	}
 }
