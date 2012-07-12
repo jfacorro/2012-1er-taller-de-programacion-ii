@@ -41,10 +41,12 @@ public class Relacion extends ComponenteNombre implements ComponenteAtributos {
 
 	public void addParticipante(EntidadRelacion participante) {
 		this.participantes.add(participante);
+		participante.getEntidad().addRelacion(this);
 	}
 
 	public void removeParticipante(EntidadRelacion participante) {
 		this.participantes.remove(participante);
+		participante.getEntidad().removeRelacion(this);
 	}
 
 	/*

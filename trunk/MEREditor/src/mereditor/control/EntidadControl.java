@@ -1,8 +1,6 @@
 package mereditor.control;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import mereditor.interfaz.swt.Principal;
@@ -12,7 +10,6 @@ import mereditor.interfaz.swt.figuras.Figura;
 import mereditor.modelo.Atributo;
 import mereditor.modelo.Entidad;
 
-import org.eclipse.draw2d.Connection;
 import org.eclipse.draw2d.Figure;
 import org.eclipse.draw2d.MouseEvent;
 import org.eclipse.draw2d.MouseListener;
@@ -49,20 +46,6 @@ public class EntidadControl extends Entidad implements Control<Entidad>, MouseLi
 			figuraEntidad.conectarAtributo(atributoControl.getFigura(idDiagrama));
 			atributoControl.dibujar(contenedor, idDiagrama);
 			figuraEntidad.agregarFiguraLoqueada(atributoControl.getFigura(idDiagrama));
-		}
-		
-		/*
-		 * Procesar identificadores internos de la entidad
-		 */
-		for (Identificador identificador : this.getIdentificadores()) {
-			if (identificador.getEntidades().isEmpty()) {
-				List<Connection> conexiones = new ArrayList<>();
-
-				for (Atributo atributo : identificador.getAtributos())
-					conexiones.add(figuraEntidad.getConexion(atributo.getId()));
-
-				figuraEntidad.conectarIdentificador(conexiones);
-			}
 		}
 	}
 

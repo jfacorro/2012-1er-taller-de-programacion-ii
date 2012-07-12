@@ -18,6 +18,7 @@ import org.eclipse.draw2d.Connection;
 import org.eclipse.draw2d.ConnectionAnchor;
 import org.eclipse.draw2d.Figure;
 import org.eclipse.draw2d.Graphics;
+import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.Label;
 import org.eclipse.draw2d.LineBorder;
 import org.eclipse.draw2d.PolylineConnection;
@@ -75,8 +76,7 @@ public abstract class Figura<T extends Componente> extends Figure {
 	 * nombre del componente
 	 */
 	protected void init() {
-		this.setBorder(new LineBorder(this.lineColor, this.lineWidth,
-				this.lineStyle));
+		this.setBorder(new LineBorder(this.lineColor, this.lineWidth, this.lineStyle));
 		this.setBackgroundColor(this.backColor);
 
 		this.setOpaque(true);
@@ -231,7 +231,7 @@ public abstract class Figura<T extends Componente> extends Figure {
 	 * @param figDestino
 	 * @return Conexion entre las figuras
 	 */
-	public static Connection conectar(Figure figOrigen, Figure figDestino) {
+	public static Connection conectar(IFigure figOrigen, IFigure figDestino) {
 		PolylineConnection conexion = new PolylineConnection();
 		conexion.setAntialias(SWT.ON);
 
