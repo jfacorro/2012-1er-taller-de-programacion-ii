@@ -27,10 +27,10 @@ public class DiagramaControl extends Diagrama implements Control<Diagrama> {
 	public void dibujar(Figure contenedor, String idDiagrama) {
 		idDiagrama = idDiagrama != null ? idDiagrama : this.id;
 
-		Set<Entidad> entidades = this.getEntidades();
+		Set<Entidad> entidades = this.getEntidades(false);
 		this.dibujar(contenedor, idDiagrama, entidades);
-		this.dibujar(contenedor, idDiagrama, this.getRelaciones());
-		this.dibujar(contenedor, idDiagrama, this.getJerarquias());
+		this.dibujar(contenedor, idDiagrama, this.getRelaciones(false));
+		this.dibujar(contenedor, idDiagrama, this.getJerarquias(false));
 
 		List<Identificador> identificadores = new ArrayList<>();
 		for (Entidad entidad : entidades)

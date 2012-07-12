@@ -70,13 +70,13 @@ public class TreeManager {
 		for (Diagrama diagramaHijo : diagrama.getDiagramas())
 			agregar(diagramaHijo, item);
 
-		for (Componente componente : diagrama.getEntidades())
+		for (Componente componente : diagrama.getEntidades(false))
 			agregar(componente, item);
 
-		for (Componente componente : diagrama.getRelaciones())
+		for (Componente componente : diagrama.getRelaciones(false))
 			agregar(componente, item);
 
-		for (Componente componente : diagrama.getJerarquias())
+		for (Componente componente : diagrama.getJerarquias(false))
 			agregar(componente, item);
 
 		item.setExpanded(true);
@@ -98,13 +98,13 @@ public class TreeManager {
 		for (Diagrama diagramaHijo : diagrama.getDiagramas())
 			agregar(diagramaHijo, item);
 
-		for (Componente componente : diagrama.getEntidades())
+		for (Componente componente : diagrama.getEntidades(false))
 			agregar(componente, item);
 
-		for (Componente componente : diagrama.getRelaciones())
+		for (Componente componente : diagrama.getRelaciones(false))
 			agregar(componente, item);
 
-		for (Componente componente : diagrama.getJerarquias())
+		for (Componente componente : diagrama.getJerarquias(false))
 			agregar(componente, item);
 	}
 

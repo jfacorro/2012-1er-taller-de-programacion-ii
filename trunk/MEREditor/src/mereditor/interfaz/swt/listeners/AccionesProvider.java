@@ -83,6 +83,16 @@ public class AccionesProvider {
 			principal().zoom(combo.getText());
 		};
 	};
+	
+	/**
+	 * Agregar una entidad al diagrama actual.
+	 */
+	public static final SelectionListener agregarEntidad = new SelectionAdapter() {
+		@Override
+		public void widgetSelected(SelectionEvent e) {
+			principal().agregarEntidad();
+		}
+	};
 
 	/**
 	 * Agregar una Relacion al diagrama actual.
@@ -115,16 +125,6 @@ public class AccionesProvider {
 		@Override
 		public void widgetSelected(SelectionEvent e) {
 			Principal.getInstance().mostrarArbol(true);
-		}
-	};
-
-	/**
-	 * Agregar una entidad al diagrama actual.
-	 */
-	public static final SelectionListener agregarEntidad = new SelectionAdapter() {
-		@Override
-		public void widgetSelected(SelectionEvent e) {
-			principal().agregarEntidad();
 		}
 	};
 

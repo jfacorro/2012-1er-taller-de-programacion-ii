@@ -7,7 +7,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
 
-public abstract class Componente {
+public abstract class Componente implements Comparable<Componente> {
 	/**
 	 * Id del componente
 	 */
@@ -37,7 +37,7 @@ public abstract class Componente {
 
 	public Componente getPadre() {
 		if (this.padres.size() > 1)
-			throw new RuntimeException("Tiene m�s de un padre.");
+			throw new RuntimeException("Tiene más de un padre.");
 
 		return this.padres.isEmpty() ? null : padres.values().iterator().next();
 	}
@@ -60,7 +60,7 @@ public abstract class Componente {
 	public abstract String validar();
 
 	/**
-	 * Implementaci�n de la evaluaci�n de igualdad por comparaci�n de ids de
+	 * Implementación de la evaluación de igualdad por comparación de ids de
 	 * componentes.
 	 */
 	@Override
@@ -74,7 +74,7 @@ public abstract class Componente {
 
 	/**
 	 * Indica si la instancia de este componente es de la clase que se pasa por
-	 * par�metro.
+	 * parámetro.
 	 * 
 	 * @param tipoComponente
 	 * @return
@@ -84,7 +84,7 @@ public abstract class Componente {
 	}
 
 	/**
-	 * Indica si este componente tiene al especificado por par�metro como hijo.
+	 * Indica si este componente tiene al especificado por parámetro como hijo.
 	 * 
 	 * @param componente
 	 * @return
@@ -108,5 +108,10 @@ public abstract class Componente {
 				lista.add(clazz.cast(componente));
 
 		return lista;
+	}
+	
+	@Override
+	public int compareTo(Componente componente) {
+		return this.toString().compareTo(componente.toString());
 	}
 }
