@@ -2,6 +2,7 @@ package mereditor.interfaz.swt.dialogs;
 
 import java.util.Set;
 
+import mereditor.control.EntidadControl;
 import mereditor.interfaz.swt.editores.Editor;
 import mereditor.interfaz.swt.editores.EditorFactory;
 import mereditor.modelo.Entidad;
@@ -36,7 +37,7 @@ public class AgregarEntidadDialog extends AgregarComponenteDialog<Entidad> {
 	
 	@Override
 	protected Editor<?> getEditor() {
-		return EditorFactory.getEditor(new Entidad());
+		return EditorFactory.getEditor(new EntidadControl());
 	}
 
 	@Override

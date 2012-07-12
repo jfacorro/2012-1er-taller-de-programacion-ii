@@ -2,6 +2,7 @@ package mereditor.interfaz.swt.dialogs;
 
 import java.util.Set;
 
+import mereditor.control.RelacionControl;
 import mereditor.interfaz.swt.editores.Editor;
 import mereditor.interfaz.swt.editores.EditorFactory;
 import mereditor.modelo.Relacion;
@@ -34,7 +35,7 @@ public class AgregarRelacionDialog extends AgregarComponenteDialog<Relacion> {
 
 	@Override
 	protected Editor<?> getEditor() {
-		return EditorFactory.getEditor(new Relacion());
+		return EditorFactory.getEditor(new RelacionControl());
 	}
 
 	@Override
