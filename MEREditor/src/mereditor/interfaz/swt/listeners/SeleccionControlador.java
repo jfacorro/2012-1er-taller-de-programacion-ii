@@ -32,7 +32,7 @@ public class SeleccionControlador implements MouseListener {
 
 	@Override
 	public void mouseReleased(MouseEvent me) {
-		if ((me.getState() & SWT.SHIFT) == 0)
+		if ((me.getState() & SWT.CTRL) == 0)
 			deselectAll();
 
 		if (!selected.contains(this.figura))
