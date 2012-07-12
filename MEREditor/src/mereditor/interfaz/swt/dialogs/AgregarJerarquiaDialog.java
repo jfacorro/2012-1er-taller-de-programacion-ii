@@ -2,6 +2,7 @@ package mereditor.interfaz.swt.dialogs;
 
 import java.util.Set;
 
+import mereditor.control.JerarquiaControl;
 import mereditor.interfaz.swt.editores.Editor;
 import mereditor.interfaz.swt.editores.EditorFactory;
 import mereditor.modelo.Jerarquia;
@@ -36,7 +37,7 @@ public class AgregarJerarquiaDialog extends AgregarComponenteDialog<Jerarquia> {
 	
 	@Override
 	protected Editor<?> getEditor() {
-		return EditorFactory.getEditor(new Jerarquia());
+		return EditorFactory.getEditor(new JerarquiaControl());
 	}
 
 	@Override
