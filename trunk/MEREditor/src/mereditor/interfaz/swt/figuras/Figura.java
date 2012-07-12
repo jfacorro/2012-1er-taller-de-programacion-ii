@@ -7,8 +7,10 @@ import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Set;
 
+import mereditor.interfaz.swt.Principal;
 import mereditor.interfaz.swt.listeners.DragDropControlador;
 import mereditor.interfaz.swt.listeners.MovimientoControlador;
+import mereditor.interfaz.swt.listeners.SeleccionControlador;
 import mereditor.modelo.base.Componente;
 import mereditor.representacion.PList;
 
@@ -21,6 +23,7 @@ import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.Label;
 import org.eclipse.draw2d.LineBorder;
+import org.eclipse.draw2d.MouseListener;
 import org.eclipse.draw2d.PolylineConnection;
 import org.eclipse.draw2d.Shape;
 import org.eclipse.draw2d.geometry.Dimension;
@@ -30,10 +33,10 @@ import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Font;
 
 public abstract class Figura<T extends Componente> extends Figure {
-	private static Color defaultBackColor = new Color(null, 255, 255, 206);
-	private static Color defaultLineColor = new Color(null, 0, 0, 0);
-	private static Dimension defaultSize = new Dimension(80, 50);
-	private static Font defaultFont = new Font(null, "Helvetica", 10, SWT.NONE);
+	public final static Color defaultBackColor = new Color(null, 255, 255, 206);
+	public final static Color defaultLineColor = new Color(null, 0, 0, 0);
+	public final static Dimension defaultSize = new Dimension(80, 50);
+	public final static Font defaultFont = new Font(null, "Helvetica", 10, SWT.NONE);
 
 	protected Font font = defaultFont;
 	protected Color lineColor = defaultLineColor;
@@ -68,6 +71,12 @@ public abstract class Figura<T extends Componente> extends Figure {
 		// Agregar controlador para el movivimento de las figuras loqueadas
 		new MovimientoControlador(this);
 
+		new SeleccionControlador(this);
+
+		// Agregar este controlador como listener para mouse clicks
+		this.addMouseListener((MouseListener) this.componente);
+		this.addFigureListener(Principal.getInstance());
+
 		this.init();
 	}
 
@@ -97,10 +106,8 @@ public abstract class Figura<T extends Componente> extends Figure {
 	public Connection getConexion(String id) {
 		if (!this.conexiones.containsKey(id)) {
 			String error = "La figura de id %s (%s) no tiene ninguna conexion con la figura del componente con id: %s";
-			throw new RuntimeException(String.format(error,
-					this.componente.getId(),
-					this.componente.getClass().getName(),
-					id));
+			throw new RuntimeException(String.format(error, this.componente.getId(),
+					this.componente.getClass().getName(), id));
 		}
 
 		return this.conexiones.get(id);
@@ -120,29 +127,26 @@ public abstract class Figura<T extends Componente> extends Figure {
 	public void setRepresentacion(PList repr) {
 		if (repr != null) {
 			if (repr.<PList> get("Posicion") != null) {
-				Rectangle rect = new Rectangle(repr.<PList> get("Posicion")
-						.<Integer> get("x"), repr.<PList> get("Posicion")
-						.<Integer> get("y"), repr.<PList> get("Dimension")
-						.<Integer> get("ancho"), repr.<PList> get("Dimension")
-						.<Integer> get("alto"));
+				Rectangle rect = new Rectangle(repr.<PList> get("Posicion").<Integer> get("x"),
+						repr.<PList> get("Posicion").<Integer> get("y"), repr.<PList> get(
+								"Dimension").<Integer> get("ancho"), repr.<PList> get("Dimension")
+								.<Integer> get("alto"));
 
 				this.setBounds(rect);
 			}
 
 			if (repr.<PList> get("ColorFondo") != null) {
-				this.backColor = new Color(null, repr.<PList> get("ColorFondo")
-						.<Integer> get("r"), repr.<PList> get("ColorFondo")
-						.<Integer> get("g"), repr.<PList> get("ColorFondo")
-						.<Integer> get("b"));
+				this.backColor = new Color(null, repr.<PList> get("ColorFondo").<Integer> get("r"),
+						repr.<PList> get("ColorFondo").<Integer> get("g"), repr.<PList> get(
+								"ColorFondo").<Integer> get("b"));
 
 				this.applyBackgroundColor();
 			}
 
 			if (repr.<PList> get("ColorLinea") != null) {
-				this.lineColor = new Color(null, repr.<PList> get("ColorLinea")
-						.<Integer> get("r"), repr.<PList> get("ColorLinea")
-						.<Integer> get("g"), repr.<PList> get("ColorLinea")
-						.<Integer> get("b"));
+				this.lineColor = new Color(null, repr.<PList> get("ColorLinea").<Integer> get("r"),
+						repr.<PList> get("ColorLinea").<Integer> get("g"), repr.<PList> get(
+								"ColorLinea").<Integer> get("b"));
 			}
 
 			if (repr.<PList> get("AnchoLinea") != null) {
@@ -164,7 +168,7 @@ public abstract class Figura<T extends Componente> extends Figure {
 	 * 
 	 */
 	protected void applyLineStyle() {
-		this.setBorder(new LineBorder(this.lineColor));
+		this.setBorder(new LineBorder(this.lineColor, this.lineWidth, this.lineStyle));
 	}
 
 	/**
@@ -200,8 +204,18 @@ public abstract class Figura<T extends Componente> extends Figure {
 	 * 
 	 * @param figura
 	 */
-	public boolean agregarFiguraLoqueada(Figure figura) {
+	public boolean addFiguraLoqueada(Figure figura) {
 		return this.figurasLoqueadas.add(figura);
+	}
+
+	/**
+	 * Elimina la figura de la lista de figuras loqueadas.
+	 * 
+	 * @param figura
+	 * @return
+	 */
+	public boolean removeFiguraLoqueada(Figure figura) {
+		return this.figurasLoqueadas.remove(figura);
 	}
 
 	/**

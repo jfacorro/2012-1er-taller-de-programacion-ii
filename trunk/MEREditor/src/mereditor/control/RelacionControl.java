@@ -3,7 +3,6 @@ package mereditor.control;
 import java.util.HashMap;
 import java.util.Map;
 
-import mereditor.interfaz.swt.Principal;
 import mereditor.interfaz.swt.editores.EditorFactory;
 import mereditor.interfaz.swt.figuras.Figura;
 import mereditor.interfaz.swt.figuras.RelacionFigure;
@@ -24,9 +23,6 @@ public class RelacionControl extends Relacion implements Control<Relacion>, Mous
 		if (!this.figures.containsKey(idDiagrama)) {
 			RelacionFigure figura = new RelacionFigure(this);
 			this.figures.put(idDiagrama, figura);
-			// Agregar este controlador como listener para mouse clicks
-			figura.addMouseListener(this);
-			figura.addFigureListener(Principal.getInstance());
 		}
 
 		this.figures.get(idDiagrama).actualizar();
@@ -44,7 +40,7 @@ public class RelacionControl extends Relacion implements Control<Relacion>, Mous
 			atributoCtrl.dibujar(contenedor, idDiagrama);
 
 			figRelacion.conectarAtributo(atributoCtrl.getFigura(idDiagrama));
-			figRelacion.agregarFiguraLoqueada(atributoCtrl.getFigura(idDiagrama));
+			figRelacion.addFiguraLoqueada(atributoCtrl.getFigura(idDiagrama));
 		}
 
 		// Obtener el diagrama padre correspondiente

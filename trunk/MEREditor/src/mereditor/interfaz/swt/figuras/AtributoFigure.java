@@ -47,7 +47,7 @@ public class AtributoFigure extends Figura<Atributo> {
 			ellipse.setSize(new Dimension(10, 10));
 			// Permitir que el label se mueva
 			new DragDropControlador(this.lblName);
-			this.agregarFiguraLoqueada(this.lblName);
+			this.addFiguraLoqueada(this.lblName);
 		}
 
 		this.setBounds(ellipse.getBounds());
