@@ -27,21 +27,33 @@ public class EntidadFigure extends Figura<Entidad> {
 
 	/**
 	 * Conecta un atributo a esta figura
+	 * 
 	 * @param figura
 	 */
 	public Connection conectarAtributo(Figura<Atributo> figura) {
 		Connection conexion = Figura.conectar(this, figura);
 		this.getParent().add(conexion);
 		this.conexiones.put(figura.componente.getId(), conexion);
-		
+
 		return conexion;
 	}
-	
+
+	/**
+	 * Conecta esta entidad con el conector que une otra entidad con una
+	 * relación en común.
+	 * 
+	 * @param id identificador de la otra entidad.
+	 * @param conexionEntidad conector entre la otra entidad y la relacion.
+	 * @return conexion entre esta entidad y el circulo en el midpoint de conexionEntidad.
+	 */
 	public Connection conectarEntidad(String id, Connection conexionEntidad) {
-		Connection conexion = Figura.conectar(this, conexionEntidad);
+		Ellipse circuloConexion = this.circuloIdentificador();
+		conexionEntidad.add(circuloConexion, new MidpointLocator(conexionEntidad, 0));
+
+		Connection conexion = Figura.conectar(this, circuloConexion);
 		this.getParent().add(conexion);
 		this.conexiones.put(id, conexion);
-		
+
 		return conexion;
 	}
 
@@ -75,9 +87,10 @@ public class EntidadFigure extends Figura<Entidad> {
 			}
 		}
 	}
-	
+
 	/**
-	 * Devuelve una figura circulo que se utiliza para unir los identificadores. 
+	 * Devuelve una figura circulo que se utiliza para unir los identificadores.
+	 * 
 	 * @return
 	 */
 	private Ellipse circuloIdentificador() {
