@@ -16,7 +16,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 /**
- * Genera y parsea el xml de representaci髇 del proyecto.
+ * Genera y parsea el xml de representaci贸n del proyecto.
  * 
  * @author jfacorro
  * 
@@ -27,9 +27,9 @@ class RepresentacionParserXml extends ParserXml {
 	 * Constructor utilizado para leer el xml del path especificado
 	 * 
 	 * @param proyecto
-	 *            Instancia vac韆 del proyecto.
+	 *            Instancia vac铆a del proyecto.
 	 * @param path
-	 *            Ubicaci髇 del archivo XML de representaci髇.
+	 *            Ubicaci贸n del archivo XML de representaci贸n.
 	 * @throws Exception
 	 */
 	public RepresentacionParserXml(Proyecto proyecto, String path) throws Exception {
@@ -38,11 +38,11 @@ class RepresentacionParserXml extends ParserXml {
 		this.root = docBuilder.parse(source).getDocumentElement();
 		this.proyecto = proyecto;
 		if (proyecto.getComponentes().size() > 1)
-			throw new Exception("El proyecto debe contener s髄o el diagrama ra韟.");
+			throw new Exception("El proyecto debe contener s贸lo el diagrama ra铆z.");
 	}
 
 	/**
-	 * Constructor a utilizar cuando se quiere generar el XML de representaci髇
+	 * Constructor a utilizar cuando se quiere generar el XML de representaci贸n
 	 * en base el objeto proyecto.
 	 * 
 	 * @param proyecto
@@ -54,7 +54,7 @@ class RepresentacionParserXml extends ParserXml {
 
 	/**
 	 * Recorre la coleccion de componentes del proyecto y busca sus
-	 * representaciones para cada diagrama en el que est閚 presentes.
+	 * representaciones para cada diagrama en el que est茅n presentes.
 	 */
 	public void parsearRepresentacion() {
 		// Para cada componente del proyecto
@@ -95,7 +95,7 @@ class RepresentacionParserXml extends ParserXml {
 	}
 
 	/**
-	 * Parsea un elemento de representaci髇 b醩ico con posici髇 y dimensi髇.
+	 * Parsea un elemento de representaci贸n b谩sico con posici贸n y dimensi贸n.
 	 * 
 	 * @param elemento
 	 * @return
@@ -114,7 +114,7 @@ class RepresentacionParserXml extends ParserXml {
 	}
 
 	/**
-	 * Generar el XML de rerpesentaci髇.
+	 * Generar el XML de rerpesentaci贸n.
 	 * @return
 	 */
 	public Document generarXml() {
@@ -122,14 +122,14 @@ class RepresentacionParserXml extends ParserXml {
 		this.root = doc.createElement(Constants.PROYECTO_TAG);
 		doc.appendChild(this.root);
 
-		this.generarDiagramaXml(this.root, this.proyecto.getRaiz());
+		this.generarDiagramaXml(this.root, this.proyecto.getDiagramaRaiz());
 
 		return doc;
 	}
 
 	/**
-	 * Genera el element de XML de representaci髇 de un diagrama y sus hijos.
-	 * Agrega el elemento generado al nodo ra韟.
+	 * Genera el element de XML de representaci贸n de un diagrama y sus hijos.
+	 * Agrega el elemento generado al nodo ra铆z.
 	 * 
 	 * @param elemento
 	 * @param diagrama
@@ -159,7 +159,7 @@ class RepresentacionParserXml extends ParserXml {
 	}
 
 	/**
-	 * Genera un elemento Representaci髇 XML desde una PList.
+	 * Genera un elemento Representaci贸n XML desde una PList.
 	 * 
 	 * @param elemento
 	 * @param repr

@@ -67,7 +67,7 @@ public class Proyecto implements ProyectoProxy {
 	 * 
 	 * @return
 	 */
-	public Diagrama getRaiz() {
+	public Diagrama getDiagramaRaiz() {
 		return raiz;
 	}
 
@@ -76,7 +76,7 @@ public class Proyecto implements ProyectoProxy {
 	 * 
 	 * @return
 	 */
-	public void setRaiz(Diagrama raiz) {
+	public void setDiagramaRaiz(Diagrama raiz) {
 		if (this.raiz != null)
 			throw new RuntimeException("El diagrama raiz ya esta establecido.");
 

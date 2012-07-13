@@ -185,7 +185,7 @@ public class Principal extends Observable implements FigureListener {
 	 * Carga el proyecto actual.
 	 */
 	private void cargarProyecto() {
-		this.proyecto.setDiagramaActual(this.proyecto.getRaiz().getId());
+		this.proyecto.setDiagramaActual(this.proyecto.getDiagramaRaiz().getId());
 		this.panelDisegno = new PanelDisegno(this.figureCanvas, this.proyecto);
 		this.panelDisegno.actualizar();
 		// Carga inicial del arbol.
@@ -448,7 +448,7 @@ public class Principal extends Observable implements FigureListener {
 			Printer printer = new Printer(printerData);
 
 			PrintOperation printerOperation = new PrintFigureOperation(printer,
-					this.panelDisegno.getPanel());
+					this.panelDisegno);
 			printerOperation.setPrintMargin(new Insets(0, 0, 0, 0));
 			printerOperation.run(this.proyecto.getDiagramaActual().getNombre());
 

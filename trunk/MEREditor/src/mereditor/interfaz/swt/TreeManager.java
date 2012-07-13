@@ -128,7 +128,7 @@ public class TreeManager {
 	 * @param proyecto
 	 */
 	public static void cargar(Proyecto proyecto) {
-		TreeManager.agregar(proyecto.getRaiz(), TreeManager.tree);
+		TreeManager.agregar(proyecto.getDiagramaRaiz(), TreeManager.tree);
 		tab.setText(proyecto.getNombre());
 		folder.setEnabled(true);
 	}

@@ -4,23 +4,39 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 import mereditor.control.Proyecto;
-import mereditor.interfaz.swt.figuras.ZoomContainer;
+import mereditor.interfaz.swt.listeners.DragDropControlador;
+import mereditor.interfaz.swt.listeners.SeleccionControlador;
 
+import org.eclipse.draw2d.Figure;
 import org.eclipse.draw2d.FigureCanvas;
 import org.eclipse.draw2d.Graphics;
-import org.eclipse.draw2d.IFigure;
+import org.eclipse.draw2d.MouseEvent;
+import org.eclipse.draw2d.MouseListener;
 import org.eclipse.draw2d.SWTGraphics;
+import org.eclipse.draw2d.ScaledGraphics;
 import org.eclipse.draw2d.geometry.Rectangle;
+import org.eclipse.draw2d.geometry.Translatable;
 import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.graphics.Image;
 
-public class PanelDisegno {
+public class PanelDisegno extends Figure {
 	public final static Map<String, Float> zoomOptions = new LinkedHashMap<>();
 	public final static String zoom100 = "100%";
 
-	private ZoomContainer panel;
+	public static final float MIN_ZOOM = 0.25f;
+	public static final float MAX_ZOOM = 2.0f;
+	public static final float DELTA_ZOOM = 0.25f;
+
 	private FigureCanvas canvas;
 	private Proyecto proyecto;
+	
+	private float zoom = 1;
+	
+	private MouseListener selection = new MouseListener.Stub() {
+		public void mousePressed(MouseEvent me) {
+			SeleccionControlador.deselectAll(null);
+		};
+	};
 
 	static {
 		initZoomOptions();
@@ -28,9 +44,9 @@ public class PanelDisegno {
 
 	private static void initZoomOptions() {
 		float zoom = 0;
-		while (zoom < ZoomContainer.MAX_ZOOM) {
-			zoom += ZoomContainer.DELTA_ZOOM;
-			if (zoom >= ZoomContainer.MIN_ZOOM) {
+		while (zoom < PanelDisegno.MAX_ZOOM) {
+			zoom += PanelDisegno.DELTA_ZOOM;
+			if (zoom >= PanelDisegno.MIN_ZOOM) {
 				String key = Integer.toString((int) (zoom * 100));
 				zoomOptions.put(key + "%", zoom);
 			}
@@ -38,50 +54,64 @@ public class PanelDisegno {
 	}
 
 	public PanelDisegno(FigureCanvas canvas, Proyecto proyecto) {
-		this.panel = new ZoomContainer();
 		this.canvas = canvas;
-		this.canvas.setContents(this.panel);
+		this.canvas.setContents(this);
 		this.proyecto = proyecto;
+		
+		this.addMouseListener(this.selection);
+		this.addMouseMotionListener(new DragDropControlador(this));
 	}
 
 	/**
 	 * Actualiza la vista con el diagrama actual.
 	 */
 	public void actualizar() {
-		this.panel.removeAll();
-		this.proyecto.getDiagramaActual().dibujar(this.panel);
+		this.removeAll();
+		this.proyecto.getDiagramaActual().dibujar(this);
 	}
-
+	
 	/**
 	 * Aplica una disminución al zoom.
 	 */
 	public void zoomOut() {
-		this.panel.zoomIn();
+		if (this.zoom - DELTA_ZOOM >= MIN_ZOOM)
+			this.setZoom(this.zoom - DELTA_ZOOM);
 	}
 
 	/**
 	 * Aplica un aumento al zoom.
 	 */
 	public void zoomIn() {
-		this.panel.zoomOut();
+		if (this.zoom + DELTA_ZOOM <= MAX_ZOOM)
+			this.setZoom(this.zoom + DELTA_ZOOM);
 	}
 
 	public void zoom(String zoom) {
 		if (zoomOptions.containsKey(zoom))
-			this.panel.setZoom(zoomOptions.get(zoom));
+			this.setZoom(zoomOptions.get(zoom));
 		else {
 			float zoomFloat = Float.parseFloat(zoom.replace("%", ""));
-			this.panel.setZoom(zoomFloat);
+			this.setZoom(zoomFloat);
 		}
 	}
-
+	
+	/**
+	 * Establecer el nuevo zoom y volver a dibujar la figura.
+	 * @param zoom
+	 */
+	public void setZoom(float zoom) {
+		this.zoom = zoom;
+		revalidate();
+		repaint();
+	}
+	
 	/**
 	 * Devuelve un thumbnail del diagrama actual.
 	 * 
 	 * @return
 	 */
 	public Image getImagen() {
-		Rectangle rootFigureBounds = this.panel.getBounds();
+		Rectangle rootFigureBounds = this.getBounds();
 		GC figureCanvasGC = new GC(this.canvas);
 
 		Image image = new Image(this.canvas.getDisplay(),
@@ -96,22 +126,69 @@ public class PanelDisegno {
 		// imageGC.setXORMode(figureCanvasGC.getXORMode());
 
 		Graphics imgGraphics = new SWTGraphics(imageGC);
-		this.panel.paint(imgGraphics);
+		this.paint(imgGraphics);
 
 		return image;
 	}
 
+	public String getZoom() {
+		String zoom = Integer.toString((int) (this.zoom * 100));
+		return zoom + "%";
+	}
+	
 	/**
-	 * Devuelve la figura sobre la cual se dibuja la figura.
-	 * 
-	 * @return
+	 * @see org.eclipse.draw2d.Figure#translateToParent(Translatable)
 	 */
-	public IFigure getPanel() {
-		return this.panel;
+	public void translateToParent(Translatable t) {
+		t.performScale(zoom);
+		super.translateToParent(t);
 	}
 
-	public String getZoom() {
-		String zoom = Integer.toString((int) (this.panel.getZoom() * 100));
-		return zoom + "%";
+	/**
+	 * @see org.eclipse.draw2d.Figure#translateFromParent(Translatable)
+	 */
+	public void translateFromParent(Translatable t) {
+		super.translateFromParent(t);
+		t.performScale(1 / zoom);
+	}
+
+	/**
+	 * @see org.eclipse.draw2d.Figure#useLocalCoordinates()
+	 */
+	protected boolean useLocalCoordinates() {
+		return true;
+	}
+	
+	/**
+	 * @see org.eclipse.draw2d.Figure#getClientArea()
+	 */
+	public Rectangle getClientArea(Rectangle rect) {
+		super.getClientArea(rect);
+		rect.width /= zoom;
+		rect.height /= zoom;
+		return rect;
+	}
+
+	/**
+	 * @see org.eclipse.draw2d.Figure#paintClientArea(Graphics)
+	 */
+	protected void paintClientArea(Graphics graphics) {
+		if (getChildren().isEmpty())
+			return;
+
+		boolean optimizeClip = getBorder() == null || getBorder().isOpaque();
+
+		ScaledGraphics g = new ScaledGraphics(graphics);
+
+		if (!optimizeClip)
+			g.clipRect(getBounds().getShrinked(getInsets()));
+		g.translate(getBounds().x + getInsets().left, getBounds().y
+				+ getInsets().top);
+		g.scale(zoom);
+		g.pushState();
+		paintChildren(g);
+		g.popState();
+		g.dispose();
+		graphics.restoreState();
 	}
 }
