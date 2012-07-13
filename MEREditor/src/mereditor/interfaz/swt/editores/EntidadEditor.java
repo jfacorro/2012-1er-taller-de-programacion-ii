@@ -33,7 +33,7 @@ public class EntidadEditor extends Editor<Entidad> {
 	 */
 	protected EntidadEditor(Shell shell) {
 		super(shell);
-		this.componente = new Entidad();
+		this.componente = new EntidadControl();
 	}
 
 	public EntidadEditor() {

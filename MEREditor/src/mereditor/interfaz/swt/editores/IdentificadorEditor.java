@@ -2,6 +2,7 @@ package mereditor.interfaz.swt.editores;
 
 import java.util.List;
 
+import mereditor.control.EntidadControl;
 import mereditor.modelo.Atributo;
 import mereditor.modelo.Entidad;
 import mereditor.modelo.Entidad.Identificador;
@@ -27,7 +28,7 @@ public class IdentificadorEditor extends Editor<Identificador> {
 	 */
 	protected IdentificadorEditor(Shell shell) {
 		super(shell);
-		this.componente = new Entidad().new Identificador(new Entidad());
+		this.componente = new EntidadControl().new Identificador(new EntidadControl());
 	}
 
 	public IdentificadorEditor(Identificador componente) {
