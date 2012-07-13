@@ -53,7 +53,7 @@ class ModeloParserXml extends ParserXml {
 
 		for (Componente componente : proyecto.getComponentes()) {
 			if (componente.es(Entidad.class) || componente.es(Relacion.class) || componente.es(Jerarquia.class)
-					|| componente == proyecto.getRaiz())
+					|| componente == proyecto.getDiagramaRaiz())
 				this.root.appendChild(this.convertirXmlizable(componente).toXml(this));
 		}
 

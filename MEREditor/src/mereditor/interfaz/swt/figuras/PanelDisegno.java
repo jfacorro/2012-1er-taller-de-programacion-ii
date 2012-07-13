@@ -1,4 +1,4 @@
-package mereditor.interfaz.swt;
+package mereditor.interfaz.swt.figuras;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
