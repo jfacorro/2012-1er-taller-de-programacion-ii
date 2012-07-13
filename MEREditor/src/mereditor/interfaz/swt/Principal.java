@@ -54,7 +54,8 @@ import org.w3c.dom.Document;
  * 
  */
 public class Principal extends Observable implements FigureListener {
-	public static final Color defaultBackgroundColor = new Color(null, 255, 255, 255);
+	public static final Color defaultBackgroundColor = new Color(null, 255,
+			255, 255);
 	public static final String APP_NOMBRE = "MER Editor";
 	private static final String TITULO_GUARDAR_DIAGRAMA_ACTUAL = "Información";
 	private static final String MENSAJE_GUARDAR_DIAGRAMA_ACTUAL = "¿Desea guardar los cambios hechos al diagrama actual?";
@@ -94,7 +95,7 @@ public class Principal extends Observable implements FigureListener {
 	private ToolBar toolBar;
 	private FigureCanvas figureCanvas;
 
-	private DiagramaFigura panelDisegno;
+	private DiagramaFigura panelDiagrama;
 	private Proyecto proyecto;
 
 	private Listener promptClose = new Listener() {
@@ -155,7 +156,8 @@ public class Principal extends Observable implements FigureListener {
 	 * @throws Exception
 	 */
 	public void nuevoProyecto() {
-		PromptResult resultado = DialogBuilder.prompt(this.shell, "Ingresar nombre", "Nombre");
+		PromptResult resultado = DialogBuilder.prompt(this.shell,
+				"Ingresar nombre", "Nombre");
 
 		if (resultado.result == Resultado.OK) {
 			this.proyecto = new Proyecto(resultado.value);
@@ -186,9 +188,11 @@ public class Principal extends Observable implements FigureListener {
 	 * Carga el proyecto actual.
 	 */
 	private void cargarProyecto() {
-		this.proyecto.setDiagramaActual(this.proyecto.getDiagramaRaiz().getId());
-		this.panelDisegno = new DiagramaFigura(this.figureCanvas, this.proyecto);
-		this.panelDisegno.actualizar();
+		this.proyecto
+				.setDiagramaActual(this.proyecto.getDiagramaRaiz().getId());
+		this.panelDiagrama = new DiagramaFigura(this.figureCanvas,
+				this.proyecto);
+		this.panelDiagrama.actualizar();
 		// Carga inicial del arbol.
 		TreeManager.cargar(this.proyecto);
 		this.mostrarArbol(true);
@@ -248,10 +252,10 @@ public class Principal extends Observable implements FigureListener {
 			try {
 				modelo = new ParserXml(this.proyecto);
 				this.guardarXml(modelo.generarXmlProyecto(), path);
-				this.guardarXml(modelo.generarXmlComponentes(),
-						dir + this.proyecto.getComponentesPath());
-				this.guardarXml(modelo.generarXmlRepresentacion(),
-						dir + this.proyecto.getRepresentacionPath());
+				this.guardarXml(modelo.generarXmlComponentes(), dir
+						+ this.proyecto.getComponentesPath());
+				this.guardarXml(modelo.generarXmlRepresentacion(), dir
+						+ this.proyecto.getRepresentacionPath());
 			} catch (Exception e) {
 				this.error("Ocurrió un error al guardar el proyecto.");
 				e.printStackTrace();
@@ -269,10 +273,12 @@ public class Principal extends Observable implements FigureListener {
 	 * @throws Exception
 	 */
 	private void guardarXml(Document doc, String path) throws Exception {
-		TransformerFactory transformerFactory = TransformerFactory.newInstance();
+		TransformerFactory transformerFactory = TransformerFactory
+				.newInstance();
 		Transformer transformer = transformerFactory.newTransformer();
 		transformer.setOutputProperty(OutputKeys.INDENT, "yes");
-		transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "4");
+		transformer.setOutputProperty(
+				"{http://xml.apache.org/xslt}indent-amount", "4");
 		DOMSource source = new DOMSource(doc);
 		StreamResult result = new StreamResult(new File(path));
 		transformer.transform(source, result);
@@ -284,7 +290,8 @@ public class Principal extends Observable implements FigureListener {
 	 * @throws Exception
 	 */
 	public void nuevoDiagrama() {
-		PromptResult resultado = DialogBuilder.prompt(this.shell, "Ingresar nombre", "Nombre");
+		PromptResult resultado = DialogBuilder.prompt(this.shell,
+				"Ingresar nombre", "Nombre");
 		if (resultado.result == Resultado.OK) {
 			DiagramaControl nuevoDiagrama = new DiagramaControl();
 			nuevoDiagrama.setNombre(resultado.value);
@@ -303,7 +310,7 @@ public class Principal extends Observable implements FigureListener {
 	 */
 	public void actualizarVista() {
 		this.modificado(true);
-		this.panelDisegno.actualizar();
+		this.panelDiagrama.actualizar();
 	}
 
 	/**
@@ -401,20 +408,20 @@ public class Principal extends Observable implements FigureListener {
 	 * Disminucion del zoom.
 	 */
 	public void zoomOut(Combo cboZoom) {
-		this.panelDisegno.zoomOut();
-		cboZoom.setText(this.panelDisegno.getZoom());
+		this.panelDiagrama.zoomOut();
+		cboZoom.setText(this.panelDiagrama.getZoom());
 	}
 
 	/**
 	 * Aumento del zoom.
 	 */
 	public void zoomIn(Combo cboZoom) {
-		this.panelDisegno.zoomIn();
-		cboZoom.setText(this.panelDisegno.getZoom());
+		this.panelDiagrama.zoomIn();
+		cboZoom.setText(this.panelDiagrama.getZoom());
 	}
 
 	public void zoom(String zoom) {
-		this.panelDisegno.zoom(zoom);
+		this.panelDiagrama.zoom(zoom);
 	}
 
 	/**
@@ -423,11 +430,12 @@ public class Principal extends Observable implements FigureListener {
 	public void exportar() {
 		FileDialog fileDialog = new FileDialog(this.shell, SWT.SAVE);
 		fileDialog.setFilterExtensions(extensionesImagen);
-		fileDialog.setFileName(this.proyecto.getDiagramaActual().getNombre() + ".jpg");
+		fileDialog.setFileName(this.proyecto.getDiagramaActual().getNombre()
+				+ ".jpg");
 		String path = fileDialog.open();
 
 		if (path != null) {
-			Image image = this.panelDisegno.getImagen();
+			Image image = this.panelDiagrama.getImagen();
 
 			ImageData[] data = new ImageData[1];
 			data[0] = image.getImageData();
@@ -449,7 +457,7 @@ public class Principal extends Observable implements FigureListener {
 			Printer printer = new Printer(printerData);
 
 			PrintOperation printerOperation = new PrintFigureOperation(printer,
-					this.panelDisegno);
+					this.panelDiagrama);
 			printerOperation.setPrintMargin(new Insets(0, 0, 0, 0));
 			printerOperation.run(this.proyecto.getDiagramaActual().getNombre());
 
