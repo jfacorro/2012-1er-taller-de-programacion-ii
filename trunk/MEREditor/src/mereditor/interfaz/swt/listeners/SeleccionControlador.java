@@ -16,9 +16,11 @@ import org.eclipse.draw2d.MouseListener;
 import org.eclipse.draw2d.MouseMotionListener;
 import org.eclipse.swt.SWT;
 
-public class SeleccionControlador extends MouseMotionListener.Stub implements MouseListener {
+public class SeleccionControlador extends MouseMotionListener.Stub implements
+		MouseListener {
 	private final static Set<IFigure> selected = new HashSet<>();
 	private final static Map<IFigure, Figure> selectedBorders = new HashMap<>();
+	private static boolean dragged = false;
 
 	private Figura<?> figura = null;
 
@@ -27,27 +29,37 @@ public class SeleccionControlador extends MouseMotionListener.Stub implements Mo
 		this.figura.addMouseListener(this);
 	}
 
+	private boolean selectionModifiers(int state) {
+		return (state & SWT.CTRL) != 0;
+	}
+
 	@Override
 	public void mousePressed(MouseEvent me) {
-		if ((me.getState() & SWT.CTRL) == 0)
-			deselectAll();
-
 		if (!selected.contains(this.figura))
 			select(this.figura);
-		else
+		else if (selected.contains(this.figura)
+				&& this.selectionModifiers(me.getState()))
 			deselect(this.figura);
 	}
-	
+
 	@Override
 	public void mouseReleased(MouseEvent me) {
-		
+		if (!this.selectionModifiers(me.getState()) && !dragged) {
+			deselectAll(this.figura);
+		}
+
+		dragged = false;
 	}
 
 	@Override
 	public void mouseDoubleClicked(MouseEvent me) {
-		
+
 	}
-	
+
+	public static void startedDragging() {
+		dragged = true;
+	}
+
 	/**
 	 * Selecciona la figura.
 	 * 
@@ -99,11 +111,12 @@ public class SeleccionControlador extends MouseMotionListener.Stub implements Mo
 	/**
 	 * Deselecciona todas las figuras.
 	 */
-	public static void deselectAll() {
+	public static void deselectAll(Figura<?> figuraExcepcion) {
 		Set<IFigure> figuras = new HashSet<>(selected);
 
 		for (IFigure figura : figuras)
-			deselect((Figura<?>) figura);
+			if (figuraExcepcion == null || figuraExcepcion != figura)
+				deselect((Figura<?>) figura);
 	}
 
 	/**
