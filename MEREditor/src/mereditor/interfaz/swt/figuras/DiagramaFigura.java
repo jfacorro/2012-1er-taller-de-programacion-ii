@@ -19,7 +19,7 @@ import org.eclipse.draw2d.geometry.Translatable;
 import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.graphics.Image;
 
-public class PanelDisegno extends Figure {
+public class DiagramaFigura extends Figure {
 	public final static Map<String, Float> zoomOptions = new LinkedHashMap<>();
 	public final static String zoom100 = "100%";
 
@@ -44,16 +44,16 @@ public class PanelDisegno extends Figure {
 
 	private static void initZoomOptions() {
 		float zoom = 0;
-		while (zoom < PanelDisegno.MAX_ZOOM) {
-			zoom += PanelDisegno.DELTA_ZOOM;
-			if (zoom >= PanelDisegno.MIN_ZOOM) {
+		while (zoom < DiagramaFigura.MAX_ZOOM) {
+			zoom += DiagramaFigura.DELTA_ZOOM;
+			if (zoom >= DiagramaFigura.MIN_ZOOM) {
 				String key = Integer.toString((int) (zoom * 100));
 				zoomOptions.put(key + "%", zoom);
 			}
 		}
 	}
 
-	public PanelDisegno(FigureCanvas canvas, Proyecto proyecto) {
+	public DiagramaFigura(FigureCanvas canvas, Proyecto proyecto) {
 		this.canvas = canvas;
 		this.canvas.setContents(this);
 		this.proyecto = proyecto;

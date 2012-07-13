@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
-import mereditor.interfaz.swt.figuras.PanelDisegno;
+import mereditor.interfaz.swt.figuras.DiagramaFigura;
 import mereditor.interfaz.swt.listeners.AccionesProvider;
 
 import org.eclipse.swt.SWT;
@@ -104,11 +104,11 @@ public class ToolBarBuilder implements Observer {
 		item = new ToolItem(this.toolBar, SWT.SEPARATOR);
 
 		Combo cboZoom = new Combo(this.toolBar, SWT.READ_ONLY);
-		cboZoom.setItems(PanelDisegno.zoomOptions.keySet().toArray(
-				new String[PanelDisegno.zoomOptions.size()]));
+		cboZoom.setItems(DiagramaFigura.zoomOptions.keySet().toArray(
+				new String[DiagramaFigura.zoomOptions.size()]));
 		cboZoom.pack();
 		cboZoom.setEnabled(false);
-		cboZoom.setText(PanelDisegno.zoom100);
+		cboZoom.setText(DiagramaFigura.zoom100);
 		cboZoom.addSelectionListener(AccionesProvider.zoom);
 
 		item.setWidth(cboZoom.getSize().x);

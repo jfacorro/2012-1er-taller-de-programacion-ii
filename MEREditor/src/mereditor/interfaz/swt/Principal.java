@@ -17,7 +17,7 @@ import mereditor.interfaz.swt.DialogBuilder.Resultado;
 import mereditor.interfaz.swt.dialogs.AgregarEntidadDialog;
 import mereditor.interfaz.swt.dialogs.AgregarJerarquiaDialog;
 import mereditor.interfaz.swt.dialogs.AgregarRelacionDialog;
-import mereditor.interfaz.swt.figuras.PanelDisegno;
+import mereditor.interfaz.swt.figuras.DiagramaFigura;
 import mereditor.xml.ParserXml;
 
 import org.eclipse.draw2d.FigureCanvas;
@@ -94,7 +94,7 @@ public class Principal extends Observable implements FigureListener {
 	private ToolBar toolBar;
 	private FigureCanvas figureCanvas;
 
-	private PanelDisegno panelDisegno;
+	private DiagramaFigura panelDisegno;
 	private Proyecto proyecto;
 
 	private Listener promptClose = new Listener() {
@@ -187,7 +187,7 @@ public class Principal extends Observable implements FigureListener {
 	 */
 	private void cargarProyecto() {
 		this.proyecto.setDiagramaActual(this.proyecto.getDiagramaRaiz().getId());
-		this.panelDisegno = new PanelDisegno(this.figureCanvas, this.proyecto);
+		this.panelDisegno = new DiagramaFigura(this.figureCanvas, this.proyecto);
 		this.panelDisegno.actualizar();
 		// Carga inicial del arbol.
 		TreeManager.cargar(this.proyecto);
