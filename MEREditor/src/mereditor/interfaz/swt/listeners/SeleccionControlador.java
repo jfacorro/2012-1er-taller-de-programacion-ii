@@ -13,9 +13,10 @@ import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.LineBorder;
 import org.eclipse.draw2d.MouseEvent;
 import org.eclipse.draw2d.MouseListener;
+import org.eclipse.draw2d.MouseMotionListener;
 import org.eclipse.swt.SWT;
 
-public class SeleccionControlador implements MouseListener {
+public class SeleccionControlador extends MouseMotionListener.Stub implements MouseListener {
 	private final static Set<IFigure> selected = new HashSet<>();
 	private final static Map<IFigure, Figure> selectedBorders = new HashMap<>();
 
@@ -28,10 +29,6 @@ public class SeleccionControlador implements MouseListener {
 
 	@Override
 	public void mousePressed(MouseEvent me) {
-	}
-
-	@Override
-	public void mouseReleased(MouseEvent me) {
 		if ((me.getState() & SWT.CTRL) == 0)
 			deselectAll();
 
@@ -40,14 +37,19 @@ public class SeleccionControlador implements MouseListener {
 		else
 			deselect(this.figura);
 	}
+	
+	@Override
+	public void mouseReleased(MouseEvent me) {
+		
+	}
 
 	@Override
 	public void mouseDoubleClicked(MouseEvent me) {
-
+		
 	}
-
+	
 	/**
-	 * Selecciona la figura indicada
+	 * Selecciona la figura.
 	 * 
 	 * @param figura
 	 */
@@ -55,8 +57,9 @@ public class SeleccionControlador implements MouseListener {
 		Figure seleccion = new Figure();
 		seleccion.setOpaque(false);
 		seleccion.setEnabled(false);
-		seleccion.setBounds(figura.getBounds());
-		seleccion.setBorder(new LineBorder(Figura.defaultLineColor, 2, SWT.LINE_DOT));
+		seleccion.setBounds(figura.getBounds().getExpanded(2, 2));
+		seleccion.setBorder(new LineBorder(Figura.defaultLineColor, 1,
+				SWT.LINE_DASH));
 		figura.getParent().add(seleccion);
 		figura.addFiguraLoqueada(seleccion);
 
@@ -65,15 +68,17 @@ public class SeleccionControlador implements MouseListener {
 	}
 
 	/**
-	 * Deselecciona la figura indicada.
+	 * Deselecciona la figura indicada. Elimina el borde de la selección.
 	 * 
 	 * @param figura
 	 */
 	private static void deselect(Figura<?> figura) {
 		if (figura != null && figura.getParent() != null) {
 			IFigure parent = figura.getParent();
-			if(parent.getChildren().contains(selectedBorders.get(figura)))
+
+			if (parent == selectedBorders.get(figura).getParent())
 				parent.remove(selectedBorders.get(figura));
+
 			figura.removeFiguraLoqueada(selectedBorders.get(figura));
 		}
 
