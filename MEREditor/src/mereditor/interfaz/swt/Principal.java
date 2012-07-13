@@ -452,12 +452,13 @@ public class Principal extends Observable implements FigureListener {
 	public void imprimir() {
 		PrintDialog printDialog = new PrintDialog(this.shell);
 		PrinterData printerData = printDialog.open();
-
+		
 		if (printerData != null) {
 			Printer printer = new Printer(printerData);
-
-			PrintOperation printerOperation = new PrintFigureOperation(printer,
+		
+		    PrintFigureOperation printerOperation = new PrintFigureOperation(printer,
 					this.panelDiagrama);
+			printerOperation.setPrintMode(PrintFigureOperation.FIT_PAGE); 
 			printerOperation.setPrintMargin(new Insets(0, 0, 0, 0));
 			printerOperation.run(this.proyecto.getDiagramaActual().getNombre());
 
