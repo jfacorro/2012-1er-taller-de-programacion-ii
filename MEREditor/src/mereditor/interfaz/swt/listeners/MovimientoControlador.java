@@ -26,10 +26,9 @@ public class MovimientoControlador implements FigureListener {
 	public void figureMoved(IFigure movedFigure) {
 		Dimension delta = this.figura.getLocation().getDifference(this.current);
 
-		for (Figure figure : this.figura.getFigurasLoqueadas()) {
+		for (Figure figure : this.figura.getFigurasLoqueadas())
 			figure.setBounds(figure.getBounds().getTranslated(delta.width,
 					delta.height));
-		}
 
 		this.current = this.figura.getLocation();
 	}

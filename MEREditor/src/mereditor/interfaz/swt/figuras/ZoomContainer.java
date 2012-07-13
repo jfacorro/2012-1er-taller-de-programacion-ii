@@ -30,7 +30,7 @@ public class ZoomContainer extends Figure {
 
 	private MouseListener selection = new MouseListener.Stub() {
 		public void mousePressed(MouseEvent me) {
-			SeleccionControlador.deselectAll();
+			SeleccionControlador.deselectAll(null);
 		};
 	};
 
