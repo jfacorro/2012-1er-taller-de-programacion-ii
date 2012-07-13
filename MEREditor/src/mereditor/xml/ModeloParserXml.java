@@ -76,12 +76,12 @@ class ModeloParserXml extends ParserXml {
 		// Obtener la validacion principal
 		Validacion validacion = (Validacion) this.obtenerValidacion(this.root);
 
-		this.proyecto.setRaiz(diagrama);
+		this.proyecto.setDiagramaRaiz(diagrama);
 		this.proyecto.setValidacion(validacion);
 
 		/*
 		 * Recorrer todos los elemento de primer nivel (menos validacion) para
-		 * tener en cuenta los que existen pero no fueron agregados a ningún
+		 * tener en cuenta los que existen pero no fueron agregados a ningÃºn
 		 * diagrama.
 		 */
 		List<Element> elementos = XmlHelper.query(this.root, Constants.ELEMENTOS_PRIMER_NIVEL_QUERY);
@@ -398,7 +398,7 @@ class ModeloParserXml extends ParserXml {
 	}
 
 	/**
-	 * Busca un elemento con el id especificado y trata de parsearlo según el
+	 * Busca un elemento con el id especificado y trata de parsearlo segÃºn el
 	 * tipo de elemento.
 	 * 
 	 * @param id
@@ -416,7 +416,7 @@ class ModeloParserXml extends ParserXml {
 	}
 
 	/**
-	 * Parsea un elemento según la implementacion de la instancia devuelta por
+	 * Parsea un elemento segÃºn la implementacion de la instancia devuelta por
 	 * mapElement.
 	 * 
 	 * @param element
@@ -430,7 +430,7 @@ class ModeloParserXml extends ParserXml {
 	}
 
 	/**
-	 * Devuelve una instancia de la clase correspondiente de parseo según el
+	 * Devuelve una instancia de la clase correspondiente de parseo segÃºn el
 	 * nombre del elemento a parsear.
 	 * 
 	 * @param element
