@@ -1,5 +1,7 @@
 package mereditor.interfaz.swt.listeners;
 
+import java.util.List;
+
 import org.eclipse.draw2d.Figure;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.MouseEvent;
@@ -22,7 +24,25 @@ public class DragDropControlador extends MouseMotionListener.Stub implements
 
 	@Override
 	public void mousePressed(MouseEvent e) {
+		this.moverPrimeraPosicion((Figure) e.getSource());
 		startPoint = e.getLocation();
+	}
+
+	/**
+	 * Coloca esta figura primera en la colección de hijos para que reciba todos
+	 * los eventos primero.
+	 * 
+	 * @param figure
+	 */
+	@SuppressWarnings("unchecked")
+	private void moverPrimeraPosicion(Figure figure) {
+		IFigure parent = figure.getParent();
+		List<IFigure> children = parent.getChildren();
+		IFigure first = children.get(0);
+
+		int pos = children.indexOf(figure);
+		parent.getChildren().set(0, figure);
+		parent.getChildren().set(pos, first);
 	}
 
 	@Override
