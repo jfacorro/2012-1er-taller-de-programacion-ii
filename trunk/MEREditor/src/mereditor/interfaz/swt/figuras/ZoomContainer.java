@@ -10,8 +10,13 @@
  *******************************************************************************/
 package mereditor.interfaz.swt.figuras;
 
+import mereditor.interfaz.swt.listeners.DragDropControlador;
+import mereditor.interfaz.swt.listeners.SeleccionControlador;
+
 import org.eclipse.draw2d.Figure;
 import org.eclipse.draw2d.Graphics;
+import org.eclipse.draw2d.MouseEvent;
+import org.eclipse.draw2d.MouseListener;
 import org.eclipse.draw2d.ScaledGraphics;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.draw2d.geometry.Translatable;
@@ -21,7 +26,19 @@ public class ZoomContainer extends Figure {
 	public static final float MAX_ZOOM = 2.0f;
 	public static final float DELTA_ZOOM = 0.25f;
 
-	private float zoom = 1;	
+	private float zoom = 1;
+
+	private MouseListener selection = new MouseListener.Stub() {
+		public void mousePressed(MouseEvent me) {
+			SeleccionControlador.deselectAll();
+		};
+	};
+
+	public ZoomContainer() {
+		super();
+		this.addMouseListener(this.selection);
+		this.addMouseMotionListener(new DragDropControlador(this));
+	}
 
 	/**
 	 * @see org.eclipse.draw2d.Figure#getClientArea()
@@ -61,9 +78,10 @@ public class ZoomContainer extends Figure {
 		revalidate();
 		repaint();
 	}
-	
+
 	/**
 	 * Devuelve el zoom actual
+	 * 
 	 * @return
 	 */
 	public float getZoom() {
@@ -94,12 +112,12 @@ public class ZoomContainer extends Figure {
 	}
 
 	public void zoomIn() {
-		if(this.getZoom() - DELTA_ZOOM >= MIN_ZOOM)
-			this.setZoom(this.getZoom() - DELTA_ZOOM);		
+		if (this.getZoom() - DELTA_ZOOM >= MIN_ZOOM)
+			this.setZoom(this.getZoom() - DELTA_ZOOM);
 	}
 
 	public void zoomOut() {
-		if(this.getZoom() + DELTA_ZOOM <= MAX_ZOOM)
+		if (this.getZoom() + DELTA_ZOOM <= MAX_ZOOM)
 			this.setZoom(this.getZoom() + DELTA_ZOOM);
 	}
 }
