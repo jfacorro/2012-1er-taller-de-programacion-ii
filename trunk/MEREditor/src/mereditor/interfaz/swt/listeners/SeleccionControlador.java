@@ -68,7 +68,7 @@ public class SeleccionControlador extends MouseMotionListener.Stub implements Mo
 	}
 
 	/**
-	 * Deselecciona la figura indicada. Elimina el borde de la selección.
+	 * Deselecciona la figura indicada y elimina el borde de la selección.
 	 * 
 	 * @param figura
 	 */
