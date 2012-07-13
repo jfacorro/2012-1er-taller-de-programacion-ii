@@ -47,7 +47,7 @@ public class EntidadEditor extends Editor<Entidad> {
 	
 	@Override
 	protected Point getInitialSize() {
-		return new Point(400, 500);
+		return new Point(400, 600);
 	}
 
 	@Override
