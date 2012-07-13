@@ -17,6 +17,7 @@ import mereditor.interfaz.swt.DialogBuilder.Resultado;
 import mereditor.interfaz.swt.dialogs.AgregarEntidadDialog;
 import mereditor.interfaz.swt.dialogs.AgregarJerarquiaDialog;
 import mereditor.interfaz.swt.dialogs.AgregarRelacionDialog;
+import mereditor.interfaz.swt.figuras.PanelDisegno;
 import mereditor.xml.ParserXml;
 
 import org.eclipse.draw2d.FigureCanvas;

@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
+import mereditor.interfaz.swt.figuras.PanelDisegno;
 import mereditor.interfaz.swt.listeners.AccionesProvider;
 
 import org.eclipse.swt.SWT;
