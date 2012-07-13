@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import mereditor.control.AtributoControl;
 import mereditor.modelo.Atributo;
 import mereditor.modelo.Atributo.TipoAtributo;
 
@@ -40,7 +41,7 @@ public class AtributoEditor extends Editor<Atributo> {
 	 */
 	protected AtributoEditor(Shell shell) {
 		super(shell);
-		this.componente = new Atributo();
+		this.componente = new AtributoControl();
 	}
 
 	public AtributoEditor(Atributo atributo) {
