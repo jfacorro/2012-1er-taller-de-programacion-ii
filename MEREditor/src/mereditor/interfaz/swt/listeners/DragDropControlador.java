@@ -22,8 +22,6 @@ public class DragDropControlador extends MouseMotionListener.Stub implements
 
 	@Override
 	public void mousePressed(MouseEvent e) {
-		Figure fig = (Figure) e.getSource();
-		fig.translateToParent(e.getLocation());
 		startPoint = e.getLocation();
 	}
 
