@@ -27,8 +27,11 @@ public class MovimientoControlador implements FigureListener {
 		Dimension delta = this.figura.getLocation().getDifference(this.current);
 
 		for (Figure figure : this.figura.getFigurasLoqueadas())
-			figure.setBounds(figure.getBounds().getTranslated(delta.width,
-					delta.height));
+			// Si la figura está seleccionada, la traslación de la misma
+			// se realiza por el controlador DragDrop.
+			if(!SeleccionControlador.isSelected(figure))
+				figure.setBounds(figure.getBounds().getTranslated(delta.width,
+						delta.height));
 
 		this.current = this.figura.getLocation();
 	}
