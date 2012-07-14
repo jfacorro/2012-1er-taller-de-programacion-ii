@@ -2,15 +2,20 @@ Juan:
 -----
 	Pendiente:
 	----------
-		- [Selección de componentes en la vista]
+		- Agregar barra de estado para que se muestre el estado de validación del diagrama y el proyecto entero.
+		- Agregar los labels de los atributos como elementos seleccionables.
+		- Mover la clase Proyecto al package Modelo.
+	Deseables:
+	----------
+		- Modificar los anchors para los atributos así usan EllipseAnchor y queda mejor.
 		- Implementar la figura de Jerarquía mejor.
 		- Mejorar las conexiones para que salgan del centro.
-		- Modificar los anchors para los atributos así usan EllipseAnchor y queda mejor.
 		- Crear anchors que puedan:
 			- En Entidades: Moverse sobre el borde de las figuras.
 			- En Relaciones: Utilizar sólo las puntas del rombo
 	Hecho:
 	------
+		- [Selección de componentes en la vista]
 		- Agregar el tipo de identificadores faltantes y la representacion de ellos.
 		- Mostrar las cardinalidades de los atributos.
 		- Exportar

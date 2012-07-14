@@ -24,7 +24,6 @@ import org.eclipse.draw2d.FigureCanvas;
 import org.eclipse.draw2d.FigureListener;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.PrintFigureOperation;
-import org.eclipse.draw2d.PrintOperation;
 import org.eclipse.draw2d.geometry.Insets;
 import org.eclipse.jface.window.Window;
 import org.eclipse.swt.SWT;
@@ -470,7 +469,7 @@ public class Principal extends Observable implements FigureListener {
 	 * Validar diagrama actual
 	 */
 	public void validar() {
-		this.advertencia("La funcion Validar no esta implementada.");
+		this.advertencia(this.proyecto.getDiagramaActual().validar());
 	}
 
 	@Override

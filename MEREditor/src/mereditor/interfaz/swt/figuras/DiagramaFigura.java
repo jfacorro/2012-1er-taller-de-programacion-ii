@@ -3,6 +3,7 @@ package mereditor.interfaz.swt.figuras;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import mereditor.control.DiagramaControl;
 import mereditor.control.Proyecto;
 import mereditor.interfaz.swt.listeners.DragDropControlador;
 import mereditor.interfaz.swt.listeners.SeleccionControlador;
@@ -29,9 +30,9 @@ public class DiagramaFigura extends Figure {
 
 	private FigureCanvas canvas;
 	private Proyecto proyecto;
-	
+
 	private float zoom = 1;
-	
+
 	private MouseListener selection = new MouseListener.Stub() {
 		public void mousePressed(MouseEvent me) {
 			SeleccionControlador.deselectAll(null);
@@ -57,7 +58,7 @@ public class DiagramaFigura extends Figure {
 		this.canvas = canvas;
 		this.canvas.setContents(this);
 		this.proyecto = proyecto;
-		
+
 		this.addMouseListener(this.selection);
 		this.addMouseMotionListener(new DragDropControlador(this));
 	}
@@ -67,9 +68,10 @@ public class DiagramaFigura extends Figure {
 	 */
 	public void actualizar() {
 		this.removeAll();
-		this.proyecto.getDiagramaActual().dibujar(this);
+		DiagramaControl diagrama = (DiagramaControl) this.proyecto.getDiagramaActual();
+		diagrama.dibujar(this);
 	}
-	
+
 	/**
 	 * Aplica una disminución al zoom.
 	 */
@@ -94,9 +96,10 @@ public class DiagramaFigura extends Figure {
 			this.setZoom(zoomFloat);
 		}
 	}
-	
+
 	/**
 	 * Establecer el nuevo zoom y volver a dibujar la figura.
+	 * 
 	 * @param zoom
 	 */
 	public void setZoom(float zoom) {
@@ -104,7 +107,7 @@ public class DiagramaFigura extends Figure {
 		revalidate();
 		repaint();
 	}
-	
+
 	/**
 	 * Devuelve un thumbnail del diagrama actual.
 	 * 
@@ -114,8 +117,8 @@ public class DiagramaFigura extends Figure {
 		Rectangle rootFigureBounds = this.getBounds();
 		GC figureCanvasGC = new GC(this.canvas);
 
-		Image image = new Image(this.canvas.getDisplay(),
-				rootFigureBounds.width, rootFigureBounds.height);
+		Image image = new Image(this.canvas.getDisplay(), rootFigureBounds.width,
+				rootFigureBounds.height);
 		GC imageGC = new GC(image);
 
 		imageGC.setBackground(figureCanvasGC.getBackground());
@@ -135,7 +138,7 @@ public class DiagramaFigura extends Figure {
 		String zoom = Integer.toString((int) (this.zoom * 100));
 		return zoom + "%";
 	}
-	
+
 	/**
 	 * @see org.eclipse.draw2d.Figure#translateToParent(Translatable)
 	 */
@@ -158,7 +161,7 @@ public class DiagramaFigura extends Figure {
 	protected boolean useLocalCoordinates() {
 		return true;
 	}
-	
+
 	/**
 	 * @see org.eclipse.draw2d.Figure#getClientArea()
 	 */
@@ -182,8 +185,7 @@ public class DiagramaFigura extends Figure {
 
 		if (!optimizeClip)
 			g.clipRect(getBounds().getShrinked(getInsets()));
-		g.translate(getBounds().x + getInsets().left, getBounds().y
-				+ getInsets().top);
+		g.translate(getBounds().x + getInsets().left, getBounds().y + getInsets().top);
 		g.scale(zoom);
 		g.pushState();
 		paintChildren(g);

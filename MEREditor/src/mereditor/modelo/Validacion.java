@@ -1,16 +1,15 @@
 package mereditor.modelo;
 
-
 public class Validacion {
 	public enum EstadoValidacion {
-		SIN_VALIDAR,
-		VALIDADO,
-		VALIDADO_CON_OBSERVACIONES
+		SIN_VALIDAR, VALIDADO, VALIDADO_CON_OBSERVACIONES
 	}
+
+	public static final String SIN_OBSERVACIONES = "No hay observaciones de validación.";
 
 	protected String observaciones;
 	protected EstadoValidacion estado;
-	
+
 	public Validacion() {
 		this.estado = EstadoValidacion.SIN_VALIDAR;
 	}
@@ -24,7 +23,15 @@ public class Validacion {
 		return this.estado;
 	}
 
+	public void setEstado(EstadoValidacion estado) {
+		this.estado = estado;
+	}
+
 	public String getObservaciones() {
 		return observaciones;
+	}
+
+	public void setObservaciones(String observaciones) {
+		this.observaciones = observaciones;
 	}
 }

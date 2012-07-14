@@ -1,11 +1,15 @@
 package mereditor.control;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
+
+import org.apache.commons.lang.StringUtils;
 
 import mereditor.modelo.Atributo;
 import mereditor.modelo.Diagrama;
@@ -14,18 +18,17 @@ import mereditor.modelo.Jerarquia;
 import mereditor.modelo.Relacion;
 import mereditor.modelo.Validacion;
 import mereditor.modelo.base.Componente;
+import mereditor.modelo.base.ComponenteNombre;
 
-import org.eclipse.draw2d.Figure;
-
-public class Proyecto implements ProyectoProxy {
+public class Proyecto extends ComponenteNombre implements ProyectoProxy {
 	/**
 	 * Diagrama raiz del proyecto.
 	 */
-	protected DiagramaControl raiz;
+	protected Diagrama raiz;
 	/**
 	 * Diagrama que se encuetra abierto.
 	 */
-	protected DiagramaControl diagramaActual;
+	protected Diagrama diagramaActual;
 	/**
 	 * Validación del proyecto entero.
 	 */
@@ -121,7 +124,7 @@ public class Proyecto implements ProyectoProxy {
 	 * 
 	 * @return
 	 */
-	public DiagramaControl getDiagramaActual() {
+	public Diagrama getDiagramaActual() {
 		return this.diagramaActual;
 	}
 
@@ -170,18 +173,6 @@ public class Proyecto implements ProyectoProxy {
 	}
 
 	/**
-	 * Dibujar el diagrama del id especificado.
-	 * 
-	 * @param contenedor
-	 * @param idDiagrama
-	 */
-	public void dibujar(Figure contenedor, String idDiagrama) {
-		DiagramaControl diagrama = (DiagramaControl) this.componentes
-				.get(idDiagrama);
-		diagrama.dibujar(contenedor, idDiagrama);
-	}
-
-	/**
 	 * Establecer el path donde se debe guardar el proyecto.
 	 * 
 	 * @param path
@@ -225,8 +216,7 @@ public class Proyecto implements ProyectoProxy {
 	 * @return
 	 */
 	public Set<Entidad> getEntidades() {
-		return Componente.filtrarComponentes(Entidad.class,
-				this.componentes.values());
+		return Componente.filtrarComponentes(Entidad.class, this.componentes.values());
 	}
 
 	/**
@@ -235,8 +225,7 @@ public class Proyecto implements ProyectoProxy {
 	 * @return
 	 */
 	public Set<Relacion> getRelaciones() {
-		return Componente.filtrarComponentes(Relacion.class,
-				this.componentes.values());
+		return Componente.filtrarComponentes(Relacion.class, this.componentes.values());
 	}
 
 	/**
@@ -245,8 +234,7 @@ public class Proyecto implements ProyectoProxy {
 	 * @return
 	 */
 	public Set<Jerarquia> getJerarquias() {
-		return Componente.filtrarComponentes(Jerarquia.class,
-				this.componentes.values());
+		return Componente.filtrarComponentes(Jerarquia.class, this.componentes.values());
 	}
 
 	public String getNombre() {
@@ -287,5 +275,21 @@ public class Proyecto implements ProyectoProxy {
 	@Override
 	public Set<Jerarquia> getJerarquiasDiagrama() {
 		return this.diagramaActual.getJerarquias(false);
-	}	
+	}
+	
+	@Override
+	public void addValidaciones() {
+		super.addValidaciones();
+	}
+
+	public String validar() {
+		List<String> observaciones = new ArrayList<>();
+
+		observaciones.add(super.validar());
+		
+		for(Componente componente: this.componentes.values())
+			observaciones.add(componente.validar());
+
+		return StringUtils.join(observaciones, "\n").trim();
+	}
 }

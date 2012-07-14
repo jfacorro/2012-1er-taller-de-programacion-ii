@@ -1,11 +1,16 @@
 package mereditor.modelo.base;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
+
+import org.apache.commons.lang.StringUtils;
 
 public abstract class Componente implements Comparable<Componente> {
 	/**
@@ -18,16 +23,22 @@ public abstract class Componente implements Comparable<Componente> {
 	 */
 	protected Map<String, Componente> padres = new HashMap<>();
 
+	/**
+	 * Lista de validaciones.
+	 */
+	protected List<mereditor.modelo.validacion.Validacion> validaciones = new ArrayList<>();
+
+	public Componente(String id) {
+		this.id = id;
+		this.addValidaciones();
+	}
+
 	public Componente() {
 		this(UUID.randomUUID().toString());
 	}
 
-	public Componente(String id) {
-		this.id = id;
-	}
-
 	public Componente(String id, Componente padre) {
-		this.id = id;
+		this(id);
 		this.setPadre(padre);
 	}
 
@@ -46,8 +57,18 @@ public abstract class Componente implements Comparable<Componente> {
 		return padres.get(id);
 	}
 
+	public Collection<Componente> getAllPadres() {
+		return Collections.unmodifiableCollection(this.padres.values());
+	}
+
 	public void setPadre(Componente padre) {
 		this.padres.put(padre.getId(), padre);
+	}
+
+	/**
+	 * Carga las validaciones para este componente.
+	 */
+	public void addValidaciones() {
 	}
 
 	/**
@@ -57,7 +78,17 @@ public abstract class Componente implements Comparable<Componente> {
 	 * @return Devuelve <code>null</code> si es válido o las observaciones
 	 *         correspondientes si no lo es.
 	 */
-	public abstract String validar();
+	public String validar() {
+		List<String> observaciones = new ArrayList<>();
+
+		for (mereditor.modelo.validacion.Validacion validacion : this.validaciones)
+			observaciones.add(validacion.validar(this).trim());
+
+		// Eliminar todas las observaciones vacías.
+		while (observaciones.remove(""));
+
+		return StringUtils.join(observaciones, "\n").trim();
+	}
 
 	/**
 	 * Implementación de la evaluación de igualdad por comparación de ids de
@@ -66,8 +97,7 @@ public abstract class Componente implements Comparable<Componente> {
 	@Override
 	public boolean equals(Object obj) {
 		if (Componente.class.isInstance(obj))
-			return obj == null ? false : this.getId().equals(
-					((Componente) obj).getId());
+			return obj == null ? false : this.getId().equals(((Componente) obj).getId());
 		else
 			return false;
 	}
@@ -99,8 +129,7 @@ public abstract class Componente implements Comparable<Componente> {
 	 * @param clazz
 	 * @return
 	 */
-	public static <T> Set<T> filtrarComponentes(Class<T> clazz,
-			Collection<Componente> coleccion) {
+	public static <T> Set<T> filtrarComponentes(Class<T> clazz, Collection<Componente> coleccion) {
 		Set<T> lista = new HashSet<>();
 
 		for (Componente componente : coleccion)
@@ -109,7 +138,7 @@ public abstract class Componente implements Comparable<Componente> {
 
 		return lista;
 	}
-	
+
 	@Override
 	public int compareTo(Componente componente) {
 		return this.toString().compareTo(componente.toString());
