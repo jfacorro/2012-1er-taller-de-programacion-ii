@@ -5,8 +5,9 @@
 		- Acoplamiento: según wikipedia de nuevo "Es la idea de tener las clases lo menos ligadas entre sí que se pueda. De tal forma que en caso de producirse una modificación en alguna de ellas, se tenga la mínima repercusión posible en el resto de clases, potenciando la reutilización, y disminuyendo la dependencia entre las clases.". Esto lo podríamos hacer verificando Relaciones y Jerarquías para ver si apuntan a alguna Entidad de otro Diagrama.
 		- Claridad:
 			- Intersección de Componentes entre Diagramas (podría ser un warning si está por debajo de un valor o un error si está por encima).
-			- Cantidad de Atributos por Entidad  (podríamos definirlo como una desviación del promedio si está por encima de un valor determinado).
-			- Cantidad de Entidades por Diagrama (Idem punto anterior).
+			- Cantidad de Atributos por ComponenteAtributos (podríamos definirlo como una desviación del promedio si está por encima de un valor determinado).
+			- Cantidad de Relaciones por Entidad (Idem punto anterior).
+			- Cantidad de Componentes por Diagrama (Idem punto anterior).
 	- Imprimir: 
 		- Asegurarse de que entre en la página.
 - Manual de usuario: hacer una vez completada la funcionalidad.

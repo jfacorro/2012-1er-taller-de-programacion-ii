@@ -5,9 +5,14 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
+import mereditor.modelo.Validacion.EstadoValidacion;
 import mereditor.modelo.base.Componente;
 import mereditor.modelo.base.ComponenteAtributos;
 import mereditor.modelo.base.ComponenteNombre;
+import mereditor.modelo.validacion.ValidarAcoplamiento;
+import mereditor.modelo.validacion.ValidarClaridadAtributos;
+import mereditor.modelo.validacion.ValidarClaridadComponentes;
+import mereditor.modelo.validacion.ValidarSuperposicion;
 
 public class Diagrama extends ComponenteNombre {
 
@@ -81,6 +86,12 @@ public class Diagrama extends ComponenteNombre {
 		return atributos;
 	}
 
+	/**
+	 * Obtiene una colección con todas las Relaciones de este diagrama.
+	 * 
+	 * @param incluirAncestros
+	 * @return
+	 */
 	public Set<Relacion> getRelaciones(boolean incluirAncestros) {
 		Set<Relacion> relaciones = Componente.filtrarComponentes(Relacion.class, this.componentes);
 
@@ -92,8 +103,15 @@ public class Diagrama extends ComponenteNombre {
 		return relaciones;
 	}
 
+	/**
+	 * Obtiene una colección con todas las Jerarquias de este diagrama.
+	 * 
+	 * @param incluirAncestros
+	 * @return
+	 */
 	public Set<Jerarquia> getJerarquias(boolean incluirAncestros) {
-		Set<Jerarquia> jerarquias = Componente.filtrarComponentes(Jerarquia.class, this.componentes);
+		Set<Jerarquia> jerarquias = Componente
+				.filtrarComponentes(Jerarquia.class, this.componentes);
 
 		if (incluirAncestros && this.getPadre() != null) {
 			Diagrama diagrama = (Diagrama) this.getPadre();
@@ -103,13 +121,35 @@ public class Diagrama extends ComponenteNombre {
 		return jerarquias;
 	}
 
+	/**
+	 * Devuelve la información de validacion del diagrama.
+	 * @return
+	 */
 	public Validacion getValidacion() {
 		return this.validacion;
+	}
+	
+	@Override
+	public void addValidaciones() {
+		this.validaciones.add(new ValidarAcoplamiento());
+		this.validaciones.add(new ValidarClaridadComponentes());
+		this.validaciones.add(new ValidarClaridadAtributos());
+		this.validaciones.add(new ValidarSuperposicion());
 	}
 
 	@Override
 	public String validar() {
-		return null;
+		String observaciones = super.validar();
+
+		if (!observaciones.trim().isEmpty()) {
+			this.validacion.setObservaciones(observaciones);
+			this.validacion.setEstado(EstadoValidacion.VALIDADO_CON_OBSERVACIONES);
+		} else {
+			this.validacion.setEstado(EstadoValidacion.VALIDADO);
+			observaciones = Validacion.SIN_OBSERVACIONES;
+		}
+
+		return observaciones;
 	}
 
 	/**
