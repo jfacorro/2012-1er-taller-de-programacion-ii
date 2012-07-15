@@ -10,14 +10,14 @@ import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
 import mereditor.control.DiagramaControl;
-import mereditor.control.Proyecto;
-import mereditor.control.ProyectoProxy;
 import mereditor.interfaz.swt.DialogBuilder.PromptResult;
 import mereditor.interfaz.swt.DialogBuilder.Resultado;
 import mereditor.interfaz.swt.dialogs.AgregarEntidadDialog;
 import mereditor.interfaz.swt.dialogs.AgregarJerarquiaDialog;
 import mereditor.interfaz.swt.dialogs.AgregarRelacionDialog;
 import mereditor.interfaz.swt.figuras.DiagramaFigura;
+import mereditor.modelo.Proyecto;
+import mereditor.modelo.ProyectoProxy;
 import mereditor.modelo.Validacion.EstadoValidacion;
 import mereditor.xml.ParserXml;
 

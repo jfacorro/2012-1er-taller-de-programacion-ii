@@ -6,7 +6,7 @@ import java.util.Map;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
-import mereditor.control.Proyecto;
+import mereditor.modelo.Proyecto;
 import mereditor.modelo.base.Componente;
 import mereditor.representacion.PList;
 
@@ -135,7 +135,7 @@ public class ParserXml {
 	}
 
 	/**
-	 * Método que se hace disponible para fines de testing. Encuentra y devuelve
+	 * MÃ©todo que se hace disponible para fines de testing. Encuentra y devuelve
 	 * las representaciones de un componente para cada diagrama en el que este
 	 * presente en el archivo.
 	 * 
