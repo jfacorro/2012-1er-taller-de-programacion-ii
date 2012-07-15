@@ -13,14 +13,11 @@ import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.LineBorder;
 import org.eclipse.draw2d.MouseEvent;
 import org.eclipse.draw2d.MouseListener;
-import org.eclipse.draw2d.MouseMotionListener;
 import org.eclipse.swt.SWT;
 
-public class SeleccionControlador extends MouseMotionListener.Stub implements
-		MouseListener {
+public class SeleccionControlador extends MouseListener.Stub {
 	private final static Set<IFigure> selected = new HashSet<>();
 	private final static Map<IFigure, Figure> selectedBorders = new HashMap<>();
-	private static boolean dragged = false;
 
 	private Figura<?> figura = null;
 
@@ -35,29 +32,31 @@ public class SeleccionControlador extends MouseMotionListener.Stub implements
 
 	@Override
 	public void mousePressed(MouseEvent me) {
+		if (this.shouldDeselectAll(me.getState()))
+			deselectAll(this.figura);
+
 		if (!selected.contains(this.figura))
 			select(this.figura);
-		else if (selected.contains(this.figura)
-				&& this.selectionModifiers(me.getState()))
+		else if (this.selectionModifiers(me.getState()))
 			deselect(this.figura);
+	}
+
+	private boolean shouldDeselectAll(int state) {
+		boolean deselect = false;
+		// Si CTRL NO está presionado y hay una sola figura selccionada.
+		deselect = deselect || (!this.selectionModifiers(state) && selected.size() == 1);
+		// Si CTRL NO está presionado, hay más de una figura seleccionada, pero esta figura no está seleccionada. 
+		deselect = deselect || (!this.selectionModifiers(state) && selected.size() > 1 && !isSelected(this.figura));		
+		return deselect;
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent me) {
-		if (!this.selectionModifiers(me.getState()) && !dragged) {
-			deselectAll(this.figura);
-		}
-
-		dragged = false;
 	}
 
 	@Override
 	public void mouseDoubleClicked(MouseEvent me) {
 
-	}
-
-	public static void startedDragging() {
-		dragged = true;
 	}
 
 	/**
