@@ -560,7 +560,7 @@ public class Principal extends Observable implements FigureListener {
 			this.actualizarTitulo();
 		}
 		
-		if (modificado) {
+		if (modificado && this.proyecto != null) {
 			this.proyecto.getValidacion().setEstado(EstadoValidacion.SIN_VALIDAR);
 			this.proyecto.getDiagramaActual().getValidacion()
 					.setEstado(EstadoValidacion.SIN_VALIDAR);

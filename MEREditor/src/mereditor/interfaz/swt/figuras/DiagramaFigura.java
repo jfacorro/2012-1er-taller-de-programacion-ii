@@ -20,6 +20,11 @@ import org.eclipse.draw2d.geometry.Translatable;
 import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.graphics.Image;
 
+/**
+ * Figura sobre la que se dibuja el diagrama. Implementa lógica para realizar
+ * zoom sobre las figuras que contiene.
+ * 
+ */
 public class DiagramaFigura extends Figure {
 	public final static Map<String, Float> zoomOptions = new LinkedHashMap<>();
 	public final static String zoom100 = "100%";
@@ -33,6 +38,10 @@ public class DiagramaFigura extends Figure {
 
 	private float zoom = 1;
 
+	/**
+	 * Listener que deselecciona todas las figuras que están seleccionadas al
+	 * hacer un click sobre el fondo.
+	 */
 	private MouseListener selection = new MouseListener.Stub() {
 		public void mousePressed(MouseEvent me) {
 			SeleccionControlador.deselectAll(null);
@@ -43,6 +52,9 @@ public class DiagramaFigura extends Figure {
 		initZoomOptions();
 	}
 
+	/**
+	 * Inicializa el mapa que ofrece los diferentes valores de zoom disponibles.
+	 */
 	private static void initZoomOptions() {
 		float zoom = 0;
 		while (zoom < DiagramaFigura.MAX_ZOOM) {
@@ -60,6 +72,9 @@ public class DiagramaFigura extends Figure {
 		this.proyecto = proyecto;
 
 		this.addMouseListener(this.selection);
+		// Agregar el controlador de arrastre para que si el cursor se escapa de
+		// la figura que se está arrastrando, no se deje de mover dado que toma
+		// el control el listener de esta figura.
 		this.addMouseMotionListener(new DragDropControlador(this));
 	}
 
