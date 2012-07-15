@@ -298,35 +298,23 @@ public class Proyecto extends ComponenteNombre implements ProyectoProxy {
 	@Override
 	public String validar() {
 		List<String> observaciones = new ArrayList<>();
-		List<String> output = new ArrayList<>();
 
 		observaciones.add(super.validar());
 		
-		for(Diagrama diagrama: this.getDiagramas()) {
-			String resultado = diagrama.validar();
-			
-			output.add("--------------------------------------");
-			output.add(diagrama.getNombre());
-			output.add("--------------------------------------");
-			output.add(resultado);
-
-			observaciones.add(resultado);
-		}
+		for(Componente componente: this.getDiagramas())
+			observaciones.add(componente.validar());
 		
 		while(observaciones.remove(""));
 		while(observaciones.remove(null));
 		
-		while(output.remove(""));
-		while(output.remove(null));		
-		
 		if (!observaciones.isEmpty()) {
-			this.validacion.setObservaciones(StringUtils.join(output, "\n").trim());
+			this.validacion.setObservaciones(StringUtils.join(observaciones, "\n").trim());
 			this.validacion.setEstado(EstadoValidacion.VALIDADO_CON_OBSERVACIONES);
 		} else {
 			this.validacion.setEstado(EstadoValidacion.VALIDADO);
 			observaciones.add(Validacion.SIN_OBSERVACIONES);
 		}
 
-		return StringUtils.join(output, "\n").trim();
+		return StringUtils.join(observaciones, "\n").trim();
 	}
 }

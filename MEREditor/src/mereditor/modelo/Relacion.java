@@ -7,6 +7,7 @@ import java.util.Set;
 import mereditor.modelo.base.Componente;
 import mereditor.modelo.base.ComponenteAtributos;
 import mereditor.modelo.base.ComponenteNombre;
+import mereditor.modelo.validacion.GeneradorDeObservaciones;
 
 public class Relacion extends ComponenteNombre implements ComponenteAtributos {
 	public enum TipoRelacion {
@@ -79,7 +80,12 @@ public class Relacion extends ComponenteNombre implements ComponenteAtributos {
 	
 	@Override
 	public String validar() {
-		return null;
+		GeneradorDeObservaciones gen = new GeneradorDeObservaciones();
+		if (this.getNombre() == null)
+			gen.agregarCaracteristicaNoDefinida("Nombre");
+		for (Atributo a: this.atributos)
+			gen.observacionSobreItemDeColeccion(a.getNombre(), a.validar());
+		return gen.getObservaciones();
 	}
 
 	@Override

@@ -73,12 +73,12 @@ public class Entidad extends ComponenteNombre implements ComponenteAtributos {
 		for (Identificador identificador : this.identificadores)
 			identificador.removeAtributo(atributo);
 	}
-	
-	public void addRelacion(Relacion relacion) { 
+
+	public void addRelacion(Relacion relacion) {
 		this.relaciones.add(relacion);
 	}
-	
-	public void removeRelacion(Relacion relacion) { 
+
+	public void removeRelacion(Relacion relacion) {
 		this.relaciones.remove(relacion);
 	}
 
@@ -89,23 +89,24 @@ public class Entidad extends ComponenteNombre implements ComponenteAtributos {
 	public Set<Identificador> getIdentificadores() {
 		return Collections.unmodifiableSet(this.identificadores);
 	}
-	
+
 	public Set<Relacion> getRelaciones() {
 		return Collections.unmodifiableSet(this.relaciones);
 	}
-	
+
 	/**
 	 * Devuelve la relacion que conecta a las dos entidades.
+	 * 
 	 * @param entidad
 	 * @return
 	 */
 	public Relacion relacion(Entidad entidad) {
 		Set<Relacion> interseccion = new HashSet<>(this.relaciones);
 		interseccion.retainAll(entidad.relaciones);
-		
-		if(interseccion.size() > 0)
+
+		if (interseccion.size() > 0)
 			return interseccion.iterator().next();
-		
+
 		return null;
 	}
 
@@ -116,12 +117,12 @@ public class Entidad extends ComponenteNombre implements ComponenteAtributos {
 	public void setTipo(TipoEntidad tipo) {
 		this.tipo = tipo;
 	}
-	
+
 	@Override
 	public String validar() {
-		GeneradorDeObservaciones gen = new GeneradorDeObservaciones(
-				this.getNombre());
-		
+		GeneradorDeObservaciones gen = new GeneradorDeObservaciones();
+		if (this.getNombre() == null)
+			gen.agregarCaracteristicaNoDefinida("Nombre");
 		for (Atributo a : this.atributos) {
 			gen.observacionSobreItemDeColeccion(a.getNombre(), a.validar());
 		}
@@ -172,7 +173,8 @@ public class Entidad extends ComponenteNombre implements ComponenteAtributos {
 
 		public void addEntidad(Entidad entidad) {
 			if (this.entidad.equals(entidad))
-				throw new RuntimeException("Una Entidad no puede ser su propio identificador.");
+				throw new RuntimeException(
+						"Una Entidad no puede ser su propio identificador.");
 
 			this.entidades.add(entidad);
 		}
@@ -205,15 +207,15 @@ public class Entidad extends ComponenteNombre implements ComponenteAtributos {
 		public Entidad getEntidad() {
 			return this.entidad;
 		}
-		
+
 		public boolean isInterno() {
 			return this.entidades.isEmpty();
 		}
-		
+
 		public boolean isExterno() {
 			return this.atributos.isEmpty();
 		}
-		
+
 		public boolean isMixto() {
 			return !this.atributos.isEmpty() && !this.entidades.isEmpty();
 		}
@@ -225,7 +227,8 @@ public class Entidad extends ComponenteNombre implements ComponenteAtributos {
 		 * @return
 		 */
 		public boolean contiene(Componente componente) {
-			return this.atributos.contains(componente) || this.entidades.contains(componente);
+			return this.atributos.contains(componente)
+					|| this.entidades.contains(componente);
 		}
 	}
 }

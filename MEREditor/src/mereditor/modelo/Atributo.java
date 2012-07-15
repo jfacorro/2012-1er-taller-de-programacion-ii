@@ -147,8 +147,7 @@ public class Atributo extends ComponenteNombre implements ComponenteAtributos {
 
 	@Override
 	public String validar() {
-		GeneradorDeObservaciones gen = new GeneradorDeObservaciones(
-				this.getNombre());
+		GeneradorDeObservaciones gen = new GeneradorDeObservaciones();
 		if (this.tipo == null) {
 			gen.agregarCaracteristicaNoDefinida("Tipo");
 		} else if (this.tipo.equals(TipoAtributo.DERIVADO_CALCULO)
