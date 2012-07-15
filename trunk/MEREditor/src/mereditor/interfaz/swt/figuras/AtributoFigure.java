@@ -31,6 +31,7 @@ public class AtributoFigure extends Figura<Atributo> {
 		this.lblName.setBounds(this.lblName.getTextBounds().getTranslated(0, -10));
 
 		this.ellipse = new Ellipse();
+		this.ellipse.setOpaque(false);
 		this.ellipse.setLocation(this.getLocation());
 		this.ellipse.setAntialias(SWT.ON);
 		this.ellipse.setBackgroundColor(this.backColor);
@@ -94,7 +95,7 @@ public class AtributoFigure extends Figura<Atributo> {
 	 * @param figura
 	 */
 	public void conectarAtributo(Figura<Atributo> figura) {
-		this.getParent().add(Figura.conectar(this, figura));
+		this.getParent().add(Figura.conectarEllipse(this, figura));
 	}
 
 	@Override

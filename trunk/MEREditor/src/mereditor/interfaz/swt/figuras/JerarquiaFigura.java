@@ -23,7 +23,7 @@ public class JerarquiaFigura extends Figura<Jerarquia> {
 	}
 
 	public void conectarGenerica(Figure figura, Figure generica) {
-		PolylineConnection connection = (PolylineConnection) Figura.conectar(
+		PolylineConnection connection = (PolylineConnection) Figura.conectarChopbox(
 				figura, generica);
 
 		this.applyLineStyle(connection);
@@ -34,7 +34,7 @@ public class JerarquiaFigura extends Figura<Jerarquia> {
 	}
 
 	public void conectarDerivada(Figure figura, Figure derivada) {
-		PolylineConnection connection = (PolylineConnection) Figura.conectar(
+		PolylineConnection connection = (PolylineConnection) Figura.conectarChopbox(
 				figura, derivada);
 		connection.setLineStyle(this.lineStyle);
 		connection.setConnectionRouter(new ManhattanConnectionRouter());
