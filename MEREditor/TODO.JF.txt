@@ -2,7 +2,6 @@ Juan:
 -----
 	Pendiente:
 	----------
-		- Agregar los labels de los atributos como elementos seleccionables.
 		- Mostrar barras de scroll cuando el dibujo se va de la pantalla.
 	Deseables:
 	----------
