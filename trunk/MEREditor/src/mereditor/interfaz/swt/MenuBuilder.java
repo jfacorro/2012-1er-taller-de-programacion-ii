@@ -132,8 +132,13 @@ public class MenuBuilder implements Observer {
 		menuItem = new MenuItem(menu, SWT.SEPARATOR);
 		
 		menuItem = new MenuItem(menu, SWT.PUSH);
-		menuItem.setText("&Validar");
+		menuItem.setText("&Validar Diagrama");
 		menuItem.addSelectionListener(AccionesProvider.validar);
+		proyectoItems.add(menuItem);
+		
+		menuItem = new MenuItem(menu, SWT.PUSH);
+		menuItem.setText("Validar &Proyecto");
+		menuItem.addSelectionListener(AccionesProvider.validarProyecto);
 		proyectoItems.add(menuItem);
 
 		/*

@@ -26,6 +26,9 @@ import org.eclipse.swt.graphics.Image;
  * 
  */
 public class DiagramaFigura extends Figure {
+	/**
+	 * Valores disponibles de zoom.
+	 */
 	public final static Map<String, Float> zoomOptions = new LinkedHashMap<>();
 	public final static String zoom100 = "100%";
 
@@ -103,6 +106,13 @@ public class DiagramaFigura extends Figure {
 			this.setZoom(this.zoom + DELTA_ZOOM);
 	}
 
+	/**
+	 * Establece un valor zoom determinado.
+	 * 
+	 * @param zoom
+	 *            Debe ser alguno de los valores establecidos en
+	 *            {@link #zoomOptions}.
+	 */
 	public void zoom(String zoom) {
 		if (zoomOptions.containsKey(zoom))
 			this.setZoom(zoomOptions.get(zoom));
@@ -149,6 +159,12 @@ public class DiagramaFigura extends Figure {
 		return image;
 	}
 
+	/**
+	 * Devuelve un string con el porecentaje de zoom actual y el símbolo % al
+	 * final.
+	 * 
+	 * @return Ejemplo: 100%
+	 */
 	public String getZoom() {
 		String zoom = Integer.toString((int) (this.zoom * 100));
 		return zoom + "%";
