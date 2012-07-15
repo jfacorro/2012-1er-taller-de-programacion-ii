@@ -15,6 +15,7 @@ import mereditor.modelo.base.Componente;
 import mereditor.modelo.base.ComponenteNombre;
 import mereditor.modelo.validacion.ValidarEquilibrioAtributos;
 import mereditor.modelo.validacion.ValidarEquilibrioComponentes;
+import mereditor.modelo.validacion.ValidarEquilibrioRelaciones;
 
 import org.apache.commons.lang.StringUtils;
 
@@ -290,7 +291,8 @@ public class Proyecto extends ComponenteNombre implements ProyectoProxy {
 	@Override
 	public void addValidaciones() {
 		this.validaciones.add(new ValidarEquilibrioComponentes());
-		this.validaciones.add(new ValidarEquilibrioAtributos());		
+		this.validaciones.add(new ValidarEquilibrioAtributos());
+		this.validaciones.add(new ValidarEquilibrioRelaciones());
 	}
 
 	@Override
