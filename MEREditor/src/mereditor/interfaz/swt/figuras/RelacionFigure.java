@@ -86,7 +86,7 @@ public class RelacionFigure extends Figura<Relacion> {
 	 * @param label
 	 */
 	public void conectarEntidad(Figura<Entidad> figura, String label) {
-		Connection conexion = Figura.conectar(this, figura);
+		Connection conexion = Figura.conectarChopbox(this, figura);
 
 		// Agregad cardinalidad y rol
 		Label lblCardinalidad = new Label(label);
@@ -103,7 +103,7 @@ public class RelacionFigure extends Figura<Relacion> {
 	 * @param figura
 	 */
 	public void conectarAtributo(Figura<Atributo> figura) {
-		Connection conexion = Figura.conectar(this, figura);
+		Connection conexion = Figura.conectarChopbox(this, figura);
 		this.getParent().add(conexion);
 
 		this.conexiones.put(figura.componente.getId(), conexion);

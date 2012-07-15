@@ -2,14 +2,14 @@ package mereditor.interfaz.swt.figuras;
 
 import java.util.List;
 
+import mereditor.modelo.Atributo;
+import mereditor.modelo.Entidad;
+
 import org.eclipse.draw2d.Connection;
 import org.eclipse.draw2d.Ellipse;
 import org.eclipse.draw2d.MidpointLocator;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Color;
-
-import mereditor.modelo.Atributo;
-import mereditor.modelo.Entidad;
 
 public class EntidadFigure extends Figura<Entidad> {
 
@@ -31,7 +31,8 @@ public class EntidadFigure extends Figura<Entidad> {
 	 * @param figura
 	 */
 	public Connection conectarAtributo(Figura<Atributo> figura) {
-		Connection conexion = Figura.conectar(this, figura);
+		Connection conexion = Figura.conectarChopboxEllipse(this, figura);
+
 		this.getParent().add(conexion);
 		this.conexiones.put(figura.componente.getId(), conexion);
 
@@ -42,15 +43,18 @@ public class EntidadFigure extends Figura<Entidad> {
 	 * Conecta esta entidad con el conector que une otra entidad con una
 	 * relación en común.
 	 * 
-	 * @param id identificador de la otra entidad.
-	 * @param conexionEntidad conector entre la otra entidad y la relacion.
-	 * @return conexion entre esta entidad y el circulo en el midpoint de conexionEntidad.
+	 * @param id
+	 *            identificador de la otra entidad.
+	 * @param conexionEntidad
+	 *            conector entre la otra entidad y la relacion.
+	 * @return conexion entre esta entidad y el circulo en el midpoint de
+	 *         conexionEntidad.
 	 */
 	public Connection conectarEntidad(String id, Connection conexionEntidad) {
 		Ellipse circuloConexion = this.circuloIdentificador();
 		conexionEntidad.add(circuloConexion, new MidpointLocator(conexionEntidad, 0));
 
-		Connection conexion = Figura.conectar(this, circuloConexion);
+		Connection conexion = Figura.conectarChopbox(this, circuloConexion);
 		this.getParent().add(conexion);
 		this.conexiones.put(id, conexion);
 
@@ -79,7 +83,7 @@ public class EntidadFigure extends Figura<Entidad> {
 					Ellipse circulo = this.circuloIdentificador();
 					conexion.add(circulo, new MidpointLocator(conexion, 0));
 
-					this.getParent().add(Figura.conectar(circuloOrigen, circulo));
+					this.getParent().add(Figura.conectarChopbox(circuloOrigen, circulo));
 
 					conexionOrigen = conexion;
 					circuloOrigen = circulo;

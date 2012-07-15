@@ -18,6 +18,7 @@ import org.eclipse.draw2d.BorderLayout;
 import org.eclipse.draw2d.ChopboxAnchor;
 import org.eclipse.draw2d.Connection;
 import org.eclipse.draw2d.ConnectionAnchor;
+import org.eclipse.draw2d.EllipseAnchor;
 import org.eclipse.draw2d.Figure;
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.IFigure;
@@ -245,12 +246,38 @@ public abstract class Figura<T extends Componente> extends Figure {
 	 * @param figDestino
 	 * @return Conexion entre las figuras
 	 */
-	public static Connection conectar(IFigure figOrigen, IFigure figDestino) {
+	public static Connection conectarChopbox(IFigure figOrigen, IFigure figDestino) {
 		PolylineConnection conexion = new PolylineConnection();
 		conexion.setAntialias(SWT.ON);
 
 		ConnectionAnchor origen = new ChopboxAnchor(figOrigen);
 		ConnectionAnchor destino = new ChopboxAnchor(figDestino);
+
+		conexion.setSourceAnchor(origen);
+		conexion.setTargetAnchor(destino);
+
+		return conexion;
+	}
+	
+	public static Connection conectarChopboxEllipse(IFigure figOrigen, IFigure figDestino) {
+		PolylineConnection conexion = new PolylineConnection();
+		conexion.setAntialias(SWT.ON);
+
+		ConnectionAnchor origen = new ChopboxAnchor(figOrigen);
+		ConnectionAnchor destino = new EllipseAnchor(figDestino);
+
+		conexion.setSourceAnchor(origen);
+		conexion.setTargetAnchor(destino);
+
+		return conexion;
+	}
+	
+	public static Connection conectarEllipse(IFigure figOrigen, IFigure figDestino) {
+		PolylineConnection conexion = new PolylineConnection();
+		conexion.setAntialias(SWT.ON);
+
+		ConnectionAnchor origen = new EllipseAnchor(figOrigen);
+		ConnectionAnchor destino = new EllipseAnchor(figDestino);
 
 		conexion.setSourceAnchor(origen);
 		conexion.setTargetAnchor(destino);
