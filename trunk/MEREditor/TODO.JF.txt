@@ -2,10 +2,9 @@ Juan:
 -----
 	Pendiente:
 	----------
-		- Agregar barra de estado para que se muestre el estado de validación del diagrama y el proyecto entero.
 		- Agregar los labels de los atributos como elementos seleccionables.
 		- Mover la clase Proyecto al package Modelo.
-		- Cuando se realiza una modificación, actualizar el estado de la validación del proyecto y diagrama.
+		- Mostrar barras de scroll cuando el dibujo se va de la pantalla.
 	Deseables:
 	----------
 		- Modificar los anchors para los atributos así usan EllipseAnchor y queda mejor.
@@ -16,6 +15,8 @@ Juan:
 			- En Relaciones: Utilizar sólo las puntas del rombo
 	Hecho:
 	------
+		- Agregar barra de estado para que se muestre el estado de validación del diagrama y el proyecto entero.
+		- Cuando se realiza una modificación, actualizar el estado de la validación del proyecto y diagrama.
 		- [Selección de componentes en la vista]
 		- Agregar el tipo de identificadores faltantes y la representacion de ellos.
 		- Mostrar las cardinalidades de los atributos.
