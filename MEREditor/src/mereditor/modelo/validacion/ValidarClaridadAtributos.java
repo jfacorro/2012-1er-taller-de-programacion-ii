@@ -26,6 +26,6 @@ public class ValidarClaridadAtributos implements Validacion {
 			}
 		}
 
-		return StringUtils.join(observaciones, "\n");
+		return StringUtils.join(observaciones, "\n").trim();
 	}
 }

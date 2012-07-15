@@ -9,16 +9,19 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.apache.commons.lang.StringUtils;
-
 import mereditor.modelo.Atributo;
 import mereditor.modelo.Diagrama;
 import mereditor.modelo.Entidad;
 import mereditor.modelo.Jerarquia;
 import mereditor.modelo.Relacion;
 import mereditor.modelo.Validacion;
+import mereditor.modelo.Validacion.EstadoValidacion;
 import mereditor.modelo.base.Componente;
 import mereditor.modelo.base.ComponenteNombre;
+import mereditor.modelo.validacion.ValidarEquilibrioAtributos;
+import mereditor.modelo.validacion.ValidarEquilibrioComponentes;
+
+import org.apache.commons.lang.StringUtils;
 
 public class Proyecto extends ComponenteNombre implements ProyectoProxy {
 	/**
@@ -236,7 +239,19 @@ public class Proyecto extends ComponenteNombre implements ProyectoProxy {
 	public Set<Jerarquia> getJerarquias() {
 		return Componente.filtrarComponentes(Jerarquia.class, this.componentes.values());
 	}
+	
+	
+	/**
+	 * Obtener el conjunto de diagramas.
+	 * @return
+	 */
+	public Set<Diagrama> getDiagramas() {
+		return Componente.filtrarComponentes(Diagrama.class, this.componentes.values());
+	}
 
+	/**
+	 * Toma como nombre de este proyecto el del diagrama raíz.
+	 */
 	public String getNombre() {
 		return this.raiz.getNombre();
 	}
@@ -279,16 +294,29 @@ public class Proyecto extends ComponenteNombre implements ProyectoProxy {
 	
 	@Override
 	public void addValidaciones() {
-		super.addValidaciones();
+		this.validaciones.add(new ValidarEquilibrioComponentes());
+		this.validaciones.add(new ValidarEquilibrioAtributos());		
 	}
 
+	@Override
 	public String validar() {
 		List<String> observaciones = new ArrayList<>();
 
 		observaciones.add(super.validar());
 		
-		for(Componente componente: this.componentes.values())
+		for(Componente componente: this.getDiagramas())
 			observaciones.add(componente.validar());
+		
+		while(observaciones.remove(""));
+		while(observaciones.remove(null));
+		
+		if (!observaciones.isEmpty()) {
+			this.validacion.setObservaciones(StringUtils.join(observaciones, "\n").trim());
+			this.validacion.setEstado(EstadoValidacion.VALIDADO_CON_OBSERVACIONES);
+		} else {
+			this.validacion.setEstado(EstadoValidacion.VALIDADO);
+			observaciones.add(Validacion.SIN_OBSERVACIONES);
+		}
 
 		return StringUtils.join(observaciones, "\n").trim();
 	}

@@ -471,6 +471,13 @@ public class Principal extends Observable implements FigureListener {
 	public void validar() {
 		this.advertencia(this.proyecto.getDiagramaActual().validar());
 	}
+	
+	/**
+	 * Validar diagrama actual
+	 */
+	public void validarProyecto() {
+		this.advertencia(this.proyecto.validar());
+	}
 
 	@Override
 	public void figureMoved(IFigure source) {
