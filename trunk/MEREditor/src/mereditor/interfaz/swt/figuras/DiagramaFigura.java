@@ -4,6 +4,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 import mereditor.control.DiagramaControl;
+import mereditor.interfaz.swt.listeners.ArrastreControlador;
 import mereditor.interfaz.swt.listeners.ArrastreSeleccionControlador;
 import mereditor.interfaz.swt.listeners.SeleccionControlador;
 import mereditor.modelo.Proyecto;
@@ -74,11 +75,15 @@ public class DiagramaFigura extends Figure {
 		this.canvas.setContents(this);
 		this.proyecto = proyecto;
 
+		// Agregar el handler que deselecciona todas las figuras cuando se hace
+		// click sobre el fondo.
 		this.addMouseListener(this.selection);
 		// Agregar el controlador de arrastre para que si el cursor se escapa de
 		// la figura que se está arrastrando, no se deje de mover dado que toma
 		// el control el listener de esta figura.
 		this.addMouseMotionListener(new ArrastreSeleccionControlador(this));
+		// Agregarl el controlado de arrastre para elementos que no se pueden seleccionar.
+		this.addMouseMotionListener(new ArrastreControlador(this));
 	}
 
 	/**

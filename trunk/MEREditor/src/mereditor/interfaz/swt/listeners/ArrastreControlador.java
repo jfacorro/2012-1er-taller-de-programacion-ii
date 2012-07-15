@@ -11,22 +11,23 @@ import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
 
 /**
- * Se encarga del arrastre de las figuras que se encuentran seleccionadas.
+ * Se encarga del arrastre de una figura que no puede ser seleccionada.
  */
-public class ArrastreSeleccionControlador extends MouseMotionListener.Stub implements MouseListener {
+public class ArrastreControlador extends MouseMotionListener.Stub implements MouseListener {
 	private static Point startPoint;
-	private static boolean arrastrando;
+	private static IFigure figura; 
 
-	public ArrastreSeleccionControlador(Figure figure) {
+	public ArrastreControlador(Figure figure) {
 		figure.addMouseListener(this);
 		figure.addMouseMotionListener(this);
 	}
 
 	@Override
 	public void mousePressed(MouseEvent e) {
-		this.moverPrimeraPosicion((Figure) e.getSource());
+		figura = (IFigure) e.getSource();
+		this.moverPrimeraPosicion(figura);
 		startPoint = e.getLocation();
-		arrastrando = true;		
+		e.consume();
 	}
 
 	/**
@@ -36,7 +37,7 @@ public class ArrastreSeleccionControlador extends MouseMotionListener.Stub imple
 	 * @param figure
 	 */
 	@SuppressWarnings("unchecked")
-	private void moverPrimeraPosicion(Figure figure) {
+	private void moverPrimeraPosicion(IFigure figure) {
 		IFigure parent = figure.getParent();
 		List<IFigure> children = parent.getChildren();
 		IFigure first = children.get(0);
@@ -48,7 +49,7 @@ public class ArrastreSeleccionControlador extends MouseMotionListener.Stub imple
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
-		arrastrando = false;
+		figura = null;
 	}
 
 	@Override
@@ -57,17 +58,16 @@ public class ArrastreSeleccionControlador extends MouseMotionListener.Stub imple
 
 	@Override
 	public void mouseDragged(MouseEvent e) {
-		if (arrastrando)
-			for (IFigure figura : SeleccionControlador.getSelected())
-				this.actualizarPosicion((Figure) figura, startPoint, e.getLocation());
+		if(figura != null)
+			this.actualizarPosicion(figura, startPoint, e.getLocation());
 
 		startPoint = e.getLocation().getCopy();
 	}
 
-	public void actualizarPosicion(Figure figure, Point src, Point dest) {
+	public void actualizarPosicion(IFigure figure, Point src, Point dest) {
 		if (dest != null && src != null && !dest.equals(src)) {
 			Dimension diff = dest.getDifference(src);
-			figure.translate(diff.width, diff.height);
+			figure.setBounds(figure.getBounds().getTranslated(diff.width, diff.height));
 		}
 	}
 }
