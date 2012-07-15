@@ -149,7 +149,7 @@ public class Diagrama extends ComponenteNombre {
 			gen.observacionSobreItemDeColeccion(((ComponenteNombre)componente).getNombre(), componente.validar());
 		}
 		String observaciones = gen.getObservaciones();
-		if (!observaciones.trim().isEmpty()) {
+		if (observaciones!= null && !observaciones.trim().isEmpty()) {
 			this.validacion.setObservaciones(observaciones);
 			this.validacion.setEstado(EstadoValidacion.VALIDADO_CON_OBSERVACIONES);
 		} else {
