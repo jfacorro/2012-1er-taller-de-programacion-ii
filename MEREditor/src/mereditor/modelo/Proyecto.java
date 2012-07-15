@@ -215,7 +215,8 @@ public class Proyecto extends ComponenteNombre implements ProyectoProxy {
 	 * @return
 	 */
 	public Set<Entidad> getEntidades() {
-		return Componente.filtrarComponentes(Entidad.class, this.componentes.values());
+		return Componente.filtrarComponentes(Entidad.class,
+				this.componentes.values());
 	}
 
 	/**
@@ -224,7 +225,8 @@ public class Proyecto extends ComponenteNombre implements ProyectoProxy {
 	 * @return
 	 */
 	public Set<Relacion> getRelaciones() {
-		return Componente.filtrarComponentes(Relacion.class, this.componentes.values());
+		return Componente.filtrarComponentes(Relacion.class,
+				this.componentes.values());
 	}
 
 	/**
@@ -233,16 +235,18 @@ public class Proyecto extends ComponenteNombre implements ProyectoProxy {
 	 * @return
 	 */
 	public Set<Jerarquia> getJerarquias() {
-		return Componente.filtrarComponentes(Jerarquia.class, this.componentes.values());
+		return Componente.filtrarComponentes(Jerarquia.class,
+				this.componentes.values());
 	}
-	
-	
+
 	/**
 	 * Obtener el conjunto de diagramas.
+	 * 
 	 * @return
 	 */
 	public Set<Diagrama> getDiagramas() {
-		return Componente.filtrarComponentes(Diagrama.class, this.componentes.values());
+		return Componente.filtrarComponentes(Diagrama.class,
+				this.componentes.values());
 	}
 
 	/**
@@ -287,7 +291,7 @@ public class Proyecto extends ComponenteNombre implements ProyectoProxy {
 	public Set<Jerarquia> getJerarquiasDiagrama() {
 		return this.diagramaActual.getJerarquias(false);
 	}
-	
+
 	@Override
 	public void addValidaciones() {
 		this.validaciones.add(new ValidarEquilibrioComponentes());
@@ -298,23 +302,42 @@ public class Proyecto extends ComponenteNombre implements ProyectoProxy {
 	@Override
 	public String validar() {
 		List<String> observaciones = new ArrayList<>();
+		List<String> output = new ArrayList<>();
 
 		observaciones.add(super.validar());
-		
-		for(Componente componente: this.getDiagramas())
-			observaciones.add(componente.validar());
-		
-		while(observaciones.remove(""));
-		while(observaciones.remove(null));
-		
+
+		for (Diagrama diagrama : this.getDiagramas()) {
+			String resultado = diagrama.validar();
+
+			output.add("--------------------------------------");
+			output.add(diagrama.getNombre());
+			output.add("--------------------------------------");
+			output.add(resultado);
+
+			observaciones.add(resultado);
+		}
+
+		while (observaciones.remove(""))
+			;
+		while (observaciones.remove(null))
+			;
+
+		while (output.remove(""))
+			;
+		while (output.remove(null))
+			;
+
 		if (!observaciones.isEmpty()) {
-			this.validacion.setObservaciones(StringUtils.join(observaciones, "\n").trim());
-			this.validacion.setEstado(EstadoValidacion.VALIDADO_CON_OBSERVACIONES);
+			this.validacion.setObservaciones(StringUtils.join(output, "\n")
+					.trim());
+			this.validacion
+					.setEstado(EstadoValidacion.VALIDADO_CON_OBSERVACIONES);
 		} else {
 			this.validacion.setEstado(EstadoValidacion.VALIDADO);
 			observaciones.add(Validacion.SIN_OBSERVACIONES);
 		}
 
-		return StringUtils.join(observaciones, "\n").trim();
+		return StringUtils.join(output, "\n").trim();
 	}
+
 }
