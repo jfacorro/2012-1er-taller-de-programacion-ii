@@ -5,6 +5,7 @@ Juan:
 		- Agregar barra de estado para que se muestre el estado de validación del diagrama y el proyecto entero.
 		- Agregar los labels de los atributos como elementos seleccionables.
 		- Mover la clase Proyecto al package Modelo.
+		- Cuando se realiza una modificación, actualizar el estado de la validación del proyecto y diagrama.
 	Deseables:
 	----------
 		- Modificar los anchors para los atributos así usan EllipseAnchor y queda mejor.

@@ -83,7 +83,7 @@ public class AccionesProvider {
 			principal().zoom(combo.getText());
 		};
 	};
-	
+
 	/**
 	 * Agregar una entidad al diagrama actual.
 	 */
@@ -112,9 +112,21 @@ public class AccionesProvider {
 		};
 	};
 
+	/**
+	 * Validar el diagrama actual.
+	 */
 	public static final SelectionListener validar = new SelectionAdapter() {
 		public void widgetSelected(SelectionEvent e) {
 			principal().validar();
+		};
+	};
+
+	/**
+	 * Validar el proyecto actual.
+	 */
+	public static final SelectionListener validarProyecto = new SelectionAdapter() {
+		public void widgetSelected(SelectionEvent e) {
+			principal().validarProyecto();
 		};
 	};
 
