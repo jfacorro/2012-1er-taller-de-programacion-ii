@@ -9,6 +9,7 @@ import mereditor.modelo.Entidad.Identificador;
 import mereditor.modelo.base.Componente;
 import mereditor.modelo.base.ComponenteAtributos;
 import mereditor.modelo.base.ComponenteNombre;
+import mereditor.modelo.validacion.GeneradorDeObservaciones;
 
 public class Atributo extends ComponenteNombre implements ComponenteAtributos {
 	public enum TipoAtributo {
@@ -146,6 +147,27 @@ public class Atributo extends ComponenteNombre implements ComponenteAtributos {
 
 	@Override
 	public String validar() {
-		return null;
+		GeneradorDeObservaciones gen = new GeneradorDeObservaciones(
+				this.getNombre());
+		if (this.tipo == null) {
+			gen.agregarCaracteristicaNoDefinida("Tipo");
+		} else if (this.tipo.equals(TipoAtributo.DERIVADO_CALCULO)
+				&& formula == null) {
+			gen.agregarCaracteristicaNoDefinida("Formula");
+		} else if (this.tipo.equals(TipoAtributo.DERIVADO_COPIA)
+				&& this.original == null) {
+			gen.agregarCaracteristicaNoDefinida("Atributo Original");
+		}
+
+		if (this.cardinalidadMinima.isEmpty()) {
+			gen.agregarCaracteristicaNoDefinida("Cardinalidad Minima");
+		}
+		if (this.cardinalidadMaxima.isEmpty()) {
+			gen.agregarCaracteristicaNoDefinida("Cardinalidad Maxima");
+		}
+		for (Atributo a : this.atributos) {
+			gen.observacionSobreItemDeColeccion(a.getNombre(), a.validar());
+		}
+		return gen.getObservaciones();
 	}
 }

@@ -9,6 +9,7 @@ import mereditor.modelo.Validacion.EstadoValidacion;
 import mereditor.modelo.base.Componente;
 import mereditor.modelo.base.ComponenteAtributos;
 import mereditor.modelo.base.ComponenteNombre;
+import mereditor.modelo.validacion.GeneradorDeObservaciones;
 import mereditor.modelo.validacion.ValidarAcoplamiento;
 import mereditor.modelo.validacion.ValidarClaridadAtributos;
 import mereditor.modelo.validacion.ValidarClaridadComponentes;
@@ -139,8 +140,15 @@ public class Diagrama extends ComponenteNombre {
 
 	@Override
 	public String validar() {
-		String observaciones = super.validar();
-
+		GeneradorDeObservaciones gen= new GeneradorDeObservaciones(this.getNombre());
+		for (Diagrama diagrama : this.diagramas) {
+			gen.observacionSobreItemDeColeccion(diagrama.getNombre(), diagrama.validar() );
+		    
+		} 
+		for (Componente componente: this.componentes){
+			gen.observacionSobreItemDeColeccion(((ComponenteNombre)componente).getNombre(), componente.validar());
+		}
+		String observaciones = gen.getObservaciones();
 		if (!observaciones.trim().isEmpty()) {
 			this.validacion.setObservaciones(observaciones);
 			this.validacion.setEstado(EstadoValidacion.VALIDADO_CON_OBSERVACIONES);
