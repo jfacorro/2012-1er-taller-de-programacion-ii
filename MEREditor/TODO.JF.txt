@@ -13,6 +13,8 @@ Juan:
 			- En Relaciones: Utilizar sólo las puntas del rombo
 	Hecho:
 	------
+		- Agregar icono a la aplicacion.
+		- Cambiar icono de la validacion completa.
 		- Modificar los anchors para los atributos así usan EllipseAnchor y queda mejor.
 		- Mover la clase Proyecto al package Modelo.
 		- Agregar barra de estado para que se muestre el estado de validación del diagrama y el proyecto entero.

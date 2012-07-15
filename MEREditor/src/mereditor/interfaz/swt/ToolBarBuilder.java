@@ -86,10 +86,12 @@ public class ToolBarBuilder implements Observer {
 		item.setImage(Principal.getImagen("jerarquia.png"));
 		item.addSelectionListener(AccionesProvider.agregarJerarquia);
 		proyectoItems.add(item);
+		
+		item = new ToolItem(this.toolBar, SWT.SEPARATOR);
 
 		item = new ToolItem(this.toolBar, SWT.PUSH);
-		item.setToolTipText("Validar");
-		item.setImage(Principal.getImagen("validar.png"));
+		item.setToolTipText("Validar Diagrama");
+		item.setImage(Principal.getImagen("validar-diagrama.png"));
 		item.addSelectionListener(AccionesProvider.validar);
 		proyectoItems.add(item);
 		

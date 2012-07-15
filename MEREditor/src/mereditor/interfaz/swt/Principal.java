@@ -55,17 +55,49 @@ import org.w3c.dom.Document;
  * 
  */
 public class Principal extends Observable implements FigureListener {
+	/**
+	 * Color predeterminado del área principal del diagrama.
+	 */
 	public static final Color defaultBackgroundColor = new Color(null, 255, 255, 255);
+	/**
+	 * Título a mostrar de la aplicación.
+	 */
 	public static final String APP_NOMBRE = "MER Editor";
+	/**
+	 * Título del pop-up "Guardar cambios"
+	 */
 	private static final String TITULO_GUARDAR_DIAGRAMA_ACTUAL = "Información";
+	/**
+	 * Mensaje del pop-up "Guardar cambios"
+	 */
 	private static final String MENSAJE_GUARDAR_DIAGRAMA_ACTUAL = "¿Desea guardar los cambios hechos al diagrama actual?";
+	/**
+	 * Extensión de los archivos del proyecto.
+	 */
 	public static final String[] extensionProyecto = new String[] { "*.xml" };
+	/**
+	 * Extensión de la imagen a exportar.
+	 */
 	public static final String[] extensionesImagen = new String[] { "*.jpg" };
+	/**
+	 * Ubicación de los recursos de imágenes.
+	 */
 	private static final String PATH_IMAGENES = "src/recursos/imagenes/";
+	/**
+	 * Ubicación de los recursos de iconos.
+	 */
 	private static final String PATH_ICONOS = "src/recursos/iconos/";
 
+	/**
+	 * Singleton de la clase Principal
+	 */
 	private static Principal instancia;
 
+	/**
+	 * Punto de entrada de la aplicación.
+	 * 
+	 * @param args
+	 */
 	public static void main(String args[]) {
 		Display display = Display.getDefault();
 		Shell shell = new Shell(display, SWT.SHELL_TRIM);
@@ -77,18 +109,40 @@ public class Principal extends Observable implements FigureListener {
 				display.sleep();
 	}
 
+	/**
+	 * Devuelve el singleton de la clase Principal.
+	 * 
+	 * @return
+	 */
 	public static Principal getInstance() {
 		return Principal.instancia;
 	}
 
+	/**
+	 * Devuelve un recurso de imagen.
+	 * 
+	 * @param nombre
+	 *            Nombre del archivo de imagen.
+	 * @return
+	 */
 	public static Image getImagen(String nombre) {
 		return new Image(Display.getDefault(), PATH_IMAGENES + nombre);
 	}
 
+	/**
+	 * Devuelve un recurso de icono.
+	 * 
+	 * @param nombre
+	 *            Nombre del archivo de icono.
+	 * @return
+	 */
 	public static Image getIcono(String nombre) {
 		return new Image(Display.getDefault(), PATH_ICONOS + nombre);
 	}
 
+	/**
+	 * Shell de SWT de la aplicación.
+	 */
 	private Shell shell;
 
 	private SashForm sashForm;
@@ -96,9 +150,19 @@ public class Principal extends Observable implements FigureListener {
 	private FigureCanvas figureCanvas;
 	private Label lblStatus;
 
+	/**
+	 * Figura sobre la que se dibuja el diagrama.
+	 */
 	private DiagramaFigura panelDiagrama;
+	/**
+	 * Proyecto que se encuentra abierto.
+	 */
 	private Proyecto proyecto;
 
+	/**
+	 * Handler del evento cuando se cierra la aplicación. Si hay modificaciones
+	 * pendientes de ser guardadas muestra el prompt.
+	 */
 	private Listener promptClose = new Listener() {
 		@Override
 		public void handleEvent(Event event) {
@@ -107,13 +171,20 @@ public class Principal extends Observable implements FigureListener {
 		}
 	};
 
+	/**
+	 * Constructor
+	 * 
+	 * @param shell
+	 */
 	private Principal(Shell shell) {
 		this.shell = shell;
 		this.shell.setMaximized(true);
 		this.shell.setText(APP_NOMBRE);
 		this.shell.setLayout(new FormLayout());
 		this.shell.addListener(SWT.Close, this.promptClose);
+		this.shell.setImage(getImagen("diagrama.png"));
 
+		// Construir y agregar los controles.
 		MenuBuilder.build(this);
 		this.toolBar = ToolBarBuilder.build(this);
 		this.sashForm = new SashForm(this.shell, SWT.HORIZONTAL);
@@ -207,8 +278,12 @@ public class Principal extends Observable implements FigureListener {
 		this.notifyObservers();
 
 		this.modificado(false);
+		this.actualizarEstado();
 	}
 
+	/**
+	 * Actualiza la barra de estado con el del proyecto y el diagrama actual.
+	 */
 	private void actualizarEstado() {
 		String status = "[Ningún proyecto abierto]";
 
@@ -223,7 +298,8 @@ public class Principal extends Observable implements FigureListener {
 	}
 
 	/**
-	 * Actualiza el titulo según el estado del proyecto.
+	 * Actualiza el titulo dependiendo de si el proyecto tiene modificaciones
+	 * que todavía no se guardaron.
 	 */
 	private void actualizarTitulo() {
 		String titulo = APP_NOMBRE;
@@ -240,8 +316,6 @@ public class Principal extends Observable implements FigureListener {
 	/**
 	 * Guarda un proyecto en el path que ya tiene asignado o muestra el dialogo
 	 * para elegir el archivo.
-	 * 
-	 * @throws Exception
 	 */
 	public void guardarProyecto() {
 		this.guardarProyecto(false);
@@ -252,7 +326,6 @@ public class Principal extends Observable implements FigureListener {
 	 * 
 	 * @param showDialog
 	 *            indica si se debe mostrar el dialogo de seleccion de archivo.
-	 * @throws Exception
 	 */
 	public void guardarProyecto(boolean showDialog) {
 		String path = this.proyecto.getPath();
@@ -294,6 +367,7 @@ public class Principal extends Observable implements FigureListener {
 	private void guardarXml(Document doc, String path) throws Exception {
 		TransformerFactory transformerFactory = TransformerFactory.newInstance();
 		Transformer transformer = transformerFactory.newTransformer();
+		// Indicar que escriba el xml con indentación.
 		transformer.setOutputProperty(OutputKeys.INDENT, "yes");
 		transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "4");
 		DOMSource source = new DOMSource(doc);
@@ -303,8 +377,6 @@ public class Principal extends Observable implements FigureListener {
 
 	/**
 	 * Agrega un Diagrama al proyecto.
-	 * 
-	 * @throws Exception
 	 */
 	public void nuevoDiagrama() {
 		PromptResult resultado = DialogBuilder.prompt(this.shell, "Ingresar nombre", "Nombre");
@@ -338,7 +410,8 @@ public class Principal extends Observable implements FigureListener {
 	/**
 	 * Abre el diagrama para su visualizacion y/o edicion
 	 * 
-	 * @param diagrama
+	 * @param id
+	 *            Identificador del diagrama a abrir.
 	 **/
 	public void abrirDiagrama(String id) {
 		String idActual = this.proyecto.getDiagramaActual().getId();
@@ -379,8 +452,7 @@ public class Principal extends Observable implements FigureListener {
 	}
 
 	/**
-	 * Abre el diálogo para agregar una Entidad al diagrama que se encuentra
-	 * abierto.
+	 * Abre el diálogo para agregar una Entidad al diagrama actual.
 	 */
 	public void agregarEntidad() {
 		AgregarEntidadDialog dialog = new AgregarEntidadDialog();
@@ -393,8 +465,7 @@ public class Principal extends Observable implements FigureListener {
 	}
 
 	/**
-	 * Abre el diálogo para agregar una Relacion al diagrama que se encuentra
-	 * abierto.
+	 * Abre el diálogo para agregar una Relacion al diagrama actual.
 	 */
 	public void agregarRelacion() {
 		AgregarRelacionDialog dialog = new AgregarRelacionDialog();
@@ -407,8 +478,7 @@ public class Principal extends Observable implements FigureListener {
 	}
 
 	/**
-	 * Abre el diálogo para agregar una Jerarquia al diagrama que se encuentra
-	 * abierto.
+	 * Abre el diálogo para agregar una Jerarquia al diagrama actual.
 	 */
 	public void agregarJerarquia() {
 		AgregarJerarquiaDialog dialog = new AgregarJerarquiaDialog();
@@ -421,7 +491,7 @@ public class Principal extends Observable implements FigureListener {
 	}
 
 	/**
-	 * Disminucion del zoom.
+	 * Disminución del zoom.
 	 */
 	public void zoomOut(Combo cboZoom) {
 		this.panelDiagrama.zoomOut();
@@ -436,6 +506,13 @@ public class Principal extends Observable implements FigureListener {
 		cboZoom.setText(this.panelDiagrama.getZoom());
 	}
 
+	/**
+	 * Establece un valor zoom determinado.
+	 * 
+	 * @param zoom
+	 *            Debe ser alguno de los valores establecidos en
+	 *            {@link DiagramaFigura#zoomOptions}.
+	 */
 	public void zoom(String zoom) {
 		this.panelDiagrama.zoom(zoom);
 	}
@@ -482,7 +559,7 @@ public class Principal extends Observable implements FigureListener {
 	}
 
 	/**
-	 * Validar diagrama actual
+	 * Validar diagrama actual.
 	 */
 	public void validar() {
 		this.advertencia(this.proyecto.getDiagramaActual().validar());
@@ -490,13 +567,19 @@ public class Principal extends Observable implements FigureListener {
 	}
 
 	/**
-	 * Validar diagrama actual
+	 * Validar proyecto.
 	 */
 	public void validarProyecto() {
 		this.advertencia(this.proyecto.validar());
 		this.actualizarEstado();
 	}
 
+	/**
+	 * Implementación de la interfaz FigureListener por medio de la cual la
+	 * aplicación se entera cuando se mueve alguna de las figuras.
+	 * 
+	 * @param source
+	 */
 	@Override
 	public void figureMoved(IFigure source) {
 		this.modificado(true);
@@ -513,7 +596,7 @@ public class Principal extends Observable implements FigureListener {
 
 	/**
 	 * Devuelve un proxy del proyecto que se encuentra abierto exponiendo solo
-	 * los métodos seleccionados.
+	 * los métodos de la interfaz <code>ProyectoProxy</code>.
 	 * 
 	 * @return
 	 */
@@ -559,12 +642,12 @@ public class Principal extends Observable implements FigureListener {
 			this.shell.setModified(modificado);
 			this.actualizarTitulo();
 		}
-		
+
 		if (modificado && this.proyecto != null) {
 			this.proyecto.getValidacion().setEstado(EstadoValidacion.SIN_VALIDAR);
 			this.proyecto.getDiagramaActual().getValidacion()
 					.setEstado(EstadoValidacion.SIN_VALIDAR);
-			
+
 			this.actualizarEstado();
 		}
 	}
@@ -577,7 +660,6 @@ public class Principal extends Observable implements FigureListener {
 	 */
 	public void mostrarArbol(boolean mostrar) {
 		int peso = mostrar ? 3 : 0;
-
 		this.sashForm.setWeights(new int[] { peso, 16 });
 	}
 }
