@@ -53,7 +53,8 @@ public class Diagrama extends ComponenteNombre {
 	 * @return
 	 */
 	public Set<Entidad> getEntidades(boolean incluirAncestros) {
-		Set<Entidad> entidades = Componente.filtrarComponentes(Entidad.class, this.componentes);
+		Set<Entidad> entidades = Componente.filtrarComponentes(Entidad.class,
+				this.componentes);
 
 		if (incluirAncestros && this.getPadre() != null) {
 			Diagrama diagrama = (Diagrama) this.getPadre();
@@ -94,7 +95,8 @@ public class Diagrama extends ComponenteNombre {
 	 * @return
 	 */
 	public Set<Relacion> getRelaciones(boolean incluirAncestros) {
-		Set<Relacion> relaciones = Componente.filtrarComponentes(Relacion.class, this.componentes);
+		Set<Relacion> relaciones = Componente.filtrarComponentes(
+				Relacion.class, this.componentes);
 
 		if (incluirAncestros && this.getPadre() != null) {
 			Diagrama diagrama = (Diagrama) this.getPadre();
@@ -111,8 +113,8 @@ public class Diagrama extends ComponenteNombre {
 	 * @return
 	 */
 	public Set<Jerarquia> getJerarquias(boolean incluirAncestros) {
-		Set<Jerarquia> jerarquias = Componente
-				.filtrarComponentes(Jerarquia.class, this.componentes);
+		Set<Jerarquia> jerarquias = Componente.filtrarComponentes(
+				Jerarquia.class, this.componentes);
 
 		if (incluirAncestros && this.getPadre() != null) {
 			Diagrama diagrama = (Diagrama) this.getPadre();
@@ -124,12 +126,13 @@ public class Diagrama extends ComponenteNombre {
 
 	/**
 	 * Devuelve la información de validacion del diagrama.
+	 * 
 	 * @return
 	 */
 	public Validacion getValidacion() {
 		return this.validacion;
 	}
-	
+
 	@Override
 	public void addValidaciones() {
 		this.validaciones.add(new ValidarAcoplamiento());
@@ -140,18 +143,22 @@ public class Diagrama extends ComponenteNombre {
 
 	@Override
 	public String validar() {
-		GeneradorDeObservaciones gen= new GeneradorDeObservaciones(this.getNombre());
+		GeneradorDeObservaciones gen = new GeneradorDeObservaciones();
 		for (Diagrama diagrama : this.diagramas) {
-			gen.observacionSobreItemDeColeccion(diagrama.getNombre(), diagrama.validar() );
-		    
-		} 
-		for (Componente componente: this.componentes){
-			gen.observacionSobreItemDeColeccion(((ComponenteNombre)componente).getNombre(), componente.validar());
+			gen.observacionSobreItemDeColeccion(diagrama.getNombre(),
+					diagrama.validar());
+
+		}
+		for (Componente componente : this.componentes) {
+			gen.observacionSobreItemDeColeccion(
+					((ComponenteNombre) componente).getNombre(),
+					componente.validar());
 		}
 		String observaciones = gen.getObservaciones();
-		if (observaciones!= null && !observaciones.trim().isEmpty()) {
+		if (observaciones != null && !observaciones.trim().isEmpty()) {
 			this.validacion.setObservaciones(observaciones);
-			this.validacion.setEstado(EstadoValidacion.VALIDADO_CON_OBSERVACIONES);
+			this.validacion
+					.setEstado(EstadoValidacion.VALIDADO_CON_OBSERVACIONES);
 		} else {
 			this.validacion.setEstado(EstadoValidacion.VALIDADO);
 			observaciones = Validacion.SIN_OBSERVACIONES;

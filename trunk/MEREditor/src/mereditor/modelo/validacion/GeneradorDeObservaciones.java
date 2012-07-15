@@ -3,18 +3,17 @@ package mereditor.modelo.validacion;
 public class GeneradorDeObservaciones {
 	private String obs_caracteristicas;
 	private String obs_coleccion;
-	private String nombreComp;
 
-	public GeneradorDeObservaciones(String nombreDelComponente) {
-		nombreComp = nombreDelComponente;
+	public GeneradorDeObservaciones() {
 		obs_caracteristicas = "";
 		obs_coleccion = "";
 	}
 
-	public void agregarCaracteristicaNoDefinida (String nombreCaracteristica){
-		this.observacionSobreUnaCaracteristica(nombreCaracteristica, "Sin definir");
+	public void agregarCaracteristicaNoDefinida(String nombreCaracteristica) {
+		this.observacionSobreUnaCaracteristica(nombreCaracteristica,
+				"Sin definir");
 	}
-	
+
 	public void observacionSobreUnaCaracteristica(String nombreAtributo,
 			String observacion) {
 		if (observacion != null) {
@@ -38,7 +37,6 @@ public class GeneradorDeObservaciones {
 	public String getObservaciones() {
 		if (obs_coleccion.isEmpty() && obs_caracteristicas.isEmpty())
 			return null;
-		return "Observaciones Componente " + nombreComp + "/n"
-				+ obs_caracteristicas + obs_coleccion;
+		return obs_caracteristicas + obs_coleccion;
 	}
 }
