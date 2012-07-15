@@ -55,8 +55,6 @@ public class DragDropControlador extends MouseMotionListener.Stub implements
 
 	@Override
 	public void mouseDragged(MouseEvent e) {
-		SeleccionControlador.startedDragging();
-
 		for (IFigure figura : SeleccionControlador.getSelected())
 			this.actualizarPosicion((Figure) figura, startPoint,
 					e.getLocation());
