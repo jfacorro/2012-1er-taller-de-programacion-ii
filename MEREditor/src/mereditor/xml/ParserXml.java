@@ -45,13 +45,44 @@ public class ParserXml {
 		this.init(path);
 	}
 
+	/**
+	 * Lee el archivo del proyecto y carga los archivos del modelo y la
+	 * representación.
+	 * 
+	 * @param path
+	 *            Ubicación del archivo del proyecto.
+	 * @throws Exception
+	 */
 	private void init(String path) throws Exception {
+		if (!this.validarFormato(this.root))
+			throw new RuntimeException("Formato inválido del archivo del proyecto.");
+
 		String dir = new File(path).getParent() + File.separator;
+
 		String modeloPath = XmlHelper.querySingle(this.root, "./Modelo").getTextContent();
-		String representacionPath = XmlHelper.querySingle(this.root, "./Representacion").getTextContent();
+		String representacionPath = XmlHelper.querySingle(this.root, "./Representacion")
+				.getTextContent();
 
 		this.modeloParser = new ModeloParserXml(this.proyecto, dir + modeloPath);
-		this.representacionParser = new RepresentacionParserXml(this.proyecto, dir + representacionPath);
+		this.representacionParser = new RepresentacionParserXml(this.proyecto, dir
+				+ representacionPath);
+	}
+
+	/**
+	 * Verifica que el arhcivo xml tenga los elementos correspondientes a un
+	 * archivo de proyecto.
+	 * 
+	 * @param root
+	 *            Elemento raíz del documento xml del proyecto.
+	 * @return <code>true</code> si el formato es válido, <code>false</code> de
+	 *         otro forma.
+	 */
+	private boolean validarFormato(Element root) {
+		if (XmlHelper.querySingle(root, "./Modelo") != null
+				&& XmlHelper.querySingle(root, "./Representacion") != null)
+			return true;
+
+		return false;
 	}
 
 	/**
@@ -165,7 +196,7 @@ public class ParserXml {
 	Attr crearAtributo(String nombre) {
 		return XmlHelper.getNuevoAtributo(this.root, nombre);
 	}
-	
+
 	Element agregarElemento(Element elemento, String nombre) {
 		return this.agregarElemento(elemento, nombre, null);
 	}
@@ -183,6 +214,5 @@ public class ParserXml {
 		elemento.setAttributeNode(atributo);
 		return atributo;
 	}
-
 
 }

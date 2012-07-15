@@ -258,7 +258,7 @@ public class Principal extends Observable implements FigureListener {
 				this.proyecto = modelo.parsear();
 				this.cargarProyecto();
 			} catch (Exception e) {
-				e.printStackTrace();
+				error(e.getMessage());
 			}
 		}
 	}
