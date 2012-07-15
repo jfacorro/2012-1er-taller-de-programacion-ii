@@ -1,9 +1,6 @@
 - Completar Funcionalidad.
 	- Validación. 
 		- Completitud: del Diseño de cada Componente (aegurarse que las propiedades tienen valores válidos y la obligatorias están completas).
-		- Claridad:
-			- Cantidad de Relaciones por Entidad (Idem punto anterior).
-		- Generar los archivos de reporte en base al resultado de la validación.
 - Manual de usuario: hacer una vez completada la funcionalidad.
 - Documento técnico.
 

@@ -1,6 +1,13 @@
 package mereditor.interfaz.swt;
 
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.Writer;
+import java.text.Format;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Observable;
 
 import javax.xml.transform.OutputKeys;
@@ -76,6 +83,10 @@ public class Principal extends Observable implements FigureListener {
 	 */
 	public static final String[] extensionProyecto = new String[] { "*.xml" };
 	/**
+	 * Extensión de los archivos del validación.
+	 */
+	public static final String[] extensionValidacion = new String[] { "*.txt" };
+	/**
 	 * Extensión de la imagen a exportar.
 	 */
 	public static final String[] extensionesImagen = new String[] { "*.jpg" };
@@ -87,6 +98,10 @@ public class Principal extends Observable implements FigureListener {
 	 * Ubicación de los recursos de iconos.
 	 */
 	private static final String PATH_ICONOS = "src/recursos/iconos/";
+	/**
+	 * Formato de fecha.
+	 */
+	private static final Format dateFormat = new SimpleDateFormat("yyMMdd");
 
 	/**
 	 * Singleton de la clase Principal
@@ -562,16 +577,57 @@ public class Principal extends Observable implements FigureListener {
 	 * Validar diagrama actual.
 	 */
 	public void validar() {
-		this.advertencia(this.proyecto.getDiagramaActual().validar());
+		String resultado = this.proyecto.getDiagramaActual().validar();
+		this.advertencia(resultado);
 		this.actualizarEstado();
+
+		String nombreArchivo = "Diagrama-" + this.proyecto.getDiagramaActual().getNombre();
+		nombreArchivo += String.format("-%s.txt", dateFormat.format(new Date()));
+
+		this.guardarValidacion(nombreArchivo, resultado);
 	}
 
 	/**
 	 * Validar proyecto.
 	 */
 	public void validarProyecto() {
-		this.advertencia(this.proyecto.validar());
+		String resultado = this.proyecto.validar();
+		this.advertencia(resultado);
 		this.actualizarEstado();
+
+		String nombreArchivo = "Proyecto-" + this.proyecto.getDiagramaActual().getNombre();
+		nombreArchivo += String.format("_%s.txt", dateFormat.format(new Date()));
+
+		this.guardarValidacion(nombreArchivo, resultado);
+	}
+
+	/**
+	 * Muestra una ventana de diálogo para seleccionar donde guardar el
+	 * resultado de la validacion.
+	 * 
+	 * @param nombreArchivo
+	 *            Nombre por defecto del archivo de validacion.
+	 * @param resultado
+	 *            Resultado de la validación.
+	 */
+	private void guardarValidacion(String path, String resultado) {
+		FileDialog fileDialog = new FileDialog(this.shell, SWT.SAVE);
+		fileDialog.setFileName(path);
+		fileDialog.setFilterExtensions(extensionValidacion);
+		path = fileDialog.open();
+
+		if (path != null) {
+			try {
+
+				File file = new File(path);
+				Writer output = new BufferedWriter(new FileWriter(file));
+				output.write(resultado);
+				output.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+				error(e.getMessage());
+			}
+		}
 	}
 
 	/**
