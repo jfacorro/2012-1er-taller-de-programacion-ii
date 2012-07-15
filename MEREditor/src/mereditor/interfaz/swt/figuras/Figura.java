@@ -8,7 +8,7 @@ import java.util.Map;
 import java.util.Set;
 
 import mereditor.interfaz.swt.Principal;
-import mereditor.interfaz.swt.listeners.DragDropControlador;
+import mereditor.interfaz.swt.listeners.ArrastreSeleccionControlador;
 import mereditor.interfaz.swt.listeners.MovimientoControlador;
 import mereditor.interfaz.swt.listeners.SeleccionControlador;
 import mereditor.modelo.base.Componente;
@@ -68,7 +68,7 @@ public abstract class Figura<T extends Componente> extends Figure {
 		this.setLayoutManager(new BorderLayout());
 
 		// Agregar controlador para arrastre
-		new DragDropControlador(this);
+		new ArrastreSeleccionControlador(this);
 		// Agregar controlador para el movivimento de las figuras loqueadas
 		new MovimientoControlador(this);
 

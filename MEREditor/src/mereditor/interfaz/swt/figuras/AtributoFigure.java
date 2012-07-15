@@ -1,6 +1,6 @@
 package mereditor.interfaz.swt.figuras;
 
-import mereditor.interfaz.swt.listeners.DragDropControlador;
+import mereditor.interfaz.swt.listeners.ArrastreSeleccionControlador;
 import mereditor.modelo.Atributo;
 import mereditor.representacion.PList;
 
@@ -46,7 +46,7 @@ public class AtributoFigure extends Figura<Atributo> {
 		} else {
 			ellipse.setSize(new Dimension(10, 10));
 			// Permitir que el label se mueva
-			new DragDropControlador(this.lblName);
+			new ArrastreSeleccionControlador(this.lblName);
 			this.addFiguraLoqueada(this.lblName);
 		}
 

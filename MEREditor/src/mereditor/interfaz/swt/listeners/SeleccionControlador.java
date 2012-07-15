@@ -26,6 +26,12 @@ public class SeleccionControlador extends MouseListener.Stub {
 		this.figura.addMouseListener(this);
 	}
 
+	/**
+	 * Inidica si los modificadores seleccion múltiple están presionados.
+	 * 
+	 * @param state
+	 * @return
+	 */
 	private boolean selectionModifiers(int state) {
 		return (state & SWT.CTRL) != 0;
 	}
@@ -41,22 +47,22 @@ public class SeleccionControlador extends MouseListener.Stub {
 			deselect(this.figura);
 	}
 
+	/**
+	 * Inidica si se debe deseleccionar todas las figuras según algunas
+	 * condiciones.
+	 * 
+	 * @param state
+	 * @return
+	 */
 	private boolean shouldDeselectAll(int state) {
 		boolean deselect = false;
 		// Si CTRL NO está presionado y hay una sola figura selccionada.
 		deselect = deselect || (!this.selectionModifiers(state) && selected.size() == 1);
-		// Si CTRL NO está presionado, hay más de una figura seleccionada, pero esta figura no está seleccionada. 
-		deselect = deselect || (!this.selectionModifiers(state) && selected.size() > 1 && !isSelected(this.figura));		
+		// Si CTRL NO está presionado, hay más de una figura seleccionada, pero
+		// esta figura no está seleccionada.
+		deselect = deselect
+				|| (!this.selectionModifiers(state) && selected.size() > 1 && !isSelected(this.figura));
 		return deselect;
-	}
-
-	@Override
-	public void mouseReleased(MouseEvent me) {
-	}
-
-	@Override
-	public void mouseDoubleClicked(MouseEvent me) {
-
 	}
 
 	/**
@@ -69,8 +75,7 @@ public class SeleccionControlador extends MouseListener.Stub {
 		seleccion.setOpaque(false);
 		seleccion.setEnabled(false);
 		seleccion.setBounds(figura.getBounds().getExpanded(2, 2));
-		seleccion.setBorder(new LineBorder(Figura.defaultLineColor, 1,
-				SWT.LINE_DASH));
+		seleccion.setBorder(new LineBorder(Figura.defaultLineColor, 1, SWT.LINE_DASH));
 		figura.getParent().add(seleccion);
 		figura.addFiguraLoqueada(seleccion);
 
@@ -98,7 +103,7 @@ public class SeleccionControlador extends MouseListener.Stub {
 	}
 
 	/**
-	 * Indica si una figura está seleccionada.
+	 * Indica si la figura está seleccionada.
 	 * 
 	 * @param figura
 	 * @return

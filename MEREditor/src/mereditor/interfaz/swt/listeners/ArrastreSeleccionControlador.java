@@ -11,13 +11,13 @@ import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
 
 /**
- * Se encarga del arrastre de las figuras.
+ * Se encarga del arrastre de las figuras que se encuentran seleccionadas.
  */
-public class DragDropControlador extends MouseMotionListener.Stub implements
+public class ArrastreSeleccionControlador extends MouseMotionListener.Stub implements
 		MouseListener {
 	private static Point startPoint;
 
-	public DragDropControlador(Figure figure) {
+	public ArrastreSeleccionControlador(Figure figure) {
 		figure.addMouseListener(this);
 		figure.addMouseMotionListener(this);
 	}
