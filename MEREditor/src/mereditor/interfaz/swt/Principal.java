@@ -18,6 +18,7 @@ import mereditor.interfaz.swt.dialogs.AgregarEntidadDialog;
 import mereditor.interfaz.swt.dialogs.AgregarJerarquiaDialog;
 import mereditor.interfaz.swt.dialogs.AgregarRelacionDialog;
 import mereditor.interfaz.swt.figuras.DiagramaFigura;
+import mereditor.modelo.Validacion.EstadoValidacion;
 import mereditor.xml.ParserXml;
 
 import org.eclipse.draw2d.FigureCanvas;
@@ -42,6 +43,7 @@ import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.FileDialog;
+import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Shell;
@@ -53,8 +55,7 @@ import org.w3c.dom.Document;
  * 
  */
 public class Principal extends Observable implements FigureListener {
-	public static final Color defaultBackgroundColor = new Color(null, 255,
-			255, 255);
+	public static final Color defaultBackgroundColor = new Color(null, 255, 255, 255);
 	public static final String APP_NOMBRE = "MER Editor";
 	private static final String TITULO_GUARDAR_DIAGRAMA_ACTUAL = "Información";
 	private static final String MENSAJE_GUARDAR_DIAGRAMA_ACTUAL = "¿Desea guardar los cambios hechos al diagrama actual?";
@@ -93,6 +94,7 @@ public class Principal extends Observable implements FigureListener {
 	private SashForm sashForm;
 	private ToolBar toolBar;
 	private FigureCanvas figureCanvas;
+	private Label lblStatus;
 
 	private DiagramaFigura panelDiagrama;
 	private Proyecto proyecto;
@@ -116,6 +118,8 @@ public class Principal extends Observable implements FigureListener {
 		this.toolBar = ToolBarBuilder.build(this);
 		this.sashForm = new SashForm(this.shell, SWT.HORIZONTAL);
 		TreeManager.build(this.sashForm);
+		this.lblStatus = new Label(shell, SWT.BORDER);
+
 		this.initFigureCanvas();
 
 		this.arregloLayout();
@@ -132,11 +136,17 @@ public class Principal extends Observable implements FigureListener {
 		// Separacion vertical entre arbol y grafico.
 		formData = new FormData();
 		formData.top = new FormAttachment(this.toolBar);
-		formData.bottom = new FormAttachment(100, 0);
+		formData.bottom = new FormAttachment(this.lblStatus);
 		formData.left = new FormAttachment(0, 0);
 		formData.right = new FormAttachment(100, 0);
 		this.sashForm.setLayoutData(formData);
 		this.mostrarArbol(false);
+
+		formData = new FormData();
+		formData.left = new FormAttachment(0);
+		formData.right = new FormAttachment(100);
+		formData.bottom = new FormAttachment(100);
+		this.lblStatus.setLayoutData(formData);
 	}
 
 	/**
@@ -155,8 +165,7 @@ public class Principal extends Observable implements FigureListener {
 	 * @throws Exception
 	 */
 	public void nuevoProyecto() {
-		PromptResult resultado = DialogBuilder.prompt(this.shell,
-				"Ingresar nombre", "Nombre");
+		PromptResult resultado = DialogBuilder.prompt(this.shell, "Ingresar nombre", "Nombre");
 
 		if (resultado.result == Resultado.OK) {
 			this.proyecto = new Proyecto(resultado.value);
@@ -187,10 +196,8 @@ public class Principal extends Observable implements FigureListener {
 	 * Carga el proyecto actual.
 	 */
 	private void cargarProyecto() {
-		this.proyecto
-				.setDiagramaActual(this.proyecto.getDiagramaRaiz().getId());
-		this.panelDiagrama = new DiagramaFigura(this.figureCanvas,
-				this.proyecto);
+		this.proyecto.setDiagramaActual(this.proyecto.getDiagramaRaiz().getId());
+		this.panelDiagrama = new DiagramaFigura(this.figureCanvas, this.proyecto);
 		this.panelDiagrama.actualizar();
 		// Carga inicial del arbol.
 		TreeManager.cargar(this.proyecto);
@@ -202,8 +209,21 @@ public class Principal extends Observable implements FigureListener {
 		this.modificado(false);
 	}
 
+	private void actualizarEstado() {
+		String status = "[Ningún proyecto abierto]";
+
+		if (this.proyecto != null) {
+			status = "Proyecto: %s [%s]- Diagrama: %s [%s]";
+			status = String.format(status, this.proyecto.getNombre(), this.proyecto.getValidacion()
+					.getEstado().toString(), this.proyecto.getDiagramaActual().getNombre(),
+					this.proyecto.getDiagramaActual().getValidacion().getEstado().toString());
+		}
+
+		this.lblStatus.setText(status);
+	}
+
 	/**
-	 * Actualiza el titulo seg�n el estado del proyecto.
+	 * Actualiza el titulo según el estado del proyecto.
 	 */
 	private void actualizarTitulo() {
 		String titulo = APP_NOMBRE;
@@ -251,10 +271,10 @@ public class Principal extends Observable implements FigureListener {
 			try {
 				modelo = new ParserXml(this.proyecto);
 				this.guardarXml(modelo.generarXmlProyecto(), path);
-				this.guardarXml(modelo.generarXmlComponentes(), dir
-						+ this.proyecto.getComponentesPath());
-				this.guardarXml(modelo.generarXmlRepresentacion(), dir
-						+ this.proyecto.getRepresentacionPath());
+				this.guardarXml(modelo.generarXmlComponentes(),
+						dir + this.proyecto.getComponentesPath());
+				this.guardarXml(modelo.generarXmlRepresentacion(),
+						dir + this.proyecto.getRepresentacionPath());
 			} catch (Exception e) {
 				this.error("Ocurrió un error al guardar el proyecto.");
 				e.printStackTrace();
@@ -272,12 +292,10 @@ public class Principal extends Observable implements FigureListener {
 	 * @throws Exception
 	 */
 	private void guardarXml(Document doc, String path) throws Exception {
-		TransformerFactory transformerFactory = TransformerFactory
-				.newInstance();
+		TransformerFactory transformerFactory = TransformerFactory.newInstance();
 		Transformer transformer = transformerFactory.newTransformer();
 		transformer.setOutputProperty(OutputKeys.INDENT, "yes");
-		transformer.setOutputProperty(
-				"{http://xml.apache.org/xslt}indent-amount", "4");
+		transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "4");
 		DOMSource source = new DOMSource(doc);
 		StreamResult result = new StreamResult(new File(path));
 		transformer.transform(source, result);
@@ -289,8 +307,7 @@ public class Principal extends Observable implements FigureListener {
 	 * @throws Exception
 	 */
 	public void nuevoDiagrama() {
-		PromptResult resultado = DialogBuilder.prompt(this.shell,
-				"Ingresar nombre", "Nombre");
+		PromptResult resultado = DialogBuilder.prompt(this.shell, "Ingresar nombre", "Nombre");
 		if (resultado.result == Resultado.OK) {
 			DiagramaControl nuevoDiagrama = new DiagramaControl();
 			nuevoDiagrama.setNombre(resultado.value);
@@ -308,7 +325,6 @@ public class Principal extends Observable implements FigureListener {
 	 * Actualiza la vista.
 	 */
 	public void actualizarVista() {
-		this.modificado(true);
 		this.panelDiagrama.actualizar();
 	}
 
@@ -332,6 +348,7 @@ public class Principal extends Observable implements FigureListener {
 			if (resultado != SWT.CANCEL) {
 				this.proyecto.setDiagramaActual(id);
 				this.actualizarVista();
+				this.actualizarEstado();
 			}
 		}
 	}
@@ -429,8 +446,7 @@ public class Principal extends Observable implements FigureListener {
 	public void exportar() {
 		FileDialog fileDialog = new FileDialog(this.shell, SWT.SAVE);
 		fileDialog.setFilterExtensions(extensionesImagen);
-		fileDialog.setFileName(this.proyecto.getDiagramaActual().getNombre()
-				+ ".jpg");
+		fileDialog.setFileName(this.proyecto.getDiagramaActual().getNombre() + ".jpg");
 		String path = fileDialog.open();
 
 		if (path != null) {
@@ -446,18 +462,18 @@ public class Principal extends Observable implements FigureListener {
 	}
 
 	/**
-	 * Muestra la pantalla de impresi�n para el digrama actual.
+	 * Muestra la pantalla de impresión para el digrama actual.
 	 */
 	public void imprimir() {
 		PrintDialog printDialog = new PrintDialog(this.shell);
 		PrinterData printerData = printDialog.open();
-		
+
 		if (printerData != null) {
 			Printer printer = new Printer(printerData);
-		
-		    PrintFigureOperation printerOperation = new PrintFigureOperation(printer,
+
+			PrintFigureOperation printerOperation = new PrintFigureOperation(printer,
 					this.panelDiagrama);
-			printerOperation.setPrintMode(PrintFigureOperation.FIT_PAGE); 
+			printerOperation.setPrintMode(PrintFigureOperation.FIT_PAGE);
 			printerOperation.setPrintMargin(new Insets(0, 0, 0, 0));
 			printerOperation.run(this.proyecto.getDiagramaActual().getNombre());
 
@@ -470,13 +486,15 @@ public class Principal extends Observable implements FigureListener {
 	 */
 	public void validar() {
 		this.advertencia(this.proyecto.getDiagramaActual().validar());
+		this.actualizarEstado();
 	}
-	
+
 	/**
 	 * Validar diagrama actual
 	 */
 	public void validarProyecto() {
 		this.advertencia(this.proyecto.validar());
+		this.actualizarEstado();
 	}
 
 	@Override
@@ -532,11 +550,22 @@ public class Principal extends Observable implements FigureListener {
 	 * principal.
 	 * 
 	 * @param modificado
+	 *            Define el estado del diagrama actual. <code>true</code> si el
+	 *            diagrama tiene alguna modificación pendiente de ser guardada.
+	 *            <code>false</code> si no tiene ninguna.
 	 */
 	private void modificado(boolean modificado) {
 		if (modificado != this.shell.getModified()) {
 			this.shell.setModified(modificado);
 			this.actualizarTitulo();
+		}
+		
+		if (modificado) {
+			this.proyecto.getValidacion().setEstado(EstadoValidacion.SIN_VALIDAR);
+			this.proyecto.getDiagramaActual().getValidacion()
+					.setEstado(EstadoValidacion.SIN_VALIDAR);
+			
+			this.actualizarEstado();
 		}
 	}
 
