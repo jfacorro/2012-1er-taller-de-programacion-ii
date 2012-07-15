@@ -1,8 +1,8 @@
 package mereditor.interfaz.swt;
 
 import mereditor.control.Control;
-import mereditor.control.Proyecto;
 import mereditor.modelo.Diagrama;
+import mereditor.modelo.Proyecto;
 import mereditor.modelo.base.Componente;
 
 import org.eclipse.swt.SWT;

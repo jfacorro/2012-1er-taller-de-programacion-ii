@@ -1,4 +1,4 @@
-package mereditor.control;
+package mereditor.modelo;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -9,12 +9,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import mereditor.modelo.Atributo;
-import mereditor.modelo.Diagrama;
-import mereditor.modelo.Entidad;
-import mereditor.modelo.Jerarquia;
-import mereditor.modelo.Relacion;
-import mereditor.modelo.Validacion;
+import mereditor.control.DiagramaControl;
 import mereditor.modelo.Validacion.EstadoValidacion;
 import mereditor.modelo.base.Componente;
 import mereditor.modelo.base.ComponenteNombre;

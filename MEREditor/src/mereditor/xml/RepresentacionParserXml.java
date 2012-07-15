@@ -6,9 +6,9 @@ import java.util.List;
 import java.util.Map;
 
 import mereditor.control.Control;
-import mereditor.control.Proyecto;
 import mereditor.interfaz.swt.figuras.Figura;
 import mereditor.modelo.Diagrama;
+import mereditor.modelo.Proyecto;
 import mereditor.modelo.base.Componente;
 import mereditor.representacion.PList;
 

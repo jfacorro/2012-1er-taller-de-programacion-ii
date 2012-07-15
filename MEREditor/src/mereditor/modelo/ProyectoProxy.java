@@ -1,12 +1,7 @@
-package mereditor.control;
+package mereditor.modelo;
 
 import java.util.Collection;
 import java.util.Set;
-
-import mereditor.modelo.Atributo;
-import mereditor.modelo.Entidad;
-import mereditor.modelo.Jerarquia;
-import mereditor.modelo.Relacion;
 
 public interface ProyectoProxy {
 	/**

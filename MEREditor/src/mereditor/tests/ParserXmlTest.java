@@ -3,13 +3,13 @@ package mereditor.tests;
 import java.util.Iterator;
 
 import junit.framework.TestCase;
-import mereditor.control.Proyecto;
 import mereditor.modelo.Atributo;
 import mereditor.modelo.Atributo.TipoAtributo;
 import mereditor.modelo.Diagrama;
 import mereditor.modelo.Entidad;
 import mereditor.modelo.Entidad.TipoEntidad;
 import mereditor.modelo.Jerarquia;
+import mereditor.modelo.Proyecto;
 import mereditor.modelo.Relacion;
 import mereditor.modelo.Relacion.EntidadRelacion;
 import mereditor.modelo.Validacion.EstadoValidacion;

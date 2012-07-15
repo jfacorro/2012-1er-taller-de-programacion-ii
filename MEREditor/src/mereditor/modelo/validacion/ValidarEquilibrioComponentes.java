@@ -3,8 +3,8 @@ package mereditor.modelo.validacion;
 import java.util.ArrayList;
 import java.util.List;
 
-import mereditor.control.Proyecto;
 import mereditor.modelo.Diagrama;
+import mereditor.modelo.Proyecto;
 import mereditor.modelo.base.Componente;
 
 import org.apache.commons.lang.StringUtils;

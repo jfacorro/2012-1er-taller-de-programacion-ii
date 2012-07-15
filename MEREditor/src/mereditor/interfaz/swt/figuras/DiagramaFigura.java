@@ -4,9 +4,9 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 import mereditor.control.DiagramaControl;
-import mereditor.control.Proyecto;
 import mereditor.interfaz.swt.listeners.DragDropControlador;
 import mereditor.interfaz.swt.listeners.SeleccionControlador;
+import mereditor.modelo.Proyecto;
 
 import org.eclipse.draw2d.Figure;
 import org.eclipse.draw2d.FigureCanvas;
