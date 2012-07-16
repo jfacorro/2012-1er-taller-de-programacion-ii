@@ -16,23 +16,37 @@ public class GeneradorDeObservaciones {
 	public void observacionCaracteristica(String caracteristica,
 			String observacion) {
 		if (observacion != null && !observacion.trim().isEmpty()) {
-			caracteristicas.add(caracteristica + " : " + observacion);
+			if (caracteristicas.isEmpty())
+				caracteristicas.add("Validacion de caracteristicas");
+
+			caracteristicas.add("\t" + caracteristica + " : " + observacion);
 		}
 	}
 
 	public void observacionItem(String item, String observacion) {
 		if (observacion != null && !observacion.trim().isEmpty()) {
-			items.add(item + " : " + observacion);
+			if (items.isEmpty())
+				items.add("Validacion de componentes agregados");
+
+			items.add("\t" + item + " : " + observacion);
 		}
 	}
 
 	public String getObservaciones() {
 		if (items.isEmpty() && caracteristicas.isEmpty())
 			return null;
-		
-		String obs = StringUtils.join(caracteristicas, "\n");
-		obs += StringUtils.join(items, "\n");
-		
-		return obs;
+
+		String observaciones = generar(caracteristicas);
+		observaciones += generar(items);
+
+		return observaciones;
+	}
+
+	public static String generar(List<String> observaciones) {
+		// Eliminar 
+		while (observaciones.remove(""));
+		while (observaciones.remove(null));
+
+		return StringUtils.join(observaciones, "\n");
 	}
 }
