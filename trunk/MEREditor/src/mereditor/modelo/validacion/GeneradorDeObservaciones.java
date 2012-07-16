@@ -16,18 +16,12 @@ public class GeneradorDeObservaciones {
 	public void observacionCaracteristica(String caracteristica,
 			String observacion) {
 		if (observacion != null && !observacion.trim().isEmpty()) {
-			if(caracteristicas.isEmpty())
-				caracteristicas.add("Validacion de caracteristicas");
-			
 			caracteristicas.add(caracteristica + " : " + observacion);
 		}
 	}
 
 	public void observacionItem(String item, String observacion) {
 		if (observacion != null && !observacion.trim().isEmpty()) {
-			if(items.isEmpty())
-				items.add("Validacion de componentes agregados");
-
 			items.add(item + " : " + observacion);
 		}
 	}
