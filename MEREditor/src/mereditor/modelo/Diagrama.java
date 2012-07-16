@@ -148,11 +148,10 @@ public class Diagrama extends ComponenteNombre {
 		for (Componente componente : this.componentes)
 			generador.observacionItem(componente.toString(),
 					componente.validar());
-		
-		// Correr las validaciones de la lista de validaciones. 
-		generador.observacionItem(this.nombre, super.validar());
 
-		String observaciones = generador.getObservaciones();
+		// Agregar las validaciones de la lista de validaciones.
+		String observaciones = super.validar() + "\n";
+		observaciones += generador.getObservaciones();
 
 		if (observaciones != null && !observaciones.trim().isEmpty()) {
 			this.validacion.setObservaciones(observaciones);
