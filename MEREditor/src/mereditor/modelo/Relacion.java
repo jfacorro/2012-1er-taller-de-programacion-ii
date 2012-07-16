@@ -184,11 +184,11 @@ public class Relacion extends ComponenteNombre implements ComponenteAtributos {
 		public String validar() {
 			GeneradorDeObservaciones gen= new GeneradorDeObservaciones();
 			if (cardinalidadMinima == "")
-				gen.agregarCaracteristicaNoDefinida("CardinalidadMinima");
+				gen.caracteristicaNoDefinida("CardinalidadMinima");
 			if (cardinalidadMaxima == "")
-				gen.agregarCaracteristicaNoDefinida("CardinalidadMaxima");
+				gen.caracteristicaNoDefinida("CardinalidadMaxima");
 			if (rol=="")
-				gen.agregarCaracteristicaNoDefinida("Rol");
+				gen.caracteristicaNoDefinida("Rol");
 			return gen.getObservaciones();
 		}
 	}
