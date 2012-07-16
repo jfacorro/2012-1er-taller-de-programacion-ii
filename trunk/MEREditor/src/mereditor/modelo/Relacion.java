@@ -85,6 +85,8 @@ public class Relacion extends ComponenteNombre implements ComponenteAtributos {
 			gen.caracteristicaNoDefinida("Nombre");
 		for (Atributo a: this.atributos)
 			gen.observacionItem(a.getNombre(), a.validar());
+		for (EntidadRelacion er: this.participantes)
+			gen.observacionItem(er.getEntidad().getNombre(), er.validar());
 		return gen.getObservaciones();
 	}
 
@@ -177,6 +179,17 @@ public class Relacion extends ComponenteNombre implements ComponenteAtributos {
 
 		public Relacion getRelacion() {
 			return this.relacion;
+		}
+
+		public String validar() {
+			GeneradorDeObservaciones gen= new GeneradorDeObservaciones();
+			if (cardinalidadMinima == "")
+				gen.agregarCaracteristicaNoDefinida("CardinalidadMinima");
+			if (cardinalidadMaxima == "")
+				gen.agregarCaracteristicaNoDefinida("CardinalidadMaxima");
+			if (rol=="")
+				gen.agregarCaracteristicaNoDefinida("Rol");
+			return gen.getObservaciones();
 		}
 	}
 }
