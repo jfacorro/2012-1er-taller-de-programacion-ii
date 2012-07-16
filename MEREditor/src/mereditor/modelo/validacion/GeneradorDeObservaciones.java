@@ -1,42 +1,44 @@
 package mereditor.modelo.validacion;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.commons.lang.StringUtils;
+
 public class GeneradorDeObservaciones {
-	private String obs_caracteristicas;
-	private String obs_coleccion;
+	private List<String> caracteristicas = new ArrayList<>();
+	private List<String> items = new ArrayList<>();
 
-	public GeneradorDeObservaciones() {
-		obs_caracteristicas = "";
-		obs_coleccion = "";
+	public void caracteristicaNoDefinida(String caracteristica) {
+		this.observacionCaracteristica(caracteristica, "Sin definir");
 	}
 
-	public void agregarCaracteristicaNoDefinida(String nombreCaracteristica) {
-		this.observacionSobreUnaCaracteristica(nombreCaracteristica,
-				"Sin definir");
-	}
-
-	public void observacionSobreUnaCaracteristica(String nombreAtributo,
+	public void observacionCaracteristica(String caracteristica,
 			String observacion) {
-		if (observacion != null) {
-			obs_caracteristicas = obs_caracteristicas == "" ? "Validacion de caracteristicas\n"
-					: obs_caracteristicas;
-			obs_caracteristicas += nombreAtributo + " : " + observacion + "/n";
+		if (observacion != null && !observacion.trim().isEmpty()) {
+			if(caracteristicas.isEmpty())
+				caracteristicas.add("Validacion de caracteristicas");
+			
+			caracteristicas.add(caracteristica + " : " + observacion);
 		}
-
 	}
 
-	public void observacionSobreItemDeColeccion(String nombreDelItem,
-			String observacion) {
-		if (observacion != null) {
-			obs_coleccion = obs_coleccion == "" ? "Validacion de componentes agregados\n"
-					: obs_coleccion;
-			obs_coleccion += nombreDelItem + " : " + observacion + "/n";
-		}
+	public void observacionItem(String item, String observacion) {
+		if (observacion != null && !observacion.trim().isEmpty()) {
+			if(items.isEmpty())
+				items.add("Validacion de componentes agregados");
 
+			items.add(item + " : " + observacion);
+		}
 	}
 
 	public String getObservaciones() {
-		if (obs_coleccion.isEmpty() && obs_caracteristicas.isEmpty())
+		if (items.isEmpty() && caracteristicas.isEmpty())
 			return null;
-		return obs_caracteristicas + obs_coleccion;
+		
+		String obs = StringUtils.join(caracteristicas, "\n");
+		obs += StringUtils.join(items, "\n");
+		
+		return obs;
 	}
 }

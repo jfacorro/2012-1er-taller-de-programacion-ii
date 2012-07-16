@@ -317,15 +317,11 @@ public class Proyecto extends ComponenteNombre implements ProyectoProxy {
 			observaciones.add(resultado);
 		}
 
-		while (observaciones.remove(""))
-			;
-		while (observaciones.remove(null))
-			;
+		while (observaciones.remove(""));
+		while (observaciones.remove(null));
 
-		while (output.remove(""))
-			;
-		while (output.remove(null))
-			;
+		while (output.remove(""));
+		while (output.remove(null));
 
 		if (!observaciones.isEmpty()) {
 			this.validacion.setObservaciones(StringUtils.join(output, "\n")
