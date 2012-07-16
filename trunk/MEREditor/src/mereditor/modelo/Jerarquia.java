@@ -58,7 +58,7 @@ public class Jerarquia extends Componente {
 		if (!this.derivadas.isEmpty())
 			return null;
 		GeneradorDeObservaciones gen = new GeneradorDeObservaciones();
-		gen.agregarCaracteristicaNoDefinida("Entidades derivadas");
+		gen.caracteristicaNoDefinida("Entidades derivadas");
 		return gen.getObservaciones();
 	}
 

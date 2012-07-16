@@ -143,18 +143,17 @@ public class Diagrama extends ComponenteNombre {
 
 	@Override
 	public String validar() {
-		GeneradorDeObservaciones gen = new GeneradorDeObservaciones();
-		for (Diagrama diagrama : this.diagramas) {
-			gen.observacionSobreItemDeColeccion(diagrama.getNombre(),
-					diagrama.validar());
+		GeneradorDeObservaciones generador = new GeneradorDeObservaciones();
 
-		}
-		for (Componente componente : this.componentes) {
-			gen.observacionSobreItemDeColeccion(
-					((ComponenteNombre) componente).getNombre(),
+		for (Componente componente : this.componentes)
+			generador.observacionItem(componente.toString(),
 					componente.validar());
-		}
-		String observaciones = gen.getObservaciones();
+		
+		// Correr las validaciones de la lista de validaciones. 
+		generador.observacionItem(this.nombre, super.validar());
+
+		String observaciones = generador.getObservaciones();
+
 		if (observaciones != null && !observaciones.trim().isEmpty()) {
 			this.validacion.setObservaciones(observaciones);
 			this.validacion

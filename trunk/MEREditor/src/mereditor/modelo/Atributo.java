@@ -149,23 +149,23 @@ public class Atributo extends ComponenteNombre implements ComponenteAtributos {
 	public String validar() {
 		GeneradorDeObservaciones gen = new GeneradorDeObservaciones();
 		if (this.tipo == null) {
-			gen.agregarCaracteristicaNoDefinida("Tipo");
+			gen.caracteristicaNoDefinida("Tipo");
 		} else if (this.tipo.equals(TipoAtributo.DERIVADO_CALCULO)
 				&& formula == null) {
-			gen.agregarCaracteristicaNoDefinida("Formula");
+			gen.caracteristicaNoDefinida("Formula");
 		} else if (this.tipo.equals(TipoAtributo.DERIVADO_COPIA)
 				&& this.original == null) {
-			gen.agregarCaracteristicaNoDefinida("Atributo Original");
+			gen.caracteristicaNoDefinida("Atributo Original");
 		}
 
 		if (this.cardinalidadMinima.isEmpty()) {
-			gen.agregarCaracteristicaNoDefinida("Cardinalidad Minima");
+			gen.caracteristicaNoDefinida("Cardinalidad Minima");
 		}
 		if (this.cardinalidadMaxima.isEmpty()) {
-			gen.agregarCaracteristicaNoDefinida("Cardinalidad Maxima");
+			gen.caracteristicaNoDefinida("Cardinalidad Maxima");
 		}
 		for (Atributo a : this.atributos) {
-			gen.observacionSobreItemDeColeccion(a.getNombre(), a.validar());
+			gen.observacionItem(a.getNombre(), a.validar());
 		}
 		return gen.getObservaciones();
 	}

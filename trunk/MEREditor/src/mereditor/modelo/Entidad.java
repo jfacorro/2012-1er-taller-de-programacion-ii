@@ -122,9 +122,9 @@ public class Entidad extends ComponenteNombre implements ComponenteAtributos {
 	public String validar() {
 		GeneradorDeObservaciones gen = new GeneradorDeObservaciones();
 		if (this.getNombre() == null)
-			gen.agregarCaracteristicaNoDefinida("Nombre");
+			gen.caracteristicaNoDefinida("Nombre");
 		for (Atributo a : this.atributos) {
-			gen.observacionSobreItemDeColeccion(a.getNombre(), a.validar());
+			gen.observacionItem(a.getNombre(), a.validar());
 		}
 		return gen.getObservaciones();
 	}
