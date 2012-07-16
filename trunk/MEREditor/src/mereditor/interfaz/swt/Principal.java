@@ -595,7 +595,7 @@ public class Principal extends Observable implements FigureListener {
 		this.advertencia(resultado);
 		this.actualizarEstado();
 
-		String nombreArchivo = "Proyecto-" + this.proyecto.getDiagramaActual().getNombre();
+		String nombreArchivo = "Proyecto-" + this.proyecto.getDiagramaRaiz().getNombre();
 		nombreArchivo += String.format("_%s.txt", dateFormat.format(new Date()));
 
 		this.guardarValidacion(nombreArchivo, resultado);
