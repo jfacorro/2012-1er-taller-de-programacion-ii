@@ -34,7 +34,7 @@ public class JerarquiaControl extends Jerarquia implements Control<Jerarquia>,
 	public void dibujar(Figure contenedor, String idDiagrama) {
 		// Obtener el diagrama padre correspondiente
 		Diagrama padre = (Diagrama) this.getPadre(idDiagrama);
-		// Dibujar solo si la generica est� en el diagrama
+		// Dibujar solo si la generica está en el diagrama
 		if (padre.contiene(this.generica)) {
 			JerarquiaFigura figuraJerarquia = (JerarquiaFigura) this
 					.getFigura(idDiagrama);

@@ -446,7 +446,7 @@ class ModeloParserXml extends ParserXml {
 		case Constants.JERARQUIA_TAG:
 			return new JerarquiaXml();
 		case Constants.DIAGRAMA_TAG:
-			return new DiagramaXml();
+			return new DiagramaXml(this.proyecto);
 		case Constants.ATRIBUTO_TAG:
 			return new AtributoXml();
 		case Constants.VALIDACION_TAG:
@@ -464,7 +464,7 @@ class ModeloParserXml extends ParserXml {
 		if (Jerarquia.class.isInstance(componente))
 			return new JerarquiaXml((JerarquiaControl) componente);
 		if (Diagrama.class.isInstance(componente))
-			return new DiagramaXml((DiagramaControl) componente);
+			return new DiagramaXml(this.proyecto, (DiagramaControl) componente);
 		if (Atributo.class.isInstance(componente))
 			return new AtributoXml((AtributoControl) componente);
 		if (Validacion.class.isInstance(componente))

@@ -17,7 +17,7 @@ public class Observacion {
 		this.validable = validable;
 		this.mensaje = mensaje;
 	}
-	
+
 	public Observacion(Validable validable) {
 		this(validable, "");
 	}
@@ -66,9 +66,9 @@ public class Observacion {
 
 		List<String> observaciones = new ArrayList<>();
 
-		if (this.validable != null)
-			observaciones.add(this.validable.toString() + ": " + this.mensaje);
-		else
+		if (this.validable != null) {
+			observaciones.add(String.format("%s: %s", this.validable, this.mensaje));
+		} else
 			observaciones.add("- " + this.mensaje);
 
 		String tabs = StringUtils.repeat("   ", nivel);
@@ -81,10 +81,8 @@ public class Observacion {
 
 	public static String generar(List<String> observaciones) {
 		// Eliminar vacíos y nulos
-		while (observaciones.remove(""))
-			;
-		while (observaciones.remove(null))
-			;
+		while (observaciones.remove(""));
+		while (observaciones.remove(null));
 
 		return StringUtils.join(observaciones, "\n");
 	}
