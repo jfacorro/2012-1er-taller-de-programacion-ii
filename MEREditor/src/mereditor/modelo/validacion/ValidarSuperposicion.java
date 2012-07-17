@@ -18,7 +18,7 @@ public class ValidarSuperposicion implements Validacion {
 
 		for (Componente comp : diagrama.getComponentes()) {
 			if (comp.getAllPadres().size() > 1) {
-				String msj = "Pertenece a %d diagramas: %s.";
+				String msj = "Pertenece a %d diagramas (%s).";
 				String diagramas = StringUtils.join(comp.getAllPadres(), ", ");
 				msj = String.format(msj, comp.getAllPadres().size(), diagramas);
 

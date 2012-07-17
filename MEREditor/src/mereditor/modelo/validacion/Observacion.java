@@ -7,25 +7,28 @@ import org.apache.commons.lang.StringUtils;
 
 public class Observacion {
 	public static final String SIN_OBSERVACIONES = "No hay observaciones de validación.";
-	public static final String NO_DEFINIDO = "No definida";
+	public static final String NO_DEFINIDO = "no tiene un valor definido";
 
 	private List<Observacion> observaciones = new ArrayList<>();
 	private String mensaje = "";
 	private Validable validable;
 
-	public Observacion(Validable validable) {
-		this.validable = validable;
-	}
-
 	public Observacion(Validable validable, String mensaje) {
-		this(validable);
+		this.validable = validable;
 		this.mensaje = mensaje;
 	}
+	
+	public Observacion(Validable validable) {
+		this(validable, "");
+	}
 
-	public Observacion noDefinida(Validable validable) {
-		Observacion obs = new Observacion(validable);
-		obs.mensaje = Observacion.NO_DEFINIDO;
-		return obs;
+	/**
+	 * Utilizado para observaciones donde no se quiere mostrar el validable.
+	 * 
+	 * @param mensaje
+	 */
+	public Observacion(String mensaje) {
+		this(null, mensaje);
 	}
 
 	public void addObservacion(Observacion observacion) {
@@ -63,9 +66,12 @@ public class Observacion {
 
 		List<String> observaciones = new ArrayList<>();
 
-		observaciones.add(this.validable.toString() + ": " + this.mensaje);
+		if (this.validable != null)
+			observaciones.add(this.validable.toString() + ": " + this.mensaje);
+		else
+			observaciones.add("- " + this.mensaje);
 
-		String tabs = StringUtils.repeat("\t", nivel);
+		String tabs = StringUtils.repeat("   ", nivel);
 
 		for (Observacion observacion : this.observaciones)
 			observaciones.add(tabs + observacion.toString(nivel + 1));

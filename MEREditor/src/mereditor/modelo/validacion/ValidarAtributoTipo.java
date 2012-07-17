@@ -18,10 +18,9 @@ public class ValidarAtributoTipo implements Validacion {
 
 		if (tipo != null)
 			if (tipo.equals(TipoAtributo.DERIVADO_CALCULO) && atributo.getFormula() == null)
-				observaciones.add(new Observacion(atributo, "Formula " + Observacion.NO_DEFINIDO));
+				observaciones.add(new Observacion("Formula " + Observacion.NO_DEFINIDO));
 			else if (tipo.equals(TipoAtributo.DERIVADO_COPIA) && atributo.getOriginal() == null)
-				observaciones.add(new Observacion(atributo, "Atributo Original "
-						+ Observacion.NO_DEFINIDO));
+				observaciones.add(new Observacion("Atributo Original " + Observacion.NO_DEFINIDO));
 
 		return observaciones;
 	}

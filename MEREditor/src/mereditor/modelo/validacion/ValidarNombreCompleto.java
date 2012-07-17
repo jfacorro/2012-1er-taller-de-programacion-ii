@@ -3,7 +3,6 @@ package mereditor.modelo.validacion;
 import java.util.ArrayList;
 import java.util.List;
 
-import mereditor.modelo.base.Componente;
 import mereditor.modelo.base.ComponenteNombre;
 
 import org.apache.commons.lang.StringUtils;
@@ -17,8 +16,7 @@ public class ValidarNombreCompleto implements Validacion {
 		ComponenteNombre componenteNombre = (ComponenteNombre) componente;
 
 		if (StringUtils.isEmpty(componenteNombre.getNombre()))
-			observaciones.add(new Observacion((Componente) componente, "Nombre "
-					+ Observacion.NO_DEFINIDO));
+			observaciones.add(new Observacion("Nombre " + Observacion.NO_DEFINIDO));
 
 		return observaciones;
 	}
