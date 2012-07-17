@@ -274,6 +274,7 @@ public class Principal extends Observable implements FigureListener {
 				this.proyecto = modelo.parsear();
 				this.cargarProyecto();
 			} catch (Exception e) {
+				e.printStackTrace();
 				error(e.getMessage());
 			}
 		}
@@ -679,7 +680,7 @@ public class Principal extends Observable implements FigureListener {
 	public void error(String mensaje) {
 		MessageBox messageBox = new MessageBox(shell, SWT.ICON_ERROR | SWT.OK);
 		messageBox.setText("Error");
-		messageBox.setMessage(mensaje);
+		messageBox.setMessage(mensaje != null ? mensaje : "Ocurrió un error");
 		messageBox.open();
 	}
 
