@@ -100,6 +100,15 @@ public abstract class Componente implements Comparable<Componente>, Validable {
 	}
 
 	/**
+	 * Devuelve la colección de componentes hijos de este componente.
+	 * 
+	 * @return Coleccion de componentes hijos
+	 */
+	public Collection<Componente> getComponentes() {
+		return null;
+	}
+
+	/**
 	 * Carga las validaciones para este componente.
 	 */
 	public void addValidaciones() {
@@ -128,7 +137,8 @@ public abstract class Componente implements Comparable<Componente>, Validable {
 	@Override
 	public boolean equals(Object obj) {
 		if (Componente.class.isInstance(obj))
-			return obj == null ? false : this.getId().equals(((Componente) obj).getId());
+			return obj == null ? false : this.getId().equals(
+					((Componente) obj).getId());
 		else
 			return false;
 	}
@@ -160,7 +170,8 @@ public abstract class Componente implements Comparable<Componente>, Validable {
 	 * @param clazz
 	 * @return
 	 */
-	public static <T> Set<T> filtrarComponentes(Class<T> clazz, Collection<Componente> coleccion) {
+	public static <T> Set<T> filtrarComponentes(Class<T> clazz,
+			Collection<Componente> coleccion) {
 		Set<T> lista = new HashSet<>();
 
 		for (Componente componente : coleccion)

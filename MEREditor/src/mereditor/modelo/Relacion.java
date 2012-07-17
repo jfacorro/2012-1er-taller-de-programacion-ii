@@ -1,6 +1,7 @@
 package mereditor.modelo;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
@@ -83,6 +84,11 @@ public class Relacion extends ComponenteNombre implements ComponenteAtributos, C
 
 	public Set<Atributo> getAtributos() {
 		return Collections.unmodifiableSet(atributos);
+	}
+	
+	@Override
+	public Collection<Componente> getComponentes() {
+		return new ArrayList<Componente>(this.atributos);
 	}
 	
 	@Override

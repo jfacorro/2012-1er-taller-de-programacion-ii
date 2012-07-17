@@ -1,6 +1,7 @@
 package mereditor.xml;
 
 import java.io.File;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -138,23 +139,30 @@ class RepresentacionParserXml extends ParserXml {
 		Element diagramaElem = this.agregarElemento(elemento, Constants.DIAGRAMA_TAG);
 		this.agregarAtributo(diagramaElem, Constants.ID_ATTR, diagrama.getId());
 
-		// Recorrer todos los componentes del proyecto
-		for (Componente componente : this.proyecto.getComponentes()) {
-			if (diagrama.contiene(componente)) {
+		this.generarDiagramaXml(diagramaElem, diagrama.getId(), diagrama.getComponentes());
+
+		// Recorrer todos los diagramas hijos del principal
+		for (Diagrama diagramaHijo : diagrama.getDiagramas()) {
+			this.generarDiagramaXml(elemento, diagramaHijo);
+		}
+	}
+	
+	protected void generarDiagramaXml(Element diagramaElem, String idDiagrama, Collection<Componente> componentes) {
+		// Recorrer todos los componentes y sus hijos.
+		if(componentes != null) {
+			for (Componente componente : componentes) {
 				Control<?> control = (Control<?>) componente;
-				Figura<?> figura = control.getFigura(diagrama.getId());
+				Figura<?> figura = control.getFigura(idDiagrama);
+	
 				if (figura != null && figura.getRepresentacion() != null) {
 					PList plist = figura.getRepresentacion();
 					Element reprElement = this.agregarElemento(diagramaElem, Constants.REPRESENTACION_TAG);
 					this.agregarAtributo(reprElement, Constants.ID_ATTR, componente.getId());
 					this.agregarRepresentacion(reprElement, plist);
 				}
+				
+				this.generarDiagramaXml(diagramaElem, idDiagrama, componente.getComponentes());
 			}
-		}
-
-		// Recorrer todos los diagramas hijos del principal
-		for (Diagrama diagramaHijo : diagrama.getDiagramas()) {
-			this.generarDiagramaXml(elemento, diagramaHijo);
 		}
 	}
 

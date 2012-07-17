@@ -162,6 +162,7 @@ public class Proyecto extends ComponenteNombre implements ProyectoProxy {
 	 * 
 	 * @return
 	 */
+	@Override
 	public Collection<Componente> getComponentes() {
 		return Collections.unmodifiableCollection(this.componentes.values());
 	}
