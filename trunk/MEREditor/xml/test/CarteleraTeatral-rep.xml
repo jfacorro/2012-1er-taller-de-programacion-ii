@@ -16,14 +16,14 @@
             <Dimension alto="10" ancho="10"/>
             <Posicion x="220" y="187"/>
         </Representacion>
-        <Representacion id="b16bf6b9-b240-41d2-9f75-28174af8e584">
-            <Dimension alto="50" ancho="80"/>
-            <Posicion x="700" y="226"/>
-        </Representacion>
         <Representacion id="ec0dea2d-0e6e-43f1-9996-351c41d8d9f3">
             <Label x="578" y="323"/>
             <Dimension alto="10" ancho="10"/>
             <Posicion x="584" y="341"/>
+        </Representacion>
+        <Representacion id="b16bf6b9-b240-41d2-9f75-28174af8e584">
+            <Dimension alto="50" ancho="80"/>
+            <Posicion x="700" y="226"/>
         </Representacion>
         <Representacion id="9e43ed60-8ee8-440a-a071-62e6d04fe767">
             <Dimension alto="50" ancho="80"/>
@@ -87,14 +87,14 @@
             <Dimension alto="10" ancho="10"/>
             <Posicion x="594" y="236"/>
         </Representacion>
-        <Representacion id="19f76d7b-d0b6-49b8-a65e-493e28a112a2">
-            <Dimension alto="50" ancho="80"/>
-            <Posicion x="240" y="392"/>
-        </Representacion>
         <Representacion id="a64d4cf5-6c14-432b-b4b4-e8d558663f9c">
             <Label x="865" y="251"/>
             <Dimension alto="10" ancho="10"/>
             <Posicion x="851" y="257"/>
+        </Representacion>
+        <Representacion id="19f76d7b-d0b6-49b8-a65e-493e28a112a2">
+            <Dimension alto="50" ancho="80"/>
+            <Posicion x="240" y="392"/>
         </Representacion>
         <Representacion id="9075a4fa-527f-411a-8e2c-0a01b23693bd">
             <Label x="861" y="215"/>
@@ -141,14 +141,14 @@
             <Dimension alto="10" ancho="10"/>
             <Posicion x="58" y="166"/>
         </Representacion>
-        <Representacion id="b16bf6b9-b240-41d2-9f75-28174af8e584">
-            <Dimension alto="50" ancho="80"/>
-            <Posicion x="514" y="171"/>
-        </Representacion>
         <Representacion id="ec0dea2d-0e6e-43f1-9996-351c41d8d9f3">
             <Label x="358" y="265"/>
             <Dimension alto="10" ancho="10"/>
             <Posicion x="364" y="283"/>
+        </Representacion>
+        <Representacion id="b16bf6b9-b240-41d2-9f75-28174af8e584">
+            <Dimension alto="50" ancho="80"/>
+            <Posicion x="514" y="171"/>
         </Representacion>
         <Representacion id="9e43ed60-8ee8-440a-a071-62e6d04fe767">
             <Dimension alto="50" ancho="80"/>

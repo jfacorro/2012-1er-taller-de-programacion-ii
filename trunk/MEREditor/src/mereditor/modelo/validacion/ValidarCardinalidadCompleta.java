@@ -14,12 +14,13 @@ public class ValidarCardinalidadCompleta implements Validacion {
 		ComponenteCardinal cardinal = (ComponenteCardinal) validable;
 		
 		if (cardinal.getCardinalidadMinima().isEmpty())
-			observaciones.add(new Observacion(validable, "Cardinalidad Minima " + Observacion.NO_DEFINIDO));
+			observaciones.add(new Observacion("Cardinalidad Minima " + Observacion.NO_DEFINIDO));
 
 		if (cardinal.getCardinalidadMaxima().isEmpty()) {
-			observaciones.add(new Observacion(validable, "Cardinalidad Maxima " + Observacion.NO_DEFINIDO));
+			observaciones.add(new Observacion("Cardinalidad Maxima " + Observacion.NO_DEFINIDO));
 		}
-		return null;
+
+		return observaciones;
 	}
 
 }
