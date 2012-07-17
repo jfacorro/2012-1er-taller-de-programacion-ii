@@ -86,7 +86,7 @@ public class RelacionFigure extends Figura<Relacion> {
 	 * @param label
 	 */
 	public void conectarEntidad(Figura<Entidad> figura, String label) {
-		Connection conexion = Figura.conectarChopbox(this, figura);
+		Connection conexion = Figura.conectarChopboxEllipse(figura, this);
 
 		// Agregad cardinalidad y rol
 		Label lblCardinalidad = new Label(label);
