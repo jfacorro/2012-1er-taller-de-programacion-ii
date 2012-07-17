@@ -3,16 +3,16 @@ Juan:
 	Pendiente:
 	----------
 		- Mostrar barras de scroll cuando el dibujo se va de la pantalla.
-		- Revisar eliminar, no está eliminando los diagramas del proyecto.
 	Deseables:
 	----------
-		- Implementar la figura de Jerarquía mejor.
-		- Mejorar las conexiones para que salgan del centro.
 		- Crear anchors que puedan:
 			- En Entidades: Moverse sobre el borde de las figuras.
 			- En Relaciones: Utilizar sólo las puntas del rombo
 	Hecho:
 	------
+		- Revisar eliminar, no está eliminando los diagramas del proyecto.
+		- Mejorar las conexiones.
+		- Implementar la figura de Jerarquía mejor.s
 		- Agregar icono a la aplicacion.
 		- Cambiar icono de la validacion completa.
 		- Modificar los anchors para los atributos así usan EllipseAnchor y queda mejor.

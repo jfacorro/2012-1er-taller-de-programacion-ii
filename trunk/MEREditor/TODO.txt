@@ -1,6 +1,3 @@
-- Completar Funcionalidad.
-	- Validación. 
-		- Completitud: del Diseño de cada Componente (aegurarse que las propiedades tienen valores válidos y la obligatorias están completas).
 - Manual de usuario: hacer una vez completada la funcionalidad.
 - Documento técnico.
 
