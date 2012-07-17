@@ -93,6 +93,11 @@ public class Entidad extends ComponenteNombre implements ComponenteAtributos {
 	public Set<Relacion> getRelaciones() {
 		return Collections.unmodifiableSet(this.relaciones);
 	}
+	
+	@Override
+	public Collection<Componente> getComponentes() {
+		return new ArrayList<Componente>(this.atributos);
+	}
 
 	/**
 	 * Devuelve la relacion que conecta a las dos entidades.

@@ -27,10 +27,15 @@ public class Diagrama extends ComponenteNombre {
 		this.proyecto = proyecto;
 	}
 
+	/**
+	 * Devuelve los diagramas hijos de este diagrama.
+	 * @return
+	 */
 	public Set<Diagrama> getDiagramas() {
 		return Collections.unmodifiableSet(diagramas);
 	}
 
+	@Override
 	public Set<Componente> getComponentes() {
 		return Collections.unmodifiableSet(componentes);
 	}

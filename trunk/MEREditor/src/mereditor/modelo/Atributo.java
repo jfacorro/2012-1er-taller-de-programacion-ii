@@ -1,5 +1,6 @@
 package mereditor.modelo;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
@@ -105,6 +106,11 @@ public class Atributo extends ComponenteNombre implements ComponenteAtributos,
 
 	public Collection<Atributo> getAtributos() {
 		return Collections.unmodifiableCollection(this.atributos);
+	}
+	
+	@Override
+	public Collection<Componente> getComponentes() {
+		return new ArrayList<Componente>(this.atributos);
 	}
 
 	/**
