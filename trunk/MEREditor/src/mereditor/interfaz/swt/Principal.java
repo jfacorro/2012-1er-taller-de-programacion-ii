@@ -26,6 +26,7 @@ import mereditor.interfaz.swt.figuras.DiagramaFigura;
 import mereditor.modelo.Proyecto;
 import mereditor.modelo.ProyectoProxy;
 import mereditor.modelo.Validacion.EstadoValidacion;
+import mereditor.modelo.validacion.Observacion;
 import mereditor.xml.ParserXml;
 
 import org.eclipse.draw2d.FigureCanvas;
@@ -577,28 +578,38 @@ public class Principal extends Observable implements FigureListener {
 	 * Validar diagrama actual.
 	 */
 	public void validar() {
-		String resultado = this.proyecto.getDiagramaActual().validar();
-		this.advertencia(resultado);
+		Observacion observacion = this.proyecto.getDiagramaActual().validar();
 		this.actualizarEstado();
+		
+		if(observacion.isEmpty())
+			this.advertencia(Observacion.SIN_OBSERVACIONES);
+		else {
+			this.advertencia(observacion.toString());
 
-		String nombreArchivo = "Diagrama-" + this.proyecto.getDiagramaActual().getNombre();
-		nombreArchivo += String.format("-%s.txt", dateFormat.format(new Date()));
+			String nombreArchivo = "Diagrama-" + this.proyecto.getDiagramaActual().getNombre();
+			nombreArchivo += String.format("-%s.txt", dateFormat.format(new Date()));
 
-		this.guardarValidacion(nombreArchivo, resultado);
+			this.guardarValidacion(nombreArchivo, observacion.toString());
+		}
 	}
 
 	/**
 	 * Validar proyecto.
 	 */
 	public void validarProyecto() {
-		String resultado = this.proyecto.validar();
-		this.advertencia(resultado);
+		Observacion observacion = this.proyecto.validar();
 		this.actualizarEstado();
+		
+		if(observacion.isEmpty())
+			this.advertencia(Observacion.SIN_OBSERVACIONES);
+		else {
+			this.advertencia(observacion.toString());
 
-		String nombreArchivo = "Proyecto-" + this.proyecto.getDiagramaRaiz().getNombre();
-		nombreArchivo += String.format("_%s.txt", dateFormat.format(new Date()));
+			String nombreArchivo = "Proyecto-" + this.proyecto.getDiagramaRaiz().getNombre();
+			nombreArchivo += String.format("_%s.txt", dateFormat.format(new Date()));
 
-		this.guardarValidacion(nombreArchivo, resultado);
+			this.guardarValidacion(nombreArchivo, observacion.toString());
+		}
 	}
 
 	/**

@@ -2,6 +2,8 @@ package mereditor.modelo.base;
 
 import java.util.UUID;
 
+import mereditor.modelo.validacion.ValidarNombreCompleto;
+
 public abstract class ComponenteNombre extends Componente {
 	
 	protected String nombre = "";
@@ -30,6 +32,12 @@ public abstract class ComponenteNombre extends Componente {
 
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
+	}
+	
+	@Override
+	public void addValidaciones() {
+		this.validaciones.add(new ValidarNombreCompleto());
+		super.addValidaciones();
 	}
 	
 	@Override

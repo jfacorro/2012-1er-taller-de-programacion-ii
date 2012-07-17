@@ -1,15 +1,22 @@
 package mereditor.modelo;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
+import mereditor.modelo.Relacion.TipoRelacion;
 import mereditor.modelo.base.Componente;
 import mereditor.modelo.base.ComponenteAtributos;
+import mereditor.modelo.base.ComponenteCardinal;
 import mereditor.modelo.base.ComponenteNombre;
-import mereditor.modelo.validacion.GeneradorDeObservaciones;
+import mereditor.modelo.base.ComponenteTipado;
+import mereditor.modelo.validacion.Observacion;
+import mereditor.modelo.validacion.Validable;
+import mereditor.modelo.validacion.ValidarCardinalidadCompleta;
 
-public class Relacion extends ComponenteNombre implements ComponenteAtributos {
+public class Relacion extends ComponenteNombre implements ComponenteAtributos, ComponenteTipado<TipoRelacion> {
 	public enum TipoRelacion {
 		ASOCIACION, COMPOSICION
 	}
@@ -79,15 +86,21 @@ public class Relacion extends ComponenteNombre implements ComponenteAtributos {
 	}
 	
 	@Override
-	public String validar() {
-		GeneradorDeObservaciones gen = new GeneradorDeObservaciones();
-		if (this.getNombre() == null)
-			gen.caracteristicaNoDefinida("Nombre");
-		for (Atributo a: this.atributos)
-			gen.observacionItem(a.getNombre(), a.validar());
-		for (EntidadRelacion er: this.participantes)
-			gen.observacionItem(er.getEntidad().getNombre(), er.validar());
-		return gen.getObservaciones();
+	public void addValidaciones() {
+		super.addValidaciones();
+	}
+
+	@Override
+	public Observacion validar() {
+		Observacion observacion = super.validar();
+
+		for (Atributo atributo : this.atributos)
+			observacion.addObservacion(atributo.validar());
+
+		for (EntidadRelacion entidadRelacion : this.participantes)
+			observacion.addObservacion(entidadRelacion.validar());
+
+		return observacion;
 	}
 
 	@Override
@@ -111,15 +124,21 @@ public class Relacion extends ComponenteNombre implements ComponenteAtributos {
 	 * Contiene la entidad que pertence a la relacion y su informacion asociada
 	 * a la misma.
 	 */
-	public class EntidadRelacion {
+	public class EntidadRelacion implements Validable, ComponenteCardinal {
 		protected Entidad entidad;
 		protected String rol = "";
 		protected String cardinalidadMinima = "1";
 		protected String cardinalidadMaxima = "1";
 		protected Relacion relacion;
+		
+		/**
+		 * Lista de validaciones.
+		 */
+		protected List<mereditor.modelo.validacion.Validacion> validaciones = new ArrayList<>();
 
 		public EntidadRelacion(Relacion relacion) {
 			this.relacion = relacion;
+			this.addValidaciones();
 		}
 
 		public EntidadRelacion(Relacion relacion, Entidad entidad, String rol,
@@ -166,10 +185,8 @@ public class Relacion extends ComponenteNombre implements ComponenteAtributos {
 		@Override
 		public String toString() {
 			String label = "";
-			if (!this.cardinalidadMinima.equals("1")
-					|| !this.cardinalidadMaxima.equals("1"))
-				label = "(" + this.cardinalidadMinima + ", "
-						+ this.cardinalidadMaxima + ")";
+			if (!this.cardinalidadMinima.equals("1") || !this.cardinalidadMaxima.equals("1"))
+				label = "(" + this.cardinalidadMinima + ", " + this.cardinalidadMaxima + ")";
 
 			if (this.rol != null)
 				label += " " + this.rol;
@@ -180,16 +197,19 @@ public class Relacion extends ComponenteNombre implements ComponenteAtributos {
 		public Relacion getRelacion() {
 			return this.relacion;
 		}
+		
+		@Override
+		public void addValidaciones() {
+			this.validaciones.add(new ValidarCardinalidadCompleta());
+		}
 
-		public String validar() {
-			GeneradorDeObservaciones gen= new GeneradorDeObservaciones();
-			if (cardinalidadMinima == "")
-				gen.caracteristicaNoDefinida("CardinalidadMinima");
-			if (cardinalidadMaxima == "")
-				gen.caracteristicaNoDefinida("CardinalidadMaxima");
-			if (rol=="")
-				gen.caracteristicaNoDefinida("Rol");
-			return gen.getObservaciones();
+		public Observacion validar() {
+			Observacion observacion = new Observacion(this);
+			
+			for (mereditor.modelo.validacion.Validacion validacion : this.validaciones)
+				observacion.addObservaciones(validacion.validar(this));
+			
+			return observacion;
 		}
 	}
 }

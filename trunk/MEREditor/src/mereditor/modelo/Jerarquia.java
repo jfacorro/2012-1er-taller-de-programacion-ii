@@ -5,7 +5,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import mereditor.modelo.base.Componente;
-import mereditor.modelo.validacion.GeneradorDeObservaciones;
+import mereditor.modelo.validacion.Observacion;
 
 public class Jerarquia extends Componente {
 	public enum TipoJerarquia {
@@ -52,14 +52,18 @@ public class Jerarquia extends Componente {
 	public void setTipo(TipoJerarquia tipo) {
 		this.tipo = tipo;
 	}
-
+	
 	@Override
-	public String validar() {
-		if (!this.derivadas.isEmpty())
-			return null;
-		GeneradorDeObservaciones gen = new GeneradorDeObservaciones();
-		gen.caracteristicaNoDefinida("Entidades derivadas");
-		return gen.getObservaciones();
+	public Observacion validar() {
+		Observacion observacion = super.validar();
+
+		if (this.derivadas.isEmpty())
+			observacion.addObservacion(new Observacion(this, "No tiene entidades derivadas establecidas."));
+		
+		if (this.generica == null)
+			observacion.addObservacion(new Observacion(this, "No tiene entidad genérica establecida."));
+
+		return observacion;
 	}
 
 	@Override

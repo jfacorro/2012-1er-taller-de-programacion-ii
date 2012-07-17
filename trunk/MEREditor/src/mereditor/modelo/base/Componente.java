@@ -10,9 +10,10 @@ import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
 
-import org.apache.commons.lang.StringUtils;
+import mereditor.modelo.validacion.Observacion;
+import mereditor.modelo.validacion.Validable;
 
-public abstract class Componente implements Comparable<Componente> {
+public abstract class Componente implements Comparable<Componente>, Validable {
 	/**
 	 * Id del componente
 	 */
@@ -78,16 +79,13 @@ public abstract class Componente implements Comparable<Componente> {
 	 * @return Devuelve <code>null</code> si es válido o las observaciones
 	 *         correspondientes si no lo es.
 	 */
-	public String validar() {
-		List<String> observaciones = new ArrayList<>();
+	public Observacion validar() {
+		Observacion observaciones = new Observacion(this);
 
 		for (mereditor.modelo.validacion.Validacion validacion : this.validaciones)
-			observaciones.add(validacion.validar(this).trim());
+			observaciones.addObservaciones(validacion.validar(this));
 
-		// Eliminar todas las observaciones vacías.
-		while (observaciones.remove(""));
-
-		return StringUtils.join(observaciones, "\n").trim();
+		return observaciones;
 	}
 
 	/**
