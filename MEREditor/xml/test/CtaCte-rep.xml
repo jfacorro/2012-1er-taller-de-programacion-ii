@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Proyecto>
+    <Diagrama id="dd2b9d0b-7056-4633-b6ab-9d6b4da75ec0">
+        <Representacion id="32826d05-48a5-43ee-8460-3e9d37bd3a09">
+            <Dimension alto="50" ancho="80"/>
+            <Posicion x="319" y="390"/>
+        </Representacion>
+        <Representacion id="e5671a16-551c-4d61-8338-2e91a531600e">
+            <Dimension alto="50" ancho="80"/>
+            <Posicion x="108" y="293"/>
+        </Representacion>
+        <Representacion id="6a57e963-ae6c-49a5-9d05-805e41d80404">
+            <Dimension alto="50" ancho="80"/>
+            <Posicion x="316" y="492"/>
+        </Representacion>
+        <Representacion id="7633989c-3523-4d14-81b0-812a6cdd3bd3">
+            <Dimension alto="50" ancho="80"/>
+            <Posicion x="441" y="295"/>
+        </Representacion>
+        <Representacion id="a0d95bd6-c452-4d49-afff-42fd925ed222">
+            <Dimension alto="50" ancho="80"/>
+            <Posicion x="567" y="297"/>
+        </Representacion>
+        <Representacion id="5349499a-e974-46a2-af63-3394aff62d4a">
+            <Dimension alto="50" ancho="80"/>
+            <Posicion x="577" y="487"/>
+        </Representacion>
+        <Representacion id="2dac5341-2f56-4e32-9333-0b06dc27f580">
+            <Dimension alto="50" ancho="80"/>
+            <Posicion x="457" y="407"/>
+        </Representacion>
+        <Representacion id="a08da8ff-2f28-41bf-af61-b7e467a851f3">
+            <Dimension alto="50" ancho="80"/>
+            <Posicion x="108" y="470"/>
+        </Representacion>
+        <Representacion id="80142bcc-1a1d-4838-9a64-56edc89db3d4">
+            <Dimension alto="50" ancho="80"/>
+            <Posicion x="312" y="292"/>
+        </Representacion>
+    </Diagrama>
+</Proyecto>
