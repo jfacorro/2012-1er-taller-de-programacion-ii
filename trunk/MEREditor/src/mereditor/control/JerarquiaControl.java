@@ -36,26 +36,25 @@ public class JerarquiaControl extends Jerarquia implements Control<Jerarquia>,
 		Diagrama padre = (Diagrama) this.getPadre(idDiagrama);
 		// Dibujar solo si la generica está en el diagrama
 		if (padre.contiene(this.generica)) {
-			JerarquiaFigura figuraJerarquia = (JerarquiaFigura) this
+			JerarquiaFigura figJerarquia = (JerarquiaFigura) this
 					.getFigura(idDiagrama);
-			contenedor.add(figuraJerarquia);
+			contenedor.add(figJerarquia);
 
-			Figure figuraGenerica = ((Control<?>) this.generica)
+			Figure figGenerica = ((Control<?>) this.generica)
 					.getFigura(idDiagrama);
-			figuraJerarquia.conectarGenerica(figuraJerarquia, figuraGenerica);
+			figJerarquia.conectarGenerica(figGenerica);
 
 			for (Entidad derivada : this.derivadas) {
-				// Dibujar la conexi�n s�lo si la derivada pertenece al diagrama
+				// Dibujar la conexión sólo si la derivada pertenece al diagrama
 				if (padre.contiene(derivada)) {
 					Figure figuraDerivada = ((Control<?>) derivada)
 							.getFigura(idDiagrama);
-					figuraJerarquia.conectarDerivada(figuraDerivada,
-							figuraJerarquia);
+					figJerarquia.conectarDerivada(figuraDerivada);
 				}
 			}
 		}
 	}
-	
+
 	@Override
 	public String getNombreIcono() {
 		return "jerarquia.png";
@@ -68,13 +67,9 @@ public class JerarquiaControl extends Jerarquia implements Control<Jerarquia>,
 
 	@Override
 	public void mousePressed(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-
 	}
 }
