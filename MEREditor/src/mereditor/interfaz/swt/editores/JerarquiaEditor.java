@@ -79,7 +79,7 @@ public class JerarquiaEditor extends Editor<Jerarquia> {
 		// TableViewer
 		this.tblEntidadesDerivadas = new EntidadTabla(grupoDerivadas);
 		
-		btnNuevaEntidad.addSelectionListener(this.tblEntidadesDerivadas.nuevo);
+		btnNuevaEntidad.addSelectionListener(this.tblEntidadesDerivadas.agregar);
 		btnEliminarEntidad.addSelectionListener(this.tblEntidadesDerivadas.eliminar);
 
 		return dialogArea;
