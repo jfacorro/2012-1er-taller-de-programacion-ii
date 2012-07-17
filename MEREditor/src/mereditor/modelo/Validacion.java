@@ -5,8 +5,6 @@ public class Validacion {
 		SIN_VALIDAR, VALIDADO, VALIDADO_CON_OBSERVACIONES
 	}
 
-	public static final String SIN_OBSERVACIONES = "No hay observaciones de validación.";
-
 	protected String observaciones;
 	protected EstadoValidacion estado;
 

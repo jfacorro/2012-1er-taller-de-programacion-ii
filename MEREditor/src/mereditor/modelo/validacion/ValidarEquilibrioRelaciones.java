@@ -6,15 +6,12 @@ import java.util.Set;
 
 import mereditor.modelo.Entidad;
 import mereditor.modelo.Proyecto;
-import mereditor.modelo.base.Componente;
-
-import org.apache.commons.lang.StringUtils;
 
 public class ValidarEquilibrioRelaciones implements Validacion {
 
 	@Override
-	public String validar(Componente componente) {
-		List<String> observaciones = new ArrayList<>();
+	public List<Observacion> validar(Validable componente) {
+		List<Observacion> observaciones = new ArrayList<>();
 
 		Proyecto proyecto = (Proyecto) componente;
 
@@ -33,12 +30,12 @@ public class ValidarEquilibrioRelaciones implements Validacion {
 			int delta = promedio - entidad.getRelaciones().size();
 			if (Math.abs(delta) > Validacion.MAX_DESVIACION_RELACIONES) {
 				String msj = "La entidad %s está pertenece a %d relaciones mientras que el promedio es %d.";
-				observaciones.add(String.format(msj, entidad.toString(), entidad.getRelaciones()
-						.size(), promedio));
+				msj = String.format(msj, entidad.getRelaciones().size(), promedio);
+				observaciones.add(new Observacion(entidad, msj));
 			}
 		}
 
-		return StringUtils.join(observaciones, "\n").trim();
+		return observaciones;
 	}
 
 }

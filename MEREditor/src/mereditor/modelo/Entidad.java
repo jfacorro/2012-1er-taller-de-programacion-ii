@@ -10,7 +10,7 @@ import java.util.Set;
 import mereditor.modelo.base.Componente;
 import mereditor.modelo.base.ComponenteNombre;
 import mereditor.modelo.base.ComponenteAtributos;
-import mereditor.modelo.validacion.GeneradorDeObservaciones;
+import mereditor.modelo.validacion.Observacion;
 
 public class Entidad extends ComponenteNombre implements ComponenteAtributos {
 
@@ -119,14 +119,13 @@ public class Entidad extends ComponenteNombre implements ComponenteAtributos {
 	}
 
 	@Override
-	public String validar() {
-		GeneradorDeObservaciones gen = new GeneradorDeObservaciones();
-		if (this.getNombre() == null)
-			gen.caracteristicaNoDefinida("Nombre");
-		for (Atributo a : this.atributos) {
-			gen.observacionItem(a.getNombre(), a.validar());
-		}
-		return gen.getObservaciones();
+	public Observacion validar() {
+		Observacion observacion = super.validar();
+
+		for (Atributo atributo : this.atributos)
+			observacion.addObservacion(atributo.validar());
+
+		return observacion;
 	}
 
 	@Override

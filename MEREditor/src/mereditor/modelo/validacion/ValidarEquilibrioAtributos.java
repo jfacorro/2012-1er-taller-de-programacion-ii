@@ -7,13 +7,11 @@ import mereditor.modelo.Proyecto;
 import mereditor.modelo.base.Componente;
 import mereditor.modelo.base.ComponenteAtributos;
 
-import org.apache.commons.lang.StringUtils;
-
 public class ValidarEquilibrioAtributos implements Validacion {
 
 	@Override
-	public String validar(Componente componente) {
-		List<String> observaciones = new ArrayList<>();
+	public List<Observacion> validar(Validable componente) {
+		List<Observacion> observaciones = new ArrayList<>();
 
 		Proyecto proyecto = (Proyecto) componente;
 
@@ -33,13 +31,12 @@ public class ValidarEquilibrioAtributos implements Validacion {
 		for (ComponenteAtributos componenteAtrs : componentes) {
 			int delta = promedio - componenteAtrs.getAtributos().size();
 			if (Math.abs(delta) > Validacion.MAX_DESVIACION_ATRIBUTOS) {
-				String msj = "El componente %s tiene %d atributos mientras que el promedio es %d.";
-				observaciones.add(String.format(msj, componenteAtrs.toString(), componenteAtrs
-						.getAtributos().size(), promedio));
+				String msj = "Tiene %d atributos mientras que el promedio es %d.";
+				msj = String.format(msj, componenteAtrs.getAtributos().size(), promedio);
+				observaciones.add(new Observacion((Componente) componenteAtrs, msj));
 			}
 		}
 
-		return StringUtils.join(observaciones, "\n").trim();
+		return observaciones;
 	}
-
 }

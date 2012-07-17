@@ -5,13 +5,20 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
+import mereditor.modelo.Atributo.TipoAtributo;
 import mereditor.modelo.Entidad.Identificador;
 import mereditor.modelo.base.Componente;
 import mereditor.modelo.base.ComponenteAtributos;
+import mereditor.modelo.base.ComponenteCardinal;
 import mereditor.modelo.base.ComponenteNombre;
-import mereditor.modelo.validacion.GeneradorDeObservaciones;
+import mereditor.modelo.base.ComponenteTipado;
+import mereditor.modelo.validacion.Observacion;
+import mereditor.modelo.validacion.ValidarAtributoTipo;
+import mereditor.modelo.validacion.ValidarCardinalidadCompleta;
+import mereditor.modelo.validacion.ValidarTipoCompleto;
 
-public class Atributo extends ComponenteNombre implements ComponenteAtributos {
+public class Atributo extends ComponenteNombre implements ComponenteAtributos,
+		ComponenteTipado<TipoAtributo>, ComponenteCardinal {
 	public enum TipoAtributo {
 		CARACTERIZACION, DERIVADO_COPIA, DERIVADO_CALCULO
 	}
@@ -39,8 +46,8 @@ public class Atributo extends ComponenteNombre implements ComponenteAtributos {
 		super(nombre, id, padre);
 	}
 
-	public Atributo(String nombre, String id, Componente padre, String min,
-			String cardMax, TipoAtributo tipo, Set<Atributo> atributos) {
+	public Atributo(String nombre, String id, Componente padre, String min, String cardMax,
+			TipoAtributo tipo, Set<Atributo> atributos) {
 		this(nombre, id, padre);
 		this.atributos = atributos;
 		this.cardinalidadMinima = min;
@@ -135,8 +142,7 @@ public class Atributo extends ComponenteNombre implements ComponenteAtributos {
 			Set<Identificador> identificadores = ((Entidad) this.getPadre()).identificadores;
 
 			for (Identificador identificador : identificadores) {
-				if (identificador.contiene(this)
-						&& identificador.getEntidades().isEmpty()
+				if (identificador.contiene(this) && identificador.getEntidades().isEmpty()
 						&& identificador.getAtributos().size() == 1)
 					return true;
 			}
@@ -146,27 +152,20 @@ public class Atributo extends ComponenteNombre implements ComponenteAtributos {
 	}
 
 	@Override
-	public String validar() {
-		GeneradorDeObservaciones gen = new GeneradorDeObservaciones();
-		if (this.tipo == null) {
-			gen.caracteristicaNoDefinida("Tipo");
-		} else if (this.tipo.equals(TipoAtributo.DERIVADO_CALCULO)
-				&& formula == null) {
-			gen.caracteristicaNoDefinida("Formula");
-		} else if (this.tipo.equals(TipoAtributo.DERIVADO_COPIA)
-				&& this.original == null) {
-			gen.caracteristicaNoDefinida("Atributo Original");
-		}
+	public void addValidaciones() {
+		this.validaciones.add(new ValidarTipoCompleto());
+		this.validaciones.add(new ValidarAtributoTipo());
+		this.validaciones.add(new ValidarCardinalidadCompleta());
+		super.addValidaciones();
+	}
 
-		if (this.cardinalidadMinima.isEmpty()) {
-			gen.caracteristicaNoDefinida("Cardinalidad Minima");
-		}
-		if (this.cardinalidadMaxima.isEmpty()) {
-			gen.caracteristicaNoDefinida("Cardinalidad Maxima");
-		}
-		for (Atributo a : this.atributos) {
-			gen.observacionItem(a.getNombre(), a.validar());
-		}
-		return gen.getObservaciones();
+	@Override
+	public Observacion validar() {
+		Observacion observacion = super.validar();
+
+		for (Atributo atributo : this.atributos)
+			observacion.addObservacion(atributo.validar());
+
+		return observacion;
 	}
 }

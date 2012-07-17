@@ -1,11 +1,9 @@
 package mereditor.modelo;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -13,11 +11,10 @@ import mereditor.control.DiagramaControl;
 import mereditor.modelo.Validacion.EstadoValidacion;
 import mereditor.modelo.base.Componente;
 import mereditor.modelo.base.ComponenteNombre;
+import mereditor.modelo.validacion.Observacion;
 import mereditor.modelo.validacion.ValidarEquilibrioAtributos;
 import mereditor.modelo.validacion.ValidarEquilibrioComponentes;
 import mereditor.modelo.validacion.ValidarEquilibrioRelaciones;
-
-import org.apache.commons.lang.StringUtils;
 
 public class Proyecto extends ComponenteNombre implements ProyectoProxy {
 	/**
@@ -300,40 +297,24 @@ public class Proyecto extends ComponenteNombre implements ProyectoProxy {
 	}
 
 	@Override
-	public String validar() {
-		List<String> observaciones = new ArrayList<>();
-		List<String> output = new ArrayList<>();
+	public Observacion validar() {
+		Observacion observacion = super.validar();
+		
+		for (Diagrama diagrama : this.getDiagramas())
+			observacion.addObservacion(diagrama.validar());
 
-		observaciones.add(super.validar());
-
-		for (Diagrama diagrama : this.getDiagramas()) {
-			String resultado = diagrama.validar();
-
-			output.add("--------------------------------------");
-			output.add(diagrama.getNombre());
-			output.add("--------------------------------------");
-			output.add(resultado);
-
-			observaciones.add(resultado);
-		}
-
-		while (observaciones.remove(""));
-		while (observaciones.remove(null));
-
-		while (output.remove(""));
-		while (output.remove(null));
-
-		if (!observaciones.isEmpty()) {
-			this.validacion.setObservaciones(StringUtils.join(output, "\n")
-					.trim());
-			this.validacion
-					.setEstado(EstadoValidacion.VALIDADO_CON_OBSERVACIONES);
-		} else {
+		if (observacion.isEmpty())
 			this.validacion.setEstado(EstadoValidacion.VALIDADO);
-			observaciones.add(Validacion.SIN_OBSERVACIONES);
-		}
+		else {
+			this.validacion.setObservaciones(observacion.toString());
+			this.validacion.setEstado(EstadoValidacion.VALIDADO_CON_OBSERVACIONES);
+		}			
 
-		return StringUtils.join(output, "\n").trim();
+		return observacion;
 	}
-
+	
+	@Override
+	public String toString() {
+		return this.getNombre();
+	}
 }
