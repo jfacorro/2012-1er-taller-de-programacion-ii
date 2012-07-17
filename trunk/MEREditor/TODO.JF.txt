@@ -3,6 +3,7 @@ Juan:
 	Pendiente:
 	----------
 		- Mostrar barras de scroll cuando el dibujo se va de la pantalla.
+		- Revisar eliminar, no está eliminando los diagramas del proyecto.
 	Deseables:
 	----------
 		- Implementar la figura de Jerarquía mejor.
