@@ -56,7 +56,7 @@ public class Proyecto extends ComponenteNombre implements ProyectoProxy {
 	 */
 	public Proyecto(String nombre) {
 		this();
-		this.raiz = new DiagramaControl();
+		this.raiz = new DiagramaControl(this);
 		this.raiz.setNombre(nombre);
 		this.agregar(this.raiz);
 	}
@@ -129,7 +129,6 @@ public class Proyecto extends ComponenteNombre implements ProyectoProxy {
 	 * hay uno establecido.
 	 * 
 	 * @param componente
-	 * @throws Exception
 	 */
 	public void agregar(Componente componente) {
 		if (!this.componentes.containsKey(componente.getId()))
@@ -138,7 +137,16 @@ public class Proyecto extends ComponenteNombre implements ProyectoProxy {
 		if (this.diagramaActual != null)
 			this.diagramaActual.agregar(componente);
 	}
-
+	
+	/**
+	 * Elimina el componente de la colección de componentes.
+	 * @param componente
+	 */
+	public void eliminar(Componente componente) {
+		if(componente.getAllPadres().size() == 0)
+			this.componentes.remove(componente.getId());
+	}
+	
 	/**
 	 * Devuelve el componente que tiene el id.
 	 * 

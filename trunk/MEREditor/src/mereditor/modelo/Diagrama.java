@@ -20,21 +20,11 @@ public class Diagrama extends ComponenteNombre {
 	protected Set<Diagrama> diagramas = new HashSet<Diagrama>();
 	protected Set<Componente> componentes = new HashSet<Componente>();
 	protected Validacion validacion = new Validacion();
+	protected Proyecto proyecto;
 
-	public Diagrama() {
+	public Diagrama(Proyecto proyecto) {
 		super();
-	}
-
-	public Diagrama(String nombre) {
-		super(nombre);
-	}
-
-	public Diagrama(String nombre, String id) {
-		super(nombre, id);
-	}
-
-	public Diagrama(String nombre, String id, Componente padre) {
-		super(nombre, id, padre);
+		this.proyecto = proyecto;
 	}
 
 	public Set<Diagrama> getDiagramas() {
@@ -53,8 +43,7 @@ public class Diagrama extends ComponenteNombre {
 	 * @return
 	 */
 	public Set<Entidad> getEntidades(boolean incluirAncestros) {
-		Set<Entidad> entidades = Componente.filtrarComponentes(Entidad.class,
-				this.componentes);
+		Set<Entidad> entidades = Componente.filtrarComponentes(Entidad.class, this.componentes);
 
 		if (incluirAncestros && this.getPadre() != null) {
 			Diagrama diagrama = (Diagrama) this.getPadre();
@@ -95,8 +84,7 @@ public class Diagrama extends ComponenteNombre {
 	 * @return
 	 */
 	public Set<Relacion> getRelaciones(boolean incluirAncestros) {
-		Set<Relacion> relaciones = Componente.filtrarComponentes(
-				Relacion.class, this.componentes);
+		Set<Relacion> relaciones = Componente.filtrarComponentes(Relacion.class, this.componentes);
 
 		if (incluirAncestros && this.getPadre() != null) {
 			Diagrama diagrama = (Diagrama) this.getPadre();
@@ -113,8 +101,8 @@ public class Diagrama extends ComponenteNombre {
 	 * @return
 	 */
 	public Set<Jerarquia> getJerarquias(boolean incluirAncestros) {
-		Set<Jerarquia> jerarquias = Componente.filtrarComponentes(
-				Jerarquia.class, this.componentes);
+		Set<Jerarquia> jerarquias = Componente
+				.filtrarComponentes(Jerarquia.class, this.componentes);
 
 		if (incluirAncestros && this.getPadre() != null) {
 			Diagrama diagrama = (Diagrama) this.getPadre();
@@ -150,8 +138,7 @@ public class Diagrama extends ComponenteNombre {
 
 		if (!observacion.isEmpty()) {
 			this.validacion.setObservaciones(observacion.toString());
-			this.validacion
-					.setEstado(EstadoValidacion.VALIDADO_CON_OBSERVACIONES);
+			this.validacion.setEstado(EstadoValidacion.VALIDADO_CON_OBSERVACIONES);
 		} else
 			this.validacion.setEstado(EstadoValidacion.VALIDADO);
 
@@ -186,8 +173,24 @@ public class Diagrama extends ComponenteNombre {
 		return false;
 	}
 
+	@Override
+	public void removePadre(String id) {
+		super.removePadre(id);
+
+		// Si no tiene padre borrar la relacion con todos los hijos de este
+		// diagrama.
+		if (this.padres.isEmpty()) {
+			for (Diagrama diagrama : new HashSet<>(this.getDiagramas()))
+				this.eliminar(diagrama);
+			
+			for (Componente componente : new HashSet<>(this.getComponentes()))
+				this.eliminar(componente);
+		}
+	}
+
 	/**
-	 * Quita el componente hijo de este diagrama.
+	 * Quita el componente hijo de este diagrama. Si este es el único padre del
+	 * componente, lo quita del proyecto también.
 	 * 
 	 * @param componente
 	 */
@@ -196,5 +199,9 @@ public class Diagrama extends ComponenteNombre {
 			this.diagramas.remove((Diagrama) componente);
 		else
 			this.componentes.remove(componente);
+
+		componente.removePadre(this.id);
+
+		this.proyecto.eliminar(componente);
 	}
 }

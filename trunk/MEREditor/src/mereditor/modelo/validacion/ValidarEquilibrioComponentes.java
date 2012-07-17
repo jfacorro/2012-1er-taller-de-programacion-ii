@@ -23,7 +23,7 @@ public class ValidarEquilibrioComponentes implements Validacion {
 		for (Diagrama diagrama : proyecto.getDiagramas()) {
 			int delta = promedio - diagrama.getComponentes().size();
 			if (Math.abs(delta) > Validacion.MAX_DESVIACION_COMPONENTES) {
-				String msj = "El diagrama %s tiene %d componentes mientras que el promedio es %d.";
+				String msj = "Tiene %d componentes mientras que el promedio es %d.";
 				msj = String.format(msj, diagrama.getComponentes().size(), promedio);
 				observaciones.add(new Observacion(diagrama, msj));
 			}

@@ -10,6 +10,7 @@ import mereditor.interfaz.swt.figuras.Figura;
 import mereditor.modelo.Atributo;
 import mereditor.modelo.Diagrama;
 import mereditor.modelo.Entidad;
+import mereditor.modelo.Proyecto;
 import mereditor.modelo.Entidad.Identificador;
 import mereditor.modelo.Relacion;
 
@@ -17,6 +18,10 @@ import org.eclipse.draw2d.Connection;
 import org.eclipse.draw2d.Figure;
 
 public class DiagramaControl extends Diagrama implements Control<Diagrama> {
+	
+	public DiagramaControl(Proyecto proyecto) {
+		super(proyecto);
+	}
 
 	@Override
 	public Figura<Diagrama> getFigura(String idDiagrama) {

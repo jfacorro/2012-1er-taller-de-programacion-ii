@@ -394,10 +394,10 @@ public class Principal extends Observable implements FigureListener {
 	/**
 	 * Agrega un Diagrama al proyecto.
 	 */
-	public void nuevoDiagrama() {
+	public void agregarDiagrama() {
 		PromptResult resultado = DialogBuilder.prompt(this.shell, "Ingresar nombre", "Nombre");
 		if (resultado.result == Resultado.OK) {
-			DiagramaControl nuevoDiagrama = new DiagramaControl();
+			DiagramaControl nuevoDiagrama = new DiagramaControl(this.proyecto);
 			nuevoDiagrama.setNombre(resultado.value);
 
 			this.proyecto.agregar(nuevoDiagrama);

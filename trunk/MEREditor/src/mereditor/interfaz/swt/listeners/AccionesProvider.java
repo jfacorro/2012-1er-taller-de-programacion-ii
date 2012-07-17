@@ -146,7 +146,7 @@ public class AccionesProvider {
 	public static final SelectionListener nuevoDiagrama = new SelectionAdapter() {
 		@Override
 		public void widgetSelected(SelectionEvent e) {
-			principal().nuevoDiagrama();
+			principal().agregarDiagrama();
 		}
 	};
 

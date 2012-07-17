@@ -47,6 +47,13 @@ public abstract class Componente implements Comparable<Componente>, Validable {
 		return id;
 	}
 
+	/**
+	 * Obtiene el padre de este componente si tiene uno sólo. En el caso de
+	 * tener más de un padre genera una excepción. Este método debe usar sólo
+	 * cuando se sabe que el componente tendrá un sólo padre.
+	 * 
+	 * @return El componente padre si tiene uno o null si no tiene ningún padre.
+	 */
 	public Componente getPadre() {
 		if (this.padres.size() > 1)
 			throw new RuntimeException("Tiene más de un padre.");
@@ -54,16 +61,42 @@ public abstract class Componente implements Comparable<Componente>, Validable {
 		return this.padres.isEmpty() ? null : padres.values().iterator().next();
 	}
 
+	/**
+	 * Devuelve el padre que tiene el id especificado o null si no es padre de
+	 * este componente.
+	 * 
+	 * @param id
+	 * @return
+	 */
 	public Componente getPadre(String id) {
 		return padres.get(id);
 	}
 
+	/**
+	 * Obtener una coleccion de todos los padres de este componente.
+	 * 
+	 * @return Colleccion de componentes padres.
+	 */
 	public Collection<Componente> getAllPadres() {
 		return Collections.unmodifiableCollection(this.padres.values());
 	}
 
+	/**
+	 * Especificar un padre para este componente.
+	 * 
+	 * @param padre
+	 */
 	public void setPadre(Componente padre) {
 		this.padres.put(padre.getId(), padre);
+	}
+
+	/**
+	 * Eliminar el componente del id especificado como padre de este componente.
+	 * 
+	 * @param id
+	 */
+	public void removePadre(String id) {
+		this.padres.remove(id);
 	}
 
 	/**

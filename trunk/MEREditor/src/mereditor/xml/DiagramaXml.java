@@ -2,16 +2,19 @@ package mereditor.xml;
 
 import mereditor.control.DiagramaControl;
 import mereditor.modelo.Diagrama;
+import mereditor.modelo.Proyecto;
 import mereditor.modelo.base.Componente;
 
 import org.w3c.dom.Element;
 
 public class DiagramaXml extends DiagramaControl implements Xmlizable {
 
-	public DiagramaXml() {
+	public DiagramaXml(Proyecto proyecto) {
+		super(proyecto);
 	}
 
-	public DiagramaXml(DiagramaControl componente) {
+	public DiagramaXml(Proyecto proyecto, DiagramaControl componente) {
+		this(proyecto);
 		this.id = componente.getId();
 		this.nombre = componente.getNombre();
 

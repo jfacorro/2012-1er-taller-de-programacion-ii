@@ -17,7 +17,13 @@ import org.eclipse.swt.widgets.TreeItem;
 public class MenuArbolBuilder {
 	private Tree arbol;
 	private Menu menu;
-	private MenuItem itemPegar;
+	/**
+	 * Opción Pegar del menú desplegable. 
+	 */
+	private MenuItem menuItemPegar;
+	/**
+	 * Mantiene el valor del item copiado o cortado.
+	 */
 	private TreeItem papelera;
 
 	public MenuArbolBuilder(Tree arbol) {
@@ -39,10 +45,10 @@ public class MenuArbolBuilder {
 		item.setText("Cortar");
 		item.addListener(SWT.Selection, this.cortar);
 
-		this.itemPegar = new MenuItem(menu, SWT.DROP_DOWN);
-		this.itemPegar.setText("Pegar");
-		this.itemPegar.setEnabled(false);
-		this.itemPegar.addListener(SWT.Selection, this.pegar);
+		this.menuItemPegar = new MenuItem(menu, SWT.DROP_DOWN);
+		this.menuItemPegar.setText("Pegar");
+		this.menuItemPegar.setEnabled(false);
+		this.menuItemPegar.addListener(SWT.Selection, this.pegar);
 
 		item = new MenuItem(menu, SWT.DROP_DOWN);
 		item.setText("Eliminar");
@@ -79,7 +85,7 @@ public class MenuArbolBuilder {
 	 * Habilita las opciones del menú según las operaciones disponibles.
 	 */
 	private void habilitarOpciones() {
-		itemPegar.setEnabled(this.papelera != null);
+		menuItemPegar.setEnabled(this.papelera != null);
 	}
 
 	/**
