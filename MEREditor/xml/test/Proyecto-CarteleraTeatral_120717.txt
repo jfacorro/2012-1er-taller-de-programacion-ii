@@ -1,0 +1,17 @@
+CarteleraTeatral: 
+   CarteleraTeatral: Tiene 7 componentes mientras que el promedio es 4.
+   Bla: Tiene 0 componentes mientras que el promedio es 4.
+   Obra: Tiene 6 atributos mientras que el promedio es 2.
+   Ejemplo: 
+      Obra: Pertence a la relación Elenco que no se encuentra incluida en este diagrama.
+      FT: Pertenece a 2 diagramas (Ejemplo, CarteleraTeatral).
+      Obra: Pertenece a 2 diagramas (Ejemplo, CarteleraTeatral).
+      Función: Pertenece a 2 diagramas (Ejemplo, CarteleraTeatral).
+      Teatro: Pertenece a 2 diagramas (Ejemplo, CarteleraTeatral).
+      FO: Pertenece a 2 diagramas (Ejemplo, CarteleraTeatral).
+   CarteleraTeatral: 
+      FT: Pertenece a 2 diagramas (Ejemplo, CarteleraTeatral).
+      Obra: Pertenece a 2 diagramas (Ejemplo, CarteleraTeatral).
+      Función: Pertenece a 2 diagramas (Ejemplo, CarteleraTeatral).
+      Teatro: Pertenece a 2 diagramas (Ejemplo, CarteleraTeatral).
+      FO: Pertenece a 2 diagramas (Ejemplo, CarteleraTeatral).
