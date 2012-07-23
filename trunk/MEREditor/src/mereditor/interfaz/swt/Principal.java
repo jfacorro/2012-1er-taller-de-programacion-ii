@@ -95,11 +95,11 @@ public class Principal extends Observable implements FigureListener {
 	/**
 	 * Ubicación de los recursos de imágenes.
 	 */
-	private static final String PATH_IMAGENES = "src/recursos/imagenes/";
+	private static final String PATH_IMAGENES = "/recursos/imagenes/";
 	/**
 	 * Ubicación de los recursos de iconos.
 	 */
-	private static final String PATH_ICONOS = "src/recursos/iconos/";
+	private static final String PATH_ICONOS = "/recursos/iconos/";
 	/**
 	 * Formato de fecha.
 	 */
@@ -143,7 +143,7 @@ public class Principal extends Observable implements FigureListener {
 	 * @return
 	 */
 	public static Image getImagen(String nombre) {
-		return new Image(Display.getDefault(), PATH_IMAGENES + nombre);
+		return loadImagen(PATH_IMAGENES + nombre);
 	}
 
 	/**
@@ -154,7 +154,12 @@ public class Principal extends Observable implements FigureListener {
 	 * @return
 	 */
 	public static Image getIcono(String nombre) {
-		return new Image(Display.getDefault(), PATH_ICONOS + nombre);
+		return loadImagen(PATH_ICONOS + nombre);
+	}
+	
+	private static Image loadImagen(String path) {
+		Image img = new Image(Display.getDefault(), Principal.class.getResourceAsStream(path));
+		return img;
 	}
 
 	/**
@@ -241,10 +246,12 @@ public class Principal extends Observable implements FigureListener {
 	 * Inicializa el canvas donde se dibuja el diagrama.
 	 */
 	private void initFigureCanvas() {
-		this.figureCanvas = new FigureCanvas(this.sashForm);
+		this.figureCanvas = new FigureCanvas(this.sashForm, SWT.V_SCROLL | SWT.H_SCROLL);
+		this.figureCanvas.setHorizontalScrollBarVisibility(FigureCanvas.AUTOMATIC);
+		this.figureCanvas.setVerticalScrollBarVisibility(FigureCanvas.AUTOMATIC);
 		this.figureCanvas.setBackground(Principal.defaultBackgroundColor);
-		this.figureCanvas.getViewport().setContentsTracksHeight(true);
-		this.figureCanvas.getViewport().setContentsTracksWidth(true);
+		this.figureCanvas.getViewport().setContentsTracksHeight(false);
+		this.figureCanvas.getViewport().setContentsTracksWidth(false);
 	}
 
 	/**
