@@ -33,7 +33,7 @@ public class SeleccionControlador extends MouseListener.Stub {
 	 * @return
 	 */
 	private boolean selectionModifiers(int state) {
-		return (state & SWT.CTRL) != 0;
+		return (state & SWT.SHIFT) != 0;
 	}
 
 	@Override
