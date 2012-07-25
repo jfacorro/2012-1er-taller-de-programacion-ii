@@ -250,8 +250,8 @@ public class Principal extends Observable implements FigureListener {
 		this.figureCanvas.setHorizontalScrollBarVisibility(FigureCanvas.AUTOMATIC);
 		this.figureCanvas.setVerticalScrollBarVisibility(FigureCanvas.AUTOMATIC);
 		this.figureCanvas.setBackground(Principal.defaultBackgroundColor);
-		this.figureCanvas.getViewport().setContentsTracksHeight(false);
-		this.figureCanvas.getViewport().setContentsTracksWidth(false);
+		this.figureCanvas.getViewport().setContentsTracksHeight(true);
+		this.figureCanvas.getViewport().setContentsTracksWidth(true);
 	}
 
 	/**

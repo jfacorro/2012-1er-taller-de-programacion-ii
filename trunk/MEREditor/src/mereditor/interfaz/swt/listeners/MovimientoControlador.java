@@ -13,6 +13,10 @@ import org.eclipse.draw2d.geometry.Point;
  * moverse esta.
  */
 public class MovimientoControlador implements FigureListener {
+	/**
+	 * Indica si se deben mover las figuras loqueadas.
+	 */
+	protected static boolean moverLoqueadas = true;
 	protected Figura<?> figura;
 	private Point current;
 
@@ -22,16 +26,26 @@ public class MovimientoControlador implements FigureListener {
 		this.figura.addFigureListener(this);
 	}
 
+	/**
+	 * Establece si se deben mover las figuras loqueadas.
+	 * 
+	 * @param mover
+	 */
+	public static void moverLoqueadas(boolean mover) {
+		moverLoqueadas = mover;
+	}
+
 	@Override
 	public void figureMoved(IFigure movedFigure) {
-		Dimension delta = this.figura.getLocation().getDifference(this.current);
-
-		for (Figure figure : this.figura.getFigurasLoqueadas())
-			// Si la figura está seleccionada, la traslación de la misma
-			// se realiza por el controlador DragDrop.
-			if(!SeleccionControlador.isSelected(figure))
-				figure.setBounds(figure.getBounds().getTranslated(delta.width,
-						delta.height));
+		if (moverLoqueadas) {
+    		Dimension delta = this.figura.getLocation().getDifference(this.current);
+    
+    		for (Figure figure : this.figura.getFigurasLoqueadas())
+    			// Si la figura está seleccionada, la traslación de la misma
+    			// se realiza por el controlador DragDrop.
+    			if (!SeleccionControlador.isSelected(figure))
+    				figure.setBounds(figure.getBounds().getTranslated(delta.width, delta.height));
+		}
 
 		this.current = this.figura.getLocation();
 	}
