@@ -28,14 +28,14 @@
         <Nombre>SL</Nombre>
         <Participantes>
             <Participante>
-                <RefEntidad idref="_5"/>
-                <Cardinalidad max="n" min="1"/>
-                <Rol/>
-            </Participante>
-            <Participante>
                 <RefEntidad idref="_1"/>
                 <Cardinalidad max="1" min="1"/>
                 <Rol>Bosss</Rol>
+            </Participante>
+            <Participante>
+                <RefEntidad idref="_5"/>
+                <Cardinalidad max="n" min="1"/>
+                <Rol/>
             </Participante>
         </Participantes>
     </Relacion>
@@ -43,12 +43,12 @@
         <Nombre>VtaLoc</Nombre>
         <Participantes>
             <Participante>
-                <RefEntidad idref="_1"/>
+                <RefEntidad idref="_10"/>
                 <Cardinalidad max="n" min="0"/>
                 <Rol/>
             </Participante>
             <Participante>
-                <RefEntidad idref="_10"/>
+                <RefEntidad idref="_1"/>
                 <Cardinalidad max="n" min="0"/>
                 <Rol/>
             </Participante>
@@ -62,30 +62,30 @@
                         <Nombre>cr</Nombre>
                         <Cardinalidad max="1" min="0"/>
                         <Atributos>
-                            <Atributo id="_40" tipo="CARACTERIZACION">
-                                <Nombre>int</Nombre>
-                                <Cardinalidad max="1" min="0"/>
-                            </Atributo>
                             <Atributo id="_39" tipo="CARACTERIZACION">
                                 <Nombre>cuotas</Nombre>
                                 <Cardinalidad max="1" min="1"/>
                             </Atributo>
+                            <Atributo id="_40" tipo="CARACTERIZACION">
+                                <Nombre>int</Nombre>
+                                <Cardinalidad max="1" min="0"/>
+                            </Atributo>
                         </Atributos>
+                    </Atributo>
+                    <Atributo id="_34" tipo="CARACTERIZACION">
+                        <Nombre>nomTarj</Nombre>
+                        <Cardinalidad max="1" min="1"/>
                     </Atributo>
                     <Atributo id="_37" tipo="CARACTERIZACION">
                         <Nombre>nroAutoriz</Nombre>
-                        <Cardinalidad max="1" min="1"/>
-                    </Atributo>
-                    <Atributo id="_35" tipo="CARACTERIZACION">
-                        <Nombre>bco</Nombre>
                         <Cardinalidad max="1" min="1"/>
                     </Atributo>
                     <Atributo id="_36" tipo="CARACTERIZACION">
                         <Nombre>nroTarj</Nombre>
                         <Cardinalidad max="1" min="1"/>
                     </Atributo>
-                    <Atributo id="_34" tipo="CARACTERIZACION">
-                        <Nombre>nomTarj</Nombre>
+                    <Atributo id="_35" tipo="CARACTERIZACION">
+                        <Nombre>bco</Nombre>
                         <Cardinalidad max="1" min="1"/>
                     </Atributo>
                 </Atributos>
@@ -95,8 +95,8 @@
     <Entidad id="_10" tipo="MAESTRA_COSA">
         <Nombre>Obra</Nombre>
         <Atributos>
-            <Atributo id="_11" tipo="CARACTERIZACION">
-                <Nombre>idObra</Nombre>
+            <Atributo id="_12" tipo="CARACTERIZACION">
+                <Nombre>titulo</Nombre>
                 <Cardinalidad max="1" min="1"/>
             </Atributo>
             <Atributo id="_15" tipo="CARACTERIZACION">
@@ -107,37 +107,37 @@
                 <Nombre>nroProxFunc</Nombre>
                 <Cardinalidad max="1" min="1"/>
             </Atributo>
-            <Atributo id="_14" tipo="CARACTERIZACION">
-                <Nombre>director</Nombre>
-                <Cardinalidad max="n" min="1"/>
-            </Atributo>
             <Atributo id="_13" tipo="CARACTERIZACION">
                 <Nombre>autor</Nombre>
                 <Cardinalidad max="n" min="1"/>
             </Atributo>
-            <Atributo id="_12" tipo="CARACTERIZACION">
-                <Nombre>titulo</Nombre>
+            <Atributo id="_11" tipo="CARACTERIZACION">
+                <Nombre>idObra</Nombre>
                 <Cardinalidad max="1" min="1"/>
+            </Atributo>
+            <Atributo id="_14" tipo="CARACTERIZACION">
+                <Nombre>director</Nombre>
+                <Cardinalidad max="n" min="1"/>
             </Atributo>
         </Atributos>
         <Identificadores>
             <Identificador>
-                <RefAtributo idref="_11"/>
+                <RefAtributo idref="_12"/>
             </Identificador>
             <Identificador>
-                <RefAtributo idref="_12"/>
+                <RefAtributo idref="_11"/>
             </Identificador>
         </Identificadores>
     </Entidad>
     <Entidad id="_5" tipo="MAESTRA_COSA">
         <Nombre>SeccionSala</Nombre>
         <Atributos>
-            <Atributo id="_6" tipo="CARACTERIZACION">
-                <Nombre>nroSecc</Nombre>
-                <Cardinalidad max="1" min="1"/>
-            </Atributo>
             <Atributo id="_7" tipo="CARACTERIZACION">
                 <Nombre>nomSecc</Nombre>
+                <Cardinalidad max="1" min="1"/>
+            </Atributo>
+            <Atributo id="_6" tipo="CARACTERIZACION">
+                <Nombre>nroSecc</Nombre>
                 <Cardinalidad max="1" min="1"/>
             </Atributo>
         </Atributos>
@@ -173,6 +173,10 @@
     <Entidad id="_19" tipo="MAESTRA_COSA">
         <Nombre>Funcion</Nombre>
         <Atributos>
+            <Atributo id="_21" tipo="CARACTERIZACION">
+                <Nombre>fecha</Nombre>
+                <Cardinalidad max="1" min="1"/>
+            </Atributo>
             <Atributo id="_22" tipo="CARACTERIZACION">
                 <Nombre>hora</Nombre>
                 <Cardinalidad max="1" min="1"/>
@@ -181,15 +185,11 @@
                 <Nombre>nroFunc</Nombre>
                 <Cardinalidad max="1" min="1"/>
             </Atributo>
-            <Atributo id="_21" tipo="CARACTERIZACION">
-                <Nombre>fecha</Nombre>
-                <Cardinalidad max="1" min="1"/>
-            </Atributo>
         </Atributos>
         <Identificadores>
             <Identificador>
-                <RefAtributo idref="_22"/>
                 <RefAtributo idref="_21"/>
+                <RefAtributo idref="_22"/>
                 <RefEntidad idref="_10"/>
             </Identificador>
             <Identificador>
@@ -201,26 +201,15 @@
     <Diagrama id="_41">
         <Nombre>BoleteriaTeatro</Nombre>
         <Componentes>
-            <Componente idref="_27"/>
             <Componente idref="_24"/>
-            <Componente idref="_50"/>
+            <Componente idref="_27"/>
             <Componente idref="_5"/>
-            <Componente idref="_1"/>
-            <Componente idref="_19"/>
-            <Componente idref="_10"/>
             <Componente idref="_30"/>
+            <Componente idref="_50"/>
+            <Componente idref="_1"/>
+            <Componente idref="_10"/>
+            <Componente idref="_19"/>
         </Componentes>
-        <Diagramas>
-            <Diagrama id="_42">
-                <Nombre>lala</Nombre>
-                <Componentes>
-                    <Componente idref="_1"/>
-                </Componentes>
-                <Validacion estado="VALIDADO">
-                    <Observaciones/>
-                </Validacion>
-            </Diagrama>
-        </Diagramas>
         <Validacion estado="SIN_VALIDAR">
             <Observaciones>Falta validar</Observaciones>
         </Validacion>
