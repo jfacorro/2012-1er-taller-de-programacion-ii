@@ -2,7 +2,9 @@ Juan:
 -----
 	Pendiente:
 	----------
-		- Mostrar barras de scroll cuando el dibujo se va de la pantalla.
+		- Posicionar nueva relación en el punto medio entre las entidades a las que relaciona.
+		- Posicionar nueva entidad en el medio del diagrama.
+		- Mejorar el dibujo de la jerarquía al ponerse la derivada al lado de la genérica.
 	Deseables:
 	----------
 		- Crear anchors que puedan:
@@ -10,6 +12,7 @@ Juan:
 			- En Relaciones: Utilizar sólo las puntas del rombo
 	Hecho:
 	------
+		- Mostrar barras de scroll cuando el dibujo se va de la pantalla.
 		- Revisar eliminar, no está eliminando los diagramas del proyecto.
 		- Mejorar las conexiones.
 		- Implementar la figura de Jerarquía mejor.s
