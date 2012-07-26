@@ -138,15 +138,16 @@ public class DiagramaFigura extends Figure implements FigureListener {
 				// Suspender el loqueo de las figuras.
 				MovimientoControlador.moverLoqueadas(true);
 			}
-
-			this.repaint();
 		}
 	}
 
 	private void translateChildren(int dx, int dy) {
 		for (Object child : this.getChildren()) {
 			Figure figure = (Figure) child;
+
+			figure.removeFigureListener(this);
 			figure.setBounds(figure.getBounds().getTranslated(dx, dy));
+			figure.addFigureListener(this);
 		}
 	}
 
