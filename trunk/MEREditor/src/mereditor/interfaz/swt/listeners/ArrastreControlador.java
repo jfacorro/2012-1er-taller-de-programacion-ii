@@ -27,7 +27,6 @@ public class ArrastreControlador extends MouseMotionListener.Stub implements Mou
 		figura = (IFigure) e.getSource();
 		this.moverPrimeraPosicion(figura);
 		startPoint = e.getLocation();
-		e.consume();
 	}
 
 	/**

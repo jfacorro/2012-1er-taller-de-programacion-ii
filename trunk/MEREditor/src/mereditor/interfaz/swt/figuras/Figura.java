@@ -34,6 +34,7 @@ import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Font;
 
 public abstract class Figura<T extends Componente> extends Figure {
+	public final static Color grey = new Color(null, 100, 100, 100);
 	public final static Color defaultBackColor = new Color(null, 255, 255, 206);
 	public final static Color defaultLineColor = new Color(null, 0, 0, 0);
 	public final static Dimension defaultSize = new Dimension(80, 50);
