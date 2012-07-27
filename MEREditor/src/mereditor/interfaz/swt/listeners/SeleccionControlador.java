@@ -46,12 +46,18 @@ public class SeleccionControlador extends MouseListener.Stub {
 		else if (this.selectionModifiers(me.getState()))
 			deselect(this.figura);
 	}
+	
+	@Override
+	public void mouseDoubleClicked(MouseEvent me) {
+		super.mouseDoubleClicked(me);
+		deselectAll(null);
+	}
 
 	/**
 	 * Inidica si se debe deseleccionar todas las figuras según algunas
 	 * condiciones.
 	 * 
-	 * @param state
+	 * @param state Estado del evento.
 	 * @return
 	 */
 	private boolean shouldDeselectAll(int state) {

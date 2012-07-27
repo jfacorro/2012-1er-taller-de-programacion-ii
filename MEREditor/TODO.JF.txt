@@ -7,6 +7,7 @@ Juan:
 		- Mejorar el dibujo de la jerarquía al ponerse la derivada al lado de la genérica.
 	Deseables:
 	----------
+		- Seleccion múltiple arrastrando el mouse.
 		- Crear anchors que puedan:
 			- En Entidades: Moverse sobre el borde de las figuras.
 			- En Relaciones: Utilizar sólo las puntas del rombo
