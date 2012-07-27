@@ -15,6 +15,10 @@ import org.eclipse.draw2d.MouseEvent;
 import org.eclipse.draw2d.MouseListener;
 import org.eclipse.swt.SWT;
 
+/**
+ * Se encarga de detectar cuando una figura es seleccionada y también contiene
+ * el conjunto de figuras seleccionadas.
+ */
 public class SeleccionControlador extends MouseListener.Stub {
 	private final static Set<IFigure> selected = new HashSet<>();
 	private final static Map<IFigure, Figure> selectedBorders = new HashMap<>();
@@ -46,7 +50,7 @@ public class SeleccionControlador extends MouseListener.Stub {
 		else if (this.selectionModifiers(me.getState()))
 			deselect(this.figura);
 	}
-	
+
 	@Override
 	public void mouseDoubleClicked(MouseEvent me) {
 		super.mouseDoubleClicked(me);
@@ -57,7 +61,8 @@ public class SeleccionControlador extends MouseListener.Stub {
 	 * Inidica si se debe deseleccionar todas las figuras según algunas
 	 * condiciones.
 	 * 
-	 * @param state Estado del evento.
+	 * @param state
+	 *            Estado del evento.
 	 * @return
 	 */
 	private boolean shouldDeselectAll(int state) {
@@ -76,7 +81,7 @@ public class SeleccionControlador extends MouseListener.Stub {
 	 * 
 	 * @param figura
 	 */
-	private static void select(Figura<?> figura) {
+	public static void select(Figura<?> figura) {
 		Figure seleccion = new Figure();
 		seleccion.setOpaque(false);
 		seleccion.setEnabled(false);
@@ -94,7 +99,7 @@ public class SeleccionControlador extends MouseListener.Stub {
 	 * 
 	 * @param figura
 	 */
-	private static void deselect(Figura<?> figura) {
+	public static void deselect(Figura<?> figura) {
 		if (figura != null && figura.getParent() != null) {
 			IFigure parent = figura.getParent();
 
