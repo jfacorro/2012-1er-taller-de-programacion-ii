@@ -1,4 +1,4 @@
-package mereditor.interfaz.swt;
+package mereditor.interfaz.swt.builders;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.KeyAdapter;

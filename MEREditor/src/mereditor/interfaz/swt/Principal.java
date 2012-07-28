@@ -17,8 +17,12 @@ import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
 import mereditor.control.DiagramaControl;
-import mereditor.interfaz.swt.DialogBuilder.PromptResult;
-import mereditor.interfaz.swt.DialogBuilder.Resultado;
+import mereditor.interfaz.swt.builders.DialogBuilder;
+import mereditor.interfaz.swt.builders.DialogBuilder.PromptResult;
+import mereditor.interfaz.swt.builders.DialogBuilder.Resultado;
+import mereditor.interfaz.swt.builders.MenuBuilder;
+import mereditor.interfaz.swt.builders.ToolBarBuilder;
+import mereditor.interfaz.swt.builders.TreeManager;
 import mereditor.interfaz.swt.dialogs.AgregarEntidadDialog;
 import mereditor.interfaz.swt.dialogs.AgregarJerarquiaDialog;
 import mereditor.interfaz.swt.dialogs.AgregarRelacionDialog;

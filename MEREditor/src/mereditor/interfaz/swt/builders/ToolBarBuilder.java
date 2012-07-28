@@ -1,10 +1,11 @@
-package mereditor.interfaz.swt;
+package mereditor.interfaz.swt.builders;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
+import mereditor.interfaz.swt.Principal;
 import mereditor.interfaz.swt.figuras.DiagramaFigura;
 import mereditor.interfaz.swt.listeners.AccionesProvider;
 
