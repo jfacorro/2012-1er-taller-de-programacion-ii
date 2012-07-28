@@ -1,19 +1,21 @@
 package mereditor.control;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import mereditor.interfaz.swt.editores.EditorFactory;
 import mereditor.interfaz.swt.figuras.AtributoFigure;
 import mereditor.interfaz.swt.figuras.Figura;
 import mereditor.modelo.Atributo;
+import mereditor.modelo.base.ComponenteAtributos;
 
 import org.eclipse.draw2d.Figure;
 import org.eclipse.draw2d.MouseEvent;
 import org.eclipse.draw2d.MouseListener;
 
-public class AtributoControl extends Atributo implements Control<Atributo>,
-		MouseListener {
+public class AtributoControl extends Atributo implements Control<Atributo>, MouseListener {
 	protected Map<String, AtributoFigure> figures = new HashMap<>();
 
 	@Override
@@ -21,17 +23,31 @@ public class AtributoControl extends Atributo implements Control<Atributo>,
 		if (!this.figures.containsKey(idDiagrama)) {
 			AtributoFigure figura = new AtributoFigure(this);
 			this.figures.put(idDiagrama, figura);
-
-			// Posicionar el atributo relativo a la posición del padre.
-			Control<?> padre = (Control<?>) this.getPadre();
-			Figure figPadre = padre.getFigura(idDiagrama);
-			int width = figPadre.getSize().width;
-			figura.setLocation(figPadre.getLocation().getTranslated(width, -50));
+			
+			this.setPosicionInicial(figura, idDiagrama);
 		}
 
 		this.figures.get(idDiagrama).actualizar();
 
 		return this.figures.get(idDiagrama);
+	}
+	
+	/**
+	 * Establecer la posición cuando es una nueva figura.
+	 * @param figura
+	 * @param idDiagrama
+	 */
+	private void setPosicionInicial(Figure figura, String idDiagrama) {
+		// Posicionar el atributo relativo a la posición del padre según su
+		// posición en la colección de atributos.
+		Control<?> padre = (Control<?>) this.getPadre();
+		Figure figPadre = padre.getFigura(idDiagrama);
+		ComponenteAtributos compAtribs = (ComponenteAtributos) padre;
+		List<Atributo> attrs = new ArrayList<>(compAtribs.getAtributos());
+
+		int x = figPadre.getSize().width + 20;
+		int y = attrs.indexOf(this) * 20;
+		figura.setLocation(figPadre.getLocation().getTranslated(x, y));		
 	}
 
 	@Override
