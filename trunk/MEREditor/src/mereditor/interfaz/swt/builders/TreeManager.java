@@ -1,6 +1,7 @@
-package mereditor.interfaz.swt;
+package mereditor.interfaz.swt.builders;
 
 import mereditor.control.Control;
+import mereditor.interfaz.swt.Principal;
 import mereditor.modelo.Diagrama;
 import mereditor.modelo.Proyecto;
 import mereditor.modelo.base.Componente;
