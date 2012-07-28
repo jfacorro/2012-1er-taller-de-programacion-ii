@@ -2,17 +2,19 @@ Juan:
 -----
 	Pendiente:
 	----------
-		- Posicionar nueva relación en el punto medio entre las entidades a las que relaciona.
-		- Posicionar nueva entidad en el medio del diagrama.
+		- Cardinalidad en relaciones que se puedan mover pero estén loqueadas con el punto medio de la conexión.
 		- Mejorar el dibujo de la jerarquía al ponerse la derivada al lado de la genérica.
 	Deseables:
 	----------
-		- Seleccion múltiple arrastrando el mouse.
+		- Agregar comandos para alinear los componentes.
 		- Crear anchors que puedan:
 			- En Entidades: Moverse sobre el borde de las figuras.
 			- En Relaciones: Utilizar sólo las puntas del rombo
 	Hecho:
 	------
+		- Posicionar nueva relación en el punto medio entre las entidades a las que relaciona.
+		- Posicionar nueva entidad en el medio del diagrama.
+		- Seleccion múltiple arrastrando el mouse.
 		- Mostrar barras de scroll cuando el dibujo se va de la pantalla.
 		- Revisar eliminar, no está eliminando los diagramas del proyecto.
 		- Mejorar las conexiones.
