@@ -29,7 +29,7 @@ public class ValidarEquilibrioRelaciones implements Validacion {
 		for (Entidad entidad : entidades) {
 			int delta = promedio - entidad.getRelaciones().size();
 			if (Math.abs(delta) > Validacion.MAX_DESVIACION_RELACIONES) {
-				String msj = "La entidad %s está pertenece a %d relaciones mientras que el promedio es %d.";
+				String msj = "Pertenece a %d relaciones mientras que el promedio es %d.";
 				msj = String.format(msj, entidad.getRelaciones().size(), promedio);
 				observaciones.add(new Observacion(entidad, msj));
 			}

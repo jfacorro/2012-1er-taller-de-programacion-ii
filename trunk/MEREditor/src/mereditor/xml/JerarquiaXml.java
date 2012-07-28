@@ -43,7 +43,6 @@ public class JerarquiaXml extends JerarquiaControl implements Xmlizable {
 		this.generica = (Entidad) parser.obtenerGenerica(elemento);
 
 		for (Componente componente : parser.obtenerDerivadas(elemento)) {
-			componente.setPadre(this);
 			this.derivadas.add((Entidad) componente);
 		}
 	}
