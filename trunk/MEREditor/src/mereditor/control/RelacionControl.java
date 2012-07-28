@@ -23,11 +23,41 @@ public class RelacionControl extends Relacion implements Control<Relacion>, Mous
 		if (!this.figures.containsKey(idDiagrama)) {
 			RelacionFigure figura = new RelacionFigure(this);
 			this.figures.put(idDiagrama, figura);
+
+			this.setPosicionInicial(figura, idDiagrama);
 		}
 
 		this.figures.get(idDiagrama).actualizar();
 
 		return this.figures.get(idDiagrama);
+	}
+
+	/**
+	 * Establecer la posición cuando es una nueva figura.
+	 * 
+	 * @param figura
+	 * @param idDiagrama
+	 */
+	private void setPosicionInicial(RelacionFigure figura, String idDiagrama) {
+		int x = 0;
+		int y = 0;
+
+		if (!this.participantes.isEmpty()) {
+			for (EntidadRelacion entidadRelacion : this.participantes) {
+				Figure figEntidad = ((Control<?>) entidadRelacion.getEntidad())
+						.getFigura(idDiagrama);
+				x += figEntidad.getLocation().x;
+				y += figEntidad.getLocation().y;
+			}
+			x /= this.participantes.size();
+			y /= this.participantes.size();
+		}
+		else {
+			x = 100;
+			y = 100;
+		}			
+
+		figura.setBounds(figura.getBounds().getTranslated(x, y));
 	}
 
 	@Override

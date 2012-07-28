@@ -21,11 +21,21 @@ public class EntidadControl extends Entidad implements Control<Entidad>, MouseLi
 		if (!this.figures.containsKey(idDiagrama)) {
 			EntidadFigure figura = new EntidadFigure(this);
 			this.figures.put(idDiagrama, figura);
+			
+			this.setPosicionInicial(figura);
 		}
 		
 		this.figures.get(idDiagrama).actualizar();
 
 		return this.figures.get(idDiagrama);
+	}
+
+	/**
+	 * Establecer la posición cuando es una nueva figura.
+	 * @param figura
+	 */
+	private void setPosicionInicial(Figure figura) {
+		figura.setBounds(figura.getBounds().getTranslated(100, 100));		
 	}
 
 	@Override
