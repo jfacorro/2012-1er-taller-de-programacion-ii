@@ -2,6 +2,7 @@ Juan:
 -----
 	Pendiente:
 	----------
+		- Agregado de shortcuts de teclas para las opciones del menu (ej. Guardar = CTRL + G).
 		- Cardinalidad en relaciones que se puedan mover pero estén loqueadas con el punto medio de la conexión.
 		- Mejorar el dibujo de la jerarquía al ponerse la derivada al lado de la genérica.
 	Deseables:
