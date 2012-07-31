@@ -55,7 +55,8 @@ public class Relacion extends ComponenteNombre implements ComponenteAtributos, C
 
 	public void removeParticipante(EntidadRelacion participante) {
 		this.participantes.remove(participante);
-		participante.getEntidad().removeRelacion(this);
+		if(participante.getEntidad() != null)
+			participante.getEntidad().removeRelacion(this);
 	}
 
 	/*
